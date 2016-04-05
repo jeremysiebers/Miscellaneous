@@ -62,7 +62,7 @@
     (pad_drill 0.762)
     (pad_to_mask_clearance 0.2)
     (aux_axis_origin 0 0)
-    (visible_elements 7FFFFF9F)
+    (visible_elements 7FFFFFBF)
     (pcbplotparams
       (layerselection 0x01000_80000001)
       (usegerberextensions false)
@@ -980,7 +980,7 @@
   (segment (start 127.508 75.184) (end 125.222 77.47) (width 0.45) (layer F.Cu) (net 50) (tstamp 56FD5919))
   (segment (start 125.222 77.47) (end 125.222 82.804) (width 0.45) (layer F.Cu) (net 50) (tstamp 56FD591D))
   (segment (start 123.19 88.646) (end 123.19 87.376) (width 0.45) (layer F.Cu) (net 51))
-  (segment (start 127.254 81.026) (end 126.492 80.264) (width 0.45) (layer F.Cu) (net 51) (tstamp 56FD593C) (status 800000))
+  (segment (start 127.254 81.026) (end 126.492 80.264) (width 0.45) (layer F.Cu) (net 51) (tstamp 56FD593C))
   (segment (start 127.254 83.312) (end 127.254 81.026) (width 0.45) (layer F.Cu) (net 51) (tstamp 56FD593A))
   (segment (start 126.492 84.074) (end 127.254 83.312) (width 0.45) (layer F.Cu) (net 51) (tstamp 56FD5936))
   (segment (start 123.19 87.376) (end 126.492 84.074) (width 0.45) (layer F.Cu) (net 51) (tstamp 56FD592D))
