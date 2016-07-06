@@ -1,23 +1,23 @@
-#ifndef __lcd_H
-#define __lcd_H
+#ifndef LCD_H
+#define LCD_H
 
 // PIC18 LCD peripheral routines.
 
-/* When in 4-bit interface is in the lower nibble. 
+// When in 4-bit, interface is in the lower nibble. 
 
-/* DATA_PORT defines the port to which the LCD data lines are connected */
-#define DATA_PORT      PORTA
-#define TRIS_DATA_PORT TRISA
+// DATA_PORT defines the port to which the LCD data lines are connected 
+#define DATA_PORT      PORTB
+#define TRIS_DATA_PORT TRISB
 
 /* CTRL_PORT defines the port where the control lines are connected.
  * These are just samples, change to match your application.
  */
-#define RW_PIN   PORTAbits.RA5   /* PORT for RW */
-#define TRIS_RW  DDRAbits.RA5    /* TRIS for RW */
-#define RS_PIN   PORTAbits.RA4   /* PORT for RS */
-#define TRIS_RS  DDRAbits.RA4    /* TRIS for RS */
-#define E_PIN    PORTEbits.RE0   /* PORT for E  */
-#define TRIS_E   DDREbits.RE0    /* TRIS for E  */
+#define RW_PIN   PORTCbits.RC4   /* PORT for RW */
+#define TRIS_RW  TRISCbits.TRISC4    /* TRIS for RW */
+#define RS_PIN   PORTBbits.RB4   /* PORT for RS */
+#define TRIS_RS  TRISBbits.TRISB4    /* TRIS for RS */
+#define E_PIN    PORTBbits.RB5   /* PORT for E  */
+#define TRIS_E   TRISBbits.TRISB5    /* TRIS for E  */
 
 /* Display ON/OFF Control defines */
 #define DON         0b00001111  /* Display on      */
@@ -47,13 +47,10 @@
 #define LINE3	0x10
 #define LINE4	0x50
 
-#define PARAM_SCLASS auto
-#define MEM_MODEL far  /* Change this to near for small memory model */
-
 /* OpenLCD
  * Configures I/O pins for external LCD
  */
-unsigned char OpenLCD(PARAM_SCLASS unsigned char);
+unsigned char OpenLCD(unsigned char);
 
 /* SetCGRamAddr
  * Sets the character generator address
@@ -63,7 +60,7 @@ unsigned char OpenLCD(PARAM_SCLASS unsigned char);
 /* SetDDRamAddr
  * Sets the display data address
  */
-unsigned char SetDDRamAddr(PARAM_SCLASS unsigned char);
+unsigned char SetDDRamAddr(unsigned char);
 
 /* BusyLCD
  * Returns the busy status of the LCD
@@ -83,12 +80,12 @@ unsigned char SetDDRamAddr(PARAM_SCLASS unsigned char);
 /* WriteCmdLCD
  * Writes a command to the LCD
  */
-unsigned char WriteCmdLCD(PARAM_SCLASS unsigned char);
+unsigned char WriteCmdLCD(unsigned char);
 
 /* WriteDataLCD
  * Writes a data byte to the LCD
  */
-unsigned char WriteDataLCD(PARAM_SCLASS char);
+unsigned char WriteDataLCD(char);
 
 /* putcLCD
  * A putc is a write
@@ -98,13 +95,11 @@ unsigned char WriteDataLCD(PARAM_SCLASS char);
 /* putsLCD
  * Writes a string of characters to the LCD
  */
-unsigned char putsLCD(PARAM_SCLASS char *);
+unsigned char putsLCD(char *);
 
 /* putrsLCD
  * Writes a string of characters in ROM to the LCD
  */
-unsigned char putrsLCD(PARAM_SCLASS const MEM_MODEL rom char *);
+unsigned char putrsLCD(const char *);
 
 #endif
-
-

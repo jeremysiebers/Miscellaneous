@@ -7,8 +7,7 @@
 #include "pwm.h"
 */
 
-#define Led1            LATBbits.LATB9
-
+#define Led1    RB5   
 
 #ifdef	__cplusplus
 extern "C" {
@@ -17,6 +16,8 @@ extern "C" {
 void SYSTEM_Initialize(void);
 void OSCILLATOR_Initialize(void);
 void IO_Configuration(void);
+void Timer1_Configuration(void);
+void Interrupt_Configuration(void);
 
 #ifdef	__cplusplus
 }

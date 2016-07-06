@@ -1,10 +1,11 @@
-#include <p18cxxx.h>
-#include <lcd.h>
+#include "xc.h"
+#include "lcd.h"
 
 int OpenLCD_Case=0, OpenLCDReady=0, WriteCmdLCD_Case=0, WriteCmdLCDReady=0,
 	SetDDRamAddr_Case=0, SetDDRamAddrReady=0, WriteDataLCD_Case=0, WriteDataLCDReady=0,
 	putrsLCD_Case=0, putrsLCDReady=0, putsLCD_Case=0, putsLCDReady=0;
-const rom char *buffer2;
+
+const char *buffer2;
 char *buffer3;
 
 unsigned char OpenLCD(unsigned char lcdtype)
@@ -256,7 +257,7 @@ unsigned char SetDDRamAddr(unsigned char DDaddr)
 /////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////
 
-unsigned char putrsLCD(const rom char *buffer)
+unsigned char putrsLCD(const char *buffer)
 {
        switch (putrsLCD_Case)
        {
