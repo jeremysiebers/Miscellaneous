@@ -13,6 +13,7 @@ void SYSTEM_Initialize(void) {
     IO_Configuration();    
     Timer1_Configuration();
     Interrupt_Configuration();
+    Adconverter_Configuration();
 }
 
 void OSCILLATOR_Initialize(void) {
@@ -20,9 +21,7 @@ void OSCILLATOR_Initialize(void) {
     OSCCONbits.IRCF = 0x7;          //8MHz
 }
 
-void IO_Configuration(void) {
-
-    ADCON1bits.PCFG = 0xE;          // All IO digital except RA0 --> temp sensor1
+void IO_Configuration(void) {    
     TRISA = 0xFF;
     TRISB = 0x00;
     TRISC = 0x00;
@@ -41,6 +40,20 @@ void Timer1_Configuration(void){
     T1CONbits.TMR1CS = 0;
     PIR1bits.TMR1IF = 0;
     PIE1bits.TMR1IE = 1;
-    T1CONbits.TMR1ON = 1; 
+    T1CONbits.TMR1ON = 1;    
+}
+
+void Adconverter_Configuration(){
     
+    ADCON1bits.ADFM = 1;            // Right justified
+    ADCON1bits.ADCS2 = 0;           // no divide clock /2
+    ADCON1bits.VCFG1 = 0;           // VREF- connected to VSS
+    ADCON1bits.VCFG0 = 0;           // VREF+ connected to VDD
+    ADCON1bits.PCFG = 0xE;          // All IO digital except RA0 --> temp sensor1
+    
+    ADCON2bits.ACQT = 111;          // 20 Tad
+    
+    ADCON0bits.ADCS = 2;            // Fosc/32
+    ADCON0bits.CHS = 0;             // Channel 00 (AN0)
+    ADCON0bits.ADON = 1;            // Enable AD converter
 }

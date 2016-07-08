@@ -18,6 +18,7 @@ void OSCILLATOR_Initialize(void);
 void IO_Configuration(void);
 void Timer1_Configuration(void);
 void Interrupt_Configuration(void);
+void Adconverter_Configuration(void);
 
 #ifdef	__cplusplus
 }
