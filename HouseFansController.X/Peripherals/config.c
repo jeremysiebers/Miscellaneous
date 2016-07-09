@@ -48,12 +48,12 @@ void Adconverter_Configuration(){
     ADCON1bits.ADFM = 1;            // Right justified
     ADCON1bits.ADCS2 = 0;           // no divide clock /2
     ADCON1bits.VCFG1 = 0;           // VREF- connected to VSS
-    ADCON1bits.VCFG0 = 0;           // VREF+ connected to VDD
+    ADCON1bits.VCFG0 = 0;           // VREF+ connected to VDD (0) otherwise to RA3
     ADCON1bits.PCFG = 0xE;          // All IO digital except RA0 --> temp sensor1
     
-    ADCON2bits.ACQT = 111;          // 20 Tad
+    ADCON2bits.ACQT = 7;            // 20 Tad
     
-    ADCON0bits.ADCS = 2;            // Fosc/32
+    ADCON0bits.ADCS = 1;            // Fosc/8
     ADCON0bits.CHS = 0;             // Channel 00 (AN0)
     ADCON0bits.ADON = 1;            // Enable AD converter
 }

@@ -39,11 +39,12 @@
 
 #define _XTAL_FREQ 8000000
 
-int Temperature = 0;
-unsigned long int AdcResult = 0;
-
-char StrTempBuf[3];
-int status;
+//int Temperature = 0;
+unsigned int AdcConverter = 0;
+unsigned int AdcResult = 0;
+char StrTempBuf[8];
+int DecimalPoint = 0;
+int cDecimalPoint = 0;
 
 void main(void) {
     // Initialize the device
@@ -52,30 +53,56 @@ void main(void) {
     
     while(1)
     {
-        if (ADCON0bits.GO == false)
-        {
-            AdcResult = ((((unsigned long int)ADRESH)<<8)|(ADRESL)) * 4883;     // 5V / 2^10  x 1000000. (example 258.799 --> 25.8799 degrees celsius)
+        if (ADCON0bits.GO == false && Led1 == true)
+        {                                                                       
+            AdcConverter = ((((unsigned int)ADRESH)<<8)|(ADRESL));              // 5V / 2^10  x 10000 =  48.82812 ( factor 10000 --> 48 up to 1365dec  Adconverter max is 1024 so no overflow for int )
+            AdcResult = (AdcConverter * 48 + 99) / 100;                         // The + 99 is to round off positively see: http://www.cs.nott.ac.uk/~psarb2/G51MPC/slides/NumberLogic.pdf --> if it is required to round up the result of dividing
+                                                                                // m by n one should compute (m+n-1)/n .
+            itoa(StrTempBuf, AdcResult, 10);                                    // Convert the value to string only whole degrees of celsius
             
-            Temperature = (int)(AdcResult / 10000);                             // Get the TOP degrees before the . so divide this with 10000 (also use (int) to truncate and not to round of (258.799 / 10.000 = 26)
+            if (AdcResult < 1){                                                 // Determine the decimal point location, AdcResult above 100 degrees celsius? With a factor of 4883, lower then 1000 is not posible (1(bit) * 4883)
+                DecimalPoint = 0;
+            }
+            else if(AdcResult < 10){
+                DecimalPoint = 1;
+            }
+            else if(AdcResult < 100){
+                DecimalPoint = 2;
+            }
+            else{
+                DecimalPoint = 3;
+            }
             
-            itoa(StrTempBuf, Temperature, 10);                                  // Convert the value to string
-            
-            while(BusyXLCD());                                                  // Wait if LCD busy
-            putrsXLCD(StrTempBuf);                                              // Put the value before the . on the display
+            if (DecimalPoint == 0){
+                putrsXLCD("0");
+                while(BusyXLCD());                                              // Wait if LCD busy
+            }
+            else{
+                for(cDecimalPoint = 0; cDecimalPoint != DecimalPoint; cDecimalPoint++){                    
+                    WriteDataXLCD(StrTempBuf[cDecimalPoint]);
+                    while(BusyXLCD());                                          // Wait if LCD busy
+                }
+            }
+            /*
+            //while(BusyXLCD());                                                  // Wait if LCD busy
+            //putrsXLCD(StrTempBuf);                                              // Put the value before the . on the display
             while(BusyXLCD());                                                  // Wait if LCD busy
             putrsXLCD(".");                                                     // print the .
             while(BusyXLCD());                                                  // Wait if LCD busy
             
-            Temperature = (AdcResult - ((AdcResult / 10000) * 10000)) / 100;    // Take the original AdcResult and subtract de TOP value which was printed before the . also divide by 100 to get 2 decimals(25.8799 - 25.000 / 100 = 88)
+            //Temperature = (AdcResult - ((AdcResult / 10000) * 10000)) / 100;    // Take the original AdcResult and subtract de TOP value which was printed before the . also divide by 100 to get 2 decimals(25.8799 - 25.000 / 100 = 88)
             
-            itoa(StrTempBuf, Temperature, 10);                                  // Convert the rest value to string
+            //ltoa(StrTempBuf, AdcResult, 10);                                    // Convert the rest value to string
             
-            putrsXLCD(StrTempBuf);                                              // Print the remaining value on the display
+            //putrsXLCD(&StrTempBuf[DecimalPoint]);                               // Print the remaining value on the display
+            WriteDataXLCD(StrTempBuf[DecimalPoint+1]);
+            WriteDataXLCD(StrTempBuf[DecimalPoint+2]);
             
+            */
             while(BusyXLCD());                                                  // Wait if LCD busy
             WriteDataXLCD(0b11011111);                                          // Write the °            
             while(BusyXLCD());                                                  // Wait if LCD busy
-            putrsXLCD("C");                                                     // print the C
+            putrsXLCD("C ");                                                     // print the C and a space in case a previous value was 100 en the next is 99
             while(BusyXLCD());                                                  // Wait if LCD busy
             SetDDRamAddr(0x87);                                                 // Set cursor back to start position for (over)writing temp value            
             ADCON0bits.GO = true;        
