@@ -18,13 +18,17 @@ void SYSTEM_Initialize(void) {
 
 void OSCILLATOR_Initialize(void) {
     OSCCONbits.SCS = 0x00;
-    OSCCONbits.IRCF = 0x7;          //8MHz
+    OSCCONbits.IRCF = 0x6;//0x7;          //8MHz
 }
 
 void IO_Configuration(void) {    
     TRISA = 0xFF;
-    TRISB = 0x00;
-    TRISC = 0x00;
+    TRISB = 0xFF;
+    TRISC = 0xFF;
+    PORTC = 0x00;
+    PORTB = 0x00;
+    
+    TRISBbits.TRISB5 = 0;                   // Led1 output
 }
 
 void Interrupt_Configuration(){  
@@ -51,9 +55,9 @@ void Adconverter_Configuration(){
     ADCON1bits.VCFG0 = 0;           // VREF+ connected to VDD (0) otherwise to RA3
     ADCON1bits.PCFG = 0xE;          // All IO digital except RA0 --> temp sensor1
     
-    ADCON2bits.ACQT = 7;            // 20 Tad
+    ADCON2bits.ACQT = 3;            // 20 Tad
     
-    ADCON0bits.ADCS = 1;            // Fosc/8
+    ADCON0bits.ADCS = 0;            // Fosc/8
     ADCON0bits.CHS = 0;             // Channel 00 (AN0)
     ADCON0bits.ADON = 1;            // Enable AD converter
 }

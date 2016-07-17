@@ -31,20 +31,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <float.h>
 
 #include "main.h"
 #include "Peripherals/config.h"
 #include "XLCD/xlcd.h"
 
-#define _XTAL_FREQ 8000000
+#define _XTAL_FREQ 4000000
 
 //int Temperature = 0;
-unsigned int AdcConverter = 0;
-unsigned int AdcResult = 0;
-char StrTempBuf[8];
-int DecimalPoint = 0;
-int cDecimalPoint = 0;
+unsigned int iAdcConverter = 0;
+unsigned int iAdcResult = 0;
+char chrStrTempBuf[8];
+char iDecimalPoint = 0;
+char icntDecimalPoint = 0;
+bool bConvertTemp = false;
 
 void main(void) {
     // Initialize the device
@@ -53,33 +53,34 @@ void main(void) {
     
     while(1)
     {
-        if (ADCON0bits.GO == false && Led1 == true)
-        {                                                                       
-            AdcConverter = ((((unsigned int)ADRESH)<<8)|(ADRESL));              // 5V / 2^10  x 10000 =  48.82812 ( factor 10000 --> 48 up to 1365dec  Adconverter max is 1024 so no overflow for int )
-            AdcResult = (AdcConverter * 48 + 99) / 100;                         // The + 99 is to round off positively see: http://www.cs.nott.ac.uk/~psarb2/G51MPC/slides/NumberLogic.pdf --> if it is required to round up the result of dividing
+        if (ADCON0bits.GO == false && bConvertTemp == true)
+        {
+            bConvertTemp = false;
+            iAdcConverter = ((((unsigned int)ADRESH)<<8)|(ADRESL));              // 5V / 2^10  x 10000 =  48.82812 ( factor 10000 --> 48 up to 1365dec  Adconverter max is 1024 so no overflow for int )
+            iAdcResult = (iAdcConverter * 48 + 99) / 100;                         // The + 99 is to round off positively see: http://www.cs.nott.ac.uk/~psarb2/G51MPC/slides/NumberLogic.pdf --> if it is required to round up the result of dividing
                                                                                 // m by n one should compute (m+n-1)/n .
-            itoa(StrTempBuf, AdcResult, 10);                                    // Convert the value to string only whole degrees of celsius
+            itoa(chrStrTempBuf, iAdcResult, 10);                                    // Convert the value to string only whole degrees of celsius
             
-            if (AdcResult < 1){                                                 // Determine the decimal point location, AdcResult above 100 degrees celsius? With a factor of 4883, lower then 1000 is not posible (1(bit) * 4883)
-                DecimalPoint = 0;
+            if (iAdcResult < 1){                                                 // Determine the decimal point location, AdcResult above 100 degrees celsius? With a factor of 4883, lower then 1000 is not posible (1(bit) * 4883)
+                iDecimalPoint = 0;
             }
-            else if(AdcResult < 10){
-                DecimalPoint = 1;
+            else if(iAdcResult < 10){
+                iDecimalPoint = 1;
             }
-            else if(AdcResult < 100){
-                DecimalPoint = 2;
+            else if(iAdcResult < 100){
+                iDecimalPoint = 2;
             }
             else{
-                DecimalPoint = 3;
+                iDecimalPoint = 3;
             }
             
-            if (DecimalPoint == 0){
+            if (iDecimalPoint == 0){
                 putrsXLCD("0");
                 while(BusyXLCD());                                              // Wait if LCD busy
             }
             else{
-                for(cDecimalPoint = 0; cDecimalPoint != DecimalPoint; cDecimalPoint++){                    
-                    WriteDataXLCD(StrTempBuf[cDecimalPoint]);
+                for(icntDecimalPoint = 0; icntDecimalPoint != iDecimalPoint; icntDecimalPoint++){                    
+                    WriteDataXLCD(chrStrTempBuf[icntDecimalPoint]);
                     while(BusyXLCD());                                          // Wait if LCD busy
                 }
             }
@@ -110,17 +111,19 @@ void main(void) {
     }
 }
 
-void interrupt   tc_int  (void)
+void interrupt tc_int(void)
 {
     if (PIE1bits.TMR1IE && PIR1bits.TMR1IF) 
     {
         PIR1bits.TMR1IF=0;
         Led1 = !Led1;
+        bConvertTemp = true;
     }
 }
 
 void LCD_Initialize(void){
-    OpenXLCD(EIGHT_BIT & LINES_5X7);
+    __delay_ms(100);                // Wait in case LCD power up
+    OpenXLCD(FOUR_BIT & LINES_5X7);
     putrsXLCD("Fan Ctrl Started");
     while(BusyXLCD());              // Wait if LCD busy
     SetDDRamAddr(0x40);
@@ -137,14 +140,15 @@ void LCD_Initialize(void){
 }
 
 void DelayFor18TCY(void)
-{
-    __delay_us(50);
+{    
+    __delay_us(1);
 }
 void DelayPORXLCD(void)
 {
     __delay_ms(50);
 }
+
 void DelayXLCD(void)
 {
-    __delay_ms(5);
+    __delay_ms(1);
 }

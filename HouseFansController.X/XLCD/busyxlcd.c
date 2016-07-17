@@ -10,6 +10,12 @@
 ********************************************************************/
 unsigned char BusyXLCD(void)
 {
+#ifdef  NO_RW                           // If R/W line is not available
+        DelayXLCD();
+        return(0);
+#endif    
+    
+#ifndef NO_RW                           // Check if RW line is available
         RW_PIN = 1;                     // Set the control bits for read
         RS_PIN = 0;
         DelayFor18TCY();
@@ -54,5 +60,5 @@ unsigned char BusyXLCD(void)
                 return 0;               // Return FALSE
         }
 #endif
+#endif
 }
-

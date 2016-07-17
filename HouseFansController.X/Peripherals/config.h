@@ -2,12 +2,8 @@
 #define	CONFIG_H
 
 #include <xc.h>
-/*
-#include "uart1.h"
-#include "pwm.h"
-*/
 
-#define Led1    RB5   
+#define Led1    RB5
 
 #ifdef	__cplusplus
 extern "C" {

@@ -10,7 +10,7 @@ extern "C" {
     // TODO If C++ is being used, regular C code needs function names to have C 
     // linkage so the functions can be used by the c code. 
     
-    void interrupt   tc_int  (void);
+    void interrupt tc_int(void);
     void LCD_Initialize(void);
 
 #ifdef	__cplusplus

@@ -27,7 +27,7 @@ void OpenXLCD(unsigned char lcdtype)
         DATA_PORT &= 0x0f;
         TRIS_DATA_PORT &= 0x0F;
 #else                                   // Lower 4-bits of the port
-        DATA_PORT &= 0xf0;
+        DATA_PORT &= 0xF0;
         TRIS_DATA_PORT &= 0xF0;
 #endif
 #endif
@@ -40,20 +40,21 @@ void OpenXLCD(unsigned char lcdtype)
 
         // Delay for 15ms to allow for LCD Power on reset
         DelayPORXLCD();
+        
  //-------------------reset procedure through software----------------------       
-		 WriteCmdXLCD(0x30);
+#ifdef BIT8
+        WriteCmdXLCD(0x30);
 			DelayPORXLCD();
 
-		 WriteCmdXLCD(0x30);
+		WriteCmdXLCD(0x30);
 			DelayPORXLCD();
             
-         WriteCmdXLCD(0x30);
+        WriteCmdXLCD(0x30);
 			DelayPORXLCD();
-            
-		 //WriteCmdXLCD(0x32);
-		while( BusyXLCD() );
+#else
+            LCD4BitInit();              // 4 Bit mode, special routine to reset
+#endif
 //------------------------------------------------------------------------------------------
-
 
         // Set data interface width, # lines, font
         while(BusyXLCD());              // Wait if LCD busy
@@ -61,23 +62,29 @@ void OpenXLCD(unsigned char lcdtype)
 
         // Turn the display on then off
         while(BusyXLCD());              // Wait if LCD busy
-        WriteCmdXLCD(DOFF&CURSOR_OFF&BLINK_OFF);        // Display OFF/Blink OFF
+        WriteCmdXLCD(DOFF&CURSOR_OFF&BLINK_OFF);             // Display OFF Cursor OFF and Blink OFF
         
         
         // Clear display
         while(BusyXLCD());              // Wait if LCD busy
-        WriteCmdXLCD(0x01);             // Clear display
+        ClearDisplay();                 // Clear display
+        
+#ifdef NO_RW        
+        DelayXLCD();                    // Take in total 3ms for total clear of Display!
+        DelayXLCD();
+        DelayXLCD();
+#endif
         
         // Set entry mode inc, no shift
         while(BusyXLCD());              // Wait if LCD busy
-        WriteCmdXLCD(SHIFT_DISP_LEFT);   // Entry Mode
+        WriteCmdXLCD(SHIFT_DISP_LEFT);  // Entry Mode
         
         while(BusyXLCD());              // Wait if LCD busy
         WriteCmdXLCD(DON&CURSOR_OFF&BLINK_OFF);           // Display ON/Blink ON
         
         // Set DD Ram address to 0
         while(BusyXLCD());              // Wait if LCD busy
-        SetDDRamAddr(0x80);                // Set Display data ram address to 0
+        SetDDRamAddr(0x0);              // Set Display data ram address to 0
         while(BusyXLCD());              // Wait if LCD busy
         
         return;

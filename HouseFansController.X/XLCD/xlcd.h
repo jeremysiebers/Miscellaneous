@@ -3,6 +3,13 @@
 #include <xc.h>
 /* PIC18 XLCD peripheral routines.
  *
+ * 
+ * IMPORTANT!!!!! ----->>>
+ *          Check if (old) display has 5x7 characters, single line OR
+ *          5x7 characters, multiple line !!!!
+ *          Then check to set 8Bit or 4Bit interface
+ * 
+ * 
  *   Notes:
  *      - These libraries routines are written to support the
  *        Hitachi HD44780 LCD controller.
@@ -19,32 +26,45 @@
  *              - DelayPORXLCD() provides at least 15ms delay
  *              - DelayXLCD() provides at least 5ms delay
  */
-
+//------------------------------------------------------------------------------
 /* Interface type 8-bit or 4-bit
  * For 8-bit operation uncomment the #define BIT8
  */
-#define BIT8
+//#define BIT8
 
 /* When in 4-bit interface define if the data is in the upper
  * or lower nibble.  For lower nibble, comment the #define UPPER
  */
-/* #define UPPER */
+//#define UPPER
+
+
+/* When in 4-bit interface define if the RW line is used or not
+ * When no RW line (RW connected to GND) uncomment the #define NO_RW
+ */
+#define NO_RW
 
 /* DATA_PORT defines the port to which the LCD data lines are connected */
  #define DATA_PORT      		PORTC
  #define TRIS_DATA_PORT 		TRISC
 
+//------------------------------------------------------------------------------
+
 /* CTRL_PORT defines the port where the control lines are connected.
  * These are just samples, change to match your application.
  */
+#ifdef NO_RW                                /* when no RW line available */
+ char RW_PIN;                               /* create dummy RW_PIN */
+ char TRIS_RW;                              /* create dummy TRIS_RW */
+#else
  #define RW_PIN   PORTBbits.RB0             /* PORT for RW */
- #define TRIS_RW  TRISBbits.TRISB0             /* TRIS for RW */
+ #define TRIS_RW  TRISBbits.TRISB0          /* TRIS for RW */
+#endif
 
  #define RS_PIN   PORTBbits.RB1             /* PORT for RS */
- #define TRIS_RS  TRISBbits.TRISB1             /* TRIS for RS */
+ #define TRIS_RS  TRISBbits.TRISB1          /* TRIS for RS */
 
  #define E_PIN    PORTBbits.RB2             /* PORT for D  */
- #define TRIS_E   TRISBbits.TRISB2            	/* TRIS for E  */
+ #define TRIS_E   TRISBbits.TRISB2          /* TRIS for E  */
 
 /* Display ON/OFF Control defines */
 #define DON         0b00001111  /* Display on      */
@@ -61,13 +81,13 @@
 #define SHIFT_DISP_RIGHT  0b00000111  /* Display shifts to the right */
 
 /* Function Set defines */
-#define FOUR_BIT   0b00101100  /* 4-bit Interface               */
-#define EIGHT_BIT  0b00111100  /* 8-bit Interface               */
-#define LINE_5X7   0b00110000  /* 5x7 characters, single line   */
-#define LINE_5X10  0b00110100  /* 5x10 characters               */
-#define LINES_5X7  0b00111000  /* 5x7 characters, multiple line */
+#define FOUR_BIT   ((unsigned char)0b00101100)  /* 4-bit Interface               */
+#define EIGHT_BIT  ((unsigned char)0b00111100)  /* 8-bit Interface               */
+#define LINE_5X7   ((unsigned char)0b00110000)  /* 5x7 characters, single line   */
+#define LINE_5X10  ((unsigned char)0b00110100)  /* 5x10 characters               */
+#define LINES_5X7  ((unsigned char)0b00111000)  /* 5x7 characters, multiple line */
 
-#define MEM_MODEL far  /* Change this to near for small memory model */
+//#define MEM_MODEL far  /* Change this to near for small memory model */
 
 /* OpenXLCD
  * Configures I/O pins for external LCD
@@ -124,9 +144,18 @@ void putsXLCD(char *);
  */
 void putrsXLCD(const char *);
 
+/* Clear Display
+ * Writes Clear Display Command to the LCD
+ */
+void ClearDisplay(void);
+
+/* LCD 4Bit Initialize
+ * LCD init for 4 Bit interface mode 
+ */
+void LCD4BitInit(void);
+
 /* User defines these routines according to the oscillator frequency */
 extern void DelayFor18TCY(void);
 extern void DelayPORXLCD(void);
 extern void DelayXLCD(void);
-
 #endif
