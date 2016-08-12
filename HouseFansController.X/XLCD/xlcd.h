@@ -60,11 +60,11 @@
  #define TRIS_RW  TRISBbits.TRISB0          /* TRIS for RW */
 #endif
 
- #define RS_PIN   PORTBbits.RB1             /* PORT for RS */
- #define TRIS_RS  TRISBbits.TRISB1          /* TRIS for RS */
+ #define RS_PIN   PORTBbits.RB0             /* PORT for RS */
+ #define TRIS_RS  TRISBbits.TRISB0          /* TRIS for RS */
 
- #define E_PIN    PORTBbits.RB2             /* PORT for D  */
- #define TRIS_E   TRISBbits.TRISB2          /* TRIS for E  */
+ #define E_PIN    PORTBbits.RB1             /* PORT for D  */
+ #define TRIS_E   TRISBbits.TRISB1          /* TRIS for E  */
 
 /* Display ON/OFF Control defines */
 #define DON         0b00001111  /* Display on      */

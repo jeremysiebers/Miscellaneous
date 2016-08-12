@@ -18,17 +18,20 @@ void SYSTEM_Initialize(void) {
 
 void OSCILLATOR_Initialize(void) {
     OSCCONbits.SCS = 0x00;
-    OSCCONbits.IRCF = 0x6;//0x7;          //8MHz
+    OSCCONbits.IRCF = 0x6;//0x7;            //8MHz
 }
 
 void IO_Configuration(void) {    
-    TRISA = 0xFF;
-    TRISB = 0xFF;
-    TRISC = 0xFF;
-    PORTC = 0x00;
+    TRISA = 0x3F;                           // RA6 and RA7 output
+    TRISB = 0xC0;                           // RB6 and RB7 inputs
+    TRISC = 0xFF;                           
+    
+    PORTC = 0x00;                           
     PORTB = 0x00;
+    PORTA = 0x00;
     
     TRISBbits.TRISB5 = 0;                   // Led1 output
+    PORTAbits.RA6 = 0;                      // Set Default FAN ERROR
 }
 
 void Interrupt_Configuration(){  
@@ -53,7 +56,7 @@ void Adconverter_Configuration(){
     ADCON1bits.ADCS2 = 0;           // no divide clock /2
     ADCON1bits.VCFG1 = 0;           // VREF- connected to VSS
     ADCON1bits.VCFG0 = 0;           // VREF+ connected to VDD (0) otherwise to RA3
-    ADCON1bits.PCFG = 0xE;          // All IO digital except RA0 --> temp sensor1
+    ADCON1bits.PCFG = 0xD;          // All IO digital except RA0/RA1 --> temp sensor1/2
     
     ADCON2bits.ACQT = 3;            // 20 Tad
     

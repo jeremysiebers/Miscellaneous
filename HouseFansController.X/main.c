@@ -37,6 +37,7 @@
 #include "XLCD/xlcd.h"
 
 #define _XTAL_FREQ 4000000
+#define CELSIUS 0b11011111
 
 //int Temperature = 0;
 unsigned int iAdcConverter = 0;
@@ -61,7 +62,7 @@ void main(void) {
                                                                                 // m by n one should compute (m+n-1)/n .
             itoa(chrStrTempBuf, iAdcResult, 10);                                    // Convert the value to string only whole degrees of celsius
             
-            if (iAdcResult < 1){                                                 // Determine the decimal point location, AdcResult above 100 degrees celsius? With a factor of 4883, lower then 1000 is not posible (1(bit) * 4883)
+            if (iAdcResult < 1){                                                 // Determine the decimal point location
                 iDecimalPoint = 0;
             }
             else if(iAdcResult < 10){
@@ -101,7 +102,7 @@ void main(void) {
             
             */
             while(BusyXLCD());                                                  // Wait if LCD busy
-            WriteDataXLCD(0b11011111);                                          // Write the °            
+            WriteDataXLCD(CELSIUS);                                             // Write the °            
             while(BusyXLCD());                                                  // Wait if LCD busy
             putrsXLCD("C ");                                                     // print the C and a space in case a previous value was 100 en the next is 99
             while(BusyXLCD());                                                  // Wait if LCD busy
@@ -132,7 +133,7 @@ void LCD_Initialize(void){
     __delay_ms(2000);
     //Clear display
     while(BusyXLCD());              // Wait if LCD busy
-    WriteCmdXLCD(0x01);             // Clear display
+    ClearDisplay();                 // Clear display
     while(BusyXLCD());              // Wait if LCD busy
     SetDDRamAddr(0x80);  
     while(BusyXLCD());              // Wait if LCD busy
