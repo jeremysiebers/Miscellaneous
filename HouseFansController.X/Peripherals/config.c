@@ -18,7 +18,7 @@ void SYSTEM_Initialize(void) {
 
 void OSCILLATOR_Initialize(void) {
     OSCCONbits.SCS = 0x00;
-    OSCCONbits.IRCF = 0x6;//0x7;            //8MHz
+    OSCCONbits.IRCF = 0x7;                  //8MHz
 }
 
 void IO_Configuration(void) {    
@@ -41,7 +41,7 @@ void Interrupt_Configuration(){
 }
 
 void Timer1_Configuration(void){
-    T1CONbits.T1CKPS = 3;
+    T1CONbits.T1CKPS = 0;
     T1CONbits.T1OSCEN = 0;
     T1CONbits.T1SYNC = 0;
     T1CONbits.TMR1CS = 0;

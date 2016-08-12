@@ -35,79 +35,33 @@
 #include "main.h"
 #include "Peripherals/config.h"
 #include "XLCD/xlcd.h"
+#include "io.h"
+#include "vfd.h"
+#include "temp.h"
 
-#define _XTAL_FREQ 4000000
+#define SOFTWARE_VERSION "SW version 1.0"
+
 #define CELSIUS 0b11011111
 
-//int Temperature = 0;
-unsigned int iAdcConverter = 0;
-unsigned int iAdcResult = 0;
-char chrStrTempBuf[8];
-char iDecimalPoint = 0;
-char icntDecimalPoint = 0;
-bool bConvertTemp = false;
+unsigned int ReadTemp = 0;
+unsigned int SecondsCounter = 0;
+bool UpdateTemp = false;
 
 void main(void) {
     // Initialize the device
-    SYSTEM_Initialize();
+    SYSTEM_Initialize();    
+    READxIO();
+    UPDATExTEMP();
     LCD_Initialize();
     
     while(1)
     {
-        if (ADCON0bits.GO == false && bConvertTemp == true)
-        {
-            bConvertTemp = false;
-            iAdcConverter = ((((unsigned int)ADRESH)<<8)|(ADRESL));              // 5V / 2^10  x 10000 =  48.82812 ( factor 10000 --> 48 up to 1365dec  Adconverter max is 1024 so no overflow for int )
-            iAdcResult = (iAdcConverter * 48 + 99) / 100;                         // The + 99 is to round off positively see: http://www.cs.nott.ac.uk/~psarb2/G51MPC/slides/NumberLogic.pdf --> if it is required to round up the result of dividing
-                                                                                // m by n one should compute (m+n-1)/n .
-            itoa(chrStrTempBuf, iAdcResult, 10);                                    // Convert the value to string only whole degrees of celsius
-            
-            if (iAdcResult < 1){                                                 // Determine the decimal point location
-                iDecimalPoint = 0;
-            }
-            else if(iAdcResult < 10){
-                iDecimalPoint = 1;
-            }
-            else if(iAdcResult < 100){
-                iDecimalPoint = 2;
-            }
-            else{
-                iDecimalPoint = 3;
-            }
-            
-            if (iDecimalPoint == 0){
-                putrsXLCD("0");
-                while(BusyXLCD());                                              // Wait if LCD busy
-            }
-            else{
-                for(icntDecimalPoint = 0; icntDecimalPoint != iDecimalPoint; icntDecimalPoint++){                    
-                    WriteDataXLCD(chrStrTempBuf[icntDecimalPoint]);
-                    while(BusyXLCD());                                          // Wait if LCD busy
-                }
-            }
-            /*
-            //while(BusyXLCD());                                                  // Wait if LCD busy
-            //putrsXLCD(StrTempBuf);                                              // Put the value before the . on the display
-            while(BusyXLCD());                                                  // Wait if LCD busy
-            putrsXLCD(".");                                                     // print the .
-            while(BusyXLCD());                                                  // Wait if LCD busy
-            
-            //Temperature = (AdcResult - ((AdcResult / 10000) * 10000)) / 100;    // Take the original AdcResult and subtract de TOP value which was printed before the . also divide by 100 to get 2 decimals(25.8799 - 25.000 / 100 = 88)
-            
-            //ltoa(StrTempBuf, AdcResult, 10);                                    // Convert the rest value to string
-            
-            //putrsXLCD(&StrTempBuf[DecimalPoint]);                               // Print the remaining value on the display
-            WriteDataXLCD(StrTempBuf[DecimalPoint+1]);
-            WriteDataXLCD(StrTempBuf[DecimalPoint+2]);
-            
-            */
-            while(BusyXLCD());                                                  // Wait if LCD busy
-            WriteDataXLCD(CELSIUS);                                             // Write the °            
-            while(BusyXLCD());                                                  // Wait if LCD busy
-            putrsXLCD("C ");                                                     // print the C and a space in case a previous value was 100 en the next is 99
-            while(BusyXLCD());                                                  // Wait if LCD busy
-            SetDDRamAddr(0x87);                                                 // Set cursor back to start position for (over)writing temp value            
-            ADCON0bits.GO = true;        
+        UPDATExVFD();
+        
+        if (UpdateTemp == true)
+        {            
+            UPDATExTEMP();
+            UpdateTemp = false;
         }
     }
 }
@@ -115,29 +69,35 @@ void main(void) {
 void interrupt tc_int(void)
 {
     if (PIE1bits.TMR1IE && PIR1bits.TMR1IF) 
-    {
-        PIR1bits.TMR1IF=0;
-        Led1 = !Led1;
-        bConvertTemp = true;
+    {  
+        PIR1bits.TMR1IF=0;                      // Clearing the flag as soon as possible results in restarting the timer
+                                                // Make sure the execution of the interrupt content is faster that the timer base (30 Hz)
+        READxIO();
+        
+        ReadTemp++;
+        if (ReadTemp >= 10){
+            ReadTemp = 0;
+            UpdateTemp = true;
+        }
+        
+        SecondsCounter++;
+        if (SecondsCounter >= 30){
+            SecondsCounter = 0;
+            iSeconds++;                          // rolls over to 0 when int is full!
+            Led1 = !Led1;                       // blink the led every 2 seconds
+        }
     }
 }
 
 void LCD_Initialize(void){
     __delay_ms(100);                // Wait in case LCD power up
-    OpenXLCD(FOUR_BIT & LINES_5X7);
-    putrsXLCD("Fan Ctrl Started");
+    OpenXLCD(FOUR_BIT & LINES_5X7); // Init LCD
+    putrsXLCD("Fan Ctrl Started");  // Welcome message after power cycle
     while(BusyXLCD());              // Wait if LCD busy
-    SetDDRamAddr(0x40);
+    SetDDRamAddr(0x40);             // Set Cursor on first loc
     while(BusyXLCD());              // Wait if LCD busy
-    putrsXLCD("SW version 1.0");
-    __delay_ms(2000);
-    //Clear display
-    while(BusyXLCD());              // Wait if LCD busy
-    ClearDisplay();                 // Clear display
-    while(BusyXLCD());              // Wait if LCD busy
-    SetDDRamAddr(0x80);  
-    while(BusyXLCD());              // Wait if LCD busy
-    putrsXLCD("Temp = ");
+    putrsXLCD(SOFTWARE_VERSION);    // Software version
+    __delay_ms(4000);               // Wait with start of program
 }
 
 void DelayFor18TCY(void)
@@ -146,8 +106,7 @@ void DelayFor18TCY(void)
 }
 void DelayPORXLCD(void)
 {
-    __delay_ms(50);
-}
+    __delay_ms(50);}
 
 void DelayXLCD(void)
 {
