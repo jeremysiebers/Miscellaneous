@@ -8,6 +8,7 @@
 #include <stdbool.h>
 
 #define Debounce 0
+#define DebounceVFD 10
 
 unsigned int iVfd_Fault_In_Counter = 0;
 unsigned int iBathroom_Sw_In_Counter = 0;
@@ -34,7 +35,7 @@ void READxIO()
                     bVfd_Fault_In = false;
                     break;
                     
-        case 1  :   if(iVfd_Fault_In_Counter <= Debounce)
+        case 1  :   if(iVfd_Fault_In_Counter <= DebounceVFD)
                     {
                         iVfd_Fault_In_Counter++;
                     }
@@ -87,15 +88,23 @@ void READxIO()
  
     switch (Vfd_Enable_In)
     {
-        case 0  :   iVfd_Enable_In_Counter = 0;
-                    bVfd_Enable_In = false;
+        case 0  :   if(iVfd_Enable_In_Counter > 0)
+                    {
+                        iVfd_Enable_In_Counter--;
+                    }
+                    else
+                    {
+                        iVfd_Enable_In_Counter = 0;
+                        bVfd_Enable_In = false;
+                    }                    
                     break;
                     
-        case 1  :   if(iVfd_Enable_In_Counter <= Debounce)
+        case 1  :   if(iVfd_Enable_In_Counter <= DebounceVFD)
                     {
                         iVfd_Enable_In_Counter++;
                     }
                     else {
+                        iVfd_Enable_In_Counter = DebounceVFD;
                         bVfd_Enable_In = true;
                     }
                     
