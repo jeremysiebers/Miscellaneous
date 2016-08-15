@@ -9,7 +9,7 @@
 #include <stdbool.h>
 #include <limits.h>
 
-#define DecelerationTime    30          // in seconds
+#define DecelerationTime    20          // in seconds
 #define EnableTime          5           // in seconds
 
 unsigned int iSecondsCounter = 0;
@@ -32,12 +32,7 @@ void INITxVFD()
     {
         Vfd_Fan_Ok_Out = false;
         HOUSExFANxERROR(MOTOR_TEMP_ERROR);
-    }
-    else if (Vfd_Fault_In == false)
-    {
-        Vfd_Fan_Ok_Out = false;
-        HOUSExFANxERROR(VFD_FAULT);
-    }
+    }    
     else 
     { 
         Vfd_Fan_Ok_Out = true;
@@ -51,12 +46,12 @@ void UPDATExVFD()
 {
     switch (iSequencer)
     {
-        case 0  :   if (bVfd_Enable_In == true && Mot_Temp < Max_Mot_Temp && Vfd_Fan_Ok_Out == true && Vfd_Fault_In == false)
+        case 0  :   if (bVfd_Enable_In == true && Mot_Temp < Max_Mot_Temp && Vfd_Fan_Ok_Out == true && Vfd_Fault_In == true)
                     {
                         iSequencer = 1;
                         HOUSExFANxERROR(NO_ERROR);
                     }
-                    if (bVfd_Enable_In == false && Mot_Temp < Max_Mot_Temp && Vfd_Fan_Ok_Out == false && Vfd_Fault_In == false)
+                    if (bVfd_Enable_In == false && Mot_Temp < Max_Mot_Temp && Vfd_Fan_Ok_Out == false && Vfd_Fault_In == true)
                     {
                         Vfd_Fan_Ok_Out = true;                                  // Reset function of error latch
                         HOUSExFANxERROR(NO_ERROR);
@@ -65,11 +60,7 @@ void UPDATExVFD()
                     if (Mot_Temp > Max_Mot_Temp)
                     {
                         HOUSExFANxERROR(MOTOR_TEMP_ERROR);
-                    }
-                    if (Vfd_Fault_In == true)
-                    {
-                        HOUSExFANxERROR(VFD_FAULT);
-                    }
+                    }                    
             break;
                     
         case 1  :   Vfd_Supp_En_Out = true;
