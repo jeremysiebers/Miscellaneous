@@ -34,35 +34,40 @@
 
 #include "main.h"
 #include "Peripherals/config.h"
-#include "XLCD/xlcd.h"
 #include "io.h"
 #include "vfd.h"
 #include "temp.h"
-
-#define SOFTWARE_VERSION "SW version 1.0"
-
-#define CELSIUS 0b11011111
+#include "exhaust.h"
+#include "display.h"
 
 unsigned int ReadTemp = 0;
-unsigned int SecondsCounter = 0;
+
 bool UpdateTemp = false;
 
 void main(void) {
     // Initialize the device
-    SYSTEM_Initialize();    
+    SYSTEM_Initialize();
+    INITxIOxVAR();
     READxIO();
-    UPDATExTEMP();
-    LCD_Initialize();
+    
+    LCDxINIT();     // THis must be done first
+    UPDATExTEMP();    
+    INITxVFD();
+    INITxEXHAUST();
+    
     
     while(1)
     {
         UPDATExVFD();
+        UPDATExEXHAUST();
         
         if (UpdateTemp == true)
         {            
             UPDATExTEMP();
             UpdateTemp = false;
         }
+        
+        
     }
 }
 
@@ -72,43 +77,15 @@ void interrupt tc_int(void)
     {  
         PIR1bits.TMR1IF=0;                      // Clearing the flag as soon as possible results in restarting the timer
                                                 // Make sure the execution of the interrupt content is faster that the timer base (30 Hz)
-        READxIO();
+        READxIO();                              // Read IO during interrupt to ensure updates of IO status
         
         ReadTemp++;
         if (ReadTemp >= 10){
             ReadTemp = 0;
             UpdateTemp = true;
+            Led1 = !Led1;
         }
         
-        SecondsCounter++;
-        if (SecondsCounter >= 30){
-            SecondsCounter = 0;
-            iSeconds++;                          // rolls over to 0 when int is full!
-            Led1 = !Led1;                       // blink the led every 2 seconds
-        }
+        UPDATExVFDxSECONDS();
     }
-}
-
-void LCD_Initialize(void){
-    __delay_ms(100);                // Wait in case LCD power up
-    OpenXLCD(FOUR_BIT & LINES_5X7); // Init LCD
-    putrsXLCD("Fan Ctrl Started");  // Welcome message after power cycle
-    while(BusyXLCD());              // Wait if LCD busy
-    SetDDRamAddr(0x40);             // Set Cursor on first loc
-    while(BusyXLCD());              // Wait if LCD busy
-    putrsXLCD(SOFTWARE_VERSION);    // Software version
-    __delay_ms(4000);               // Wait with start of program
-}
-
-void DelayFor18TCY(void)
-{    
-    __delay_us(1);
-}
-void DelayPORXLCD(void)
-{
-    __delay_ms(50);}
-
-void DelayXLCD(void)
-{
-    __delay_ms(1);
 }

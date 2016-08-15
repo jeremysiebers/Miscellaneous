@@ -6,6 +6,9 @@
 
 #define _XTAL_FREQ          8000000
 #define Max_Mot_Temp        100
+#define NO_ERROR            0
+#define MOTOR_TEMP_ERROR    1
+#define VFD_FAULT           2
 
 unsigned int iSeconds;      // Seconds timer, can be read by sub programs to count down without using delay rotines
 
@@ -13,17 +16,19 @@ unsigned int iSeconds;      // Seconds timer, can be read by sub programs to cou
  *      Mot_Temp            RA0
  *      Temp_Spare          RA1
 */
-#define Vfd_Fault_In        RA2
+#define Vfd_Fault_In        !RA2    // Inverted, after power ON, relay is switched internally in vfd
 #define Bathroom_Sw_In      RA3
 #define Kitchen_Sw_In       RA4
 #define Vfd_Enable_In       !RA5    // Inverted input (switched to ground by RGBW controller)
-#define Vfd_Fan_Error_Out   RA6
+#define Vfd_Fan_Ok_Out      RA6     // true (1) is safe
 #define Vfd_Supp_En_Out     RA7
 
-char Mot_Temp;              // Motor temperature readout
+unsigned int Mot_Temp;      // Motor temperature readout
 bool bVfd_Fault_In;         // Debounced input in boolean
 bool bBathroom_Sw_In;       // Debounced input in boolean
 bool bKitchen_Sw_In;        // Debounced input in boolean
+bool bBathroom_Sw_In_Lat;   // Latched input in boolean
+bool bKitchen_Sw_In_Lat;    // Latched input in boolean
 bool bVfd_Enable_In;        // Debounced input in boolean
 
 /*
@@ -43,8 +48,8 @@ bool bVfd_Enable_In;        // Debounced input in boolean
  *      D6_LCD              RC2
  *      D7_LCD              RC3
  */
-#define Fgs_Mid_In          RC4
-#define Fgs_High_In         RC5
+#define Fgs_Q1_Mid_In       RC4
+#define Fgs_Q2_High_In      RC5
 #define RC6_Spare           RC6
 #define RC7_Spare           RC7
 /*
