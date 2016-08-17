@@ -5,10 +5,12 @@
 #include <stdbool.h>
 
 #define _XTAL_FREQ          8000000
-#define Max_Mot_Temp        100
+#define Max_Mot_Temp        60          // Max temp seen with surrounding temp of 30 degrees --> 48 degrees celsius mot temp
 #define NO_ERROR            0
 #define MOTOR_TEMP_ERROR    1
 #define VFD_FAULT           2
+
+#define SOFTWARE_VERSION "SW version 1.1"
 
 unsigned int iSeconds;      // Seconds timer, can be read by sub programs to count down without using delay rotines
 

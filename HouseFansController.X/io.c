@@ -31,16 +31,25 @@ void READxIO()
 {   
     switch (Vfd_Fault_In)
     {
-        case 0  :   iVfd_Fault_In_Counter = 0;
-                    bVfd_Fault_In = false;
+        case 0  :   if(iVfd_Fault_In_Counter > 0)
+                    {
+                        iVfd_Fault_In_Counter--;
+                    }
+                    else
+                    {
+                        iVfd_Fault_In_Counter = 0;
+                        bVfd_Fault_In = false;
+                    }
                     break;
                     
         case 1  :   if(iVfd_Fault_In_Counter <= DebounceVFD)
                     {
                         iVfd_Fault_In_Counter++;
                     }
-                    else {
+                    else 
+                    {
                         bVfd_Fault_In = true;
+                        iVfd_Fault_In_Counter = DebounceVFD;
                     }
                     
         default :   break;

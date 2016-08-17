@@ -11,7 +11,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SOFTWARE_VERSION "SW version 1.0"
 #define CELSIUS 0b11011111
 
 /* http://web.alfredstate.edu/weimandn/lcd/lcd_addressing/lcd_addressing_index.html
