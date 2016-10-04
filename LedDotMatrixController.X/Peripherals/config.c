@@ -10,10 +10,11 @@
 
 void SYSTEM_Initialize(void) {
     OSCILLATOR_Initialize();
-    IO_Configuration();    
-    Timer1_Configuration();
+    IO_Configuration(); 
     Interrupt_Configuration();
+    Timer1_Configuration();    
     Adconverter_Configuration();
+    MSSP_Configuration();
 }
 
 void OSCILLATOR_Initialize(void) {
@@ -22,16 +23,15 @@ void OSCILLATOR_Initialize(void) {
 }
 
 void IO_Configuration(void) {    
-    TRISA = 0x3F;                           // RA6 and RA7 output
-    TRISB = 0xC0;                           // RB6 and RB7 inputs
-    TRISC = 0xFF;                           
+    TRISA = 0xFF;                           // RA6 and RA7 output
+    TRISB = 0xFF;                           // RB6 and RB7 inputs
+    TRISC = 0x00;                           
     
     PORTC = 0x00;                           
     PORTB = 0x00;
     PORTA = 0x00;
     
-    TRISBbits.TRISB5 = 0;                   // Led1 output
-    PORTAbits.RA6 = 0;                      // Set Default FAN ERROR
+    TRISBbits.TRISB5 = 0;                   // Led1 output    
 }
 
 void Interrupt_Configuration(){  
@@ -63,4 +63,15 @@ void Adconverter_Configuration(){
     ADCON0bits.ADCS = 0;            // Fosc/8
     ADCON0bits.CHS = 0;             // Channel 00 (AN0)
     ADCON0bits.ADON = 0;            // Enable AD converter
+}
+
+void MSSP_Configuration(){
+    SSPSTATbits.CKE  = 1;            // 1 = Transmit occurs on transition from active to Idle clock state
+    SSPSTATbits.SMP  = 0;            // 0 = Input data sampled at middle of data output time (master)
+    
+    SSPCONbits.CKP   = 0;            // 0 = Idle state for clock is a low level
+    SSPCONbits.SSPM  = 0;            // SPI Master mode, clock = FOSC/4
+    SSPCONbits.SSPEN = 1;            // Enables serial port and configures SCK, SDO, SDI and SS as serial port pins
+    
+    PIE1bits.SSPIE   = 0;            // 0 = Disables the SSP interrupt
 }
