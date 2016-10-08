@@ -246,7 +246,7 @@ void main(void) {
             }
         }
         
-        if (ImageFrameCounter > 8)
+        if (ImageFrameCounter > 50)
         {
             ImageFrameCounter = 0;
             
