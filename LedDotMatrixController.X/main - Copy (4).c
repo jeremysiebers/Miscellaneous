@@ -274,6 +274,12 @@ void main(void) {
             
             if (Run)
             {
+                /*
+                GreenCol1Byte = Byte(OperateImage, OperateLedsRow,  0);
+                GreenCol2Byte = Byte(OperateImage, OperateLedsRow,  1);
+                GreenCol3Byte = Byte(OperateImage, OperateLedsRow2, 0);
+                GreenCol4Byte = Byte(OperateImage, OperateLedsRow2, 1);*/
+                
                 GreenCol1Byte = table[(GreenLeds[OperateImage][OperateLedsRow]>>8)];
                 GreenCol2Byte = table[(GreenLeds[OperateImage][OperateLedsRow])];
                 GreenCol3Byte = table[(GreenLeds[OperateImage][OperateLedsRow2]>>8)];
@@ -291,10 +297,10 @@ void main(void) {
                 GreenCol3Byte = 0xFF;
                 GreenCol4Byte = 0xFF;
 
-                RedCol1Byte = table[(GreenLeds[OperateImage][OperateLedsRow]>>8)];
-                RedCol2Byte = table[(GreenLeds[OperateImage][OperateLedsRow])];
-                RedCol3Byte = table[(GreenLeds[OperateImage][OperateLedsRow2]>>8)];
-                RedCol4Byte = table[(GreenLeds[OperateImage][OperateLedsRow2])];
+                RedCol1Byte = Byte(OperateImage, OperateLedsRow , 0);
+                RedCol2Byte = Byte(OperateImage, OperateLedsRow , 1);
+                RedCol3Byte = Byte(OperateImage, OperateLedsRow2, 0);
+                RedCol4Byte = Byte(OperateImage, OperateLedsRow2, 1);
             }
         }
         
@@ -341,6 +347,39 @@ void main(void) {
             }
         }
     }
+}
+
+unsigned int Byte(unsigned char Image,unsigned char Row, unsigned char Index)
+{
+    unsigned int ReturnByte = 0;
+    //unsigned char mIndex = 0;
+    
+    if(Index == 0){
+        return (ReturnByte = table[(GreenLeds[Image][Row]>>8)]);
+        /*
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x8000) >> 15);
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x4000) >> 13);
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x2000) >> 11);
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x1000) >> 9 );
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x0800) >> 7 );
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x0400) >> 5 );
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x0200) >> 3 );
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x0100) >> 1 ); */       
+    }                                                  
+    else                                               
+    {
+        return (ReturnByte = table[(GreenLeds[Image][Row])]);
+        /*
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x0080) >> 7 );
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x0040) >> 5 );
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x0020) >> 3 );
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x0010) >> 1 );
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x0008) << 1 );
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x0004) << 3 );
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x0002) << 5 );
+        ReturnByte |= ((GreenLeds[Image][Row] & 0x0001) << 7 ); */        
+    }
+    //return (ReturnByte);
 }
 
 void interrupt tc_int(void)

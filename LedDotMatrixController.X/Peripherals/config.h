@@ -4,11 +4,13 @@
 #include <xc.h>
 #include <stdbool.h>
 
-#define _XTAL_FREQ          8000000
+#define _XTAL_FREQ          20000000
 
-#define Led1                RB5
-#define Select              RB0
-#define Latch               RC2
+#define Led1                RA2
+#define Select              RB5
+#define Latch               RC0
+#define Clock               RC3
+#define Data                RC5
 
 
 #ifdef	__cplusplus

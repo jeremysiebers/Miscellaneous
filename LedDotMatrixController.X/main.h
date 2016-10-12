@@ -11,7 +11,6 @@ extern "C" {
     // linkage so the functions can be used by the c code. 
     
     void interrupt tc_int(void);
-    unsigned int Byte(unsigned char Image, unsigned char Row, unsigned char Index);
 
 #ifdef	__cplusplus
 }

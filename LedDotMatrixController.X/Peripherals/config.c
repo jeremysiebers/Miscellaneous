@@ -18,20 +18,23 @@ void SYSTEM_Initialize(void) {
 }
 
 void OSCILLATOR_Initialize(void) {
-    OSCCONbits.SCS = 0x00;
-    OSCCONbits.IRCF = 0x7;                  //8MHz
+    
 }
 
 void IO_Configuration(void) {    
-    TRISA = 0xFF;                           // RA6 and RA7 output
-    TRISB = 0xFF;                           // RB6 and RB7 inputs
-    TRISC = 0x00;                           
-    
-    PORTC = 0x00;                           
+    TRISA = 0xFF;
+    TRISB = 0xFF;
+    TRISC = 0xFF;
+                        
     PORTB = 0x00;
     PORTA = 0x00;
-    
-    TRISBbits.TRISB5 = 0;                   // Led1 output    
+    PORTC = 0x00;
+        
+    TRISBbits.TRISB5 = 1;                   // Select input
+    TRISAbits.TRISA2 = 0;                   // Led1 output    
+    TRISCbits.TRISC0 = 0;                   // Latch output
+    TRISCbits.TRISC3 = 0;                   // Clock output
+    TRISCbits.TRISC5 = 0;                   // Data output
 }
 
 void Interrupt_Configuration(){  
@@ -43,7 +46,7 @@ void Interrupt_Configuration(){
 void Timer1_Configuration(void){
     T1CONbits.T1CKPS = 0;
     T1CONbits.T1OSCEN = 0;
-    T1CONbits.T1SYNC = 0;
+    T1CONbits.nT1SYNC = 1;
     T1CONbits.TMR1CS = 0;
     PIR1bits.TMR1IF = 0;
     PIE1bits.TMR1IE = 1;
@@ -52,17 +55,8 @@ void Timer1_Configuration(void){
 
 void Adconverter_Configuration(){
     
-    ADCON1bits.ADFM = 1;            // Right justified
-    ADCON1bits.ADCS2 = 0;           // no divide clock /2
-    ADCON1bits.VCFG1 = 0;           // VREF- connected to VSS
-    ADCON1bits.VCFG0 = 0;           // VREF+ connected to VDD (0) otherwise to RA3
-    ADCON1bits.PCFG = 0xF;          // All IO digital except RA0/RA1 --> temp sensor1/2
-    
-    ADCON2bits.ACQT = 3;            // 20 Tad
-    
-    ADCON0bits.ADCS = 0;            // Fosc/8
-    ADCON0bits.CHS = 0;             // Channel 00 (AN0)
-    ADCON0bits.ADON = 0;            // Enable AD converter
+    ADCON0bits.ADON = 0;
+    ADCON1bits.PCFG = 7;
 }
 
 void MSSP_Configuration(){
