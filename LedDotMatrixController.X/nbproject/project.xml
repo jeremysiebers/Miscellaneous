@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>HouseFansController</name>
+            <name>LedDotMatrixController</name>
             <creation-uuid>05663197-a4c8-4f10-ab40-d864472cf768</creation-uuid>
             <make-project-type>0</make-project-type>
             <c-extensions>c</c-extensions>

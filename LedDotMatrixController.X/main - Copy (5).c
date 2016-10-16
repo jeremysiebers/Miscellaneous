@@ -20,6 +20,7 @@
 #pragma config CP = OFF         // FLASH Program Memory Code Protection bit (Code protection off)
 #pragma config BOREN = OFF      // Brown-out Reset Enable bit (BOR disabled)
 
+
 #include <xc.h>
 //#include <stdlib.h>
 //#include <stdio.h>
@@ -207,11 +208,11 @@ const unsigned int GreenLeds[9][16] ={
   0b1111110000111111,
   0b1111110000111111,
   0b1111100000011111,
-  0b1111000000001111,
+  0b1111100000011111,
   0b1111001001001111,
   0b1111001001001111,
   0b1111011001101111,
-  0b1111111001111111,
+  0b1111011001101111,
   0b1111110110111111,
   0b1111100110011111,
   0b1111100110011111,
@@ -244,29 +245,6 @@ static unsigned int ImageFrameCounter = 0;
 void main(void) {
     // Initialize the device
     SYSTEM_Initialize();
-    
-    Latch = false;        
-    SSPBUF = GreenCol4Byte;
-    while(!SSPSTATbits.BF);
-    SSPBUF = GreenCol3Byte;
-    while(!SSPSTATbits.BF);
-    SSPBUF = GreenCol2Byte;
-    while(!SSPSTATbits.BF);
-    SSPBUF = GreenCol1Byte;
-    while(!SSPSTATbits.BF);
-    SSPBUF = RedCol4Byte;
-    while(!SSPSTATbits.BF);
-    SSPBUF = RedCol3Byte;
-    while(!SSPSTATbits.BF);
-    SSPBUF = RedCol2Byte;
-    while(!SSPSTATbits.BF);
-    SSPBUF = RedCol1Byte;
-    while(!SSPSTATbits.BF);
-    SSPBUF = ActiveDisplayRow;
-    while(!SSPSTATbits.BF);
-    SSPBUF = ActiveDisplayRow;
-    while(!SSPSTATbits.BF);
-    Latch = true;
        
     while(1)
     {
@@ -276,15 +254,6 @@ void main(void) {
         {
             Led1 = true;
             NextFrame = false;
-            
-            OperateLedsRow++;
-            if (OperateLedsRow > 7)
-            {
-                OperateLedsRow = 0;
-                //Led1 = !Led1;
-            }
-            OperateLedsRow2 = OperateLedsRow + 8;       
-            ImageFrameCounter++; 
             
             if(OperateLedsRow == 0){
                 ActiveDisplayRow = 0xFE;}
@@ -376,12 +345,8 @@ void main(void) {
 
 void interrupt tc_int(void)
 {
-    if (PIR1bits.TMR1IF)
+    if (PIE1bits.TMR1IE && PIR1bits.TMR1IF) 
     {
-        TMR1H = 0xE8;                                                           // 0xE0 ~74Hz, 0xD0 ~50Hz, 0xF0 ~147Hz,  0xE8 ~100 Hz
-        TMR1L = 0x00;
-        PIR1bits.TMR1IF=0;
-        
         Latch = false;        
         SSPBUF = GreenCol4Byte;
         while(!SSPSTATbits.BF);
@@ -403,7 +368,20 @@ void interrupt tc_int(void)
         while(!SSPSTATbits.BF);
         SSPBUF = ActiveDisplayRow;
         while(!SSPSTATbits.BF);
-        Latch = true;        
-        NextFrame = true;
+        Latch = true;
+        
+        OperateLedsRow++;
+        if (OperateLedsRow > 7)
+        {
+            OperateLedsRow = 0;
+            //Led1 = !Led1;
+        }
+        OperateLedsRow2 = OperateLedsRow + 8;
+        
+        TMR1H = 0xE0;                                                           // 0xE0 ~74Hz
+        TMR1L = 0x00;
+        NextFrame = true;        
+        ImageFrameCounter++;
+        PIR1bits.TMR1IF=0;
     }
 }
