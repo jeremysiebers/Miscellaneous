@@ -22,11 +22,12 @@
 
 #include <xc.h>
 //#include <stdlib.h>
-//#include <stdio.h>
+#include <stdio.h>
 #include <stdbool.h>
 
 #include "main.h"
 #include "Peripherals/config.h"
+#include "Peripherals/uart1.h"
 
 const unsigned char table[] = {
     0x00, 0x80, 0x40, 0xc0, 0x20, 0xa0, 0x60, 0xe0,
@@ -240,6 +241,12 @@ static unsigned char RedCol3Byte = 0xFF;
 static unsigned char RedCol4Byte = 0xFF;
 
 static unsigned int ImageFrameCounter = 0;
+static unsigned int ImageFrameCounterValue = 90;
+
+char ReceivedNumber = 0;
+int DutyCycle[3] = {0,9,0};
+int Counter = 2;
+unsigned int UpdateToPutty = 0;
 
 void main(void) {
     // Initialize the device
@@ -267,14 +274,62 @@ void main(void) {
     SSPBUF = ActiveDisplayRow;
     while(!SSPSTATbits.BF);
     Latch = true;
+    OutputDisable = false;
+    
+    printf("\f");
+    printf("Little green man started up!!!\n\r");
        
     while(1)
     {
-        Led1 = false;
+        //Led1 = false;
+        
+        UpdateToPutty++;
+        if (UpdateToPutty > 0x8000)
+        {
+            UpdateToPutty = 0;
+            printf("\f");
+            //printf("Actual image = %d\r\n",iImage);
+            //printf("Soll : DutyCycle = %d%d%d\r\n", DutyCycle[2],DutyCycle[1],DutyCycle[0]);
+            printf("%d%d%d", DutyCycle[2],DutyCycle[1],DutyCycle[0]);
+            //printf("Ist  : DutyCycle = %d\r\n",ImageFrameCounterValue);
+        }
+        
+        if (EUSART1_DataReady > 0)
+        {
+            ReceivedNumber = EUSART1_Read();
+            if (ReceivedNumber == 0xD)
+            {
+                ImageFrameCounterValue = DutyCycle[2] * 100 + DutyCycle[1] * 10 + DutyCycle[0];
+                Counter = 2;
+            }
+            else if (ReceivedNumber == 0x77)
+            {
+                if (ImageFrameCounterValue < 500)
+                {
+                    ImageFrameCounterValue += 10;
+                }
+            }
+            else if (ReceivedNumber == 0x73)
+            {
+                if (ImageFrameCounterValue > 11)
+                {
+                    ImageFrameCounterValue -= 10;
+                }                
+            }
+            else
+            {
+                if (Counter == -1)
+                {
+                    Counter = 2;
+                }                 
+                DutyCycle[Counter] = ReceivedNumber - '0';    
+                Counter--;                
+            }
+        }
         
         if(PIR1bits.TMR1IF == false && NextFrame == true)
         {
-            Led1 = true;
+            //Led1 = true;
             NextFrame = false;
             
             OperateLedsRow++;
@@ -330,8 +385,9 @@ void main(void) {
         }
         
         // Sequence is 0,1, 2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 7, --> 1 
-        if (ImageFrameCounter > 50){
+        if (ImageFrameCounter > ImageFrameCounterValue){
             ImageFrameCounter = 0;
+            Led1 ^= 1;
             
             iRunStop++;
             if (iRunStop > 130){
@@ -348,7 +404,7 @@ void main(void) {
                     iImage = 0;
                 }
             }
-            if (!Select){
+            if (Select){
                 iImage = 13;
                 iRunStop = 250;
             }
@@ -370,12 +426,25 @@ void main(void) {
                 case 13 : OperateImage = 8;Run = false;break;
                 default : break;
             }
+            
         }
     }
 }
 
 void interrupt tc_int(void)
 {
+    if (PIR1bits.RCIF)
+    {
+        PIR1bits.RCIF = 0;
+        EUSART1_Receive_ISR();
+    }
+    
+    if (PIR1bits.TXIF)
+    {
+        PIR1bits.TXIF = 0;
+        EUSART1_Transmit_ISR();
+    }
+    
     if (PIR1bits.TMR1IF)
     {
         TMR1H = 0xE8;                                                           // 0xE0 ~74Hz, 0xD0 ~50Hz, 0xF0 ~147Hz,  0xE8 ~100 Hz

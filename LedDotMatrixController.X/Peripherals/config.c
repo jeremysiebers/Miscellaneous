@@ -7,6 +7,7 @@
 
 #include "xc.h"
 #include "config.h"
+#include "uart1.h"
 
 void SYSTEM_Initialize(void) {
     OSCILLATOR_Initialize();
@@ -15,6 +16,7 @@ void SYSTEM_Initialize(void) {
     Timer1_Configuration();    
     Adconverter_Configuration();
     MSSP_Configuration();
+    EUSART1_Initialize();
 }
 
 void OSCILLATOR_Initialize(void) {
@@ -29,12 +31,19 @@ void IO_Configuration(void) {
     PORTB = 0x00;
     PORTA = 0x00;
     PORTC = 0x00;
+    
+    OutputDisable = true;                    // Set the outputs off all shift registers off
         
-    TRISBbits.TRISB5 = 1;                   // Select input
-    TRISAbits.TRISA2 = 0;                   // Led1 output    
+    TRISBbits.TRISB5 = 0;                   // Select input
+    TRISAbits.TRISA0 = 0;                   // Led1 output 
     TRISCbits.TRISC0 = 0;                   // Latch output
+    TRISCbits.TRISC1 = 0;                   // Output Enable shift registers
     TRISCbits.TRISC3 = 0;                   // Clock output
     TRISCbits.TRISC5 = 0;                   // Data output
+    
+    TRISCbits.TRISC6 = 0;                   // TX
+    TRISCbits.TRISC7 = 1;                   // RX   
+
 }
 
 void Interrupt_Configuration(){  
