@@ -40,7 +40,6 @@ static unsigned char OperateImage = 0;
 static unsigned char iImage = 0;
 static unsigned int iRunStop = 0;
 static bool Run = true;
-static bool Default_Pattern = true;
 
 static unsigned char GreenCol1Byte = 0xFF;
 static unsigned char GreenCol2Byte = 0xFF;
@@ -55,14 +54,16 @@ static unsigned char RedCol4Byte = 0xFF;
 static unsigned int ImageFrameCounter = 0;
 static unsigned int ImageFrameCounterValue = 90;
 
-static unsigned char ReceivedByte = 0;
-static unsigned char ReceivedTable[8][8];
+char ReceivedNumber = 0;
+int DutyCycle[3] = {0,9,0};
+int Counter = 2;
+unsigned int UpdateToPutty = 0;
 
 void main(void) {
     // Initialize the device
     SYSTEM_Initialize();
     
-    __delay_ms(2000);                                                           // To prevent inrush on USB to serial converter while being detected by OS
+    __delay_ms(2000);
     
     Latch = false;        
     SSPBUF = GreenCol4Byte;
@@ -93,65 +94,53 @@ void main(void) {
        
     while(1)
     {
+        //Led1 = false;
         
-        if (EUSART1_DataReady > 63)                                             // 64 bytes data
+        UpdateToPutty++;
+        if (UpdateToPutty > 0x8000)
         {
-            Default_Pattern = false;                                            // serial commands received stop with default pattern program
-            
-            for (ReceivedByte = 0; ReceivedByte < 8; ReceivedByte++){
-				ReceivedTable[ReceivedByte][0] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][1] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][2] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][3] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][4] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][5] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][6] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][7] = EUSART1_Read();
-			}
+            UpdateToPutty = 0;
+            printf("\f");
+            //printf("Actual image = %d\r\n",iImage);
+            //printf("Soll : DutyCycle = %d%d%d\r\n", DutyCycle[2],DutyCycle[1],DutyCycle[0]);
+            printf("%d%d%d", DutyCycle[2],DutyCycle[1],DutyCycle[0]);
+            //printf("Ist  : DutyCycle = %d\r\n",ImageFrameCounterValue);
         }
         
-        if(PIR1bits.TMR1IF == false && NextFrame == true && Default_Pattern == false)
-        {            
-            NextFrame = false;
-            
-            OperateLedsRow++;
-            if (OperateLedsRow > 7)
+        if (EUSART1_DataReady > 0)
+        {
+            ReceivedNumber = EUSART1_Read();
+            if (ReceivedNumber == 0xD)
             {
-                OperateLedsRow = 0;
-                Led1 ^= 1;
-            }            
-            
-            if(OperateLedsRow == 0){
-                ActiveDisplayRow = 0xFE;}
-            if(OperateLedsRow == 1){
-                ActiveDisplayRow = 0xFD;}
-            if(OperateLedsRow == 2){
-                ActiveDisplayRow = 0xFB;}
-            if(OperateLedsRow == 3){
-                ActiveDisplayRow = 0xF7;}
-            if(OperateLedsRow == 4){
-                ActiveDisplayRow = 0xEF;}
-            if(OperateLedsRow == 5){
-                ActiveDisplayRow = 0xDF;}
-            if(OperateLedsRow == 6){
-                ActiveDisplayRow = 0xBF;}
-            if(OperateLedsRow == 7){
-                ActiveDisplayRow = 0x7F;}
-            
-            
-			GreenCol1Byte   = table[ReceivedTable[OperateLedsRow][0]];
-			GreenCol2Byte   = table[ReceivedTable[OperateLedsRow][1]];
-			GreenCol3Byte   = table[ReceivedTable[OperateLedsRow][2]];
-			GreenCol4Byte   = table[ReceivedTable[OperateLedsRow][3]];
-			
-			RedCol1Byte     = table[ReceivedTable[OperateLedsRow][4]];
-            RedCol2Byte     = table[ReceivedTable[OperateLedsRow][5]];
-			RedCol3Byte     = table[ReceivedTable[OperateLedsRow][6]];
-			RedCol4Byte     = table[ReceivedTable[OperateLedsRow][7]];
-			
+                ImageFrameCounterValue = DutyCycle[2] * 100 + DutyCycle[1] * 10 + DutyCycle[0];
+                Counter = 2;
+            }
+            else if (ReceivedNumber == 0x77)
+            {
+                if (ImageFrameCounterValue < 500)
+                {
+                    ImageFrameCounterValue += 10;
+                }
+            }
+            else if (ReceivedNumber == 0x73)
+            {
+                if (ImageFrameCounterValue > 11)
+                {
+                    ImageFrameCounterValue -= 10;
+                }                
+            }
+            else
+            {
+                if (Counter == -1)
+                {
+                    Counter = 2;
+                }                 
+                DutyCycle[Counter] = ReceivedNumber - '0';    
+                Counter--;                
+            }
         }
         
-        else if(PIR1bits.TMR1IF == false && NextFrame == true && Default_Pattern == true)
+        if(PIR1bits.TMR1IF == false && NextFrame == true)
         {
             //Led1 = true;
             NextFrame = false;
@@ -206,52 +195,51 @@ void main(void) {
                 RedCol3Byte = table[(GreenLeds[OperateImage][OperateLedsRow2]>>8)];
                 RedCol4Byte = table[(GreenLeds[OperateImage][OperateLedsRow2])];
             }
+        }
         
-        
-            // Sequence is 0,1, 2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 7, --> 1 
-            if (ImageFrameCounter > ImageFrameCounterValue){
-                ImageFrameCounter = 0;
-                Led1 ^= 1;
-
-                iRunStop++;
-                if (iRunStop > 130){
-                    iImage = 13;
-                }
-                if (iRunStop > 260){
-                    iImage = 0;
-                    iRunStop = 0;
-                }
-                if (iRunStop < 130)
-                {
-                    iImage++;
-                    if (iImage > 12){
-                        iImage = 0;
-                    }
-                }
-                if (Select){
-                    iImage = 13;
-                    iRunStop = 250;
-                }
-                switch (iImage)
-                {
-                    case 0  : OperateImage = 0;Run = true;break;
-                    case 1  : OperateImage = 1;Run = true;break;
-                    case 2  : OperateImage = 2;Run = true;break;
-                    case 3  : OperateImage = 3;Run = true;break;
-                    case 4  : OperateImage = 4;Run = true;break;
-                    case 5  : OperateImage = 5;Run = true;break;
-                    case 6  : OperateImage = 6;Run = true;break;
-                    case 7  : OperateImage = 7;Run = true;break;
-                    case 8  : OperateImage = 2;Run = true;break;
-                    case 9  : OperateImage = 3;Run = true;break;
-                    case 10 : OperateImage = 4;Run = true;break;
-                    case 11 : OperateImage = 5;Run = true;break;
-                    case 12 : OperateImage = 7;Run = true;break;
-                    case 13 : OperateImage = 8;Run = false;break;
-                    default : break;
-                }
-
+        // Sequence is 0,1, 2, 3, 4, 5, 6, 7, 2, 3, 4, 5, 7, --> 1 
+        if (ImageFrameCounter > ImageFrameCounterValue){
+            ImageFrameCounter = 0;
+            Led1 ^= 1;
+            
+            iRunStop++;
+            if (iRunStop > 130){
+                iImage = 13;
             }
+            if (iRunStop > 260){
+                iImage = 0;
+                iRunStop = 0;
+            }
+            if (iRunStop < 130)
+            {
+                iImage++;
+                if (iImage > 12){
+                    iImage = 0;
+                }
+            }
+            if (Select){
+                iImage = 13;
+                iRunStop = 250;
+            }
+            switch (iImage)
+            {
+                case 0  : OperateImage = 0;Run = true;break;
+                case 1  : OperateImage = 1;Run = true;break;
+                case 2  : OperateImage = 2;Run = true;break;
+                case 3  : OperateImage = 3;Run = true;break;
+                case 4  : OperateImage = 4;Run = true;break;
+                case 5  : OperateImage = 5;Run = true;break;
+                case 6  : OperateImage = 6;Run = true;break;
+                case 7  : OperateImage = 7;Run = true;break;
+                case 8  : OperateImage = 2;Run = true;break;
+                case 9  : OperateImage = 3;Run = true;break;
+                case 10 : OperateImage = 4;Run = true;break;
+                case 11 : OperateImage = 5;Run = true;break;
+                case 12 : OperateImage = 7;Run = true;break;
+                case 13 : OperateImage = 8;Run = false;break;
+                default : break;
+            }
+            
         }
     }
 }

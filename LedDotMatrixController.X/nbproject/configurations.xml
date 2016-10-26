@@ -9,6 +9,7 @@
         <itemPath>Peripherals/uart1.h</itemPath>
       </logicalFolder>
       <itemPath>main.h</itemPath>
+      <itemPath>default_pattern.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"

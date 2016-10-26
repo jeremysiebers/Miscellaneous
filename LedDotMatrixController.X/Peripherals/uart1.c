@@ -8,7 +8,7 @@
   Section: Macro Declarations
  */
 #define EUSART1_TX_BUFFER_SIZE 20
-#define EUSART1_RX_BUFFER_SIZE 20
+#define EUSART1_RX_BUFFER_SIZE 33
 #define FP 20000000
 #define BAUDRATE 19200
 #define BRGVAL 64//(unsigned char)((FP/BAUDRATE)/16)-1
