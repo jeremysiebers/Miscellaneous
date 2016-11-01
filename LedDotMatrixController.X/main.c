@@ -24,6 +24,7 @@
 //#include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 #include "main.h"
 #include "Peripherals/config.h"
@@ -56,13 +57,24 @@ static unsigned int ImageFrameCounter = 0;
 static unsigned int ImageFrameCounterValue = 90;
 
 static unsigned char ReceivedByte = 0;
-static unsigned char ReceivedTable[8][8];
+static unsigned char ReceivedTable[64];
+static unsigned char ActualTable[64] = {
+    0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+    0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+
+static unsigned char State = 0;
 
 void main(void) {
     // Initialize the device
     SYSTEM_Initialize();
     
-    __delay_ms(2000);                                                           // To prevent inrush on USB to serial converter while being detected by OS
+    __delay_ms(1000);                                                           // To prevent inrush on USB to serial converter while being detected by OS
     
     Latch = false;        
     SSPBUF = GreenCol4Byte;
@@ -90,64 +102,86 @@ void main(void) {
     
     printf("\f");
     printf("Little green man started up!!!\n\r");
+    
+    if (EUSART1_DataReady > 0)
+    {
+        Default_Pattern = false;                                                // serial commands received stop with default pattern program
+    }
        
     while(1)
     {
         
-        if (EUSART1_DataReady > 63)                                             // 64 bytes data
-        {
-            Default_Pattern = false;                                            // serial commands received stop with default pattern program
-            
-            for (ReceivedByte = 0; ReceivedByte < 8; ReceivedByte++){
-				ReceivedTable[ReceivedByte][0] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][1] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][2] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][3] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][4] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][5] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][6] = EUSART1_Read();
-                ReceivedTable[ReceivedByte][7] = EUSART1_Read();
-			}
+        switch (State){
+            case 0 :
+                if (EUSART1_DataReady > 0)                                      // 64 bytes data
+                {
+                    if (EUSART1_Read() == 0xA){
+                        Default_Pattern = false;                                // serial commands received stop with default pattern program
+                        ReceivedByte = 0;
+                        State = 1;
+                    }
+                    else if (EUSART1_Read() == 0x5){                        
+                        Default_Pattern = true;                                      
+                    }
+                }
+                break;
+                
+            case 1 :
+                if (EUSART1_DataReady > 0)                                      // 64 bytes data
+                {
+                    ActualTable[ReceivedByte] = EUSART1_Read();
+                    ReceivedByte++;
+                    if (ReceivedByte > 63)
+                    {                        
+                        Led1 ^= 1;
+                        State = 0;
+                    }            
+                }
+                break;
+                
+            default : break;
         }
+        
+        
         
         if(PIR1bits.TMR1IF == false && NextFrame == true && Default_Pattern == false)
         {            
             NextFrame = false;
             
-            OperateLedsRow++;
-            if (OperateLedsRow > 7)
+            OperateLedsRow+= 8;
+            if (OperateLedsRow > 56)
             {
                 OperateLedsRow = 0;
-                Led1 ^= 1;
+                //Led1 ^= 1;
             }            
             
             if(OperateLedsRow == 0){
                 ActiveDisplayRow = 0xFE;}
-            if(OperateLedsRow == 1){
+            if(OperateLedsRow == 8){
                 ActiveDisplayRow = 0xFD;}
-            if(OperateLedsRow == 2){
+            if(OperateLedsRow == 16){
                 ActiveDisplayRow = 0xFB;}
-            if(OperateLedsRow == 3){
+            if(OperateLedsRow == 24){
                 ActiveDisplayRow = 0xF7;}
-            if(OperateLedsRow == 4){
+            if(OperateLedsRow == 32){
                 ActiveDisplayRow = 0xEF;}
-            if(OperateLedsRow == 5){
+            if(OperateLedsRow == 40){
                 ActiveDisplayRow = 0xDF;}
-            if(OperateLedsRow == 6){
+            if(OperateLedsRow == 48){
                 ActiveDisplayRow = 0xBF;}
-            if(OperateLedsRow == 7){
+            if(OperateLedsRow == 56){
                 ActiveDisplayRow = 0x7F;}
             
             
-			GreenCol1Byte   = table[ReceivedTable[OperateLedsRow][0]];
-			GreenCol2Byte   = table[ReceivedTable[OperateLedsRow][1]];
-			GreenCol3Byte   = table[ReceivedTable[OperateLedsRow][2]];
-			GreenCol4Byte   = table[ReceivedTable[OperateLedsRow][3]];
+			GreenCol1Byte   = table[ActualTable[OperateLedsRow + 0]];
+			GreenCol2Byte   = table[ActualTable[OperateLedsRow + 1]];
+			GreenCol3Byte   = table[ActualTable[OperateLedsRow + 2]];
+			GreenCol4Byte   = table[ActualTable[OperateLedsRow + 3]];
 			
-			RedCol1Byte     = table[ReceivedTable[OperateLedsRow][4]];
-            RedCol2Byte     = table[ReceivedTable[OperateLedsRow][5]];
-			RedCol3Byte     = table[ReceivedTable[OperateLedsRow][6]];
-			RedCol4Byte     = table[ReceivedTable[OperateLedsRow][7]];
+			RedCol1Byte     = table[ActualTable[OperateLedsRow + 4]];
+            RedCol2Byte     = table[ActualTable[OperateLedsRow + 5]];
+			RedCol3Byte     = table[ActualTable[OperateLedsRow + 6]];
+			RedCol4Byte     = table[ActualTable[OperateLedsRow + 7]];
 			
         }
         

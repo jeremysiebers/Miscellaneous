@@ -9,11 +9,12 @@ import time
 import sys
 import numpy as np
 import serial
+from operator import xor
 
 ser = serial.Serial()
-ser.baudrate = 19200
+ser.baudrate = 250000
 ser.port = 'COM4'
-ser.open()
+
 
 GreenLeds =np.array([[[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
                       [1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1],
@@ -270,6 +271,8 @@ def main():
     #rt = RepeatedTimer(0.0005, OperateLeds)  #0.00005  # 0.008 --> below 10ms --> 100Hz
 
     try:
+        
+        ser.open()
 
         while (True) : 
 
@@ -310,32 +313,92 @@ def main():
             elif (OperateLeds.Count == 13):
                 OperateLeds.Image = 8
 
+            
             OperateLeds()
-            #userinput = input()                     
-
-            time.sleep(0.1)
+                        
+            time.sleep(0.06)
 
             #rt.interval = userinput
 
     except KeyboardInterrupt:
-        print ('Clearing shift registers')
 
+        print ('Set Dot matrix display to default routine...')
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
+        ser.write(bytes( [0x5]))
 
-        print ('Stopping thread rt...')
-        #rt.stop()
-
+        
         print ('Release serial port')
         ser.close()
 
         print ('Bye...')
 
-
+    ser.close()
     return 0
 
 
 def OperateLeds():
     
     OperateLeds.row = 0
+    
+    ser.write(bytes( [0xA]))
     
     for x in range (8):
         if x == 8:
@@ -350,29 +413,17 @@ def OperateLeds():
         OperateLeds.redcol2secondbyte = 0xFF  #RedLeds[OperateLeds.row, 2]
         OperateLeds.redcol3firstbyte  = 0xFF  #RedLeds[OperateLeds.row, 3]
         OperateLeds.redcol4secondbyte = 0xFF  #edLeds[OperateLeds.row, 4]
-
-        ser.write(OperateLeds.greencol1firstbyte)
-        ser.write(OperateLeds.greencol2secondbyte)
-        ser.write(OperateLeds.greencol31firstbyte)
-        ser.write(OperateLeds.greencol4secondbyte)
-
-        ser.write(OperateLeds.redcol1firstbyte )
-        ser.write(OperateLeds.redcol2secondbyte)
-        ser.write(OperateLeds.redcol3firstbyte )
-        ser.write(OperateLeds.redcol4secondbyte)   
+                
+        ser.write(bytes( [OperateLeds.greencol2secondbyte]))
+        ser.write(bytes( [OperateLeds.greencol1firstbyte]))
+        ser.write(bytes( [OperateLeds.greencol4secondbyte]))
+        ser.write(bytes( [OperateLeds.greencol31firstbyte]))
         
-        print ('OperateLeds.row = ', OperateLeds.row)
-        print (OperateLeds.greencol1firstbyte)
-        print (OperateLeds.greencol2secondbyte)
-        print (OperateLeds.greencol31firstbyte)
-        print (OperateLeds.greencol4secondbyte)
-        print (OperateLeds.redcol1firstbyte)
-        print (OperateLeds.redcol2secondbyte)
-        print (OperateLeds.redcol3firstbyte)
-        print (OperateLeds.redcol4secondbyte)
         
-
-
+        ser.write(bytes( [OperateLeds.redcol2secondbyte]))
+        ser.write(bytes( [OperateLeds.redcol1firstbyte]))
+        ser.write(bytes( [OperateLeds.redcol4secondbyte]))
+        ser.write(bytes( [OperateLeds.redcol3firstbyte]))
         OperateLeds.row += 1
 
 

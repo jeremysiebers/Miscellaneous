@@ -10,8 +10,8 @@
 #define EUSART1_TX_BUFFER_SIZE 20
 #define EUSART1_RX_BUFFER_SIZE 33
 #define FP 20000000
-#define BAUDRATE 19200
-#define BRGVAL 64//(unsigned char)((FP/BAUDRATE)/16)-1
+#define BAUDRATE 19200 // BRGVAL = 64    , Baudrate of 250000 -> BRGVAL = 4
+#define BRGVAL 4//(unsigned char)((FP/BAUDRATE)/16)-1
 
 /**
   Section: Global Variables
