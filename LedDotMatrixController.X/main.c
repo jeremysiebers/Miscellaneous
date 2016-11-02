@@ -173,15 +173,15 @@ void main(void) {
                 ActiveDisplayRow = 0x7F;}
             
             
-			GreenCol1Byte   = table[ActualTable[OperateLedsRow + 0]];
-			GreenCol2Byte   = table[ActualTable[OperateLedsRow + 1]];
-			GreenCol3Byte   = table[ActualTable[OperateLedsRow + 2]];
-			GreenCol4Byte   = table[ActualTable[OperateLedsRow + 3]];
+			GreenCol1Byte   = ActualTable[OperateLedsRow + 0];//table[ActualTable[OperateLedsRow + 0]];
+			GreenCol2Byte   = ActualTable[OperateLedsRow + 1];//table[ActualTable[OperateLedsRow + 1]];
+			GreenCol3Byte   = ActualTable[OperateLedsRow + 2];//table[ActualTable[OperateLedsRow + 2]];
+			GreenCol4Byte   = ActualTable[OperateLedsRow + 3];//table[ActualTable[OperateLedsRow + 3]];
 			
-			RedCol1Byte     = table[ActualTable[OperateLedsRow + 4]];
-            RedCol2Byte     = table[ActualTable[OperateLedsRow + 5]];
-			RedCol3Byte     = table[ActualTable[OperateLedsRow + 6]];
-			RedCol4Byte     = table[ActualTable[OperateLedsRow + 7]];
+			RedCol1Byte     = ActualTable[OperateLedsRow + 4];//table[ActualTable[OperateLedsRow + 4]];
+            RedCol2Byte     = ActualTable[OperateLedsRow + 5];//table[ActualTable[OperateLedsRow + 5]];
+			RedCol3Byte     = ActualTable[OperateLedsRow + 6];//table[ActualTable[OperateLedsRow + 6]];
+			RedCol4Byte     = ActualTable[OperateLedsRow + 7];//table[ActualTable[OperateLedsRow + 7]];
 			
         }
         
