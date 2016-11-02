@@ -60,6 +60,8 @@ red = 1
 orange = 0 
 black = 1
 
+StopProgram = 0
+
 def main(): 
     
     print ('Blink the LED'"'"'S!')
@@ -112,6 +114,22 @@ def main():
                 
             if (black):
                 SetLed(randint(0,16) ,randint(0,16) , 0,'orange', True)
+                
+            if (StopProgram == True):
+                print ('Stopping thread rt and ReadUser...')
+                rt.stop()
+                UserIn.stop()
+                time.sleep(0.1) 
+        
+                print ('Set Dot matrix display to default routine...')
+                for x in range (0, 16):
+                    ser.write(bytes( [0x5]))
+        
+                print ('Release serial port')
+                ser.close()
+        
+                print ('Bye...')   
+                exit()
   
             time.sleep(0.01) 
            
@@ -122,7 +140,7 @@ def main():
         
         print ('Stopping thread rt and ReadUser...')
         rt.stop()
-        ReadUser.stop()
+        UserIn.stop()
         time.sleep(0.1) 
 
         print ('Set Dot matrix display to default routine...')
@@ -170,7 +188,10 @@ def ReadUser():
     global red
     global orange
     global black
+    global StopProgram
     
+    if (userinput == '0'):
+        StopProgram = True        
     if (userinput == '1'):
         green = not green
     if (userinput == '2'):
