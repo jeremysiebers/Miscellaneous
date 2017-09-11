@@ -1,0 +1,37 @@
+MPASM  5.21                            MAIN.H   11-28-2009  13:46:48         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 #ifndef __Main_H
+                      00002 #define __Main_H
+                      00003 
+                      00004 #define Led1                                            PORTAbits.RA4
+                      00005 #define On                                                      1
+                      00006 #define Off                                                     0
+                      00007 #define True                                            1
+                      00008 #define False                                           0
+                      00009 
+                      00010 #endif
+Error[129]  : Expected (END)
+MPASM  5.21                            MAIN.H   11-28-2009  13:46:48         PAGE  2
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+False                             0
+Led1                              PORTAbits.RA4
+Off                               0
+On                                1
+True                              1
+__18F4550                         00000001
+__DEBUG                           1
+__Main_H                          
+
+Errors   :     1
+Warnings :     0 reported,     0 suppressed
+Messages :     0 reported,     0 suppressed
+
+

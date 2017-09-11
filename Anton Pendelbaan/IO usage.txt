@@ -1,0 +1,38 @@
+PORTA 0    Wl_Right_Bnd
+PORTA 1    Wl_Right_Str
+PORTA 2    Wl_Left_Bnd
+PORTA 3    Wl_Left_Str
+PORTA 4    Led1
+PORTA 5
+
+PORTB 0    But_Start
+PORTB 1    But_RF
+PORTB 2    But_Middle
+PORTB 3    But_RB
+PORTB 4    But_LF
+PORTB 5    But_LB
+PORTB 6
+PORTB 7
+
+PORTC 0    Brake
+PORTC 1
+PORTC 2
+PORTC 3
+PORTC 4
+PORTC 5
+PORTC 6    RS232
+PORTC 7    RS232
+
+PORTD 0    Reed_Contact_RF
+PORTD 1    Reed_Contact_RB
+PORTD 2    Reed_Contact_LF
+PORTD 3    Reed_Contact_LB
+PORTD 4
+PORTD 5    Led Red
+PORTD 6    Led Green
+PORTD 7    But_Stop
+
+PORTE 0
+PORTE 1
+PORTE 2
+PORTE 3    MRESET
