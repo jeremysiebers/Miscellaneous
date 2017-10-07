@@ -43,9 +43,8 @@ namespace Pendelbaan
                 _serialPort.Parity = _parity;
                 _serialPort.PortName = _portName;
                 _serialPort.StopBits = _stopBits;
-            _serialPort.Open();
-                //_serialPort.DataReceived += new SerialDataReceivedEventHandler(_serialPort_DataReceived);
-
+                _serialPort.Open();
+                
                 byte[] buffer = new byte[8];
                 Action kickoffRead = null;
                 kickoffRead = delegate {
@@ -65,38 +64,9 @@ namespace Pendelbaan
                         kickoffRead();
                     }, null);
                 };
-                kickoffRead();
-
-            
+                kickoffRead();            
         }
-
-        /*void _serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {          
-
-
-            
-            //Initialize a buffer to hold the received data 
-            byte[] buffer = new byte[_serialPort.ReadBufferSize];
-
-            //There is no accurate method for checking how many bytes are read 
-            //unless you check the return from the Read method 
-            int bytesRead = _serialPort.Read(buffer, 0, buffer.Length);
-
-            //For the example assume the data we are received is ASCII data. 
-            tString += Encoding.ASCII.GetString(buffer, 0, bytesRead);
-            //Check if string contains the terminator  
-            if (tString.IndexOf((char)_terminator) > -1)
-            {
-                //If tString does contain terminator we cannot assume that it is the last character received 
-                string workingString = tString.Substring(0, tString.IndexOf((char)_terminator));
-                //Remove the data up to the terminator from tString 
-                tString = tString.Substring(tString.IndexOf((char)_terminator));
-                //Do something with workingString 
-                Console.WriteLine(workingString);
-            }
-            
-        }*/
-
+        
         private void raiseAppSerialDataEvent(byte[] received)
         {
             tString += Encoding.ASCII.GetString(received);

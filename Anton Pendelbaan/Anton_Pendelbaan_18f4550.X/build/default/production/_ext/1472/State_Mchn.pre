@@ -6081,57 +6081,51 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 23 "../State_Mchn.h"
+# 27 "../State_Mchn.h"
 extern void Update_StateMchn(void);
 
-# 56 "../State_Mchn.c"
-unsigned char MaxJerkPwm_Brake = 80,
-MaxJerkPwm_Brake_Old = 80,
-Switch_Junction = 0,
+# 11 "../api.h"
+extern void APIxInitialize(void);
+extern unsigned int GETxAPIxRW(unsigned char index);
+extern void SETxAPIxVAL(unsigned char index, unsigned int value);
+extern void INCRxAPIxVAL(unsigned char index);
+extern void DECRxAPIxVAL(unsigned char index);
+extern unsigned int GETxAPIxVAL(unsigned char index);
+extern unsigned int API[];
+
+# 52 "../State_Mchn.c"
+unsigned char Switch_Junction = 0,
 Switch_Train_Move = 0,
 Switch_Main = 0,
 Switch_Main_Old = 0,
 Switch_Program = 0,
 Switch_Program_Old = 0,
 Switch_Train_Path = 0,
+Switch_Adjust_LB = 0,
+Switch_Adjust_LF = 0,
+Switch_Adjust_RB = 0,
+Switch_Adjust_RF = 0,
+Switch_Init = 0,
+Switch_Activate_Controls = 0,
+Stop_Program = 0,
 Reed_Contact_LF_Counter = 0,
 Reed_Contact_LB_Counter = 0,
 Reed_Contact_RF_Counter = 0,
 Reed_Contact_RB_Counter = 0,
-Rd_Rb = 0,
-Rd_Rf = 0,
-Rd_Lb = 0,
-Rd_Lf = 0,
+Reed_Contact_LMU_Counter = 0,
+Reed_Contact_LMD_Counter = 0,
+Reed_Contact_RMU_Counter = 0,
+Reed_Contact_RMD_Counter = 0,
 Button_Contact_Counter_Start = 0,
 Button_Contact_Counter_Stop = 0,
 Button_Contact_Counter_Middle = 0,
 Button_Contact_Counter_LB = 0,
 Button_Contact_Counter_LF = 0,
 Button_Contact_Counter_RB = 0,
-Button_Contact_Counter_RF = 0,
-Button_Start = 0,
-Button_Stop = 0,
-Button_Middle = 0,
-Button_LB = 0,
-Button_LF = 0,
-Button_RB = 0,
-Button_RF = 0,
-Switch_Adjust_LB = 0,
-Switch_Adjust_LF = 0,
-Switch_Adjust_RB = 0,
-Switch_Adjust_RF = 0,
-Switch_Init = 0,
-Stop_Program = 0,
-Train_Pos1 = 0,
-Train_Pos2 = 0,
-Switch_Activate_Controls = 0;
+Button_Contact_Counter_RF = 0;
 
 
-unsigned int MaxPwmRight = 725,
-MaxPwmRight_Old = 725,
-MaxPwmLeft = 307,
-MaxPwmLeft_Old = 307,
-Train_Move_Pwm_Count = 511,
+unsigned int Train_Move_Pwm_Count = 511,
 Train_Move_Pwm_Fast_Count = 0,
 Adjust_Counter = 0,
 Green_Led_Counter = 0,
@@ -6141,6 +6135,10 @@ Activate_Controls_Counter = 0;
 
 static char Junction(unsigned char Left_Right, unsigned char Straight_Bend);
 static char Train_Move_Right_Start(void);
+static char Right_Mountain_From_The_Right(unsigned char rc);
+static char Left_Mountain_From_The_Right(unsigned char rc);
+static char Left_Mountain_From_The_Left(unsigned char rc);
+static char Right_Mountain_From_The_Left(unsigned char rc);
 static char Train_Move_Right_Brake(void);
 static char Train_Move_Left_Start(void);
 static char Train_Move_Left_Brake(void);
@@ -6150,6 +6148,7 @@ static void Eeprom_Store(void);
 static void Green_Led(unsigned char Operation);
 static void Red_Led(unsigned char Operation);
 
+# 120
 void Update_StateMchn(void)
 {
 Debounce_Inputs();
@@ -6158,99 +6157,38 @@ switch (Switch_Main)
 {
 case 0 : switch(Switch_Init)
 {
-case 0 : EECON1bits.EEPGD = 0;
-EEADR = 0x04;
-EECON1bits.RD = 1;
-MaxJerkPwm_Brake = EEDATA;
-
-EECON1bits.EEPGD = 0;
-EEADR = 0x00;
-EECON1bits.RD = 1;
-MaxPwmRight = EEDATA;
-MaxPwmRight = MaxPwmRight<<8;
-EECON1bits.EEPGD = 0;
-EEADR = 0x01;
-EECON1bits.RD = 1;
-MaxPwmRight = MaxPwmRight | EEDATA;
-if(MaxPwmRight <= 550)
-{
-MaxPwmRight = 725;
-MaxJerkPwm_Brake = 80;
-}
-
-# 153
-EECON1bits.EEPGD = 0;
-EEADR = 0x02;
-EECON1bits.RD = 1;
-MaxPwmLeft = EEDATA;
-MaxPwmLeft = MaxPwmLeft<<8;
-EECON1bits.EEPGD = 0;
-EEADR = 0x03;
-EECON1bits.RD = 1;
-MaxPwmLeft = MaxPwmLeft | EEDATA;
-if(MaxPwmLeft >= 460)
-{
-MaxPwmLeft = 307;
-MaxJerkPwm_Brake = 80;
-}
-
-EECON1bits.EEPGD = 0;
-EEADR = 0x05;
-EECON1bits.RD = 1;
-Switch_Main_Old = EEDATA;
-
-EECON1bits.EEPGD = 0;
-EEADR = 0x06;
-EECON1bits.RD = 1;
-Switch_Program_Old = EEDATA;
-
-
-
-MaxPwmRight_Old = MaxPwmRight;
-MaxPwmLeft_Old = MaxPwmLeft;
-MaxJerkPwm_Brake_Old = MaxJerkPwm_Brake;
-
-Green_Led(0);
+case 0 : Green_Led(0);
 Red_Led(0);
-
-if(Stop_Program == 1 && Switch_Main_Old == 1)
-{
-Switch_Init = 7;
-}
-else if(Stop_Program == 1 && Switch_Main_Old == 2)
-{
-Switch_Init = 10;
-}
-else {Switch_Init = 1;}
+Switch_Init = 1;
 break;
 
-case 1 : if(Button_LB)
+case 1 : if(GETxAPIxVAL(19))
 {
-Train_Pos1 = 0;
+SETxAPIxVAL(23, 0);
 Switch_Init = 2;
 break;
 }
-if(Button_LF)
+if(GETxAPIxVAL(20))
 {
-Train_Pos1 = 1;
+SETxAPIxVAL(23, 1);
 Switch_Init = 2;
 break;
 }
-if(Button_RB)
+if(GETxAPIxVAL(21))
 {
-Train_Pos1 = 2;
+SETxAPIxVAL(23, 2);
 Switch_Init = 2;
 break;
 }
-if(Button_RF)
+if(GETxAPIxVAL(22))
 {
-Train_Pos1 = 3;
+SETxAPIxVAL(23, 3);
 Switch_Init = 2;
 break;
 }
-if(Button_Middle)
+if(GETxAPIxVAL(18))
 {
-Train_Pos1 = 4;
+SETxAPIxVAL(23, 4);
 Switch_Init = 2;
 break;
 }
@@ -6258,7 +6196,7 @@ Switch_Init = 1;
 Green_Led(2);
 break;
 
-case 2 : if(!Button_LB && !Button_LF && !Button_RB && !Button_RF && !Button_Middle && !Button_Start)
+case 2 : if(!GETxAPIxVAL(19) && !GETxAPIxVAL(20) && !GETxAPIxVAL(21) && !GETxAPIxVAL(22) && !GETxAPIxVAL(18) && !GETxAPIxVAL(16))
 {
 Switch_Init = 3;
 }
@@ -6266,39 +6204,39 @@ Red_Led(0);
 Green_Led(2);
 break;
 
-case 3 : if(Button_LB)
+case 3 : if(GETxAPIxVAL(19))
 {
-Train_Pos2 = 0;
+SETxAPIxVAL(24, 0);
 Switch_Init = 4;
 break;
 }
-if(Button_LF)
+if(GETxAPIxVAL(20))
 {
-Train_Pos2 = 1;
+SETxAPIxVAL(24, 1);
 Switch_Init = 4;
 break;
 }
-if(Button_RB)
+if(GETxAPIxVAL(21))
 {
-Train_Pos2 = 2;
+SETxAPIxVAL(24, 2);
 Switch_Init = 4;
 break;
 }
-if(Button_RF)
+if(GETxAPIxVAL(22))
 {
-Train_Pos2 = 3;
+SETxAPIxVAL(24, 3);
 Switch_Init = 4;
 break;
 }
-if(Button_Middle)
+if(GETxAPIxVAL(18))
 {
-Train_Pos2 = 4;
+SETxAPIxVAL(24, 4);
 Switch_Init = 4;
 break;
 }
-if(Button_Start)
+if(GETxAPIxVAL(16))
 {
-Train_Pos2 = 9;
+SETxAPIxVAL(24, 9);
 Switch_Init = 4;
 break;
 }
@@ -6306,14 +6244,14 @@ Green_Led(2);
 Switch_Init = 3;
 break;
 
-case 4 : if(!Button_LB && !Button_LF && !Button_RB && !Button_RF && !Button_Middle && !Button_Start)
+case 4 : if(!GETxAPIxVAL(19) && !GETxAPIxVAL(20) && !GETxAPIxVAL(21) && !GETxAPIxVAL(22) && !GETxAPIxVAL(18) && !GETxAPIxVAL(16))
 {
-if(Train_Pos1 == Train_Pos2)
+if(GETxAPIxVAL(23) == GETxAPIxVAL(24))
 {
 Red_Led(1);
 Switch_Init = 1;
 }
-if(Train_Pos1 != Train_Pos2)
+if(GETxAPIxVAL(23) != GETxAPIxVAL(24))
 {
 Switch_Init = 5;
 }
@@ -6321,81 +6259,20 @@ Switch_Init = 5;
 Green_Led(2);
 break;
 
-case 5 : if(Train_Pos2 != 9)
+case 5 : if(GETxAPIxVAL(24) != 9)
 {
 Switch_Init = 6;
 }
-if(Train_Pos2 == 9)
+if(GETxAPIxVAL(24) == 9)
 {
 Switch_Init = 9;
 }
 break;
 
-case 6 : switch(Switch_Program_Old)
-{
-case 0 : if((Train_Pos1 == 1) && (Train_Pos2 == 2))
-{
-Switch_Program = Switch_Program_Old;
-Switch_Init = 7;
-}
-else {Switch_Init = 8;}
-break;
-case 1 : if((Train_Pos1 == 1) && (Train_Pos2 == 0))
-{
-Switch_Program = Switch_Program_Old;
-Switch_Init = 7;
-}
-else {Switch_Init = 8;}
-break;
-case 2 : if((Train_Pos1 == 0) && (Train_Pos2 == 2))
-{
-Switch_Program = Switch_Program_Old;
-Switch_Init = 7;
-}
-else {Switch_Init = 8;}
-break;
-case 3 : if((Train_Pos1 == 2) && (Train_Pos2 == 3))
-{
-Switch_Program = Switch_Program_Old;
-Switch_Init = 7;
-}
-else {Switch_Init = 8;}
-break;
-case 4 : if((Train_Pos1 == 0) && (Train_Pos2 == 3))
-{
-Switch_Program = Switch_Program_Old;
-Switch_Init = 7;
-}
-else {Switch_Init = 8;}
-break;
-case 5 : if((Train_Pos1 == 0) && (Train_Pos2 == 1))
-{
-Switch_Program = Switch_Program_Old;
-Switch_Init = 7;
-}
-else {Switch_Init = 8;}
-break;
-case 6 : if((Train_Pos1 == 1) && (Train_Pos2 == 3))
-{
-Switch_Program = Switch_Program_Old;
-Switch_Init = 7;
-}
-else {Switch_Init = 8;}
-break;
-case 7 : if((Train_Pos1 == 3) && (Train_Pos2 == 2))
-{
-Switch_Program = Switch_Program_Old;
-Switch_Init = 7;
-}
-else {Switch_Init = 8;}
+case 6 : Switch_Init = 8;
 break;
 
-default : Switch_Init = 8;
-break;
-}
-break;
-
-case 7 : if(Button_Start)
+case 7 : if(GETxAPIxVAL(16))
 {
 Switch_Main = 1;
 Switch_Init = 0;
@@ -6405,30 +6282,9 @@ Green_Led(3);
 Red_Led(0);
 break;
 
-case 8 : if(Train_Pos1 == 4)
+case 8 : if(GETxAPIxVAL(23) == 4)
 {
-switch(Train_Pos2)
-{
-case 0 : Switch_Program = 1;
-Switch_Init = 7;
-break;
-case 1 : Switch_Program = 5;
-Switch_Init = 7;
-break;
-case 2 : Switch_Program = 2;
-Switch_Init = 7;
-break;
-case 3 : Switch_Program = 3;
-Switch_Init = 7;
-break;
-default : Switch_Init = 8;
-Red_Led(1);
-break;
-}
-}
-if(Train_Pos2 == 4)
-{
-switch(Train_Pos1)
+switch(GETxAPIxVAL(24))
 {
 case 0 : Switch_Program = 1;
 Switch_Init = 7;
@@ -6447,11 +6303,32 @@ Red_Led(1);
 break;
 }
 }
-if((Train_Pos1 != 4) && (Train_Pos2 != 4))
+if(GETxAPIxVAL(24) == 4)
 {
-switch(Train_Pos1)
+switch(GETxAPIxVAL(23))
 {
-case 0 : switch(Train_Pos2)
+case 0 : Switch_Program = 1;
+Switch_Init = 7;
+break;
+case 1 : Switch_Program = 5;
+Switch_Init = 7;
+break;
+case 2 : Switch_Program = 2;
+Switch_Init = 7;
+break;
+case 3 : Switch_Program = 3;
+Switch_Init = 7;
+break;
+default : Switch_Init = 8;
+Red_Led(1);
+break;
+}
+}
+if((GETxAPIxVAL(23) != 4) && (GETxAPIxVAL(24) != 4))
+{
+switch(GETxAPIxVAL(23))
+{
+case 0 : switch(GETxAPIxVAL(24))
 {
 case 0 : Switch_Init = 0;
 break;
@@ -6469,7 +6346,7 @@ Red_Led(1);
 break;
 }
 break;
-case 1 : switch(Train_Pos2)
+case 1 : switch(GETxAPIxVAL(24))
 {
 case 0 : Switch_Program = 1;
 Switch_Init = 7;
@@ -6487,7 +6364,7 @@ Red_Led(1);
 break;
 }
 break;
-case 2 : switch(Train_Pos2)
+case 2 : switch(GETxAPIxVAL(24))
 {
 case 0 : Switch_Program = 2;
 Switch_Init = 7;
@@ -6505,7 +6382,7 @@ Red_Led(1);
 break;
 }
 break;
-case 3 : switch(Train_Pos2)
+case 3 : switch(GETxAPIxVAL(24))
 {
 case 0 : Switch_Program = 4;
 Switch_Init = 7;
@@ -6530,43 +6407,10 @@ break;
 }
 break;
 
-case 9 : switch(Switch_Program_Old)
-{
-case 0 : if(Train_Pos1 == 2)
-{
-Switch_Program = Switch_Program_Old;
-Switch_Init = 10;
-}
-else {Switch_Init = 11;}
-break;
-case 1 : if(Train_Pos1 == 0)
-{
-Switch_Program = Switch_Program_Old;
-Switch_Init = 10;
-}
-else {Switch_Init = 11;}
-break;
-case 2 : if(Train_Pos1 == 3)
-{
-Switch_Program = Switch_Program_Old;
-Switch_Init = 10;
-}
-else {Switch_Init = 11;}
-break;
-case 3 : if(Train_Pos1 == 1)
-{
-Switch_Program = Switch_Program_Old;
-Switch_Init = 10;
-}
-else {Switch_Init = 11;}
+case 9 : Switch_Init = 11;
 break;
 
-default : Switch_Init = 11;
-break;
-}
-break;
-
-case 10 : if(Button_Start)
+case 10 : if(GETxAPIxVAL(16))
 {
 Switch_Main = 2;
 Switch_Init = 0;
@@ -6576,12 +6420,12 @@ Green_Led(3);
 Red_Led(0);
 break;
 
-case 11 : if(Train_Pos1 == 4)
+case 11 : if(GETxAPIxVAL(23) == 4)
 {
 Switch_Program = 0;
 Switch_Init = 10;
 }
-else switch(Train_Pos1)
+else switch(GETxAPIxVAL(23))
 {
 case 0 : Switch_Program = 1;Switch_Init = 10; break;
 case 1 : Switch_Program = 3;Switch_Init = 10; break;
@@ -6704,7 +6548,7 @@ default : break;
 
 switch(Switch_Activate_Controls)
 {
-case 0 : if(Button_LF && Button_RF)
+case 0 : if(GETxAPIxVAL(20) && GETxAPIxVAL(22))
 {
 Switch_Activate_Controls = 1;
 Red_Led(3);
@@ -6716,7 +6560,7 @@ Red_Led(0);
 }
 break;
 
-case 1 : if(!Button_LF && !Button_RF)
+case 1 : if(!GETxAPIxVAL(20) && !GETxAPIxVAL(22))
 {
 Switch_Activate_Controls = 2;
 Red_Led(3);
@@ -6729,7 +6573,7 @@ Red_Led(3);
 Activate_Controls_Counter = 10000;
 break;
 
-case 2 : if(!Button_LF && !Button_RF && !Button_RB && !Button_LB)
+case 2 : if(!GETxAPIxVAL(20) && !GETxAPIxVAL(22) && !GETxAPIxVAL(21) && !GETxAPIxVAL(19))
 {
 Activate_Controls_Counter--;
 }
@@ -6740,20 +6584,20 @@ Activate_Controls_Counter = 10000;
 
 Red_Led(3);
 
-switch(Button_LB)
+switch(GETxAPIxVAL(19))
 {
 case 0 : Switch_Adjust_LB = 0;
 break;
 
 case 1 : switch(Switch_Adjust_LB)
 {
-case 0 : if(MaxPwmRight >= 550)
+case 0 : if(GETxAPIxVAL(7) >= GETxAPIxVAL(6))
 {
-MaxPwmRight--;
+DECRxAPIxVAL(7);
 }
-if(MaxPwmLeft <= 460)
+if(GETxAPIxVAL(8) <= GETxAPIxVAL(5))
 {
-MaxPwmLeft++;
+INCRxAPIxVAL(8);
 }
 Switch_Adjust_LB = 1;
 break;
@@ -6776,20 +6620,20 @@ default : break;
 }
 
 
-switch(Button_LF)
+switch(GETxAPIxVAL(20))
 {
 case 0 : Switch_Adjust_LF = 0;
 break;
 
 case 1 : switch(Switch_Adjust_LF)
 {
-case 0 : if(MaxPwmRight <= 1022)
+case 0 : if(GETxAPIxVAL(7) <= 1022)
 {
-MaxPwmRight++;
+INCRxAPIxVAL(7);
 }
-if(MaxPwmLeft >= 1)
+if(GETxAPIxVAL(8) >= 1)
 {
-MaxPwmLeft--;
+DECRxAPIxVAL(8);
 }
 Switch_Adjust_LF = 1;
 break;
@@ -6811,16 +6655,16 @@ break;
 default : break;
 }
 
-switch(Button_RB)
+switch(GETxAPIxVAL(21))
 {
 case 0 : Switch_Adjust_RB = 0;
 break;
 
 case 1 : switch(Switch_Adjust_RB)
 {
-case 0 : if(MaxJerkPwm_Brake <= 250)
+case 0 : if(GETxAPIxVAL(9) <= 250)
 {
-MaxJerkPwm_Brake++;
+INCRxAPIxVAL(9);
 }
 Switch_Adjust_RB = 1;
 break;
@@ -6843,18 +6687,17 @@ default : break;
 }
 
 
-switch(Button_RF)
+switch(GETxAPIxVAL(22))
 {
 case 0 : Switch_Adjust_RF = 0;
 break;
 
 case 1 : switch(Switch_Adjust_RF)
 {
-case 0 : if(MaxJerkPwm_Brake >= 1)
+case 0 : if(GETxAPIxVAL(9) >= 1)
 {
-MaxJerkPwm_Brake--;
-}
-Switch_Adjust_RF = 1;
+DECRxAPIxVAL(9);
+} Switch_Adjust_RF = 1;
 break;
 
 case 1 : if(Adjust_Counter >= 20)
@@ -6885,7 +6728,7 @@ Red_Led(0);
 break;
 }
 
-if(Button_Stop)
+if(GETxAPIxVAL(17))
 {
 Stop_Program = 1;
 }
@@ -6955,7 +6798,7 @@ default : break;
 
 switch(Switch_Activate_Controls)
 {
-case 0 : if(Button_LF && Button_RF)
+case 0 : if(GETxAPIxVAL(20) && GETxAPIxVAL(22))
 {
 Switch_Activate_Controls = 1;
 Red_Led(3);
@@ -6967,7 +6810,7 @@ Red_Led(0);
 }
 break;
 
-case 1 : if(!Button_LF && !Button_RF)
+case 1 : if(!GETxAPIxVAL(20) && !GETxAPIxVAL(22))
 {
 Switch_Activate_Controls = 2;
 Red_Led(3);
@@ -6980,7 +6823,7 @@ Red_Led(3);
 Activate_Controls_Counter = 10000;
 break;
 
-case 2 : if(!Button_LF && !Button_RF && !Button_RB && !Button_LB)
+case 2 : if(!GETxAPIxVAL(20) && !GETxAPIxVAL(22) && !GETxAPIxVAL(21) && !GETxAPIxVAL(19))
 {
 Activate_Controls_Counter--;
 }
@@ -6991,20 +6834,20 @@ Activate_Controls_Counter = 10000;
 
 Red_Led(3);
 
-switch(Button_LB)
+switch(GETxAPIxVAL(19))
 {
 case 0 : Switch_Adjust_LB = 0;
 break;
 
 case 1 : switch(Switch_Adjust_LB)
 {
-case 0 : if(MaxPwmRight >= 550)
+case 0 : if(GETxAPIxVAL(7) >= GETxAPIxVAL(6))
 {
-MaxPwmRight--;
+DECRxAPIxVAL(7);
 }
-if(MaxPwmLeft <= 460)
+if(GETxAPIxVAL(8) <= GETxAPIxVAL(5))
 {
-MaxPwmLeft++;
+INCRxAPIxVAL(8);
 }
 Switch_Adjust_LB = 1;
 break;
@@ -7027,20 +6870,20 @@ default : break;
 }
 
 
-switch(Button_LF)
+switch(GETxAPIxVAL(20))
 {
 case 0 : Switch_Adjust_LF = 0;
 break;
 
 case 1 : switch(Switch_Adjust_LF)
 {
-case 0 : if(MaxPwmRight <= 1022)
+case 0 : if(GETxAPIxVAL(7) <= 1022)
 {
-MaxPwmRight++;
+INCRxAPIxVAL(7);
 }
-if(MaxPwmLeft >= 1)
+if(GETxAPIxVAL(8) >= 1)
 {
-MaxPwmLeft--;
+DECRxAPIxVAL(8);
 }
 Switch_Adjust_LF = 1;
 break;
@@ -7062,16 +6905,16 @@ break;
 default : break;
 }
 
-switch(Button_RB)
+switch(GETxAPIxVAL(21))
 {
 case 0 : Switch_Adjust_RB = 0;
 break;
 
 case 1 : switch(Switch_Adjust_RB)
 {
-case 0 : if(MaxJerkPwm_Brake <= 250)
+case 0 : if(GETxAPIxVAL(9) <= 250)
 {
-MaxJerkPwm_Brake++;
+INCRxAPIxVAL(9);
 }
 Switch_Adjust_RB = 1;
 break;
@@ -7094,16 +6937,16 @@ default : break;
 }
 
 
-switch(Button_RF)
+switch(GETxAPIxVAL(22))
 {
 case 0 : Switch_Adjust_RF = 0;
 break;
 
 case 1 : switch(Switch_Adjust_RF)
 {
-case 0 : if(MaxJerkPwm_Brake >= 1)
+case 0 : if(GETxAPIxVAL(9) >= 1)
 {
-MaxJerkPwm_Brake--;
+DECRxAPIxVAL(9);
 }
 Switch_Adjust_RF = 1;
 break;
@@ -7140,6 +6983,7 @@ default : break;
 }
 }
 
+# 968
 static void Green_Led(unsigned char Operation)
 {
 switch(Operation)
@@ -7176,6 +7020,7 @@ default : break;
 }
 }
 
+# 1018
 static void Red_Led(unsigned char Operation)
 {
 switch(Operation)
@@ -7212,6 +7057,7 @@ default : break;
 }
 }
 
+# 1068
 static char Train_Path(unsigned char From, unsigned char To)
 {
 static char Return_Val = (char)-1;
@@ -7322,40 +7168,90 @@ break;
 
 case 3 : switch(To)
 {
-case 2 : if(Rd_Rb == 1)
-{
+case 2 : if(GETxAPIxVAL(12) == 1){
 Switch_Train_Path = 4;
-Return_Val = (char)-1;
 }
-SetDCPWM1(MaxPwmRight);
-Train_Move_Pwm_Count = MaxPwmRight;
+else if(GETxAPIxVAL(25) == 1){
+Switch_Train_Path = 5;
+}
+else if(GETxAPIxVAL(26) == 1){
+Switch_Train_Path = 6;
+}
+else if(GETxAPIxVAL(28) == 1){
+Switch_Train_Path = 7;
+}
+else if(GETxAPIxVAL(27) == 1){
+Switch_Train_Path = 8;
+}
+else{
+SetDCPWM1(GETxAPIxVAL(7));
+Train_Move_Pwm_Count = GETxAPIxVAL(7);
+}
 Return_Val = (char)-1;
 break;
-case 3 : if(Rd_Rf == 1)
-{
+case 3 : if(GETxAPIxVAL(13) == 1){
 Switch_Train_Path = 4;
-Return_Val = (char)-1;
 }
-SetDCPWM1(MaxPwmRight);
-Train_Move_Pwm_Count = MaxPwmRight;
+else if(GETxAPIxVAL(25) == 1){
+Switch_Train_Path = 5;
+}
+else if(GETxAPIxVAL(26) == 1){
+Switch_Train_Path = 6;
+}
+else if(GETxAPIxVAL(28) == 1){
+Switch_Train_Path = 7;
+}
+else if(GETxAPIxVAL(27) == 1){
+Switch_Train_Path = 8;
+}
+else{
+SetDCPWM1(GETxAPIxVAL(7));
+Train_Move_Pwm_Count = GETxAPIxVAL(7);
+}
 Return_Val = (char)-1;
 break;
-case 0 : if(Rd_Lb == 1)
+case 0 : if(GETxAPIxVAL(14) == 1)
 {
 Switch_Train_Path = 4;
-Return_Val = (char)-1;
 }
-SetDCPWM1(MaxPwmLeft);
-Train_Move_Pwm_Count = MaxPwmLeft;
+else if(GETxAPIxVAL(25) == 1){
+Switch_Train_Path = 9;
+}
+else if(GETxAPIxVAL(26) == 1){
+Switch_Train_Path = 10;
+}
+else if(GETxAPIxVAL(28) == 1){
+Switch_Train_Path = 11;
+}
+else if(GETxAPIxVAL(27) == 1){
+Switch_Train_Path = 12;
+}
+else{
+SetDCPWM1(GETxAPIxVAL(8));
+Train_Move_Pwm_Count = GETxAPIxVAL(8);
+}
 Return_Val = (char)-1;
 break;
-case 1 : if(Rd_Lf == 1)
+case 1 : if(GETxAPIxVAL(15) == 1)
 {
 Switch_Train_Path = 4;
-Return_Val = (char)-1;
 }
-SetDCPWM1(MaxPwmLeft);
-Train_Move_Pwm_Count = MaxPwmLeft;
+else if(GETxAPIxVAL(25) == 1){
+Switch_Train_Path = 9;
+}
+else if(GETxAPIxVAL(26) == 1){
+Switch_Train_Path = 10;
+}
+else if(GETxAPIxVAL(28) == 1){
+Switch_Train_Path = 11;
+}
+else if(GETxAPIxVAL(27) == 1){
+Switch_Train_Path = 12;
+}
+else{
+SetDCPWM1(GETxAPIxVAL(8));
+Train_Move_Pwm_Count = GETxAPIxVAL(8);
+}
 Return_Val = (char)-1;
 break;
 default : break;
@@ -7400,12 +7296,71 @@ default : break;
 }
 break;
 
+case 5 :
+if(Left_Mountain_From_The_Left(1) == (char)0){
+Switch_Train_Path = 3;
+Return_Val = (char)-1;
+}
+break;
+
+case 6 :
+if(Left_Mountain_From_The_Left(2) == (char)0){
+Switch_Train_Path = 3;
+Return_Val = (char)-1;
+}
+break;
+
+case 7 :
+if(Right_Mountain_From_The_Left(3) == (char)0){
+Switch_Train_Path = 3;
+Return_Val = (char)-1;
+}
+break;
+
+case 8 :
+if(Right_Mountain_From_The_Left(4) == (char)0){
+Switch_Train_Path = 3;
+Return_Val = (char)-1;
+}
+break;
+
+case 9 :
+if(Right_Mountain_From_The_Right(4) == (char)0){
+Switch_Train_Path = 3;
+Return_Val = (char)-1;
+}
+break;
+
+case 10 :
+if(Right_Mountain_From_The_Right(3) == (char)0){
+Switch_Train_Path = 3;
+Return_Val = (char)-1;
+}
+break;
+
+case 11 :
+if(Left_Mountain_From_The_Right(2) == (char)0){
+Switch_Train_Path = 3;
+Return_Val = (char)-1;
+}
+break;
+
+case 12 :
+if(Left_Mountain_From_The_Right(1) == (char)0){
+Switch_Train_Path = 3;
+Return_Val = (char)-1;
+}
+break;
+
+
+
 default : Switch_Train_Path = 0; break;
 }
 
 return(Return_Val);
 }
 
+# 1385
 static char Train_Move_Left_Start(void)
 {
 static char Return_Val = (char)-1;
@@ -7415,7 +7370,7 @@ switch(Switch_Train_Move)
 {
 
 
-case 0 : if(Train_Move_Wait_Time >= 5000)
+case 0 : if(Train_Move_Wait_Time >= GETxAPIxVAL(4))
 {
 Switch_Train_Move = 1;
 Train_Move_Wait_Time = 0;
@@ -7427,14 +7382,14 @@ Switch_Train_Move = 0;
 Return_Val = (char)-1;
 break;
 
-case 1 : SetDCPWM1(460);
-Train_Move_Pwm_Count = 460;
+case 1 : SetDCPWM1(GETxAPIxVAL(5));
+Train_Move_Pwm_Count = GETxAPIxVAL(5);
 PORTCbits.RC0 = 0;
 Switch_Train_Move = 2;
 Return_Val = (char)-1;
 break;
 
-case 2 : if(Train_Move_Wait_Time >= 10000)
+case 2 : if(Train_Move_Wait_Time >= GETxAPIxVAL(2))
 {
 Switch_Train_Move = 3;
 Train_Move_Wait_Time = 0;
@@ -7448,13 +7403,13 @@ break;
 
 case 3 : SetDCPWM1(Train_Move_Pwm_Count);
 Return_Val = (char)-1;
-if (Train_Move_Pwm_Count <= MaxPwmLeft)
+if (Train_Move_Pwm_Count <= GETxAPIxVAL(8))
 {
 Switch_Train_Move = 0;
 Return_Val = (char)0;
 break;
 }
-if (Train_Move_Pwm_Fast_Count >= 45)
+if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(10))
 {
 Train_Move_Pwm_Count--;
 Train_Move_Pwm_Fast_Count = 0;
@@ -7468,6 +7423,63 @@ return(Return_Val);
 
 }
 
+# 1461
+static char Right_Mountain_From_The_Right(unsigned char rc)
+{
+static char Return_Val = (char)-1;
+if(rc == 4){
+SetDCPWM1(Train_Move_Pwm_Count);
+if (Train_Move_Pwm_Count >= GETxAPIxVAL(30))
+{
+Switch_Train_Move = 0;
+Return_Val = (char)0;
+}
+if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(10))
+{
+Train_Move_Pwm_Count++;
+Train_Move_Pwm_Fast_Count = 0;
+}
+Train_Move_Pwm_Fast_Count++;
+}
+else if (rc == 3){
+SetDCPWM1(Train_Move_Pwm_Count);
+if (Train_Move_Pwm_Count <= GETxAPIxVAL(8))
+{
+Switch_Train_Move = 0;
+Return_Val = (char)0;
+}
+if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(10))
+{
+Train_Move_Pwm_Count--;
+Train_Move_Pwm_Fast_Count = 0;
+}
+Train_Move_Pwm_Fast_Count++;
+}
+return(Return_Val);
+}
+
+# 1509
+static char Left_Mountain_From_The_Right(unsigned char rc)
+{
+static char Return_Val = (char)-1;
+return(Return_Val);
+}
+
+# 1529
+static char Left_Mountain_From_The_Left(unsigned char rc)
+{
+static char Return_Val = (char)-1;
+return(Return_Val);
+}
+
+# 1549
+static char Right_Mountain_From_The_Left(unsigned char rc)
+{
+static char Return_Val = (char)-1;
+return(Return_Val);
+}
+
+# 1569
 static char Train_Move_Left_Brake(void)
 {
 static char Return_Val = (char)-1;
@@ -7477,13 +7489,13 @@ switch(Switch_Train_Move)
 {
 case 0 : SetDCPWM1(Train_Move_Pwm_Count);
 Return_Val = (char)-1;
-if (Train_Move_Pwm_Count >= 460)
+if (Train_Move_Pwm_Count >= GETxAPIxVAL(5))
 {
 Switch_Train_Move = 1;
 Return_Val = (char)-1;
 break;
 }
-if (Train_Move_Pwm_Fast_Count >= MaxJerkPwm_Brake)
+if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(9))
 {
 Train_Move_Pwm_Count++;
 Train_Move_Pwm_Fast_Count = 0;
@@ -7491,7 +7503,7 @@ Train_Move_Pwm_Fast_Count = 0;
 Train_Move_Pwm_Fast_Count++;
 break;
 
-case 1 : if(Train_Move_Wait_Time >= 10000)
+case 1 : if(Train_Move_Wait_Time >= GETxAPIxVAL(2))
 {
 Switch_Train_Move = 2;
 Train_Move_Wait_Time = 0;
@@ -7503,14 +7515,14 @@ Train_Move_Wait_Time++;
 Switch_Train_Move = 1;
 break;
 
-case 2 : SetDCPWM1(460);
+case 2 : SetDCPWM1(GETxAPIxVAL(5));
 PORTCbits.RC0 = 1;
-Train_Move_Pwm_Count = 460;
+Train_Move_Pwm_Count = GETxAPIxVAL(5);
 Switch_Train_Move = 3;
 Return_Val = (char)-1;
 break;
 
-case 3 : if(Train_Move_Wait_Time >= 5000)
+case 3 : if(Train_Move_Wait_Time >= GETxAPIxVAL(4))
 {
 Switch_Train_Move = 0;
 Train_Move_Wait_Time = 0;
@@ -7529,6 +7541,7 @@ return(Return_Val);
 
 }
 
+# 1645
 static char Train_Move_Right_Start(void)
 {
 static char Return_Val = (char)-1;
@@ -7538,7 +7551,7 @@ switch(Switch_Train_Move)
 {
 
 
-case 0 : if(Train_Move_Wait_Time >= 5000)
+case 0 : if(Train_Move_Wait_Time >= GETxAPIxVAL(4))
 {
 Switch_Train_Move = 1;
 Train_Move_Wait_Time = 0;
@@ -7550,14 +7563,14 @@ Switch_Train_Move = 0;
 Return_Val = (char)-1;
 break;
 
-case 1 : SetDCPWM1(550);
-Train_Move_Pwm_Count = 550;
+case 1 : SetDCPWM1(GETxAPIxVAL(6));
+Train_Move_Pwm_Count = GETxAPIxVAL(6);
 PORTCbits.RC0 = 0;
 Return_Val = (char)-1;
 Switch_Train_Move = 2;
 break;
 
-case 2 : if(Train_Move_Wait_Time >= 10000)
+case 2 : if(Train_Move_Wait_Time >= GETxAPIxVAL(2))
 {
 Switch_Train_Move = 3;
 Train_Move_Wait_Time = 0;
@@ -7570,13 +7583,13 @@ Switch_Train_Move = 2;
 break;
 
 case 3 : SetDCPWM1(Train_Move_Pwm_Count);
-if (Train_Move_Pwm_Count >= MaxPwmRight)
+if (Train_Move_Pwm_Count >= GETxAPIxVAL(7))
 {
 Switch_Train_Move = 0;
 Return_Val = (char)0;
 break;
 }
-if (Train_Move_Pwm_Fast_Count >= 45)
+if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(10))
 {
 Train_Move_Pwm_Count++;
 Train_Move_Pwm_Fast_Count = 0;
@@ -7592,6 +7605,7 @@ return(Return_Val);
 
 }
 
+# 1722
 static char Train_Move_Right_Brake(void)
 {
 static char Return_Val = (char)-1;
@@ -7600,13 +7614,13 @@ static unsigned int Train_Move_Wait_Time = 0;
 switch(Switch_Train_Move)
 {
 case 0 : SetDCPWM1(Train_Move_Pwm_Count);
-if (Train_Move_Pwm_Count <= 550)
+if (Train_Move_Pwm_Count <= GETxAPIxVAL(6))
 {
 Switch_Train_Move = 1;
 Return_Val = (char)-1;
 break;
 }
-if (Train_Move_Pwm_Fast_Count >= MaxJerkPwm_Brake)
+if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(9))
 {
 Train_Move_Pwm_Count--;
 Train_Move_Pwm_Fast_Count = 0;
@@ -7615,7 +7629,7 @@ Train_Move_Pwm_Fast_Count++;
 Return_Val = (char)-1;
 break;
 
-case 1 : if(Train_Move_Wait_Time >= 10000)
+case 1 : if(Train_Move_Wait_Time >= GETxAPIxVAL(2))
 {
 Switch_Train_Move = 2;
 Train_Move_Wait_Time = 0;
@@ -7627,14 +7641,14 @@ Train_Move_Wait_Time++;
 Switch_Train_Move = 1;
 break;
 
-case 2 : SetDCPWM1(550);
+case 2 : SetDCPWM1(GETxAPIxVAL(6));
 PORTCbits.RC0 = 1;
-Train_Move_Pwm_Count = 550;
+Train_Move_Pwm_Count = GETxAPIxVAL(6);
 Switch_Train_Move = 3;
 Return_Val = (char)-1;
 break;
 
-case 3 : if(Train_Move_Wait_Time >= 5000)
+case 3 : if(Train_Move_Wait_Time >= GETxAPIxVAL(4))
 {
 Switch_Train_Move = 0;
 Train_Move_Wait_Time = 0;
@@ -7653,7 +7667,8 @@ return(Return_Val);
 
 }
 
-static char Junction(unsigned char Left_Right, unsigned char Straight_Bend)
+# 1798
+static char Junction(unsigned char Junction_Left_Right, unsigned char Straight_Bend)
 {
 static char Return_Val = (char)-1;
 static unsigned int Junction_Switch_Time = 0;
@@ -7661,7 +7676,7 @@ static unsigned int Junction_Switch_Time = 0;
 switch (Switch_Junction)
 {
 case 0 : Return_Val = (char)-1;
-switch (Left_Right)
+switch (Junction_Left_Right)
 {
 case 0 : switch (Straight_Bend)
 {
@@ -7684,7 +7699,7 @@ default : break;
 Switch_Junction = 1;
 break;
 
-case 1 : if (Junction_Switch_Time >= 800)
+case 1 : if (Junction_Switch_Time >= GETxAPIxVAL(3))
 {
 Switch_Junction = 2;
 Junction_Switch_Time = 0;
@@ -7710,20 +7725,21 @@ default : break;
 return (Return_Val);
 }
 
+# 1870
 static void Debounce_Inputs(void)
 {
 switch(PORTDbits.RD2)
 {
 case 1 : Reed_Contact_LF_Counter = 0;
-Rd_Lf = 0;
+SETxAPIxVAL(15, 0);
 break;
 
-case 0 : if(Reed_Contact_LF_Counter <= 20)
+case 0 : if(Reed_Contact_LF_Counter <= GETxAPIxVAL(11))
 {
 Reed_Contact_LF_Counter++;
 break;
 }
-else {Rd_Lf = 1;}
+else {SETxAPIxVAL(15, 1);}
 break;
 
 default : break;
@@ -7733,15 +7749,15 @@ default : break;
 switch(PORTDbits.RD3)
 {
 case 1 : Reed_Contact_LB_Counter = 0;
-Rd_Lb = 0;
+SETxAPIxVAL(14, 0);
 break;
 
-case 0 : if(Reed_Contact_LB_Counter <= 20)
+case 0 : if(Reed_Contact_LB_Counter <= GETxAPIxVAL(11))
 {
 Reed_Contact_LB_Counter++;
 break;
 }
-else {Rd_Lb = 1;}
+else {SETxAPIxVAL(14, 1);}
 break;
 
 default : break;
@@ -7751,15 +7767,15 @@ default : break;
 switch(PORTDbits.RD0)
 {
 case 1 : Reed_Contact_RF_Counter = 0;
-Rd_Rf = 0;
+SETxAPIxVAL(13, 0);
 break;
 
-case 0 : if(Reed_Contact_RF_Counter <= 20)
+case 0 : if(Reed_Contact_RF_Counter <= GETxAPIxVAL(11))
 {
 Reed_Contact_RF_Counter++;
 break;
 }
-else {Rd_Rf = 1;}
+else {SETxAPIxVAL(13, 1);}
 break;
 
 default : break;
@@ -7769,15 +7785,15 @@ default : break;
 switch(PORTDbits.RD1)
 {
 case 1 : Reed_Contact_RB_Counter = 0;
-Rd_Rb = 0;
+SETxAPIxVAL(12, 0);
 break;
 
-case 0 : if(Reed_Contact_RB_Counter <= 20)
+case 0 : if(Reed_Contact_RB_Counter <= GETxAPIxVAL(11))
 {
 Reed_Contact_RB_Counter++;
 break;
 }
-else {Rd_Rb = 1;}
+else {SETxAPIxVAL(12, 1);}
 break;
 
 default : break;
@@ -7786,16 +7802,16 @@ default : break;
 
 switch(!PORTBbits.RB0)
 {
-case 1 : if(Button_Contact_Counter_Start <= 20)
+case 1 : if(Button_Contact_Counter_Start <= GETxAPIxVAL(11))
 {
 Button_Contact_Counter_Start++;
 break;
 }
-else {Button_Start = 1; }
+else {SETxAPIxVAL(16, 1); }
 break;
 
 case 0 : Button_Contact_Counter_Start = 0;
-Button_Start = 0;
+SETxAPIxVAL(16, 0);
 break;
 
 default : break;
@@ -7804,16 +7820,16 @@ default : break;
 
 switch(!PORTDbits.RD7)
 {
-case 1 : if(Button_Contact_Counter_Stop <= 20)
+case 1 : if(Button_Contact_Counter_Stop <= GETxAPIxVAL(11))
 {
 Button_Contact_Counter_Stop++;
 break;
 }
-else {Button_Stop = 1; }
+else {SETxAPIxVAL(17, 1); }
 break;
 
 case 0 : Button_Contact_Counter_Stop = 0;
-Button_Stop = 0;
+SETxAPIxVAL(17, 0);
 break;
 
 default : break;
@@ -7822,16 +7838,16 @@ default : break;
 
 switch(!PORTBbits.RB1)
 {
-case 1 : if(Button_Contact_Counter_Middle <= 20)
+case 1 : if(Button_Contact_Counter_Middle <= GETxAPIxVAL(11))
 {
 Button_Contact_Counter_Middle++;
 break;
 }
-else {Button_Middle = 1; }
+else {SETxAPIxVAL(18, 1); }
 break;
 
 case 0 : Button_Contact_Counter_Middle = 0;
-Button_Middle = 0;
+SETxAPIxVAL(18, 0);
 break;
 
 default : break;
@@ -7840,16 +7856,16 @@ default : break;
 
 switch(!PORTBbits.RB5)
 {
-case 1 : if(Button_Contact_Counter_LB <= 20)
+case 1 : if(Button_Contact_Counter_LB <= GETxAPIxVAL(11))
 {
 Button_Contact_Counter_LB++;
 break;
 }
-else {Button_LB = 1; }
+else {SETxAPIxVAL(19, 1); }
 break;
 
 case 0 : Button_Contact_Counter_LB = 0;
-Button_LB = 0;
+SETxAPIxVAL(19, 0);
 break;
 
 default : break;
@@ -7858,16 +7874,16 @@ default : break;
 
 switch(!PORTBbits.RB4)
 {
-case 1 : if(Button_Contact_Counter_LF <= 20)
+case 1 : if(Button_Contact_Counter_LF <= GETxAPIxVAL(11))
 {
 Button_Contact_Counter_LF++;
 break;
 }
-else {Button_LF = 1; }
+else {SETxAPIxVAL(20, 1); }
 break;
 
 case 0 : Button_Contact_Counter_LF = 0;
-Button_LF = 0;
+SETxAPIxVAL(20, 0);
 break;
 
 default : break;
@@ -7876,16 +7892,16 @@ default : break;
 
 switch(!PORTBbits.RB3)
 {
-case 1 : if(Button_Contact_Counter_RB <= 20)
+case 1 : if(Button_Contact_Counter_RB <= GETxAPIxVAL(11))
 {
 Button_Contact_Counter_RB++;
 break;
 }
-else {Button_RB = 1; }
+else {SETxAPIxVAL(21, 1); }
 break;
 
 case 0 : Button_Contact_Counter_RB = 0;
-Button_RB = 0;
+SETxAPIxVAL(21, 0);
 break;
 
 default : break;
@@ -7894,34 +7910,103 @@ default : break;
 
 switch(!PORTBbits.RB2)
 {
-case 1 : if(Button_Contact_Counter_RF <= 20)
+case 1 : if(Button_Contact_Counter_RF <= GETxAPIxVAL(11))
 {
 Button_Contact_Counter_RF++;
 break;
 }
-else {Button_RF = 1; }
+else {SETxAPIxVAL(22, 1); }
 break;
 
 case 0 : Button_Contact_Counter_RF = 0;
-Button_RF = 0;
+SETxAPIxVAL(22, 0);
 break;
 
 default : break;
 }
 
+
+switch(PORTCbits.RC1)
+{
+case 1 : if(Reed_Contact_LMU_Counter <= GETxAPIxVAL(11))
+{
+Reed_Contact_LMU_Counter++;
+break;
+}
+else {SETxAPIxVAL(25, 1); }
+break;
+
+case 0 : Reed_Contact_LMU_Counter = 0;
+SETxAPIxVAL(25, 0);
+break;
+
+default : break;
 }
 
 
+switch(PORTDbits.RD4)
+{
+case 1 : if(Reed_Contact_LMD_Counter <= GETxAPIxVAL(11))
+{
+Reed_Contact_LMD_Counter++;
+break;
+}
+else {SETxAPIxVAL(26, 1); }
+break;
+
+case 0 : Reed_Contact_LMD_Counter = 0;
+SETxAPIxVAL(26, 0);
+break;
+
+default : break;
+}
+
+
+switch(PORTCbits.RC4)
+{
+case 1 : if(Reed_Contact_RMU_Counter <= GETxAPIxVAL(11))
+{
+Reed_Contact_RMU_Counter++;
+break;
+}
+else {SETxAPIxVAL(27, 1); }
+break;
+
+case 0 : Reed_Contact_RMU_Counter = 0;
+SETxAPIxVAL(27, 0);
+break;
+
+default : break;
+}
+
+
+switch(PORTCbits.RC5)
+{
+case 1 : if(Reed_Contact_RMD_Counter <= GETxAPIxVAL(11))
+{
+Reed_Contact_RMD_Counter++;
+break;
+}
+else {SETxAPIxVAL(28, 1); }
+break;
+
+case 0 : Reed_Contact_RMD_Counter = 0;
+SETxAPIxVAL(28, 0);
+break;
+
+default : break;
+}
+}
+
+# 2156
 static void Eeprom_Store(void)
 {
 INTCON = 0x00;
 
-
-
 EECON1bits.EEPGD = 0;
 EECON1bits.WREN = 1;
 EEADR = 0x01;
-EEDATA = MaxPwmRight;
+EEDATA = GETxAPIxVAL(7);
 EECON2 = 0x55;
 EECON2 = 0xaa;
 EECON1bits.WR = 1;
@@ -7931,20 +8016,17 @@ PIR2bits.EEIF = 0;
 EECON1bits.EEPGD = 0;
 EECON1bits.WREN = 1;
 EEADR = 0x00;
-EEDATA = MaxPwmRight>>8;
+EEDATA = GETxAPIxVAL(7)>>8;
 EECON2 = 0x55;
 EECON2 = 0xaa;
 EECON1bits.WR = 1;
 while (!PIR2bits.EEIF);
 PIR2bits.EEIF = 0;
 
-
-
-
 EECON1bits.EEPGD = 0;
 EECON1bits.WREN = 1;
 EEADR = 0x03;
-EEDATA = MaxPwmLeft;
+EEDATA = GETxAPIxVAL(8);
 EECON2 = 0x55;
 EECON2 = 0xaa;
 EECON1bits.WR = 1;
@@ -7954,46 +8036,17 @@ PIR2bits.EEIF = 0;
 EECON1bits.EEPGD = 0;
 EECON1bits.WREN = 1;
 EEADR = 0x02;
-EEDATA = MaxPwmLeft>>8;
+EEDATA = GETxAPIxVAL(8)>>8;
 EECON2 = 0x55;
 EECON2 = 0xaa;
 EECON1bits.WR = 1;
 while (!PIR2bits.EEIF);
 PIR2bits.EEIF = 0;
-
-
-
 
 EECON1bits.EEPGD = 0;
 EECON1bits.WREN = 1;
 EEADR = 0x04;
-EEDATA = MaxJerkPwm_Brake;
-EECON2 = 0x55;
-EECON2 = 0xaa;
-EECON1bits.WR = 1;
-while (!PIR2bits.EEIF);
-PIR2bits.EEIF = 0;
-
-
-
-
-EECON1bits.EEPGD = 0;
-EECON1bits.WREN = 1;
-EEADR = 0x05;
-EEDATA = Switch_Main;
-EECON2 = 0x55;
-EECON2 = 0xaa;
-EECON1bits.WR = 1;
-while (!PIR2bits.EEIF);
-PIR2bits.EEIF = 0;
-
-
-
-
-EECON1bits.EEPGD = 0;
-EECON1bits.WREN = 1;
-EEADR = 0x06;
-EEDATA = Switch_Program;
+EEDATA = GETxAPIxVAL(9);
 EECON2 = 0x55;
 EECON2 = 0xaa;
 EECON1bits.WR = 1;

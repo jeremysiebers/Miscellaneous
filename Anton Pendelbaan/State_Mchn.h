@@ -17,6 +17,10 @@
 #define Reed_Contact_LB				PORTDbits.RD3
 #define Reed_Contact_RF				PORTDbits.RD0
 #define Reed_Contact_RB				PORTDbits.RD1
+#define Reed_Contact_LMU     		PORTCbits.RC1
+#define Reed_Contact_LMD     		PORTDbits.RD4
+#define Reed_Contact_RMU     		PORTCbits.RC4
+#define Reed_Contact_RMD     		PORTCbits.RC5
 #define Red							PORTDbits.RD5
 #define Green						PORTDbits.RD6
 

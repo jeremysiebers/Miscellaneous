@@ -1,31 +1,23 @@
 #include "Main.h"
 #include "State_Mchn.h"
-//#include <p18f4550.h>
 #include <xc.h>
+#include "api.h"
 
 #define Straight	0
 #define Bend		1
 #define Left		0
 #define Right		1
-#define Start_Move	0
-#define Brake_Move	3
-#define Debounce	20
+
+//#define Start_Move	0
+//#define Brake_Move	3
+
 
 #define ERROR (char)0xEE	// general switch case when error
 #define Busy (char)-1
 #define Finished (char)0
 
-#define TrainWaitTime 10000
-#define JunctionWaitTime 800
-#define LightsOnWaitTime 5000
-#define StationaryLeft 460
-#define StationaryRight 550
-#define MaxPwmRightOrg 725
-#define MaxPwmLeftOrg 307
-#define MaxJerkPwmBrake 80
 #define AdjustSpeed 20
-#define MaxJerkPwm 45
-
+  
 #define Init 0
 #define Run2 1
 #define Run1 2
@@ -50,56 +42,45 @@
 #define BlinkHz 3000
 #define Blink1 3
 #define BlinkHz1 1000
-#define BuzTime 500
 #define ActivateControlsTime 10000
 
-unsigned char 	MaxJerkPwm_Brake = 80,
-				MaxJerkPwm_Brake_Old = 80,
-				Switch_Junction = 0,
+#define LMU 1
+#define LMD 2
+#define RMD 3
+#define RMU 4
+
+unsigned char 	Switch_Junction = 0,
 				Switch_Train_Move = 0,
 				Switch_Main = Init,
 				Switch_Main_Old = 0,
-				Switch_Program = 0,
+				Switch_Program = 0,				
 				Switch_Program_Old = 0,
 				Switch_Train_Path = 0,
-				Reed_Contact_LF_Counter = 0,
+				Switch_Adjust_LB = 0,
+				Switch_Adjust_LF = 0,
+				Switch_Adjust_RB = 0,
+				Switch_Adjust_RF = 0,
+				Switch_Init = 0,							
+				Switch_Activate_Controls = 0,
+                Stop_Program = Off,	
+                Reed_Contact_LF_Counter = 0,
 				Reed_Contact_LB_Counter = 0,
 				Reed_Contact_RF_Counter = 0,
 				Reed_Contact_RB_Counter = 0,
-				Rd_Rb = Off,
-				Rd_Rf = Off,
-				Rd_Lb = Off,
-				Rd_Lf = Off,
+				Reed_Contact_LMU_Counter = 0,
+				Reed_Contact_LMD_Counter = 0,
+				Reed_Contact_RMU_Counter = 0,
+				Reed_Contact_RMD_Counter = 0,
 				Button_Contact_Counter_Start = 0,
 				Button_Contact_Counter_Stop = 0,
 				Button_Contact_Counter_Middle = 0,
 				Button_Contact_Counter_LB = 0,
 				Button_Contact_Counter_LF = 0,
 				Button_Contact_Counter_RB = 0,
-				Button_Contact_Counter_RF = 0,
-				Button_Start = Off,
-				Button_Stop = Off,
-				Button_Middle = Off,
-				Button_LB = Off,
-				Button_LF = Off,
-				Button_RB = Off,
-				Button_RF = Off,
-				Switch_Adjust_LB = 0,
-				Switch_Adjust_LF = 0,
-				Switch_Adjust_RB = 0,
-				Switch_Adjust_RF = 0,
-				Switch_Init = 0,
-				Stop_Program = Off,
-				Train_Pos1 = 0,
-				Train_Pos2 = 0,
-				Switch_Activate_Controls = 0;
+				Button_Contact_Counter_RF = 0;
 				
 				
-unsigned int	MaxPwmRight = 725,
-				MaxPwmRight_Old = 725,
-				MaxPwmLeft = 307,
-				MaxPwmLeft_Old = 307,
-				Train_Move_Pwm_Count = 511,
+unsigned int	Train_Move_Pwm_Count = 511,
 				Train_Move_Pwm_Fast_Count = 0,
 				Adjust_Counter = 0,
 				Green_Led_Counter = 0,
@@ -109,6 +90,10 @@ unsigned int	MaxPwmRight = 725,
 
 static char Junction(unsigned char Left_Right, unsigned char Straight_Bend);
 static char Train_Move_Right_Start(void);
+static char Right_Mountain_From_The_Right(unsigned char rc);
+static char Left_Mountain_From_The_Right(unsigned char rc);
+static char Left_Mountain_From_The_Left(unsigned char rc);
+static char Right_Mountain_From_The_Left(unsigned char rc);
 static char Train_Move_Right_Brake(void);
 static char Train_Move_Left_Start(void);
 static char Train_Move_Left_Brake(void);
@@ -118,6 +103,20 @@ static void Eeprom_Store(void);
 static void Green_Led(unsigned char Operation);
 static void Red_Led(unsigned char Operation);
 
+/******************************************************************************
+ * Function:        void Update_StateMchn(void)
+ *                  Main state machine routine
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
 void Update_StateMchn(void)
 {
 	Debounce_Inputs();
@@ -126,102 +125,38 @@ void Update_StateMchn(void)
 			{
 				case	Init	:	switch(Switch_Init)
 									{
-										case	0	:	EECON1bits.EEPGD = 0;  
-														EEADR = 0x04;             
-														EECON1bits.RD = 1;    
-														MaxJerkPwm_Brake = EEDATA;
-														
-														EECON1bits.EEPGD = 0; 
-														EEADR = 0x00;           
-														EECON1bits.RD = 1;    
-														MaxPwmRight = EEDATA;  
-														MaxPwmRight = MaxPwmRight<<8;
-														EECON1bits.EEPGD = 0; 
-														EEADR = 0x01;           
-														EECON1bits.RD = 1;   
-														MaxPwmRight = MaxPwmRight | EEDATA;
-														if(MaxPwmRight <= StationaryRight)
-														{
-															MaxPwmRight = MaxPwmRightOrg;
-															MaxJerkPwm_Brake = MaxJerkPwmBrake;
-														}
-															
-														#define MaxPwmRightOrg 725
-														#define MaxPwmLeftOrg 307
-														#define MaxJerkPwmBrake 80
-														
-														EECON1bits.EEPGD = 0;  
-														EEADR = 0x02;             
-														EECON1bits.RD = 1;    
-														MaxPwmLeft = EEDATA;  
-														MaxPwmLeft = MaxPwmLeft<<8;
-														EECON1bits.EEPGD = 0; 
-														EEADR = 0x03;  
-														EECON1bits.RD = 1;  
-														MaxPwmLeft = MaxPwmLeft | EEDATA;
-														if(MaxPwmLeft >= StationaryLeft)
-														{
-															MaxPwmLeft = MaxPwmLeftOrg;
-															MaxJerkPwm_Brake = MaxJerkPwmBrake;
-														}
-														
-														EECON1bits.EEPGD = 0;  
-														EEADR = 0x05;             
-														EECON1bits.RD = 1;    
-														Switch_Main_Old = EEDATA; 
-														
-														EECON1bits.EEPGD = 0;  
-														EEADR = 0x06;             
-														EECON1bits.RD = 1;    
-														Switch_Program_Old = EEDATA; 
-																												
-														
-														
-														MaxPwmRight_Old = MaxPwmRight;
-														MaxPwmLeft_Old = MaxPwmLeft;
-														MaxJerkPwm_Brake_Old = MaxJerkPwm_Brake;													
-														
-														Green_Led(Off);
+										case	0	:	Green_Led(Off);
 														Red_Led(Off);
-														
-														if(Stop_Program == On && Switch_Main_Old == Run2)
-														{
-															Switch_Init = 7;
-														}
-														else if(Stop_Program == On && Switch_Main_Old == Run1)
-														{
-															Switch_Init = 10;
-														}
-														else {Switch_Init = 1;}
+														Switch_Init = 1;
 														break;
 														
-										case	1	:	if(Button_LB)
+										case	1	:	if(GETxAPIxVAL(BTN_LB))
 														{
-															Train_Pos1 = LB;
+															SETxAPIxVAL(TRAIN1_POS, LB);
 															Switch_Init = 2;
 															break;
 														}
-														if(Button_LF)
+														if(GETxAPIxVAL(BTN_LF))
 														{
-															Train_Pos1 = LF;
+															SETxAPIxVAL(TRAIN1_POS, LF);
 															Switch_Init = 2;
 															break;
 														}
-														if(Button_RB)
+														if(GETxAPIxVAL(BTN_RB))
 														{
-															Train_Pos1 = RB;
+															SETxAPIxVAL(TRAIN1_POS, RB);
 															Switch_Init = 2;
 															break;
 														}
-														if(Button_RF)
+														if(GETxAPIxVAL(BTN_RF))
 														{
-															Train_Pos1 = RF;
+															SETxAPIxVAL(TRAIN1_POS, RF);
 															Switch_Init = 2;
 															break;															
 														}
-														if(Button_Middle)
+														if(GETxAPIxVAL(BTN_MID))
 														{
-															Train_Pos1 = Middle;
+															SETxAPIxVAL(TRAIN1_POS, Middle);
 															Switch_Init = 2;
 															break;
 														}
@@ -229,7 +164,7 @@ void Update_StateMchn(void)
 														Green_Led(Blink);
 														break;
 														
-										case	2	:	if(!Button_LB && !Button_LF && !Button_RB && !Button_RF && !Button_Middle && !Button_Start)
+										case	2	:	if(!GETxAPIxVAL(BTN_LB) && !GETxAPIxVAL(BTN_LF) && !GETxAPIxVAL(BTN_RB) && !GETxAPIxVAL(BTN_RF) && !GETxAPIxVAL(BTN_MID) && !GETxAPIxVAL(BTN_START))
 														{
 															Switch_Init = 3;
 														}
@@ -237,39 +172,39 @@ void Update_StateMchn(void)
 														Green_Led(Blink);
 														break;
 														
-										case	3	:	if(Button_LB)
+										case	3	:	if(GETxAPIxVAL(BTN_LB))
 														{
-															Train_Pos2 = LB;
+															SETxAPIxVAL(TRAIN2_POS, LB);
 															Switch_Init = 4;
 															break;
 														}
-														if(Button_LF)
+														if(GETxAPIxVAL(BTN_LF))
 														{
-															Train_Pos2 = LF;
+															SETxAPIxVAL(TRAIN2_POS, LF);
 															Switch_Init = 4;
 															break;
 														}
-														if(Button_RB)
+														if(GETxAPIxVAL(BTN_RB))
 														{
-															Train_Pos2 = RB;
+															SETxAPIxVAL(TRAIN2_POS, RB);
 															Switch_Init = 4;
 															break;
 														}
-														if(Button_RF)
+														if(GETxAPIxVAL(BTN_RF))
 														{
-															Train_Pos2 = RF;
+															SETxAPIxVAL(TRAIN2_POS, RF);
 															Switch_Init = 4;
 															break;															
 														}
-														if(Button_Middle)
+														if(GETxAPIxVAL(BTN_MID))
 														{
-															Train_Pos2 = Middle;
+															SETxAPIxVAL(TRAIN2_POS, Middle);
 															Switch_Init = 4;
 															break;
 														}
-														if(Button_Start)
+														if(GETxAPIxVAL(BTN_START))
 														{
-															Train_Pos2 = OneTrain;
+															SETxAPIxVAL(TRAIN2_POS, OneTrain);
 															Switch_Init = 4;
 															break;
 														}
@@ -277,14 +212,14 @@ void Update_StateMchn(void)
 														Switch_Init = 3;
 														break;
 														
-										case	4	:	if(!Button_LB && !Button_LF && !Button_RB && !Button_RF && !Button_Middle && !Button_Start)
+										case	4	:	if(!GETxAPIxVAL(BTN_LB) && !GETxAPIxVAL(BTN_LF) && !GETxAPIxVAL(BTN_RB) && !GETxAPIxVAL(BTN_RF) && !GETxAPIxVAL(BTN_MID) && !GETxAPIxVAL(BTN_START))
 														{
-															if(Train_Pos1 == Train_Pos2)
+															if(GETxAPIxVAL(TRAIN1_POS) == GETxAPIxVAL(TRAIN2_POS))
 															{
 																Red_Led(On);
 																Switch_Init = 1;
 															}
-															if(Train_Pos1 != Train_Pos2)
+															if(GETxAPIxVAL(TRAIN1_POS) != GETxAPIxVAL(TRAIN2_POS))
 															{
 																Switch_Init = 5;
 															}
@@ -292,81 +227,20 @@ void Update_StateMchn(void)
 														Green_Led(Blink);
 														break;
 														
-										case	5	:	if(Train_Pos2 != OneTrain)
+										case	5	:	if(GETxAPIxVAL(TRAIN2_POS) != OneTrain)
 														{
 															Switch_Init = 6;	//2Trains
 														}
-														if(Train_Pos2 == OneTrain)
+														if(GETxAPIxVAL(TRAIN2_POS) == OneTrain)
 														{
 															Switch_Init = 9;	//1Train
 														}
 														break;
 														
-										case	6	:	switch(Switch_Program_Old)	// 2 Trains OLD MODE
-														{
-															case	0	:	if((Train_Pos1 == LF) && (Train_Pos2 == RB))
-																			{
-																				Switch_Program = Switch_Program_Old;
-																				Switch_Init = 7;
-																			}
-																			else {Switch_Init = 8;}
-																			break;
-															case	1	:	if((Train_Pos1 == LF) && (Train_Pos2 == LB))
-																			{
-																				Switch_Program = Switch_Program_Old;
-																				Switch_Init = 7;
-																			}
-																			else {Switch_Init = 8;}
-																			break;
-															case	2	:	if((Train_Pos1 == LB) && (Train_Pos2 == RB))
-																			{
-																				Switch_Program = Switch_Program_Old;
-																				Switch_Init = 7;
-																			}
-																			else {Switch_Init = 8;}
-																			break;
-															case	3	:	if((Train_Pos1 == RB) && (Train_Pos2 == RF))
-																			{
-																				Switch_Program = Switch_Program_Old;
-																				Switch_Init = 7;
-																			}
-																			else {Switch_Init = 8;}
-																			break;
-															case	4	:	if((Train_Pos1 == LB) && (Train_Pos2 == RF))
-																			{
-																				Switch_Program = Switch_Program_Old;
-																				Switch_Init = 7;
-																			}
-																			else {Switch_Init = 8;}
-																			break;
-															case	5	:	if((Train_Pos1 == LB) && (Train_Pos2 == LF))
-																			{
-																				Switch_Program = Switch_Program_Old;
-																				Switch_Init = 7;
-																			}
-																			else {Switch_Init = 8;}
-																			break;
-															case	6	:	if((Train_Pos1 == LF) && (Train_Pos2 == RF))
-																			{
-																				Switch_Program = Switch_Program_Old;
-																				Switch_Init = 7;
-																			}
-																			else {Switch_Init = 8;}
-																			break;
-															case	7	:	if((Train_Pos1 == RF) && (Train_Pos2 == RB))
-																			{
-																				Switch_Program = Switch_Program_Old;
-																				Switch_Init = 7;
-																			}
-																			else {Switch_Init = 8;}
-																			break;
-															
-															default		:	Switch_Init = 8;
-																			break;
-														}
+										case	6	:	Switch_Init = 8;														
 														break;
 														
-										case	7	:	if(Button_Start)	// 2Trains Start
+										case	7	:	if(GETxAPIxVAL(BTN_START))	// 2Trains Start
 														{
 															Switch_Main = Run2;
 															Switch_Init = 0;
@@ -376,9 +250,9 @@ void Update_StateMchn(void)
 														Red_Led(Off);
 														break;
 														
-										case	8	:	if(Train_Pos1 == Middle)		// 2 Trains NEW MODE
+										case	8	:	if(GETxAPIxVAL(TRAIN1_POS) == Middle)		// 2 Trains NEW MODE
 														{
-															switch(Train_Pos2)
+															switch(GETxAPIxVAL(TRAIN2_POS))
 															{
 																case	LB	:	Switch_Program = 1;
 																				Switch_Init = 7;
@@ -397,9 +271,9 @@ void Update_StateMchn(void)
 																				break;	
 															}
 														}
-														if(Train_Pos2 == Middle)
+														if(GETxAPIxVAL(TRAIN2_POS) == Middle)
 														{
-															switch(Train_Pos1)
+															switch(GETxAPIxVAL(TRAIN1_POS))
 															{
 																case	LB	:	Switch_Program = 1;
 																				Switch_Init = 7;
@@ -418,11 +292,11 @@ void Update_StateMchn(void)
 																				break;	
 															}
 														}
-														if((Train_Pos1 != Middle) && (Train_Pos2 != Middle))
+														if((GETxAPIxVAL(TRAIN1_POS) != Middle) && (GETxAPIxVAL(TRAIN2_POS) != Middle))
 														{
-															switch(Train_Pos1)
+															switch(GETxAPIxVAL(TRAIN1_POS))
 															{
-																case	LB	:	switch(Train_Pos2)
+																case	LB	:	switch(GETxAPIxVAL(TRAIN2_POS))
 																				{
 																					case	LB	:	Switch_Init = 0;
 																									break;
@@ -440,7 +314,7 @@ void Update_StateMchn(void)
 																									break;	
 																				}
 																				break;
-																case	LF	:	switch(Train_Pos2)
+																case	LF	:	switch(GETxAPIxVAL(TRAIN2_POS))
 																				{
 																					case	LB	:	Switch_Program = 1;
 																									Switch_Init = 7;
@@ -458,7 +332,7 @@ void Update_StateMchn(void)
 																									break;	
 																				}
 																				break;
-																case	RB	:	switch(Train_Pos2)
+																case	RB	:	switch(GETxAPIxVAL(TRAIN2_POS))
 																				{
 																					case	LB	:	Switch_Program = 2;
 																									Switch_Init = 7;
@@ -476,7 +350,7 @@ void Update_StateMchn(void)
 																									break;	
 																				}
 																				break;
-																case	RF	:	switch(Train_Pos2)
+																case	RF	:	switch(GETxAPIxVAL(TRAIN2_POS))
 																				{
 																					case	LB	:	Switch_Program = 4;
 																									Switch_Init = 7;
@@ -501,43 +375,10 @@ void Update_StateMchn(void)
 														}
 														break;
 														
-										case	9	:	switch(Switch_Program_Old)	// 1 Train OLD MODE
-														{
-															case	0	:	if(Train_Pos1 == RB)
-																			{
-																				Switch_Program = Switch_Program_Old;
-																				Switch_Init = 10;
-																			}
-																			else {Switch_Init = 11;}
-																			break;
-															case	1	:	if(Train_Pos1 == LB)
-																			{
-																				Switch_Program = Switch_Program_Old;
-																				Switch_Init = 10;
-																			}
-																			else {Switch_Init = 11;}
-																			break;
-															case	2	:	if(Train_Pos1 == RF)
-																			{
-																				Switch_Program = Switch_Program_Old;
-																				Switch_Init = 10;
-																			}
-																			else {Switch_Init = 11;}
-																			break;
-															case	3	:	if(Train_Pos1 == LF)
-																			{
-																				Switch_Program = Switch_Program_Old;
-																				Switch_Init = 10;
-																			}
-																			else {Switch_Init = 11;}
-																			break;
-																			
-															default		:	Switch_Init = 11;
-																			break;
-														}
+										case	9	:	Switch_Init = 11;
 														break;
 										
-										case	10	:	if(Button_Start)	// 1Train Start
+										case	10	:	if(GETxAPIxVAL(BTN_START))	// 1Train Start
 														{
 															Switch_Main = Run1;
 															Switch_Init = 0;
@@ -547,12 +388,12 @@ void Update_StateMchn(void)
 														Red_Led(Off);
 														break;
 										
-										case	11	:	if(Train_Pos1 == Middle)		// 1 Train NEW MODE
+										case	11	:	if(GETxAPIxVAL(TRAIN1_POS) == Middle)		// 1 Train NEW MODE
 														{
 															Switch_Program = 0;
 															Switch_Init = 10;
 														}
-														else switch(Train_Pos1)
+														else switch(GETxAPIxVAL(TRAIN1_POS))
 														{
 															case	LB	:	Switch_Program = 1;Switch_Init = 10; break;
 															case	LF	:	Switch_Program = 3;Switch_Init = 10; break; 
@@ -675,7 +516,7 @@ void Update_StateMchn(void)
 									
 									switch(Switch_Activate_Controls)
 									{
-										case	0	:	if(Button_LF && Button_RF)
+										case	0	:	if(GETxAPIxVAL(BTN_LF) && GETxAPIxVAL(BTN_RF))
 														{
 															Switch_Activate_Controls = 1;
 															Red_Led(Blink1);
@@ -687,7 +528,7 @@ void Update_StateMchn(void)
 														}
 														break;
 														
-										case	1	:	if(!Button_LF && !Button_RF)
+										case	1	:	if(!GETxAPIxVAL(BTN_LF) && !GETxAPIxVAL(BTN_RF))
 														{
 															Switch_Activate_Controls = 2;
 															Red_Led(Blink1);
@@ -700,7 +541,7 @@ void Update_StateMchn(void)
 														Activate_Controls_Counter = ActivateControlsTime;
 														break;
 										
-										case	2	:	if(!Button_LF && !Button_RF && !Button_RB && !Button_LB)
+										case	2	:	if(!GETxAPIxVAL(BTN_LF) && !GETxAPIxVAL(BTN_RF) && !GETxAPIxVAL(BTN_RB) && !GETxAPIxVAL(BTN_LB))
 														{
 															Activate_Controls_Counter--;
 														}
@@ -711,20 +552,20 @@ void Update_StateMchn(void)
 														
 														Red_Led(Blink1);
 														
-														switch(Button_LB)	//slower
+														switch(GETxAPIxVAL(BTN_LB))	//slower
 														{
 															case	Off	:	Switch_Adjust_LB = 0;
 																			break;
 															
 															case	On	:	switch(Switch_Adjust_LB)
 																			{
-																				case	0	:	if(MaxPwmRight >= StationaryRight)
+																				case	0	:	if(GETxAPIxVAL(MAX_PWM_RIGHT) >= GETxAPIxVAL(STATIONARY_RIGHT))
 																								{																				
-																									MaxPwmRight--;
+																									DECRxAPIxVAL(MAX_PWM_RIGHT);
 																								}
-																								if(MaxPwmLeft <= StationaryLeft)
+																								if(GETxAPIxVAL(MAX_PWM_LEFT) <= GETxAPIxVAL(STATIONARY_LEFT))
 																								{
-																									MaxPwmLeft++;
+																									INCRxAPIxVAL(MAX_PWM_LEFT);
 																								}
 																								Switch_Adjust_LB = 1;
 																								break;
@@ -747,20 +588,20 @@ void Update_StateMchn(void)
 														}
 																						
 														
-														switch(Button_LF)	//faster
+														switch(GETxAPIxVAL(BTN_LF))	//faster
 														{
 															case	Off	:	Switch_Adjust_LF = 0;
 																			break;
 															
 															case	On	:	switch(Switch_Adjust_LF)
 																			{
-																				case	0	:	if(MaxPwmRight <= 1022)
+																				case	0	:	if(GETxAPIxVAL(MAX_PWM_RIGHT) <= 1022)
 																								{																				
-																									MaxPwmRight++;
+																									INCRxAPIxVAL(MAX_PWM_RIGHT);
 																								}
-																								if(MaxPwmLeft >= 1)
+																								if(GETxAPIxVAL(MAX_PWM_LEFT) >= 1)
 																								{
-																									MaxPwmLeft--;
+																									DECRxAPIxVAL(MAX_PWM_LEFT);
 																								}
 																								Switch_Adjust_LF = 1;
 																								break;
@@ -782,16 +623,16 @@ void Update_StateMchn(void)
 															default		:	break;
 														}
 														
-														switch(Button_RB)	//slower braking
+														switch(GETxAPIxVAL(BTN_RB))	//slower braking
 														{
 															case	Off	:	Switch_Adjust_RB = 0;
 																			break;
 															
 															case	On	:	switch(Switch_Adjust_RB)
 																			{
-																				case	0	:	if(MaxJerkPwm_Brake <= 250)
+																				case	0	:	if(GETxAPIxVAL(MAX_JERK_PWM_BRAKE) <= 250)
 																								{																				
-																									MaxJerkPwm_Brake++;
+																									INCRxAPIxVAL(MAX_JERK_PWM_BRAKE);
 																								}
 																								Switch_Adjust_RB = 1;
 																								break;
@@ -814,18 +655,17 @@ void Update_StateMchn(void)
 														}
 																						
 														
-														switch(Button_RF)	//faster braking
+														switch(GETxAPIxVAL(BTN_RF))	//faster braking
 														{
 															case	Off	:	Switch_Adjust_RF = 0;
 																			break;
 															
 															case	On	:	switch(Switch_Adjust_RF)
 																			{
-																				case	0	:	if(MaxJerkPwm_Brake >= 1)
+																				case	0	:	if(GETxAPIxVAL(MAX_JERK_PWM_BRAKE) >= 1)
 																								{
-																									MaxJerkPwm_Brake--;
-																								}
-																								Switch_Adjust_RF = 1;
+																									DECRxAPIxVAL(MAX_JERK_PWM_BRAKE);
+																								}																								Switch_Adjust_RF = 1;
 																								break;
 																								
 																				case	1	:	if(Adjust_Counter >= AdjustSpeed)
@@ -856,7 +696,7 @@ void Update_StateMchn(void)
 														break;
 									}
 							
-									if(Button_Stop)
+									if(GETxAPIxVAL(BTN_STOP))
 									{
 										Stop_Program = On;
 									}
@@ -926,7 +766,7 @@ void Update_StateMchn(void)
 									
 									switch(Switch_Activate_Controls)
 									{
-										case	0	:	if(Button_LF && Button_RF)
+										case	0	:	if(GETxAPIxVAL(BTN_LF) && GETxAPIxVAL(BTN_RF))
 														{
 															Switch_Activate_Controls = 1;
 															Red_Led(Blink1);
@@ -938,7 +778,7 @@ void Update_StateMchn(void)
 														}
 														break;
 														
-										case	1	:	if(!Button_LF && !Button_RF)
+										case	1	:	if(!GETxAPIxVAL(BTN_LF) && !GETxAPIxVAL(BTN_RF))
 														{
 															Switch_Activate_Controls = 2;
 															Red_Led(Blink1);
@@ -951,7 +791,7 @@ void Update_StateMchn(void)
 														Activate_Controls_Counter = ActivateControlsTime;
 														break;
 										
-										case	2	:	if(!Button_LF && !Button_RF && !Button_RB && !Button_LB)
+										case	2	:	if(!GETxAPIxVAL(BTN_LF) && !GETxAPIxVAL(BTN_RF) && !GETxAPIxVAL(BTN_RB) && !GETxAPIxVAL(BTN_LB))
 														{
 															Activate_Controls_Counter--;
 														}
@@ -962,20 +802,20 @@ void Update_StateMchn(void)
 														
 														Red_Led(Blink1);
 														
-														switch(Button_LB)	//slower
+														switch(GETxAPIxVAL(BTN_LB))	//slower
 														{
 															case	Off	:	Switch_Adjust_LB = 0;
 																			break;
 															
 															case	On	:	switch(Switch_Adjust_LB)
 																			{
-																				case	0	:	if(MaxPwmRight >= StationaryRight)
+																				case	0	:	if(GETxAPIxVAL(MAX_PWM_RIGHT) >= GETxAPIxVAL(STATIONARY_RIGHT))
 																								{																				
-																									MaxPwmRight--;
+																									DECRxAPIxVAL(MAX_PWM_RIGHT);
 																								}
-																								if(MaxPwmLeft <= StationaryLeft)
+																								if(GETxAPIxVAL(MAX_PWM_LEFT) <= GETxAPIxVAL(STATIONARY_LEFT))
 																								{
-																									MaxPwmLeft++;
+																									INCRxAPIxVAL(MAX_PWM_LEFT);
 																								}
 																								Switch_Adjust_LB = 1;
 																								break;
@@ -998,20 +838,20 @@ void Update_StateMchn(void)
 														}
 																						
 														
-														switch(Button_LF)	//faster
+														switch(GETxAPIxVAL(BTN_LF))	//faster
 														{
 															case	Off	:	Switch_Adjust_LF = 0;
 																			break;
 															
 															case	On	:	switch(Switch_Adjust_LF)
 																			{
-																				case	0	:	if(MaxPwmRight <= 1022)
+																				case	0	:	if(GETxAPIxVAL(MAX_PWM_RIGHT) <= 1022)
 																								{																				
-																									MaxPwmRight++;
+																									INCRxAPIxVAL(MAX_PWM_RIGHT);
 																								}
-																								if(MaxPwmLeft >= 1)
+																								if(GETxAPIxVAL(MAX_PWM_LEFT) >= 1)
 																								{
-																									MaxPwmLeft--;
+																									DECRxAPIxVAL(MAX_PWM_LEFT);
 																								}
 																								Switch_Adjust_LF = 1;
 																								break;
@@ -1033,16 +873,16 @@ void Update_StateMchn(void)
 															default		:	break;
 														}
 														
-														switch(Button_RB)	//slower braking
+														switch(GETxAPIxVAL(BTN_RB))	//slower braking
 														{
 															case	Off	:	Switch_Adjust_RB = 0;
 																			break;
 															
 															case	On	:	switch(Switch_Adjust_RB)
 																			{
-																				case	0	:	if(MaxJerkPwm_Brake <= 250)
+																				case	0	:	if(GETxAPIxVAL(MAX_JERK_PWM_BRAKE) <= 250)
 																								{																				
-																									MaxJerkPwm_Brake++;
+																									INCRxAPIxVAL(MAX_JERK_PWM_BRAKE);
 																								}
 																								Switch_Adjust_RB = 1;
 																								break;
@@ -1065,16 +905,16 @@ void Update_StateMchn(void)
 														}
 																						
 														
-														switch(Button_RF)	//faster braking
+														switch(GETxAPIxVAL(BTN_RF))	//faster braking
 														{
 															case	Off	:	Switch_Adjust_RF = 0;
 																			break;
 															
 															case	On	:	switch(Switch_Adjust_RF)
 																			{
-																				case	0	:	if(MaxJerkPwm_Brake >= 1)
+																				case	0	:	if(GETxAPIxVAL(MAX_JERK_PWM_BRAKE) >= 1)
 																								{
-																									MaxJerkPwm_Brake--;
+																									DECRxAPIxVAL(MAX_JERK_PWM_BRAKE);
 																								}
 																								Switch_Adjust_RF = 1;
 																								break;
@@ -1111,6 +951,20 @@ void Update_StateMchn(void)
 			}
 }
 
+/******************************************************************************
+ * Function:        static void Green_Led(unsigned char Operation)
+ *                  Blinking routine for green led
+ *
+ * PreCondition:    None
+ *
+ * Input:           Blinking speed
+ *
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
 static void Green_Led(unsigned char Operation)
 {
 	switch(Operation)
@@ -1147,6 +1001,20 @@ static void Green_Led(unsigned char Operation)
 	}
 }
 
+/******************************************************************************
+ * Function:        static void Red_Led(unsigned char Operation)
+ *                  Blinking routine for red led
+ *
+ * PreCondition:    None
+ *
+ * Input:           Blinking speed
+ *
+ * Output:          None
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
 static void Red_Led(unsigned char Operation)
 {
 	switch(Operation)
@@ -1183,6 +1051,20 @@ static void Red_Led(unsigned char Operation)
 	}
 }
 
+/******************************************************************************
+ * Function:        static char Train_Path(unsigned char From, unsigned char To)
+ *                  Sent the Train accordingly to the desired path
+ *
+ * PreCondition:    None
+ *
+ * Input:           From station, To station
+ *
+ * Output:          busy or finished
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
 static char Train_Path(unsigned char From, unsigned char To)
 {
 	static char Return_Val = Busy;
@@ -1293,40 +1175,90 @@ static char Train_Path(unsigned char From, unsigned char To)
 						
 		case	3	:	switch(To)
 						{
-							case	RB	:	if(Rd_Rb == On)
-											{
-												Switch_Train_Path = 4;
-												Return_Val = Busy;
+							case	RB	:	if(GETxAPIxVAL(RC_RB) == On){
+                                                Switch_Train_Path = 4;		    // End of station stop the train
 											}
-											SetDCPWM1(MaxPwmRight);
-											Train_Move_Pwm_Count = MaxPwmRight;
+                                            else if(GETxAPIxVAL(RC_LMU) == On){ // Left Mountain up encountered while driving to the right
+                                                Switch_Train_Path = 5;	        
+                                            }                                            
+                                            else if(GETxAPIxVAL(RC_LMD) == On){ // Left Mountain down encountered while driving to the right
+                                                Switch_Train_Path = 6;
+                                            }
+                                            else if(GETxAPIxVAL(RC_RMD) == On){ // Right Mountain down encountered while driving to the right
+                                                Switch_Train_Path = 7;
+                                            }
+                                            else if(GETxAPIxVAL(RC_RMU) == On){ // Right Mountain down encountered while driving to the right
+                                                Switch_Train_Path = 8;
+                                            }
+                                            else{
+                                                SetDCPWM1(GETxAPIxVAL(MAX_PWM_RIGHT));
+                                                Train_Move_Pwm_Count = GETxAPIxVAL(MAX_PWM_RIGHT);
+                                            }
 											Return_Val = Busy;
 											break;
-							case	RF	:	if(Rd_Rf == On)
-											{
-												Switch_Train_Path = 4;
-												Return_Val = Busy;
+							case	RF	:	if(GETxAPIxVAL(RC_RF) == On){
+												Switch_Train_Path = 4;		    // End of station stop the train
 											}
-											SetDCPWM1(MaxPwmRight);
-											Train_Move_Pwm_Count = MaxPwmRight;
+                                            else if(GETxAPIxVAL(RC_LMU) == On){ // Left Mountain up encountered while driving to the right
+                                                Switch_Train_Path = 5;	        
+                                            }                                            
+                                            else if(GETxAPIxVAL(RC_LMD) == On){ // Left Mountain down encountered while driving to the right
+                                                Switch_Train_Path = 6;
+                                            }
+                                            else if(GETxAPIxVAL(RC_RMD) == On){ // Right Mountain down encountered while driving to the right
+                                                Switch_Train_Path = 7;
+                                            }
+                                            else if(GETxAPIxVAL(RC_RMU) == On){ // Right Mountain down encountered while driving to the right
+                                                Switch_Train_Path = 8;
+                                            }
+                                            else{
+                                                SetDCPWM1(GETxAPIxVAL(MAX_PWM_RIGHT));
+                                                Train_Move_Pwm_Count = GETxAPIxVAL(MAX_PWM_RIGHT);
+                                            }
 											Return_Val = Busy;
 											break;
-							case	LB	:	if(Rd_Lb == On)
+							case	LB	:	if(GETxAPIxVAL(RC_LB) == On)
 											{
-												Switch_Train_Path = 4;
-												Return_Val = Busy;
+												Switch_Train_Path = 4;		    // End of station stop the train
 											}
-											SetDCPWM1(MaxPwmLeft);
-											Train_Move_Pwm_Count = MaxPwmLeft;
+                                            else if(GETxAPIxVAL(RC_LMU) == On){ // Left Mountain up encountered while driving to the left
+                                                Switch_Train_Path = 9;	        
+                                            }                                            
+                                            else if(GETxAPIxVAL(RC_LMD) == On){ // Left Mountain down encountered while driving to the left
+                                                Switch_Train_Path = 10;
+                                            }
+                                            else if(GETxAPIxVAL(RC_RMD) == On){ // Right Mountain down encountered while driving to the left
+                                                Switch_Train_Path = 11;
+                                            }
+                                            else if(GETxAPIxVAL(RC_RMU) == On){ // Right Mountain down encountered while driving to the left
+                                                Switch_Train_Path = 12;
+                                            }
+                                            else{
+                                                SetDCPWM1(GETxAPIxVAL(MAX_PWM_LEFT));
+                                                Train_Move_Pwm_Count = GETxAPIxVAL(MAX_PWM_LEFT);
+                                            }
 											Return_Val = Busy;
 											break;
-							case	LF	:	if(Rd_Lf == On)
+							case	LF	:	if(GETxAPIxVAL(RC_LF) == On)
 											{
-												Switch_Train_Path = 4;
-												Return_Val = Busy;
+												Switch_Train_Path = 4;		    // End of station stop the train
 											}
-											SetDCPWM1(MaxPwmLeft);
-											Train_Move_Pwm_Count = MaxPwmLeft;
+                                            else if(GETxAPIxVAL(RC_LMU) == On){ // Left Mountain up encountered while driving to the left
+                                                Switch_Train_Path = 9;	        
+                                            }                                            
+                                            else if(GETxAPIxVAL(RC_LMD) == On){ // Left Mountain down encountered while driving to the left
+                                                Switch_Train_Path = 10;
+                                            }
+                                            else if(GETxAPIxVAL(RC_RMD) == On){ // Right Mountain down encountered while driving to the left
+                                                Switch_Train_Path = 11;
+                                            }
+                                            else if(GETxAPIxVAL(RC_RMU) == On){ // Right Mountain down encountered while driving to the left
+                                                Switch_Train_Path = 12;
+                                            }
+                                            else{
+                                                SetDCPWM1(GETxAPIxVAL(MAX_PWM_LEFT));
+                                                Train_Move_Pwm_Count = GETxAPIxVAL(MAX_PWM_LEFT);
+                                            }
 											Return_Val = Busy;
 											break;
 							default		:	break;
@@ -1370,6 +1302,64 @@ static char Train_Path(unsigned char From, unsigned char To)
 							default		:	break;
 						}
 						break;
+                        
+        case    5   :   //to the right
+                        if(Left_Mountain_From_The_Left(LMU) == Finished){
+                            Switch_Train_Path = 3;
+                            Return_Val = Busy;
+                        }
+                        break;
+            
+        case    6   :   //to the right
+                        if(Left_Mountain_From_The_Left(LMD) == Finished){
+                            Switch_Train_Path = 3;
+                            Return_Val = Busy;
+                        }
+                        break;
+                        
+        case    7   :   //to the right
+                        if(Right_Mountain_From_The_Left(RMD) == Finished){
+                            Switch_Train_Path = 3;
+                            Return_Val = Busy;
+                        }
+                        break;
+            
+        case    8   :   //to the right
+                        if(Right_Mountain_From_The_Left(RMU) == Finished){
+                            Switch_Train_Path = 3;
+                            Return_Val = Busy;
+                        }
+                        break;
+                        
+        case    9   :   //to the left
+                        if(Right_Mountain_From_The_Right(RMU) == Finished){
+                            Switch_Train_Path = 3;
+                            Return_Val = Busy;
+                        }
+                        break;
+            
+        case    10  :   //to the left
+                        if(Right_Mountain_From_The_Right(RMD) == Finished){
+                            Switch_Train_Path = 3;
+                            Return_Val = Busy;
+                        }
+                        break;
+                        
+        case    11  :   //to the left
+                        if(Left_Mountain_From_The_Right(LMD) == Finished){
+                            Switch_Train_Path = 3;
+                            Return_Val = Busy;
+                        }
+                        break;
+            
+        case    12  :   //to the left
+                        if(Left_Mountain_From_The_Right(LMU) == Finished){
+                            Switch_Train_Path = 3;
+                            Return_Val = Busy;
+                        }
+                        break;
+                        
+        
 		
 		default		:	Switch_Train_Path = 0;	break;
 	}
@@ -1377,6 +1367,21 @@ static char Train_Path(unsigned char From, unsigned char To)
 	return(Return_Val);
 }
 
+
+/******************************************************************************
+ * Function:        static char Train_Move_Left_Start(void)
+ *                  Start moving the train to the left
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *
+ * Output:          returns busy or finished
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
 static char Train_Move_Left_Start(void)
 {
 	static char Return_Val = Busy;
@@ -1386,7 +1391,7 @@ static char Train_Move_Left_Start(void)
 	{
 		////////////////When Starting jumping to case 0 (Start_Move)////////////////////////////
 		
-		case	0	:	if(Train_Move_Wait_Time >= LightsOnWaitTime)
+		case	0	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(LIGHTS_ON_WAIT_TIME))
 						{
 							Switch_Train_Move = 1;
 							Train_Move_Wait_Time = 0;
@@ -1398,14 +1403,14 @@ static char Train_Move_Left_Start(void)
 						Return_Val = Busy;
 						break;
 		
-		case	1	:	SetDCPWM1(StationaryLeft);
-						Train_Move_Pwm_Count = StationaryLeft;
+		case	1	:	SetDCPWM1(GETxAPIxVAL(STATIONARY_LEFT));
+						Train_Move_Pwm_Count = GETxAPIxVAL(STATIONARY_LEFT);
 						Brake = 0;
 						Switch_Train_Move = 2;
 						Return_Val = Busy;
 						break;
 						
-		case	2	:	if(Train_Move_Wait_Time >= TrainWaitTime)
+		case	2	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(TRAIN_WAIT_TIME))
 						{
 							Switch_Train_Move = 3;
 							Train_Move_Wait_Time = 0;
@@ -1419,13 +1424,13 @@ static char Train_Move_Left_Start(void)
 						
 		case	3	:	SetDCPWM1(Train_Move_Pwm_Count);
 						Return_Val = Busy;
-						if (Train_Move_Pwm_Count <= MaxPwmLeft)
+						if (Train_Move_Pwm_Count <= GETxAPIxVAL(MAX_PWM_LEFT))
 						{
 							Switch_Train_Move = 0;
 							Return_Val = Finished;
 							break;
 						}
-						if (Train_Move_Pwm_Fast_Count >= MaxJerkPwm)
+						if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
 						{
 							Train_Move_Pwm_Count--;
 							Train_Move_Pwm_Fast_Count = 0;
@@ -1439,6 +1444,128 @@ static char Train_Move_Left_Start(void)
 	
 }
 
+/******************************************************************************
+ * Function:        static char Right_Mountain_From_The_Right(unsigned char rc)
+ *                  Encountering right mountain from the right
+ *
+ * PreCondition:    None
+ *
+ * Input:           Reed contact
+ *
+ * Output:          returns busy or finished
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
+static char Right_Mountain_From_The_Right(unsigned char rc)
+{
+    static char Return_Val = Busy;
+    if(rc == RMU){
+        SetDCPWM1(Train_Move_Pwm_Count);        
+        if (Train_Move_Pwm_Count >= GETxAPIxVAL(MAX_PWM_RMU_LEFT))              // when actual speed is adjusted for going down at RMU
+        {
+            Switch_Train_Move = 0;
+            Return_Val = Finished;            
+        }
+        if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
+        {
+            Train_Move_Pwm_Count++;
+            Train_Move_Pwm_Fast_Count = 0;
+        }
+        Train_Move_Pwm_Fast_Count++;
+    }
+    else if (rc == RMD){
+        SetDCPWM1(Train_Move_Pwm_Count);        
+        if (Train_Move_Pwm_Count <= GETxAPIxVAL(MAX_PWM_LEFT))                  // when actual speed is adjusted to normal speed
+        {
+            Switch_Train_Move = 0;
+            Return_Val = Finished;            
+        }
+        if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
+        {
+            Train_Move_Pwm_Count--;
+            Train_Move_Pwm_Fast_Count = 0;
+        }
+        Train_Move_Pwm_Fast_Count++;
+    }
+    return(Return_Val);
+}
+
+/******************************************************************************
+ * Function:        static char Left_Mountain_From_The_Right(unsigned char rc)
+ *                  Encountering left mountain from the right
+ *
+ * PreCondition:    None
+ *
+ * Input:           Reed contact
+ *
+ * Output:          returns busy or finished
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
+static char Left_Mountain_From_The_Right(unsigned char rc)
+{
+    static char Return_Val = Busy;
+    return(Return_Val);
+}
+
+/******************************************************************************
+ * Function:        static char Left_Mountain_From_The_Left(unsigned char rc)
+ *                  Encountering left mountain from the left
+ *
+ * PreCondition:    None
+ *
+ * Input:           Reed contact
+ *
+ * Output:          returns busy or finished
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
+static char Left_Mountain_From_The_Left(unsigned char rc)
+{
+    static char Return_Val = Busy;
+    return(Return_Val);
+}
+
+/******************************************************************************
+ * Function:        static char Right_Mountain_From_The_Left(unsigned char rc)
+ *                  Encountering right mountain from the left
+ *
+ * PreCondition:    None
+ *
+ * Input:           Reed contact
+ *
+ * Output:          returns busy or finished
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
+static char Right_Mountain_From_The_Left(unsigned char rc)
+{
+    static char Return_Val = Busy;
+    return(Return_Val);
+}
+
+/******************************************************************************
+ * Function:        static char Train_Move_Left_Brake(void)
+ *                  Stop moving the train to the left
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *
+ * Output:          returns busy or finished
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
 static char Train_Move_Left_Brake(void)
 {
 	static char Return_Val = Busy;
@@ -1448,13 +1575,13 @@ static char Train_Move_Left_Brake(void)
 	{
 		case	0	:	SetDCPWM1(Train_Move_Pwm_Count);
 						Return_Val = Busy;
-						if (Train_Move_Pwm_Count >= StationaryLeft)
+						if (Train_Move_Pwm_Count >= GETxAPIxVAL(STATIONARY_LEFT))
 						{
 							Switch_Train_Move = 1;
 							Return_Val = Busy;
 							break;
 						}
-						if (Train_Move_Pwm_Fast_Count >= MaxJerkPwm_Brake)
+						if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM_BRAKE))
 						{
 							Train_Move_Pwm_Count++;
 							Train_Move_Pwm_Fast_Count = 0;
@@ -1462,7 +1589,7 @@ static char Train_Move_Left_Brake(void)
 						Train_Move_Pwm_Fast_Count++;
 						break;
 						
-		case	1	:	if(Train_Move_Wait_Time >= TrainWaitTime)
+		case	1	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(TRAIN_WAIT_TIME))
 						{
 							Switch_Train_Move = 2;
 							Train_Move_Wait_Time = 0;
@@ -1474,14 +1601,14 @@ static char Train_Move_Left_Brake(void)
 						Switch_Train_Move = 1;
 						break;
 						
-		case	2	:	SetDCPWM1(StationaryLeft);
+		case	2	:	SetDCPWM1(GETxAPIxVAL(STATIONARY_LEFT));
 						Brake = 1;
-						Train_Move_Pwm_Count = StationaryLeft;
+						Train_Move_Pwm_Count = GETxAPIxVAL(STATIONARY_LEFT);
 						Switch_Train_Move = 3;
 						Return_Val = Busy;
 						break;
 						
-		case	3	:	if(Train_Move_Wait_Time >= LightsOnWaitTime)
+		case	3	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(LIGHTS_ON_WAIT_TIME))
 						{
 							Switch_Train_Move = 0;
 							Train_Move_Wait_Time = 0;
@@ -1500,6 +1627,21 @@ static char Train_Move_Left_Brake(void)
 	
 }
 
+
+/******************************************************************************
+ * Function:        static char Train_Move_Right_Start(void)
+ *                  Start moving the train to the right
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *
+ * Output:          returns busy or finished
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
 static char Train_Move_Right_Start(void)
 {
 	static char Return_Val = Busy;
@@ -1509,7 +1651,7 @@ static char Train_Move_Right_Start(void)
 	{
 		////////////////When Starting jumping to case 0 (Start_Move)////////////////////////////
 		
-		case	0	:	if(Train_Move_Wait_Time >= LightsOnWaitTime)
+		case	0	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(LIGHTS_ON_WAIT_TIME))
 						{
 							Switch_Train_Move = 1;
 							Train_Move_Wait_Time = 0;
@@ -1521,14 +1663,14 @@ static char Train_Move_Right_Start(void)
 						Return_Val = Busy;
 						break;
 		
-		case	1	:	SetDCPWM1(StationaryRight);
-						Train_Move_Pwm_Count = StationaryRight;
+		case	1	:	SetDCPWM1(GETxAPIxVAL(STATIONARY_RIGHT));
+						Train_Move_Pwm_Count = GETxAPIxVAL(STATIONARY_RIGHT);
 						Brake = 0;
 						Return_Val = Busy;
 						Switch_Train_Move = 2;						
 						break;
 						
-		case	2	:	if(Train_Move_Wait_Time >= TrainWaitTime)
+		case	2	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(TRAIN_WAIT_TIME))
 						{
 							Switch_Train_Move = 3;
 							Train_Move_Wait_Time = 0;
@@ -1541,13 +1683,13 @@ static char Train_Move_Right_Start(void)
 						break;
 						
 		case	3	:	SetDCPWM1(Train_Move_Pwm_Count);
-						if (Train_Move_Pwm_Count >= MaxPwmRight)
+						if (Train_Move_Pwm_Count >= GETxAPIxVAL(MAX_PWM_RIGHT))
 						{
 							Switch_Train_Move = 0;
 							Return_Val = Finished;
 							break;
 						}
-						if (Train_Move_Pwm_Fast_Count >= MaxJerkPwm)
+						if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
 						{
 							Train_Move_Pwm_Count++;
 							Train_Move_Pwm_Fast_Count = 0;
@@ -1563,6 +1705,20 @@ static char Train_Move_Right_Start(void)
 	
 }
 
+/******************************************************************************
+ * Function:        static char Train_Move_Right_Brake(void)
+ *                  Stop moving the train to the right
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *
+ * Output:          returns busy or finished
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
 static char Train_Move_Right_Brake(void)
 {
 	static char Return_Val = Busy;
@@ -1571,13 +1727,13 @@ static char Train_Move_Right_Brake(void)
 	switch(Switch_Train_Move)
 	{
 	case	0	:		SetDCPWM1(Train_Move_Pwm_Count);
-						if (Train_Move_Pwm_Count <= StationaryRight)
+						if (Train_Move_Pwm_Count <= GETxAPIxVAL(STATIONARY_RIGHT))
 						{
 							Switch_Train_Move = 1;
 							Return_Val = Busy;
 							break;
 						}
-						if (Train_Move_Pwm_Fast_Count >= MaxJerkPwm_Brake)
+						if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM_BRAKE))
 						{
 							Train_Move_Pwm_Count--;
 							Train_Move_Pwm_Fast_Count = 0;
@@ -1586,7 +1742,7 @@ static char Train_Move_Right_Brake(void)
 						Return_Val = Busy;
 						break;
 						
-		case	1	:	if(Train_Move_Wait_Time >= TrainWaitTime)
+		case	1	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(TRAIN_WAIT_TIME))
 						{
 							Switch_Train_Move = 2;
 							Train_Move_Wait_Time = 0;
@@ -1598,14 +1754,14 @@ static char Train_Move_Right_Brake(void)
 						Switch_Train_Move = 1;
 						break;
 						
-		case	2	:	SetDCPWM1(StationaryRight);
+		case	2	:	SetDCPWM1(GETxAPIxVAL(STATIONARY_RIGHT));
 						Brake = 1;
-						Train_Move_Pwm_Count = StationaryRight;
+						Train_Move_Pwm_Count = GETxAPIxVAL(STATIONARY_RIGHT);
 						Switch_Train_Move = 3;
 						Return_Val = Busy;
 						break;
 						
-		case	3	:	if(Train_Move_Wait_Time >= LightsOnWaitTime)
+		case	3	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(LIGHTS_ON_WAIT_TIME))
 						{
 							Switch_Train_Move = 0;
 							Train_Move_Wait_Time = 0;
@@ -1624,7 +1780,22 @@ static char Train_Move_Right_Brake(void)
 	
 }
 
-static char Junction(unsigned char Left_Right, unsigned char Straight_Bend)
+/******************************************************************************
+ * Function:        static char Junction(unsigned char Junction_Left_Right, 
+ *                                              unsigned char Straight_Bend)
+ *                  Set the junction accordingly
+ *
+ * PreCondition:    None
+ *
+ * Input:           Junction Left or right, straight or bend the junction
+ *
+ * Output:          returns busy or finished
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
+static char Junction(unsigned char Junction_Left_Right, unsigned char Straight_Bend)
 {
 	static char Return_Val = Busy;
 	static unsigned int Junction_Switch_Time = 0;
@@ -1632,7 +1803,7 @@ static char Junction(unsigned char Left_Right, unsigned char Straight_Bend)
 	switch (Switch_Junction)
 	{
 		case	0			:	Return_Val = Busy;
-								switch (Left_Right)
+								switch (Junction_Left_Right)
 								{
 									case	Left	:	switch (Straight_Bend)
 														{
@@ -1655,7 +1826,7 @@ static char Junction(unsigned char Left_Right, unsigned char Straight_Bend)
 								Switch_Junction = 1;
 								break;	
 								
-		case	1			:	if (Junction_Switch_Time >= JunctionWaitTime)	
+		case	1			:	if (Junction_Switch_Time >= GETxAPIxVAL(JUNCTION_WAIT_TIME))	
 								{
 									Switch_Junction = 2;
 									Junction_Switch_Time = 0;
@@ -1681,20 +1852,35 @@ static char Junction(unsigned char Left_Right, unsigned char Straight_Bend)
 	return (Return_Val);
 }
 
+
+/******************************************************************************
+ * Function:        static void Debounce_Inputs(void)
+ *                  Debounce all the inputs
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *
+ * Output:          None
+ *
+ * Side Effects:    Updates API[index] accordingly
+ *
+ * Overview:        None
+ *****************************************************************************/
 static void Debounce_Inputs(void)
 {
 	switch(Reed_Contact_LF)
 	{
 		case	On	:	Reed_Contact_LF_Counter = 0;
-						Rd_Lf = Off;
+						SETxAPIxVAL(RC_LF, Off);
 						break;
 						
-		case	Off	:	if(Reed_Contact_LF_Counter <= Debounce)
+		case	Off	:	if(Reed_Contact_LF_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Reed_Contact_LF_Counter++;
 							break;
 						}
-						else {Rd_Lf = On;}
+						else {SETxAPIxVAL(RC_LF, On);}
 						break;
 		
 		default		:	break;
@@ -1704,15 +1890,15 @@ static void Debounce_Inputs(void)
 	switch(Reed_Contact_LB)
 	{
 		case	On	:	Reed_Contact_LB_Counter = 0;
-						Rd_Lb = Off;
+						SETxAPIxVAL(RC_LB, Off);
 						break;
 						
-		case	Off	:	if(Reed_Contact_LB_Counter <= Debounce)
+		case	Off	:	if(Reed_Contact_LB_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Reed_Contact_LB_Counter++;
 							break;
 						}
-						else {Rd_Lb = On;}
+						else {SETxAPIxVAL(RC_LB, On);}
 						break;
 		
 		default		:	break;
@@ -1722,15 +1908,15 @@ static void Debounce_Inputs(void)
 	switch(Reed_Contact_RF)
 	{
 		case	On	:	Reed_Contact_RF_Counter = 0;
-						Rd_Rf = Off;
+						SETxAPIxVAL(RC_RF, Off);
 						break;
 						
-		case	Off	:	if(Reed_Contact_RF_Counter <= Debounce)
+		case	Off	:	if(Reed_Contact_RF_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Reed_Contact_RF_Counter++;
 							break;
 						}
-						else {Rd_Rf = On;}
+						else {SETxAPIxVAL(RC_RF, On);}
 						break;
 		
 		default		:	break;
@@ -1740,15 +1926,15 @@ static void Debounce_Inputs(void)
 	switch(Reed_Contact_RB)
 	{
 		case	On	:	Reed_Contact_RB_Counter = 0;
-						Rd_Rb = Off;
+						SETxAPIxVAL(RC_RB, Off);
 						break;
 						
-		case	Off	:	if(Reed_Contact_RB_Counter <= Debounce)
+		case	Off	:	if(Reed_Contact_RB_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Reed_Contact_RB_Counter++;
 							break;
 						}
-						else {Rd_Rb = On;}
+						else {SETxAPIxVAL(RC_RB, On);}
 						break;
 		
 		default		:	break;
@@ -1757,16 +1943,16 @@ static void Debounce_Inputs(void)
 	
 	switch(But_Start)
 	{
-		case	On	:	if(Button_Contact_Counter_Start <= Debounce)
+		case	On	:	if(Button_Contact_Counter_Start <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Button_Contact_Counter_Start++;
 							break;
 						}
-						else {Button_Start = On; }
+						else {SETxAPIxVAL(BTN_START, On); }
 						break;
 		
 		case	Off	:	Button_Contact_Counter_Start = 0;
-						Button_Start = Off;
+						SETxAPIxVAL(BTN_START, Off);
 						break;
 						
 		default		:	break;
@@ -1775,16 +1961,16 @@ static void Debounce_Inputs(void)
 	
 	switch(But_Stop)
 	{
-		case	On	:	if(Button_Contact_Counter_Stop <= Debounce)
+		case	On	:	if(Button_Contact_Counter_Stop <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Button_Contact_Counter_Stop++;
 							break;
 						}
-						else {Button_Stop = On; }
+						else {SETxAPIxVAL(BTN_STOP, On); }
 						break;
 		
 		case	Off	:	Button_Contact_Counter_Stop = 0;
-						Button_Stop = Off;
+						SETxAPIxVAL(BTN_STOP, Off);
 						break;
 						
 		default		:	break;
@@ -1793,16 +1979,16 @@ static void Debounce_Inputs(void)
 	
 	switch(But_Middle)
 	{
-		case	On	:	if(Button_Contact_Counter_Middle <= Debounce)
+		case	On	:	if(Button_Contact_Counter_Middle <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Button_Contact_Counter_Middle++;
 							break;
 						}
-						else {Button_Middle = On; }
+						else {SETxAPIxVAL(BTN_MID, On); }
 						break;
 		
 		case	Off	:	Button_Contact_Counter_Middle = 0;
-						Button_Middle = Off;
+						SETxAPIxVAL(BTN_MID, Off);
 						break;
 						
 		default		:	break;
@@ -1811,16 +1997,16 @@ static void Debounce_Inputs(void)
 	
 	switch(But_LB)
 	{
-		case	On	:	if(Button_Contact_Counter_LB <= Debounce)
+		case	On	:	if(Button_Contact_Counter_LB <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Button_Contact_Counter_LB++;
 							break;
 						}
-						else {Button_LB = On; }
+						else {SETxAPIxVAL(BTN_LB, On); }
 						break;
 		
 		case	Off	:	Button_Contact_Counter_LB = 0;
-						Button_LB = Off;
+						SETxAPIxVAL(BTN_LB, Off);
 						break;
 						
 		default		:	break;
@@ -1829,16 +2015,16 @@ static void Debounce_Inputs(void)
 	
 	switch(But_LF)
 	{
-		case	On	:	if(Button_Contact_Counter_LF <= Debounce)
+		case	On	:	if(Button_Contact_Counter_LF <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Button_Contact_Counter_LF++;
 							break;
 						}
-						else {Button_LF = On; }
+						else {SETxAPIxVAL(BTN_LF, On); }
 						break;
 		
 		case	Off	:	Button_Contact_Counter_LF = 0;
-						Button_LF = Off;
+						SETxAPIxVAL(BTN_LF, Off);
 						break;
 						
 		default		:	break;
@@ -1847,16 +2033,16 @@ static void Debounce_Inputs(void)
 	
 	switch(But_RB)
 	{
-		case	On	:	if(Button_Contact_Counter_RB <= Debounce)
+		case	On	:	if(Button_Contact_Counter_RB <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Button_Contact_Counter_RB++;
 							break;
 						}
-						else {Button_RB = On; }
+						else {SETxAPIxVAL(BTN_RB, On); }
 						break;
 		
 		case	Off	:	Button_Contact_Counter_RB = 0;
-						Button_RB = Off;
+						SETxAPIxVAL(BTN_RB, Off);
 						break;
 						
 		default		:	break;
@@ -1865,34 +2051,116 @@ static void Debounce_Inputs(void)
 	
 		switch(But_RF)
 	{
-		case	On	:	if(Button_Contact_Counter_RF <= Debounce)
+		case	On	:	if(Button_Contact_Counter_RF <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Button_Contact_Counter_RF++;
 							break;
 						}
-						else {Button_RF = On; }
+						else {SETxAPIxVAL(BTN_RF, On); }
 						break;
 		
 		case	Off	:	Button_Contact_Counter_RF = 0;
-						Button_RF = Off;
+						SETxAPIxVAL(BTN_RF, Off);
 						break;
 						
 		default		:	break;
 	}
+	
+	
+	switch(Reed_Contact_LMU)
+	{
+		case	On	:	if(Reed_Contact_LMU_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
+						{
+							Reed_Contact_LMU_Counter++;
+							break;
+						}
+						else {SETxAPIxVAL(RC_LMU, On); }
+						break;
 		
+		case	Off	:	Reed_Contact_LMU_Counter = 0;
+						SETxAPIxVAL(RC_LMU, Off);
+						break;
+						
+		default		:	break;
+	}
+	
+	
+	switch(Reed_Contact_LMD)
+	{
+		case	On	:	if(Reed_Contact_LMD_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
+						{
+							Reed_Contact_LMD_Counter++;
+							break;
+						}
+						else {SETxAPIxVAL(RC_LMD, On); }
+						break;
+		
+		case	Off	:	Reed_Contact_LMD_Counter = 0;
+						SETxAPIxVAL(RC_LMD, Off);
+						break;
+						
+		default		:	break;
+	}
+	
+	
+	switch(Reed_Contact_RMU)
+	{
+		case	On	:	if(Reed_Contact_RMU_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
+						{
+							Reed_Contact_RMU_Counter++;
+							break;
+						}
+						else {SETxAPIxVAL(RC_RMU, On); }
+						break;
+		
+		case	Off	:	Reed_Contact_RMU_Counter = 0;
+						SETxAPIxVAL(RC_RMU, Off);
+						break;
+						
+		default		:	break;
+	}
+	
+	
+	switch(Reed_Contact_RMD)
+	{
+		case	On	:	if(Reed_Contact_RMD_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
+						{
+							Reed_Contact_RMD_Counter++;
+							break;
+						}
+						else {SETxAPIxVAL(RC_RMD, On); }
+						break;
+		
+		case	Off	:	Reed_Contact_RMD_Counter = 0;
+						SETxAPIxVAL(RC_RMD, Off);
+						break;
+						
+		default		:	break;
+	}
 }
 
-
+/******************************************************************************
+ * Function:        static void Eeprom_Store(void)
+ *                  Store program values in EEPROM
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *
+ * Output:          None
+ *
+ * Side Effects:    Stores vital program variables in EEPROM
+ *
+ * Overview:        None
+ *****************************************************************************/
 static void Eeprom_Store(void)
 {
 	INTCON = 0x00;
 	
-	//if (MaxPwmRight == !MaxPwmRight_Old)
-	//{
 		EECON1bits.EEPGD = 0;
 		EECON1bits.WREN = 1; 
 		EEADR = 0x01;
-		EEDATA = MaxPwmRight;
+		EEDATA = GETxAPIxVAL(MAX_PWM_RIGHT);
 		EECON2 = 0x55;
 		EECON2 = 0xaa;
 		EECON1bits.WR = 1;
@@ -1902,20 +2170,17 @@ static void Eeprom_Store(void)
 		EECON1bits.EEPGD = 0;
 		EECON1bits.WREN = 1; 
 		EEADR = 0x00;
-		EEDATA = MaxPwmRight>>8;
+		EEDATA = GETxAPIxVAL(MAX_PWM_RIGHT)>>8;
 		EECON2 = 0x55;
 		EECON2 = 0xaa;
 		EECON1bits.WR = 1;
 		while (!PIR2bits.EEIF);
 		PIR2bits.EEIF = 0;
-	//}
-	
-	//if (MaxPwmLeft == !MaxPwmLeft_Old)
-	//{
+
 		EECON1bits.EEPGD = 0;
 		EECON1bits.WREN = 1; 
 		EEADR = 0x03;
-		EEDATA = MaxPwmLeft;
+		EEDATA = GETxAPIxVAL(MAX_PWM_LEFT);
 		EECON2 = 0x55;
 		EECON2 = 0xaa;
 		EECON1bits.WR = 1;
@@ -1925,52 +2190,23 @@ static void Eeprom_Store(void)
 		EECON1bits.EEPGD = 0;
 		EECON1bits.WREN = 1; 
 		EEADR = 0x02;
-		EEDATA = MaxPwmLeft>>8;
+		EEDATA = GETxAPIxVAL(MAX_PWM_LEFT)>>8;
 		EECON2 = 0x55;
 		EECON2 = 0xaa;
 		EECON1bits.WR = 1;
 		while (!PIR2bits.EEIF);
 		PIR2bits.EEIF = 0;
-//	}
-		
-	//if (MaxJerkPwm_Brake == !MaxJerkPwm_Brake_Old)
-	//{
+
 		EECON1bits.EEPGD = 0;
 		EECON1bits.WREN = 1; 
 		EEADR = 0x04;
-		EEDATA = MaxJerkPwm_Brake;
+		EEDATA = GETxAPIxVAL(MAX_JERK_PWM_BRAKE);
 		EECON2 = 0x55;
 		EECON2 = 0xaa;
 		EECON1bits.WR = 1;
 		while (!PIR2bits.EEIF);
 		PIR2bits.EEIF = 0;
-	//}
-	
-	//if (Switch_Main == !Switch_Main_Old)
-	//{				
-		EECON1bits.EEPGD = 0;
-		EECON1bits.WREN = 1; 
-		EEADR = 0x05;
-		EEDATA = Switch_Main;
-		EECON2 = 0x55;
-		EECON2 = 0xaa;
-		EECON1bits.WR = 1;
-		while (!PIR2bits.EEIF);
-		PIR2bits.EEIF = 0;
-	//}
-	
-//	if (Switch_Program == !Switch_Program_Old)
-	//{
-		EECON1bits.EEPGD = 0;
-		EECON1bits.WREN = 1; 
-		EEADR = 0x06;
-		EEDATA = Switch_Program;
-		EECON2 = 0x55;
-		EECON2 = 0xaa;
-		EECON1bits.WR = 1;
-		while (!PIR2bits.EEIF);
-		PIR2bits.EEIF = 0;
-	//}					
+			
 															
 	INTCON = 0xA0;
 }

@@ -6144,7 +6144,7 @@ extern __nonreentrant void _delay3(unsigned char);
 
 #pragma config EBTRB = OFF
 
-# 23 "../State_Mchn.h"
+# 27 "../State_Mchn.h"
 extern void Update_StateMchn(void);
 
 # 22 "../eusart1.h"
@@ -6260,7 +6260,16 @@ extern void EUSART1_Receive_ISR(void);
 extern void INIT_TERMINAL(void);
 extern void UPDATExTERMINAL(void);
 
-# 95 "../Main.c"
+# 11 "../api.h"
+extern void APIxInitialize(void);
+extern unsigned int GETxAPIxRW(unsigned char index);
+extern void SETxAPIxVAL(unsigned char index, unsigned int value);
+extern void INCRxAPIxVAL(unsigned char index);
+extern void DECRxAPIxVAL(unsigned char index);
+extern unsigned int GETxAPIxVAL(unsigned char index);
+extern unsigned int API[];
+
+# 96 "../Main.c"
 void Init_Timers(void);
 void Init_Pwm(void);
 
@@ -6287,6 +6296,7 @@ PORTAbits.RA0 = 0;
 
 TRISDbits.TRISD2=1;TRISDbits.TRISD3=1;TRISDbits.TRISD0=1;TRISDbits.TRISD1=1;
 TRISBbits.TRISB0=1;TRISBbits.TRISB1=1;TRISBbits.TRISB2=1;TRISBbits.TRISB3=1;TRISBbits.TRISB4=1;TRISBbits.TRISB5=1;TRISDbits.TRISD7=1;;
+APIxInitialize();
 Init_Pwm();
 Init_Timers();
 EUSART1_Initialize();
@@ -6303,7 +6313,7 @@ Update_StateMchn();
 }
 }
 
-# 142
+# 144
 void interrupt low_priority tc_low(void) {
 
 }

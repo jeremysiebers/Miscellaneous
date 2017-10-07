@@ -15,11 +15,11 @@ PORTB 6
 PORTB 7
 
 PORTC 0    Brake
-PORTC 1
-PORTC 2
-PORTC 3
-PORTC 4
-PORTC 5
+PORTC 1	   Reed_Contact_LMU
+PORTC 2	   PWM_OUTPUT
+   
+PORTC 4	   Reed_Contact_RMU
+PORTC 5	   Reed_Contact_RMD
 PORTC 6    RS232
 PORTC 7    RS232
 
@@ -27,7 +27,7 @@ PORTD 0    Reed_Contact_RF
 PORTD 1    Reed_Contact_RB
 PORTD 2    Reed_Contact_LF
 PORTD 3    Reed_Contact_LB
-PORTD 4
+PORTD 4	   Reed_Contact_LMD
 PORTD 5    Led Red
 PORTD 6    Led Green
 PORTD 7    But_Stop
