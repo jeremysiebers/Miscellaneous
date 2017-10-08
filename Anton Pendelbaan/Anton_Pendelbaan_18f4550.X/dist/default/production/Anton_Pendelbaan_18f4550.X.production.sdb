@@ -13,6 +13,8 @@
 [v _INCRxAPIxVAL INCRxAPIxVAL `(v  1 e 1 0 ]
 "151
 [v _DECRxAPIxVAL DECRxAPIxVAL `(v  1 e 1 0 ]
+"21 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eeprom_settings.c
+[v _Eeprom_Store Eeprom_Store `(v  1 e 1 0 ]
 "77 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
 [v _EUSART1_Initialize EUSART1_Initialize `(v  1 e 1 0 ]
 "160
@@ -21,50 +23,50 @@
 [v _EUSART1_Transmit_ISR EUSART1_Transmit_ISR `(v  1 e 1 0 ]
 "191
 [v _EUSART1_Receive_ISR EUSART1_Receive_ISR `(v  1 e 1 0 ]
-"104 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/Main.c
-[v _main main `(v  1 e 1 0 ]
-"144
-[v _tc_low tc_low `IIL(v  1 e 1 0 ]
+"47 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/io.c
+[v _Green_Led Green_Led `(v  1 e 1 0 ]
+"97
+[v _Red_Led Red_Led `(v  1 e 1 0 ]
 "148
+[v _Debounce_Inputs Debounce_Inputs `(v  1 e 1 0 ]
+"23 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/junction.c
+[v _Junction Junction `(uc  1 e 1 0 ]
+"105 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/Main.c
+[v _main main `(v  1 e 1 0 ]
+"145
+[v _tc_low tc_low `IIL(v  1 e 1 0 ]
+"149
 [v _tc_high tc_high `IIH(v  1 e 1 0 ]
-"180
+"181
 [v _Init_Timers Init_Timers `(v  1 e 1 0 ]
-"193
+"194
 [v _Init_Pwm Init_Pwm `(v  1 e 1 0 ]
-"120 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/State_Mchn.c
+"20 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/set_pwm.c
+[v _SETxPWM SETxPWM `(v  1 e 1 0 ]
+"63 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/State_Mchn.c
 [v _Update_StateMchn Update_StateMchn `(v  1 e 1 0 ]
-"968
-[v _Green_Led Green_Led `(v  1 s 1 Green_Led ]
-"1018
-[v _Red_Led Red_Led `(v  1 s 1 Red_Led ]
-"1068
-[v _Train_Path Train_Path `(uc  1 s 1 Train_Path ]
-"1385
-[v _Train_Move_Left_Start Train_Move_Left_Start `(uc  1 s 1 Train_Move_Left_Start ]
-"1461
-[v _Right_Mountain_From_The_Right Right_Mountain_From_The_Right `(uc  1 s 1 Right_Mountain_From_The_Right ]
-"1509
-[v _Left_Mountain_From_The_Right Left_Mountain_From_The_Right `(uc  1 s 1 Left_Mountain_From_The_Right ]
-"1529
-[v _Left_Mountain_From_The_Left Left_Mountain_From_The_Left `(uc  1 s 1 Left_Mountain_From_The_Left ]
-"1549
-[v _Right_Mountain_From_The_Left Right_Mountain_From_The_Left `(uc  1 s 1 Right_Mountain_From_The_Left ]
-"1569
-[v _Train_Move_Left_Brake Train_Move_Left_Brake `(uc  1 s 1 Train_Move_Left_Brake ]
-"1645
-[v _Train_Move_Right_Start Train_Move_Right_Start `(uc  1 s 1 Train_Move_Right_Start ]
-"1722
-[v _Train_Move_Right_Brake Train_Move_Right_Brake `(uc  1 s 1 Train_Move_Right_Brake ]
-"1798
-[v _Junction Junction `(uc  1 s 1 Junction ]
-"1870
-[v _Debounce_Inputs Debounce_Inputs `(v  1 s 1 Debounce_Inputs ]
-"2156
-[v _Eeprom_Store Eeprom_Store `(v  1 s 1 Eeprom_Store ]
+"912
+[v _Train_Path Train_Path `(uc  1 e 1 0 ]
 "12 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/terminal.c
 [v _INIT_TERMINAL INIT_TERMINAL `(v  1 e 1 0 ]
 "21
 [v _UPDATExTERMINAL UPDATExTERMINAL `(v  1 e 1 0 ]
+"27 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_left.c
+[v _Train_Move_Left_Start Train_Move_Left_Start `(uc  1 e 1 0 ]
+"103
+[v _Right_Mountain_From_The_Right Right_Mountain_From_The_Right `(uc  1 e 1 0 ]
+"174
+[v _Left_Mountain_From_The_Right Left_Mountain_From_The_Right `(uc  1 e 1 0 ]
+"246
+[v _Train_Move_Left_Brake Train_Move_Left_Brake `(uc  1 e 1 0 ]
+"27 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_right.c
+[v _Train_Move_Right_Start Train_Move_Right_Start `(uc  1 e 1 0 ]
+"104
+[v _Left_Mountain_From_The_Left Left_Mountain_From_The_Left `(uc  1 e 1 0 ]
+"175
+[v _Right_Mountain_From_The_Left Right_Mountain_From_The_Left `(uc  1 e 1 0 ]
+"246
+[v _Train_Move_Right_Brake Train_Move_Right_Brake `(uc  1 e 1 0 ]
 "62 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\float.c
 [v ___ftpack __ftpack `(f  1 e 3 0 ]
 "86 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\ftadd.c
@@ -107,76 +109,80 @@
 [v _eusart1RxBuffer eusart1RxBuffer `[126]uc  1 s 126 eusart1RxBuffer ]
 "71
 [v _eusart1RxCount eusart1RxCount `VEuc  1 e 1 0 ]
-"99 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/Main.c
-[v _Update_State_Machine Update_State_Machine `uc  1 e 1 0 ]
-"100
-[v _Led1_Counter Led1_Counter `ui  1 e 2 0 ]
-"52 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/State_Mchn.c
-[v _Switch_Junction Switch_Junction `uc  1 e 1 0 ]
-"53
-[v _Switch_Train_Move Switch_Train_Move `uc  1 e 1 0 ]
-"54
-[v _Switch_Main Switch_Main `uc  1 e 1 0 ]
-"56
-[v _Switch_Program Switch_Program `uc  1 e 1 0 ]
-"58
-[v _Switch_Train_Path Switch_Train_Path `uc  1 e 1 0 ]
-"59
-[v _Switch_Adjust_LB Switch_Adjust_LB `uc  1 e 1 0 ]
-"60
-[v _Switch_Adjust_LF Switch_Adjust_LF `uc  1 e 1 0 ]
-"61
-[v _Switch_Adjust_RB Switch_Adjust_RB `uc  1 e 1 0 ]
-"62
-[v _Switch_Adjust_RF Switch_Adjust_RF `uc  1 e 1 0 ]
-"63
-[v _Switch_Init Switch_Init `uc  1 e 1 0 ]
-"64
-[v _Switch_Activate_Controls Switch_Activate_Controls `uc  1 e 1 0 ]
-"65
-[v _Stop_Program Stop_Program `uc  1 e 1 0 ]
-"66
+"9 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/io.c
 [v _Reed_Contact_LF_Counter Reed_Contact_LF_Counter `uc  1 e 1 0 ]
-"67
+"10
 [v _Reed_Contact_LB_Counter Reed_Contact_LB_Counter `uc  1 e 1 0 ]
-"68
+"11
 [v _Reed_Contact_RF_Counter Reed_Contact_RF_Counter `uc  1 e 1 0 ]
-"69
+"12
 [v _Reed_Contact_RB_Counter Reed_Contact_RB_Counter `uc  1 e 1 0 ]
-"70
+"13
 [v _Reed_Contact_LMU_Counter Reed_Contact_LMU_Counter `uc  1 e 1 0 ]
-"71
+"14
 [v _Reed_Contact_LMD_Counter Reed_Contact_LMD_Counter `uc  1 e 1 0 ]
-"72
+"15
 [v _Reed_Contact_RMU_Counter Reed_Contact_RMU_Counter `uc  1 e 1 0 ]
-"73
+"16
 [v _Reed_Contact_RMD_Counter Reed_Contact_RMD_Counter `uc  1 e 1 0 ]
-"74
+"17
 [v _Button_Contact_Counter_Start Button_Contact_Counter_Start `uc  1 e 1 0 ]
-"75
+"18
 [v _Button_Contact_Counter_Stop Button_Contact_Counter_Stop `uc  1 e 1 0 ]
-"76
+"19
 [v _Button_Contact_Counter_Middle Button_Contact_Counter_Middle `uc  1 e 1 0 ]
-"77
+"20
 [v _Button_Contact_Counter_LB Button_Contact_Counter_LB `uc  1 e 1 0 ]
-"78
+"21
 [v _Button_Contact_Counter_LF Button_Contact_Counter_LF `uc  1 e 1 0 ]
-"79
+"22
 [v _Button_Contact_Counter_RB Button_Contact_Counter_RB `uc  1 e 1 0 ]
-"80
+"23
 [v _Button_Contact_Counter_RF Button_Contact_Counter_RF `uc  1 e 1 0 ]
-"83
-[v _Train_Move_Pwm_Count Train_Move_Pwm_Count `ui  1 e 2 0 ]
-"84
-[v _Train_Move_Pwm_Fast_Count Train_Move_Pwm_Fast_Count `ui  1 e 2 0 ]
-"85
-[v _Adjust_Counter Adjust_Counter `ui  1 e 2 0 ]
-"86
+"26
 [v _Green_Led_Counter Green_Led_Counter `ui  1 e 2 0 ]
-"87
+"27
 [v _Red_Led_Counter Red_Led_Counter `ui  1 e 2 0 ]
-"88
+"46 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/io.h
+[v _Train_Move_Pwm_Count Train_Move_Pwm_Count `ui  1 e 2 0 ]
+"6 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/junction.c
+[v _Switch_Junction Switch_Junction `uc  1 e 1 0 ]
+"100 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/Main.c
+[v _Update_State_Machine Update_State_Machine `uc  1 e 1 0 ]
+"101
+[v _Led1_Counter Led1_Counter `ui  1 e 2 0 ]
+"34 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/State_Mchn.c
+[v _Switch_Main Switch_Main `uc  1 e 1 0 ]
+"35
+[v _Switch_Init Switch_Init `uc  1 e 1 0 ]
+"36
+[v _Switch_Program Switch_Program `uc  1 e 1 0 ]
+"37
+[v _Switch_Activate_Controls Switch_Activate_Controls `uc  1 e 1 0 ]
+"38
+[v _Switch_Adjust_LB Switch_Adjust_LB `uc  1 e 1 0 ]
+"39
+[v _Switch_Adjust_LF Switch_Adjust_LF `uc  1 e 1 0 ]
+"40
+[v _Switch_Adjust_RB Switch_Adjust_RB `uc  1 e 1 0 ]
+"41
+[v _Switch_Adjust_RF Switch_Adjust_RF `uc  1 e 1 0 ]
+"42
+[v _Switch_Train_Path Switch_Train_Path `uc  1 e 1 0 ]
+"43
+[v _Stop_Program Stop_Program `uc  1 e 1 0 ]
+"45
+[v _Adjust_Counter Adjust_Counter `ui  1 e 2 0 ]
+"46
 [v _Activate_Controls_Counter Activate_Controls_Counter `ui  1 e 2 0 ]
+"7 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_right.c
+[v _Switch_Train_Move Switch_Train_Move `uc  1 e 1 0 ]
+"8
+[v _Switch_Moutain Switch_Moutain `uc  1 e 1 0 ]
+"10
+[v _Train_Move_Pwm_Fast_Count Train_Move_Pwm_Fast_Count `ui  1 e 2 0 ]
+"11
+[v _Mountain_Delay_Counter Mountain_Delay_Counter `ui  1 e 2 0 ]
 [s S36 . 1 `uc 1 RA0 1 0 :1:0 
 `uc 1 RA1 1 0 :1:1 
 `uc 1 RA2 1 0 :1:2 
@@ -217,7 +223,7 @@
 `uc 1 RB7 1 0 :1:7 
 ]
 "2739
-[s S898 . 1 `uc 1 INT0 1 0 :1:0 
+[s S1258 . 1 `uc 1 INT0 1 0 :1:0 
 `uc 1 INT1 1 0 :1:1 
 `uc 1 INT2 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
@@ -225,11 +231,11 @@
 `uc 1 PGC 1 0 :1:6 
 `uc 1 PGD 1 0 :1:7 
 ]
-[s S906 . 1 `uc 1 . 1 0 :3:0 
+[s S1266 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 CCP2_PA2 1 0 :1:3 
 ]
-[u S909 . 1 `S221 1 . 1 0 `S898 1 . 1 0 `S906 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES909  1 e 1 @3969 ]
+[u S1269 . 1 `S221 1 . 1 0 `S1258 1 . 1 0 `S1266 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES1269  1 e 1 @3969 ]
 [s S504 . 1 `uc 1 RC0 1 0 :1:0 
 `uc 1 RC1 1 0 :1:1 
 `uc 1 RC2 1 0 :1:2 
@@ -393,7 +399,7 @@
 ]
 [u S389 . 1 `S371 1 . 1 0 `S380 1 . 1 0 `S383 1 . 1 0 `S386 1 . 1 0 ]
 [v _PIR1bits PIR1bits `VES389  1 e 1 @3998 ]
-[s S966 . 1 `uc 1 CCP2IF 1 0 :1:0 
+[s S1175 . 1 `uc 1 CCP2IF 1 0 :1:0 
 `uc 1 TMR3IF 1 0 :1:1 
 `uc 1 HLVDIF 1 0 :1:2 
 `uc 1 BCLIF 1 0 :1:3 
@@ -403,12 +409,12 @@
 `uc 1 OSCFIF 1 0 :1:7 
 ]
 "5084
-[s S975 . 1 `uc 1 . 1 0 :2:0 
+[s S1184 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LVDIF 1 0 :1:2 
 ]
-[u S978 . 1 `S966 1 . 1 0 `S975 1 . 1 0 ]
-[v _PIR2bits PIR2bits `VES978  1 e 1 @4001 ]
-[s S935 . 1 `uc 1 RD 1 0 :1:0 
+[u S1187 . 1 `S1175 1 . 1 0 `S1184 1 . 1 0 ]
+[v _PIR2bits PIR2bits `VES1187  1 e 1 @4001 ]
+[s S1143 . 1 `uc 1 RD 1 0 :1:0 
 `uc 1 WR 1 0 :1:1 
 `uc 1 WREN 1 0 :1:2 
 `uc 1 WRERR 1 0 :1:3 
@@ -418,18 +424,18 @@
 `uc 1 EEPGD 1 0 :1:7 
 ]
 "5224
-[s S944 . 1 `uc 1 . 1 0 :6:0 
+[s S1152 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 EEFS 1 0 :1:6 
 ]
-[u S947 . 1 `S935 1 . 1 0 `S944 1 . 1 0 ]
-[v _EECON1bits EECON1bits `VES947  1 e 1 @4006 ]
+[u S1155 . 1 `S1143 1 . 1 0 `S1152 1 . 1 0 ]
+[v _EECON1bits EECON1bits `VES1155  1 e 1 @4006 ]
 "5268
 [v _EECON2 EECON2 `VEuc  1 e 1 @4007 ]
 "5274
 [v _EEDATA EEDATA `VEuc  1 e 1 @4008 ]
 "5280
 [v _EEADR EEADR `VEuc  1 e 1 @4009 ]
-[s S1163 . 1 `uc 1 RX9D 1 0 :1:0 
+[s S873 . 1 `uc 1 RX9D 1 0 :1:0 
 `uc 1 OERR 1 0 :1:1 
 `uc 1 FERR 1 0 :1:2 
 `uc 1 ADDEN 1 0 :1:3 
@@ -439,25 +445,25 @@
 `uc 1 SPEN 1 0 :1:7 
 ]
 "5327
-[s S1172 . 1 `uc 1 . 1 0 :3:0 
+[s S882 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 ADEN 1 0 :1:3 
 ]
-[s S1175 . 1 `uc 1 . 1 0 :5:0 
+[s S885 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 SRENA 1 0 :1:5 
 ]
-[s S1178 . 1 `uc 1 . 1 0 :6:0 
+[s S888 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC8_9 1 0 :1:6 
 ]
-[s S1181 . 1 `uc 1 . 1 0 :6:0 
+[s S891 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC9 1 0 :1:6 
 ]
-[s S1184 . 1 `uc 1 RCD8 1 0 :1:0 
+[s S894 . 1 `uc 1 RCD8 1 0 :1:0 
 ]
-[u S1186 . 1 `S1163 1 . 1 0 `S1172 1 . 1 0 `S1175 1 . 1 0 `S1178 1 . 1 0 `S1181 1 . 1 0 `S1184 1 . 1 0 ]
-[v _RCSTAbits RCSTAbits `VES1186  1 e 1 @4011 ]
+[u S896 . 1 `S873 1 . 1 0 `S882 1 . 1 0 `S885 1 . 1 0 `S888 1 . 1 0 `S891 1 . 1 0 `S894 1 . 1 0 ]
+[v _RCSTAbits RCSTAbits `VES896  1 e 1 @4011 ]
 "5426
-[v _RCSTA1bits RCSTA1bits `VES1186  1 e 1 @4011 ]
-[s S1217 . 1 `uc 1 TX9D 1 0 :1:0 
+[v _RCSTA1bits RCSTA1bits `VES896  1 e 1 @4011 ]
+[s S927 . 1 `uc 1 TX9D 1 0 :1:0 
 `uc 1 TRMT 1 0 :1:1 
 `uc 1 BRGH 1 0 :1:2 
 `uc 1 SENDB 1 0 :1:3 
@@ -467,36 +473,36 @@
 `uc 1 CSRC 1 0 :1:7 
 ]
 "5555
-[s S1226 . 1 `uc 1 . 1 0 :2:0 
+[s S936 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 BRGH1 1 0 :1:2 
 ]
-[s S1229 . 1 `uc 1 . 1 0 :7:0 
+[s S939 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 CSRC1 1 0 :1:7 
 ]
-[s S1232 . 1 `uc 1 . 1 0 :3:0 
+[s S942 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 SENDB1 1 0 :1:3 
 ]
-[s S1235 . 1 `uc 1 . 1 0 :4:0 
+[s S945 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 SYNC1 1 0 :1:4 
 ]
-[s S1238 . 1 `uc 1 . 1 0 :1:0 
+[s S948 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 TRMT1 1 0 :1:1 
 ]
-[s S1241 . 1 `uc 1 . 1 0 :6:0 
+[s S951 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 TX91 1 0 :1:6 
 ]
-[s S1244 . 1 `uc 1 TX9D1 1 0 :1:0 
+[s S954 . 1 `uc 1 TX9D1 1 0 :1:0 
 ]
-[s S1246 . 1 `uc 1 . 1 0 :5:0 
+[s S956 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 TXEN1 1 0 :1:5 
 ]
-[s S1249 . 1 `uc 1 . 1 0 :6:0 
+[s S959 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 TX8_9 1 0 :1:6 
 ]
-[s S1252 . 1 `uc 1 TXD8 1 0 :1:0 
+[s S962 . 1 `uc 1 TXD8 1 0 :1:0 
 ]
-[u S1254 . 1 `S1217 1 . 1 0 `S1226 1 . 1 0 `S1229 1 . 1 0 `S1232 1 . 1 0 `S1235 1 . 1 0 `S1238 1 . 1 0 `S1241 1 . 1 0 `S1244 1 . 1 0 `S1246 1 . 1 0 `S1249 1 . 1 0 `S1252 1 . 1 0 ]
-[v _TXSTAbits TXSTAbits `VES1254  1 e 1 @4012 ]
+[u S964 . 1 `S927 1 . 1 0 `S936 1 . 1 0 `S939 1 . 1 0 `S942 1 . 1 0 `S945 1 . 1 0 `S948 1 . 1 0 `S951 1 . 1 0 `S954 1 . 1 0 `S956 1 . 1 0 `S959 1 . 1 0 `S962 1 . 1 0 ]
+[v _TXSTAbits TXSTAbits `VES964  1 e 1 @4012 ]
 "5797
 [v _TXREG1 TXREG1 `VEuc  1 e 1 @4013 ]
 "5808
@@ -507,7 +513,7 @@
 [v _SPBRGH SPBRGH `VEuc  1 e 1 @4016 ]
 "5971
 [v _CMCON CMCON `VEuc  1 e 1 @4020 ]
-[s S1117 . 1 `uc 1 ABDEN 1 0 :1:0 
+[s S827 . 1 `uc 1 ABDEN 1 0 :1:0 
 `uc 1 WUE 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
 `uc 1 BRG16 1 0 :1:3 
@@ -517,19 +523,19 @@
 `uc 1 ABDOVF 1 0 :1:7 
 ]
 "6484
-[s S1126 . 1 `uc 1 . 1 0 :4:0 
+[s S836 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 SCKP 1 0 :1:4 
 `uc 1 . 1 0 :1:5 
 `uc 1 RCMT 1 0 :1:6 
 ]
-[s S1131 . 1 `uc 1 . 1 0 :5:0 
+[s S841 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 RXCKP 1 0 :1:5 
 ]
-[s S1134 . 1 `uc 1 . 1 0 :1:0 
+[s S844 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 W4E 1 0 :1:1 
 ]
-[u S1137 . 1 `S1117 1 . 1 0 `S1126 1 . 1 0 `S1131 1 . 1 0 `S1134 1 . 1 0 ]
-[v _BAUDCONbits BAUDCONbits `VES1137  1 e 1 @4024 ]
+[u S847 . 1 `S827 1 . 1 0 `S836 1 . 1 0 `S841 1 . 1 0 `S844 1 . 1 0 ]
+[v _BAUDCONbits BAUDCONbits `VES847  1 e 1 @4024 ]
 "6708
 [v _CCP1CON CCP1CON `VEuc  1 e 1 @4029 ]
 "6875
@@ -612,167 +618,190 @@
 ]
 [u S298 . 1 `S276 1 . 1 0 `S285 1 . 1 0 `S294 1 . 1 0 ]
 [v _INTCONbits INTCONbits `VES298  1 e 1 @4082 ]
-"104 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/Main.c
+"105 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/Main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"137
+"138
 } 0
-"120 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/State_Mchn.c
+"63 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/State_Mchn.c
 [v _Update_StateMchn Update_StateMchn `(v  1 e 1 0 ]
 {
-"952
+"895
 } 0
-"1068
-[v _Train_Path Train_Path `(uc  1 s 1 Train_Path ]
+"912
+[v _Train_Path Train_Path `(uc  1 e 1 0 ]
 {
 [v Train_Path@From From `uc  1 a 1 wreg ]
 [v Train_Path@From From `uc  1 a 1 wreg ]
-[v Train_Path@To To `uc  1 p 1 25 ]
-"1070
+[v Train_Path@To To `uc  1 p 1 3 ]
+"914
 [v Train_Path@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-"1068
-[v Train_Path@From From `uc  1 a 1 26 ]
-"1368
+"912
+[v Train_Path@From From `uc  1 a 1 4 ]
+"1194
 } 0
-"1645
-[v _Train_Move_Right_Start Train_Move_Right_Start `(uc  1 s 1 Train_Move_Right_Start ]
+"27 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_right.c
+[v _Train_Move_Right_Start Train_Move_Right_Start `(uc  1 e 1 0 ]
 {
-"1647
+"29
 [v Train_Move_Right_Start@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-"1648
+"30
 [v Train_Move_Right_Start@Train_Move_Wait_Time Train_Move_Wait_Time `ui  1 s 2 Train_Move_Wait_Time ]
-"1706
+"88
 } 0
-"1722
-[v _Train_Move_Right_Brake Train_Move_Right_Brake `(uc  1 s 1 Train_Move_Right_Brake ]
+"246
+[v _Train_Move_Right_Brake Train_Move_Right_Brake `(uc  1 e 1 0 ]
 {
-"1724
+"248
 [v Train_Move_Right_Brake@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-"1725
+"249
 [v Train_Move_Right_Brake@Train_Move_Wait_Time Train_Move_Wait_Time `ui  1 s 2 Train_Move_Wait_Time ]
-"1781
+"305
 } 0
-"1385
-[v _Train_Move_Left_Start Train_Move_Left_Start `(uc  1 s 1 Train_Move_Left_Start ]
+"27 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_left.c
+[v _Train_Move_Left_Start Train_Move_Left_Start `(uc  1 e 1 0 ]
 {
-"1387
+"29
 [v Train_Move_Left_Start@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-"1388
+"30
 [v Train_Move_Left_Start@Train_Move_Wait_Time Train_Move_Wait_Time `ui  1 s 2 Train_Move_Wait_Time ]
-"1445
+"87
 } 0
-"1569
-[v _Train_Move_Left_Brake Train_Move_Left_Brake `(uc  1 s 1 Train_Move_Left_Brake ]
+"246
+[v _Train_Move_Left_Brake Train_Move_Left_Brake `(uc  1 e 1 0 ]
 {
-"1571
+"248
 [v Train_Move_Left_Brake@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-"1572
+"249
 [v Train_Move_Left_Brake@Train_Move_Wait_Time Train_Move_Wait_Time `ui  1 s 2 Train_Move_Wait_Time ]
-"1628
+"305
 } 0
-"1461
-[v _Right_Mountain_From_The_Right Right_Mountain_From_The_Right `(uc  1 s 1 Right_Mountain_From_The_Right ]
+"103
+[v _Right_Mountain_From_The_Right Right_Mountain_From_The_Right `(uc  1 e 1 0 ]
 {
 [v Right_Mountain_From_The_Right@rc rc `uc  1 a 1 wreg ]
 [v Right_Mountain_From_The_Right@rc rc `uc  1 a 1 wreg ]
-"1463
+"105
 [v Right_Mountain_From_The_Right@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-[v Right_Mountain_From_The_Right@rc rc `uc  1 a 1 24 ]
-"1493
+"103
+[v Right_Mountain_From_The_Right@rc rc `uc  1 a 1 6 ]
+"158
+} 0
+"175 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_right.c
+[v _Right_Mountain_From_The_Left Right_Mountain_From_The_Left `(uc  1 e 1 0 ]
+{
+[v Right_Mountain_From_The_Left@rc rc `uc  1 a 1 wreg ]
+[v Right_Mountain_From_The_Left@rc rc `uc  1 a 1 wreg ]
+"177
+[v Right_Mountain_From_The_Left@Return_Val Return_Val `uc  1 s 1 Return_Val ]
+"175
+[v Right_Mountain_From_The_Left@rc rc `uc  1 a 1 6 ]
+"230
+} 0
+"174 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_left.c
+[v _Left_Mountain_From_The_Right Left_Mountain_From_The_Right `(uc  1 e 1 0 ]
+{
+[v Left_Mountain_From_The_Right@rc rc `uc  1 a 1 wreg ]
+[v Left_Mountain_From_The_Right@rc rc `uc  1 a 1 wreg ]
+"176
+[v Left_Mountain_From_The_Right@Return_Val Return_Val `uc  1 s 1 Return_Val ]
+"174
+[v Left_Mountain_From_The_Right@rc rc `uc  1 a 1 6 ]
+"229
+} 0
+"104 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_right.c
+[v _Left_Mountain_From_The_Left Left_Mountain_From_The_Left `(uc  1 e 1 0 ]
+{
+[v Left_Mountain_From_The_Left@rc rc `uc  1 a 1 wreg ]
+[v Left_Mountain_From_The_Left@rc rc `uc  1 a 1 wreg ]
+"106
+[v Left_Mountain_From_The_Left@Return_Val Return_Val `uc  1 s 1 Return_Val ]
+"104
+[v Left_Mountain_From_The_Left@rc rc `uc  1 a 1 6 ]
+"159
+} 0
+"20 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/set_pwm.c
+[v _SETxPWM SETxPWM `(v  1 e 1 0 ]
+{
+"22
+[v SETxPWM@pwm_speed pwm_speed `ui  1 a 2 2 ]
+"20
+[v SETxPWM@speed speed `ui  1 p 2 0 ]
+[v SETxPWM@direction direction `uc  1 p 1 2 ]
+"32
 } 0
 "7 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\pic18\plib\PWM\pw1setdc.c
 [v _SetDCPWM1 SetDCPWM1 `(v  1 e 1 0 ]
 {
-[u S1432 PWMDC 2 `ui 1 lpwm 2 0 `[2]uc 1 bpwm 2 0 ]
+[u S1540 PWMDC 2 `ui 1 lpwm 2 0 `[2]uc 1 bpwm 2 0 ]
 "9
-[v SetDCPWM1@DCycle DCycle `S1432  1 a 2 22 ]
+[v SetDCPWM1@DCycle DCycle `S1540  1 a 2 4 ]
 "7
-[v SetDCPWM1@dutycycle dutycycle `ui  1 p 2 18 ]
+[v SetDCPWM1@dutycycle dutycycle `ui  1 p 2 0 ]
 "19
 } 0
-"1549 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/State_Mchn.c
-[v _Right_Mountain_From_The_Left Right_Mountain_From_The_Left `(uc  1 s 1 Right_Mountain_From_The_Left ]
-{
-"1551
-[v Right_Mountain_From_The_Left@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-"1553
-} 0
-"1509
-[v _Left_Mountain_From_The_Right Left_Mountain_From_The_Right `(uc  1 s 1 Left_Mountain_From_The_Right ]
-{
-"1511
-[v Left_Mountain_From_The_Right@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-"1513
-} 0
-"1529
-[v _Left_Mountain_From_The_Left Left_Mountain_From_The_Left `(uc  1 s 1 Left_Mountain_From_The_Left ]
-{
-"1531
-[v Left_Mountain_From_The_Left@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-"1533
-} 0
-"1798
-[v _Junction Junction `(uc  1 s 1 Junction ]
+"23 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/junction.c
+[v _Junction Junction `(uc  1 e 1 0 ]
 {
 [v Junction@Junction_Left_Right Junction_Left_Right `uc  1 a 1 wreg ]
 [v Junction@Junction_Left_Right Junction_Left_Right `uc  1 a 1 wreg ]
-[v Junction@Straight_Bend Straight_Bend `uc  1 p 1 18 ]
-"1800
+[v Junction@Straight_Bend Straight_Bend `uc  1 p 1 3 ]
+"25
 [v Junction@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-"1801
+"26
 [v Junction@Junction_Switch_Time Junction_Switch_Time `ui  1 s 2 Junction_Switch_Time ]
-"1798
-[v Junction@Junction_Left_Right Junction_Left_Right `uc  1 a 1 19 ]
-"1853
+"23
+[v Junction@Junction_Left_Right Junction_Left_Right `uc  1 a 1 4 ]
+"78
 } 0
-"1018
-[v _Red_Led Red_Led `(v  1 s 1 Red_Led ]
+"97 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/io.c
+[v _Red_Led Red_Led `(v  1 e 1 0 ]
 {
 [v Red_Led@Operation Operation `uc  1 a 1 wreg ]
 [v Red_Led@Operation Operation `uc  1 a 1 wreg ]
-[v Red_Led@Operation Operation `uc  1 a 1 15 ]
-"1052
+[v Red_Led@Operation Operation `uc  1 a 1 0 ]
+"131
 } 0
 "144 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/api.c
 [v _INCRxAPIxVAL INCRxAPIxVAL `(v  1 e 1 0 ]
 {
 [v INCRxAPIxVAL@index index `uc  1 a 1 wreg ]
 "145
-[v INCRxAPIxVAL@value value `ui  1 a 2 18 ]
+[v INCRxAPIxVAL@value value `ui  1 a 2 3 ]
 "144
 [v INCRxAPIxVAL@index index `uc  1 a 1 wreg ]
 "146
-[v INCRxAPIxVAL@index index `uc  1 a 1 20 ]
+[v INCRxAPIxVAL@index index `uc  1 a 1 5 ]
 "149
 } 0
-"968 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/State_Mchn.c
-[v _Green_Led Green_Led `(v  1 s 1 Green_Led ]
+"47 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/io.c
+[v _Green_Led Green_Led `(v  1 e 1 0 ]
 {
 [v Green_Led@Operation Operation `uc  1 a 1 wreg ]
 [v Green_Led@Operation Operation `uc  1 a 1 wreg ]
-[v Green_Led@Operation Operation `uc  1 a 1 15 ]
-"1002
+[v Green_Led@Operation Operation `uc  1 a 1 0 ]
+"81
 } 0
-"2156
-[v _Eeprom_Store Eeprom_Store `(v  1 s 1 Eeprom_Store ]
+"21 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eeprom_settings.c
+[v _Eeprom_Store Eeprom_Store `(v  1 e 1 0 ]
 {
-"2212
+"77
 } 0
-"1870
-[v _Debounce_Inputs Debounce_Inputs `(v  1 s 1 Debounce_Inputs ]
+"148 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/io.c
+[v _Debounce_Inputs Debounce_Inputs `(v  1 e 1 0 ]
 {
-"2140
+"418
 } 0
 "151 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/api.c
 [v _DECRxAPIxVAL DECRxAPIxVAL `(v  1 e 1 0 ]
 {
 [v DECRxAPIxVAL@index index `uc  1 a 1 wreg ]
 "152
-[v DECRxAPIxVAL@value value `ui  1 a 2 18 ]
+[v DECRxAPIxVAL@value value `ui  1 a 2 3 ]
 "151
 [v DECRxAPIxVAL@index index `uc  1 a 1 wreg ]
 "153
-[v DECRxAPIxVAL@index index `uc  1 a 1 20 ]
+[v DECRxAPIxVAL@index index `uc  1 a 1 5 ]
 "156
 } 0
 "137
@@ -780,8 +809,8 @@
 {
 [v SETxAPIxVAL@index index `uc  1 a 1 wreg ]
 [v SETxAPIxVAL@index index `uc  1 a 1 wreg ]
-[v SETxAPIxVAL@value value `ui  1 p 2 15 ]
-[v SETxAPIxVAL@index index `uc  1 a 1 17 ]
+[v SETxAPIxVAL@value value `ui  1 p 2 0 ]
+[v SETxAPIxVAL@index index `uc  1 a 1 2 ]
 "139
 } 0
 "140
@@ -789,49 +818,49 @@
 {
 [v GETxAPIxVAL@index index `uc  1 a 1 wreg ]
 [v GETxAPIxVAL@index index `uc  1 a 1 wreg ]
-[v GETxAPIxVAL@index index `uc  1 a 1 17 ]
+[v GETxAPIxVAL@index index `uc  1 a 1 2 ]
 "142
 } 0
-"180 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/Main.c
+"181 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/Main.c
 [v _Init_Timers Init_Timers `(v  1 e 1 0 ]
 {
-"188
+"189
 } 0
-"193
+"194
 [v _Init_Pwm Init_Pwm `(v  1 e 1 0 ]
 {
-"203
+"204
 } 0
 "12 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/terminal.c
 [v _INIT_TERMINAL INIT_TERMINAL `(v  1 e 1 0 ]
 {
 "13
-[v INIT_TERMINAL@i i `i  1 a 2 15 ]
+[v INIT_TERMINAL@i i `i  1 a 2 0 ]
 "17
 } 0
 "77 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
 [v _EUSART1_Initialize EUSART1_Initialize `(v  1 e 1 0 ]
 {
 "99
-[v EUSART1_Initialize@baud_rate baud_rate `ui  1 a 2 15 ]
+[v EUSART1_Initialize@baud_rate baud_rate `ui  1 a 2 0 ]
 "118
 } 0
 "30 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/api.c
 [v _APIxInitialize APIxInitialize `(v  1 e 1 0 ]
 {
 "32
-[v APIxInitialize@i i `ui  1 a 2 15 ]
+[v APIxInitialize@i i `ui  1 a 2 0 ]
 "117
 } 0
-"144 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/Main.c
+"145 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/Main.c
 [v _tc_low tc_low `IIL(v  1 e 1 0 ]
 {
-"146
+"147
 } 0
-"148
+"149
 [v _tc_high tc_high `IIH(v  1 e 1 0 ]
 {
-"176
+"177
 } 0
 "21 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/terminal.c
 [v _UPDATExTERMINAL UPDATExTERMINAL `(v  1 e 1 0 ]

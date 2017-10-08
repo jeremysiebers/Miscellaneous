@@ -6144,8 +6144,9 @@ extern __nonreentrant void _delay3(unsigned char);
 
 #pragma config EBTRB = OFF
 
-# 27 "../State_Mchn.h"
+# 4 "../State_Mchn.h"
 extern void Update_StateMchn(void);
+unsigned char Train_Path(unsigned char From, unsigned char To);
 
 # 22 "../eusart1.h"
 typedef signed char int8_t;
@@ -6269,7 +6270,14 @@ extern void DECRxAPIxVAL(unsigned char index);
 extern unsigned int GETxAPIxVAL(unsigned char index);
 extern unsigned int API[];
 
-# 96 "../Main.c"
+# 46 "../io.h"
+unsigned int Train_Move_Pwm_Count;
+
+extern void Debounce_Inputs(void);
+extern void Green_Led(unsigned char Operation);
+extern void Red_Led(unsigned char Operation);
+
+# 97 "../Main.c"
 void Init_Timers(void);
 void Init_Pwm(void);
 
@@ -6313,7 +6321,7 @@ Update_StateMchn();
 }
 }
 
-# 144
+# 145
 void interrupt low_priority tc_low(void) {
 
 }

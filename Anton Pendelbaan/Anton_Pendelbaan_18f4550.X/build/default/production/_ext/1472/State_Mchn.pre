@@ -6081,8 +6081,9 @@ extern __nonreentrant void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __nonreentrant void _delay3(unsigned char);
 
-# 27 "../State_Mchn.h"
+# 4 "../State_Mchn.h"
 extern void Update_StateMchn(void);
+unsigned char Train_Path(unsigned char From, unsigned char To);
 
 # 11 "../api.h"
 extern void APIxInitialize(void);
@@ -6093,62 +6094,47 @@ extern void DECRxAPIxVAL(unsigned char index);
 extern unsigned int GETxAPIxVAL(unsigned char index);
 extern unsigned int API[];
 
-# 52 "../State_Mchn.c"
-unsigned char Switch_Junction = 0,
-Switch_Train_Move = 0,
-Switch_Main = 0,
-Switch_Main_Old = 0,
+# 46 "../io.h"
+unsigned int Train_Move_Pwm_Count;
+
+extern void Debounce_Inputs(void);
+extern void Green_Led(unsigned char Operation);
+extern void Red_Led(unsigned char Operation);
+
+# 15 "../eeprom_settings.h"
+extern void Eeprom_Store(void);
+
+# 15 "../junction.h"
+extern char Junction(unsigned char Left_Right, unsigned char Straight_Bend);
+
+# 15 "../train_move_left.h"
+extern char Right_Mountain_From_The_Right(unsigned char rc);
+extern char Left_Mountain_From_The_Right(unsigned char rc);
+extern char Train_Move_Left_Start(void);
+extern char Train_Move_Left_Brake(void);
+
+# 15 "../train_move_right.h"
+extern char Train_Move_Right_Start(void);
+extern char Left_Mountain_From_The_Left(unsigned char rc);
+extern char Right_Mountain_From_The_Left(unsigned char rc);
+extern char Train_Move_Right_Brake(void);
+
+# 34 "../State_Mchn.c"
+unsigned char Switch_Main = 0,
+Switch_Init = 0,
 Switch_Program = 0,
-Switch_Program_Old = 0,
-Switch_Train_Path = 0,
+Switch_Activate_Controls = 0,
 Switch_Adjust_LB = 0,
 Switch_Adjust_LF = 0,
 Switch_Adjust_RB = 0,
 Switch_Adjust_RF = 0,
-Switch_Init = 0,
-Switch_Activate_Controls = 0,
-Stop_Program = 0,
-Reed_Contact_LF_Counter = 0,
-Reed_Contact_LB_Counter = 0,
-Reed_Contact_RF_Counter = 0,
-Reed_Contact_RB_Counter = 0,
-Reed_Contact_LMU_Counter = 0,
-Reed_Contact_LMD_Counter = 0,
-Reed_Contact_RMU_Counter = 0,
-Reed_Contact_RMD_Counter = 0,
-Button_Contact_Counter_Start = 0,
-Button_Contact_Counter_Stop = 0,
-Button_Contact_Counter_Middle = 0,
-Button_Contact_Counter_LB = 0,
-Button_Contact_Counter_LF = 0,
-Button_Contact_Counter_RB = 0,
-Button_Contact_Counter_RF = 0;
+Switch_Train_Path = 0,
+Stop_Program = 0;
 
-
-unsigned int Train_Move_Pwm_Count = 511,
-Train_Move_Pwm_Fast_Count = 0,
-Adjust_Counter = 0,
-Green_Led_Counter = 0,
-Red_Led_Counter = 0,
+unsigned int Adjust_Counter = 0,
 Activate_Controls_Counter = 0;
 
-
-static char Junction(unsigned char Left_Right, unsigned char Straight_Bend);
-static char Train_Move_Right_Start(void);
-static char Right_Mountain_From_The_Right(unsigned char rc);
-static char Left_Mountain_From_The_Right(unsigned char rc);
-static char Left_Mountain_From_The_Left(unsigned char rc);
-static char Right_Mountain_From_The_Left(unsigned char rc);
-static char Train_Move_Right_Brake(void);
-static char Train_Move_Left_Start(void);
-static char Train_Move_Left_Brake(void);
-static char Train_Path(unsigned char From, unsigned char To);
-static void Debounce_Inputs(void);
-static void Eeprom_Store(void);
-static void Green_Led(unsigned char Operation);
-static void Red_Led(unsigned char Operation);
-
-# 120
+# 63
 void Update_StateMchn(void)
 {
 Debounce_Inputs();
@@ -6445,7 +6431,7 @@ break;
 
 case 1 : switch (Switch_Program)
 {
-case 0 : if (Train_Path(2,0) == (char)0)
+case 0 : if (Train_Path(2,0) == 0)
 {
 Switch_Program = 1;
 Eeprom_Store();
@@ -6457,7 +6443,7 @@ Switch_Main = 0;
 }
 break;
 
-case 1 : if (Train_Path(1,2) == (char)0)
+case 1 : if (Train_Path(1,2) == 0)
 {
 Switch_Program = 2;
 Eeprom_Store();
@@ -6469,7 +6455,7 @@ Switch_Main = 0;
 }
 break;
 
-case 2 : if (Train_Path(0,3) == (char)0)
+case 2 : if (Train_Path(0,3) == 0)
 {
 Switch_Program = 3;
 Eeprom_Store();
@@ -6481,7 +6467,7 @@ Switch_Main = 0;
 }
 break;
 
-case 3 : if (Train_Path(2,0) == (char)0)
+case 3 : if (Train_Path(2,0) == 0)
 {
 Switch_Program = 4;
 Eeprom_Store();
@@ -6493,7 +6479,7 @@ Switch_Main = 0;
 }
 break;
 
-case 4 : if (Train_Path(3,1) == (char)0)
+case 4 : if (Train_Path(3,1) == 0)
 {
 Switch_Program = 5;
 Eeprom_Store();
@@ -6505,7 +6491,7 @@ Switch_Main = 0;
 }
 break;
 
-case 5 : if (Train_Path(0,3) == (char)0)
+case 5 : if (Train_Path(0,3) == 0)
 {
 Switch_Program = 6;
 Eeprom_Store();
@@ -6517,7 +6503,7 @@ Switch_Main = 0;
 }
 break;
 
-case 6 : if (Train_Path(1,2) == (char)0)
+case 6 : if (Train_Path(1,2) == 0)
 {
 Switch_Program = 7;
 Eeprom_Store();
@@ -6529,7 +6515,7 @@ Switch_Main = 0;
 }
 break;
 
-case 7 : if (Train_Path(3,1) == (char)0)
+case 7 : if (Train_Path(3,1) == 0)
 {
 Switch_Program = 0;
 Eeprom_Store();
@@ -6745,7 +6731,7 @@ break;
 
 case 2 : switch (Switch_Program)
 {
-case 0 : if (Train_Path(2,0) == (char)0)
+case 0 : if (Train_Path(2,0) == 0)
 {
 Switch_Program = 1;
 Eeprom_Store();
@@ -6757,7 +6743,7 @@ Switch_Main = 0;
 }
 break;
 
-case 1 : if (Train_Path(0,3) == (char)0)
+case 1 : if (Train_Path(0,3) == 0)
 {
 Switch_Program = 2;
 Eeprom_Store();
@@ -6769,7 +6755,7 @@ Switch_Main = 0;
 }
 break;
 
-case 2 : if (Train_Path(3,1) == (char)0)
+case 2 : if (Train_Path(3,1) == 0)
 {
 Switch_Program = 3;
 Eeprom_Store();
@@ -6781,7 +6767,7 @@ Switch_Main = 0;
 }
 break;
 
-case 3 : if (Train_Path(1,2) == (char)0)
+case 3 : if (Train_Path(1,2) == 0)
 {
 Switch_Program = 0;
 Eeprom_Store();
@@ -6983,116 +6969,42 @@ default : break;
 }
 }
 
-# 968
-static void Green_Led(unsigned char Operation)
+# 912
+char Train_Path(unsigned char From, unsigned char To)
 {
-switch(Operation)
-{
-case 0 : PORTDbits.RD6 = 0; break;
-
-case 1 : PORTDbits.RD6 = 1; break;
-
-case 2 : Green_Led_Counter++;
-if(Green_Led_Counter >= 3000)
-{
-Green_Led_Counter = 0;
-}
-if(Green_Led_Counter >= 3000/2)
-{
-PORTDbits.RD6 = 1;
-}
-else {PORTDbits.RD6 = 0;}
-break;
-
-case 3 : Green_Led_Counter++;
-if(Green_Led_Counter >= 1000)
-{
-Green_Led_Counter = 0;
-}
-if(Green_Led_Counter >= 1000/2)
-{
-PORTDbits.RD6 = 1;
-}
-else {PORTDbits.RD6 = 0;}
-break;
-
-default : break;
-}
-}
-
-# 1018
-static void Red_Led(unsigned char Operation)
-{
-switch(Operation)
-{
-case 0 : PORTDbits.RD5 = 0; break;
-
-case 1 : PORTDbits.RD5 = 1; break;
-
-case 2 : Red_Led_Counter++;
-if(Red_Led_Counter >= 3000)
-{
-Red_Led_Counter = 0;
-}
-if(Red_Led_Counter >= 3000/2)
-{
-PORTDbits.RD5 = 1;
-}
-else {PORTDbits.RD5 = 0;}
-break;
-
-case 3 : Red_Led_Counter++;
-if(Red_Led_Counter >= 1000)
-{
-Red_Led_Counter = 0;
-}
-if(Red_Led_Counter >= 1000/2)
-{
-PORTDbits.RD5 = 1;
-}
-else {PORTDbits.RD5 = 0;}
-break;
-
-default : break;
-}
-}
-
-# 1068
-static char Train_Path(unsigned char From, unsigned char To)
-{
-static char Return_Val = (char)-1;
+static char Return_Val = 1;
 
 switch(Switch_Train_Path)
 {
 case 0 : switch(From)
 {
-case 2 : if(Junction(1, 0) == (char)0)
+case 2 : if(Junction(1, 0) == 0)
 {
 Switch_Train_Path = 1;
-Return_Val = (char)-1;
+Return_Val = 1;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
-case 3 : if(Junction(1, 1) == (char)0)
+case 3 : if(Junction(1, 1) == 0)
 {
 Switch_Train_Path = 1;
-Return_Val = (char)-1;
+Return_Val = 1;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
-case 0 : if(Junction(0, 1) == (char)0)
+case 0 : if(Junction(0, 1) == 0)
 {
 Switch_Train_Path = 1;
-Return_Val = (char)-1;
+Return_Val = 1;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
-case 1 : if(Junction(0, 0) == (char)0)
+case 1 : if(Junction(0, 0) == 0)
 {
 Switch_Train_Path = 1;
-Return_Val = (char)-1;
+Return_Val = 1;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
 default : break;
 }
@@ -7100,33 +7012,33 @@ break;
 
 case 1 : switch(To)
 {
-case 2 : if(Junction(1, 0) == (char)0)
+case 2 : if(Junction(1, 0) == 0)
 {
 Switch_Train_Path = 2;
-Return_Val = (char)-1;
+Return_Val = 1;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
-case 3 : if(Junction(1, 1) == (char)0)
+case 3 : if(Junction(1, 1) == 0)
 {
 Switch_Train_Path = 2;
-Return_Val = (char)-1;
+Return_Val = 1;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
-case 0 : if(Junction(0, 1) == (char)0)
+case 0 : if(Junction(0, 1) == 0)
 {
 Switch_Train_Path = 2;
-Return_Val = (char)-1;
+Return_Val = 1;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
-case 1 : if(Junction(0, 0) == (char)0)
+case 1 : if(Junction(0, 0) == 0)
 {
 Switch_Train_Path = 2;
-Return_Val = (char)-1;
+Return_Val = 1;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
 default : break;
 }
@@ -7134,33 +7046,33 @@ break;
 
 case 2 : switch(To)
 {
-case 2 : if(Train_Move_Right_Start() == (char)0)
+case 2 : if(Train_Move_Right_Start() == 0)
 {
 Switch_Train_Path = 3;
-Return_Val = (char)-1;
+Return_Val = 1;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
-case 3 : if(Train_Move_Right_Start() == (char)0)
+case 3 : if(Train_Move_Right_Start() == 0)
 {
 Switch_Train_Path = 3;
-Return_Val = (char)-1;
+Return_Val = 1;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
-case 0 : if(Train_Move_Left_Start() == (char)0)
+case 0 : if(Train_Move_Left_Start() == 0)
 {
 Switch_Train_Path = 3;
-Return_Val = (char)-1;
+Return_Val = 1;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
-case 1 : if(Train_Move_Left_Start() == (char)0)
+case 1 : if(Train_Move_Left_Start() == 0)
 {
 Switch_Train_Path = 3;
-Return_Val = (char)-1;
+Return_Val = 1;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
 default : break;
 }
@@ -7183,11 +7095,7 @@ Switch_Train_Path = 7;
 else if(GETxAPIxVAL(27) == 1){
 Switch_Train_Path = 8;
 }
-else{
-SetDCPWM1(GETxAPIxVAL(7));
-Train_Move_Pwm_Count = GETxAPIxVAL(7);
-}
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
 case 3 : if(GETxAPIxVAL(13) == 1){
 Switch_Train_Path = 4;
@@ -7204,11 +7112,7 @@ Switch_Train_Path = 7;
 else if(GETxAPIxVAL(27) == 1){
 Switch_Train_Path = 8;
 }
-else{
-SetDCPWM1(GETxAPIxVAL(7));
-Train_Move_Pwm_Count = GETxAPIxVAL(7);
-}
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
 case 0 : if(GETxAPIxVAL(14) == 1)
 {
@@ -7226,11 +7130,7 @@ Switch_Train_Path = 11;
 else if(GETxAPIxVAL(27) == 1){
 Switch_Train_Path = 12;
 }
-else{
-SetDCPWM1(GETxAPIxVAL(8));
-Train_Move_Pwm_Count = GETxAPIxVAL(8);
-}
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
 case 1 : if(GETxAPIxVAL(15) == 1)
 {
@@ -7248,11 +7148,7 @@ Switch_Train_Path = 11;
 else if(GETxAPIxVAL(27) == 1){
 Switch_Train_Path = 12;
 }
-else{
-SetDCPWM1(GETxAPIxVAL(8));
-Train_Move_Pwm_Count = GETxAPIxVAL(8);
-}
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
 default : break;
 }
@@ -7260,799 +7156,100 @@ break;
 
 case 4 : switch(To)
 {
-case 2 : if(Train_Move_Right_Brake() == (char)0)
+case 2 : if(Train_Move_Right_Brake() == 0)
 {
 Switch_Train_Path = 0;
-Return_Val = (char)0;
+Return_Val = 0;
 break;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
-case 3 : if(Train_Move_Right_Brake() == (char)0)
+case 3 : if(Train_Move_Right_Brake() == 0)
 {
 Switch_Train_Path = 0;
-Return_Val = (char)0;
+Return_Val = 0;
 break;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
-case 0 : if(Train_Move_Left_Brake() == (char)0)
+case 0 : if(Train_Move_Left_Brake() == 0)
 {
 Switch_Train_Path = 0;
-Return_Val = (char)0;
+Return_Val = 0;
 break;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
-case 1 : if(Train_Move_Left_Brake() == (char)0)
+case 1 : if(Train_Move_Left_Brake() == 0)
 {
 Switch_Train_Path = 0;
-Return_Val = (char)0;
+Return_Val = 0;
 break;
 }
-Return_Val = (char)-1;
+Return_Val = 1;
 break;
 default : break;
 }
 break;
 
 case 5 :
-if(Left_Mountain_From_The_Left(1) == (char)0){
+if(Left_Mountain_From_The_Left(1) == 0){
 Switch_Train_Path = 3;
-Return_Val = (char)-1;
 }
+Return_Val = 1;
 break;
 
 case 6 :
-if(Left_Mountain_From_The_Left(2) == (char)0){
+if(Left_Mountain_From_The_Left(2) == 0){
 Switch_Train_Path = 3;
-Return_Val = (char)-1;
 }
+Return_Val = 1;
 break;
 
 case 7 :
-if(Right_Mountain_From_The_Left(3) == (char)0){
+if(Right_Mountain_From_The_Left(3) == 0){
 Switch_Train_Path = 3;
-Return_Val = (char)-1;
 }
+Return_Val = 1;
 break;
 
 case 8 :
-if(Right_Mountain_From_The_Left(4) == (char)0){
+if(Right_Mountain_From_The_Left(4) == 0){
 Switch_Train_Path = 3;
-Return_Val = (char)-1;
 }
+Return_Val = 1;
 break;
 
 case 9 :
-if(Right_Mountain_From_The_Right(4) == (char)0){
+if(Right_Mountain_From_The_Right(4) == 0){
 Switch_Train_Path = 3;
-Return_Val = (char)-1;
 }
+Return_Val = 1;
 break;
 
 case 10 :
-if(Right_Mountain_From_The_Right(3) == (char)0){
+if(Right_Mountain_From_The_Right(3) == 0){
 Switch_Train_Path = 3;
-Return_Val = (char)-1;
 }
+Return_Val = 1;
 break;
 
 case 11 :
-if(Left_Mountain_From_The_Right(2) == (char)0){
+if(Left_Mountain_From_The_Right(2) == 0){
 Switch_Train_Path = 3;
-Return_Val = (char)-1;
 }
+Return_Val = 1;
 break;
 
 case 12 :
-if(Left_Mountain_From_The_Right(1) == (char)0){
+if(Left_Mountain_From_The_Right(1) == 0){
 Switch_Train_Path = 3;
-Return_Val = (char)-1;
 }
+Return_Val = 1;
 break;
 
-
-
-default : Switch_Train_Path = 0; break;
+default : Switch_Train_Path = 0; Return_Val = 1; break;
 }
 
 return(Return_Val);
-}
-
-# 1385
-static char Train_Move_Left_Start(void)
-{
-static char Return_Val = (char)-1;
-static unsigned int Train_Move_Wait_Time = 0;
-
-switch(Switch_Train_Move)
-{
-
-
-case 0 : if(Train_Move_Wait_Time >= GETxAPIxVAL(4))
-{
-Switch_Train_Move = 1;
-Train_Move_Wait_Time = 0;
-Return_Val = (char)-1;
-break;
-}
-Train_Move_Wait_Time++;
-Switch_Train_Move = 0;
-Return_Val = (char)-1;
-break;
-
-case 1 : SetDCPWM1(GETxAPIxVAL(5));
-Train_Move_Pwm_Count = GETxAPIxVAL(5);
-PORTCbits.RC0 = 0;
-Switch_Train_Move = 2;
-Return_Val = (char)-1;
-break;
-
-case 2 : if(Train_Move_Wait_Time >= GETxAPIxVAL(2))
-{
-Switch_Train_Move = 3;
-Train_Move_Wait_Time = 0;
-Return_Val = (char)-1;
-break;
-}
-Train_Move_Wait_Time++;
-Switch_Train_Move = 2;
-Return_Val = (char)-1;
-break;
-
-case 3 : SetDCPWM1(Train_Move_Pwm_Count);
-Return_Val = (char)-1;
-if (Train_Move_Pwm_Count <= GETxAPIxVAL(8))
-{
-Switch_Train_Move = 0;
-Return_Val = (char)0;
-break;
-}
-if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(10))
-{
-Train_Move_Pwm_Count--;
-Train_Move_Pwm_Fast_Count = 0;
-}
-Train_Move_Pwm_Fast_Count++;
-break;
-default : break;
-}
-
-return(Return_Val);
-
-}
-
-# 1461
-static char Right_Mountain_From_The_Right(unsigned char rc)
-{
-static char Return_Val = (char)-1;
-if(rc == 4){
-SetDCPWM1(Train_Move_Pwm_Count);
-if (Train_Move_Pwm_Count >= GETxAPIxVAL(30))
-{
-Switch_Train_Move = 0;
-Return_Val = (char)0;
-}
-if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(10))
-{
-Train_Move_Pwm_Count++;
-Train_Move_Pwm_Fast_Count = 0;
-}
-Train_Move_Pwm_Fast_Count++;
-}
-else if (rc == 3){
-SetDCPWM1(Train_Move_Pwm_Count);
-if (Train_Move_Pwm_Count <= GETxAPIxVAL(8))
-{
-Switch_Train_Move = 0;
-Return_Val = (char)0;
-}
-if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(10))
-{
-Train_Move_Pwm_Count--;
-Train_Move_Pwm_Fast_Count = 0;
-}
-Train_Move_Pwm_Fast_Count++;
-}
-return(Return_Val);
-}
-
-# 1509
-static char Left_Mountain_From_The_Right(unsigned char rc)
-{
-static char Return_Val = (char)-1;
-return(Return_Val);
-}
-
-# 1529
-static char Left_Mountain_From_The_Left(unsigned char rc)
-{
-static char Return_Val = (char)-1;
-return(Return_Val);
-}
-
-# 1549
-static char Right_Mountain_From_The_Left(unsigned char rc)
-{
-static char Return_Val = (char)-1;
-return(Return_Val);
-}
-
-# 1569
-static char Train_Move_Left_Brake(void)
-{
-static char Return_Val = (char)-1;
-static unsigned int Train_Move_Wait_Time = 0;
-
-switch(Switch_Train_Move)
-{
-case 0 : SetDCPWM1(Train_Move_Pwm_Count);
-Return_Val = (char)-1;
-if (Train_Move_Pwm_Count >= GETxAPIxVAL(5))
-{
-Switch_Train_Move = 1;
-Return_Val = (char)-1;
-break;
-}
-if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(9))
-{
-Train_Move_Pwm_Count++;
-Train_Move_Pwm_Fast_Count = 0;
-}
-Train_Move_Pwm_Fast_Count++;
-break;
-
-case 1 : if(Train_Move_Wait_Time >= GETxAPIxVAL(2))
-{
-Switch_Train_Move = 2;
-Train_Move_Wait_Time = 0;
-Return_Val = (char)-1;
-break;
-}
-Return_Val = (char)-1;
-Train_Move_Wait_Time++;
-Switch_Train_Move = 1;
-break;
-
-case 2 : SetDCPWM1(GETxAPIxVAL(5));
-PORTCbits.RC0 = 1;
-Train_Move_Pwm_Count = GETxAPIxVAL(5);
-Switch_Train_Move = 3;
-Return_Val = (char)-1;
-break;
-
-case 3 : if(Train_Move_Wait_Time >= GETxAPIxVAL(4))
-{
-Switch_Train_Move = 0;
-Train_Move_Wait_Time = 0;
-Return_Val = (char)0;
-break;
-}
-Train_Move_Wait_Time++;
-Switch_Train_Move = 3;
-Return_Val = (char)-1;
-break;
-
-default : break;
-}
-
-return(Return_Val);
-
-}
-
-# 1645
-static char Train_Move_Right_Start(void)
-{
-static char Return_Val = (char)-1;
-static unsigned int Train_Move_Wait_Time = 0;
-
-switch(Switch_Train_Move)
-{
-
-
-case 0 : if(Train_Move_Wait_Time >= GETxAPIxVAL(4))
-{
-Switch_Train_Move = 1;
-Train_Move_Wait_Time = 0;
-Return_Val = (char)-1;
-break;
-}
-Train_Move_Wait_Time++;
-Switch_Train_Move = 0;
-Return_Val = (char)-1;
-break;
-
-case 1 : SetDCPWM1(GETxAPIxVAL(6));
-Train_Move_Pwm_Count = GETxAPIxVAL(6);
-PORTCbits.RC0 = 0;
-Return_Val = (char)-1;
-Switch_Train_Move = 2;
-break;
-
-case 2 : if(Train_Move_Wait_Time >= GETxAPIxVAL(2))
-{
-Switch_Train_Move = 3;
-Train_Move_Wait_Time = 0;
-Return_Val = (char)-1;
-break;
-}
-Return_Val = (char)-1;
-Train_Move_Wait_Time++;
-Switch_Train_Move = 2;
-break;
-
-case 3 : SetDCPWM1(Train_Move_Pwm_Count);
-if (Train_Move_Pwm_Count >= GETxAPIxVAL(7))
-{
-Switch_Train_Move = 0;
-Return_Val = (char)0;
-break;
-}
-if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(10))
-{
-Train_Move_Pwm_Count++;
-Train_Move_Pwm_Fast_Count = 0;
-}
-Train_Move_Pwm_Fast_Count++;
-Return_Val = (char)-1;
-break;
-
-default : break;
-}
-
-return(Return_Val);
-
-}
-
-# 1722
-static char Train_Move_Right_Brake(void)
-{
-static char Return_Val = (char)-1;
-static unsigned int Train_Move_Wait_Time = 0;
-
-switch(Switch_Train_Move)
-{
-case 0 : SetDCPWM1(Train_Move_Pwm_Count);
-if (Train_Move_Pwm_Count <= GETxAPIxVAL(6))
-{
-Switch_Train_Move = 1;
-Return_Val = (char)-1;
-break;
-}
-if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(9))
-{
-Train_Move_Pwm_Count--;
-Train_Move_Pwm_Fast_Count = 0;
-}
-Train_Move_Pwm_Fast_Count++;
-Return_Val = (char)-1;
-break;
-
-case 1 : if(Train_Move_Wait_Time >= GETxAPIxVAL(2))
-{
-Switch_Train_Move = 2;
-Train_Move_Wait_Time = 0;
-Return_Val = (char)-1;
-break;
-}
-Return_Val = (char)-1;
-Train_Move_Wait_Time++;
-Switch_Train_Move = 1;
-break;
-
-case 2 : SetDCPWM1(GETxAPIxVAL(6));
-PORTCbits.RC0 = 1;
-Train_Move_Pwm_Count = GETxAPIxVAL(6);
-Switch_Train_Move = 3;
-Return_Val = (char)-1;
-break;
-
-case 3 : if(Train_Move_Wait_Time >= GETxAPIxVAL(4))
-{
-Switch_Train_Move = 0;
-Train_Move_Wait_Time = 0;
-Return_Val = (char)0;
-break;
-}
-Train_Move_Wait_Time++;
-Switch_Train_Move = 3;
-Return_Val = (char)-1;
-break;
-
-default : break;
-}
-
-return(Return_Val);
-
-}
-
-# 1798
-static char Junction(unsigned char Junction_Left_Right, unsigned char Straight_Bend)
-{
-static char Return_Val = (char)-1;
-static unsigned int Junction_Switch_Time = 0;
-
-switch (Switch_Junction)
-{
-case 0 : Return_Val = (char)-1;
-switch (Junction_Left_Right)
-{
-case 0 : switch (Straight_Bend)
-{
-case 0 : PORTAbits.RA3 = 1; break;
-case 1 : PORTAbits.RA2 = 1; break;
-default : break;
-}
-break;
-
-case 1 : switch (Straight_Bend)
-{
-case 0 : PORTAbits.RA1 = 1; break;
-case 1 : PORTAbits.RA0 = 1; break;
-default : break;
-}
-break;
-
-default : break;
-}
-Switch_Junction = 1;
-break;
-
-case 1 : if (Junction_Switch_Time >= GETxAPIxVAL(3))
-{
-Switch_Junction = 2;
-Junction_Switch_Time = 0;
-Return_Val = (char)-1;
-break;
-}
-Return_Val = (char)-1;
-Switch_Junction = 1;
-Junction_Switch_Time++;
-break;
-
-case 2 : PORTAbits.RA3 = 0;
-PORTAbits.RA2 = 0;
-PORTAbits.RA1 = 0;
-PORTAbits.RA0 = 0;
-Switch_Junction = 0;
-Return_Val = (char)0;
-break;
-
-default : break;
-}
-
-return (Return_Val);
-}
-
-# 1870
-static void Debounce_Inputs(void)
-{
-switch(PORTDbits.RD2)
-{
-case 1 : Reed_Contact_LF_Counter = 0;
-SETxAPIxVAL(15, 0);
-break;
-
-case 0 : if(Reed_Contact_LF_Counter <= GETxAPIxVAL(11))
-{
-Reed_Contact_LF_Counter++;
-break;
-}
-else {SETxAPIxVAL(15, 1);}
-break;
-
-default : break;
-}
-
-
-switch(PORTDbits.RD3)
-{
-case 1 : Reed_Contact_LB_Counter = 0;
-SETxAPIxVAL(14, 0);
-break;
-
-case 0 : if(Reed_Contact_LB_Counter <= GETxAPIxVAL(11))
-{
-Reed_Contact_LB_Counter++;
-break;
-}
-else {SETxAPIxVAL(14, 1);}
-break;
-
-default : break;
-}
-
-
-switch(PORTDbits.RD0)
-{
-case 1 : Reed_Contact_RF_Counter = 0;
-SETxAPIxVAL(13, 0);
-break;
-
-case 0 : if(Reed_Contact_RF_Counter <= GETxAPIxVAL(11))
-{
-Reed_Contact_RF_Counter++;
-break;
-}
-else {SETxAPIxVAL(13, 1);}
-break;
-
-default : break;
-}
-
-
-switch(PORTDbits.RD1)
-{
-case 1 : Reed_Contact_RB_Counter = 0;
-SETxAPIxVAL(12, 0);
-break;
-
-case 0 : if(Reed_Contact_RB_Counter <= GETxAPIxVAL(11))
-{
-Reed_Contact_RB_Counter++;
-break;
-}
-else {SETxAPIxVAL(12, 1);}
-break;
-
-default : break;
-}
-
-
-switch(!PORTBbits.RB0)
-{
-case 1 : if(Button_Contact_Counter_Start <= GETxAPIxVAL(11))
-{
-Button_Contact_Counter_Start++;
-break;
-}
-else {SETxAPIxVAL(16, 1); }
-break;
-
-case 0 : Button_Contact_Counter_Start = 0;
-SETxAPIxVAL(16, 0);
-break;
-
-default : break;
-}
-
-
-switch(!PORTDbits.RD7)
-{
-case 1 : if(Button_Contact_Counter_Stop <= GETxAPIxVAL(11))
-{
-Button_Contact_Counter_Stop++;
-break;
-}
-else {SETxAPIxVAL(17, 1); }
-break;
-
-case 0 : Button_Contact_Counter_Stop = 0;
-SETxAPIxVAL(17, 0);
-break;
-
-default : break;
-}
-
-
-switch(!PORTBbits.RB1)
-{
-case 1 : if(Button_Contact_Counter_Middle <= GETxAPIxVAL(11))
-{
-Button_Contact_Counter_Middle++;
-break;
-}
-else {SETxAPIxVAL(18, 1); }
-break;
-
-case 0 : Button_Contact_Counter_Middle = 0;
-SETxAPIxVAL(18, 0);
-break;
-
-default : break;
-}
-
-
-switch(!PORTBbits.RB5)
-{
-case 1 : if(Button_Contact_Counter_LB <= GETxAPIxVAL(11))
-{
-Button_Contact_Counter_LB++;
-break;
-}
-else {SETxAPIxVAL(19, 1); }
-break;
-
-case 0 : Button_Contact_Counter_LB = 0;
-SETxAPIxVAL(19, 0);
-break;
-
-default : break;
-}
-
-
-switch(!PORTBbits.RB4)
-{
-case 1 : if(Button_Contact_Counter_LF <= GETxAPIxVAL(11))
-{
-Button_Contact_Counter_LF++;
-break;
-}
-else {SETxAPIxVAL(20, 1); }
-break;
-
-case 0 : Button_Contact_Counter_LF = 0;
-SETxAPIxVAL(20, 0);
-break;
-
-default : break;
-}
-
-
-switch(!PORTBbits.RB3)
-{
-case 1 : if(Button_Contact_Counter_RB <= GETxAPIxVAL(11))
-{
-Button_Contact_Counter_RB++;
-break;
-}
-else {SETxAPIxVAL(21, 1); }
-break;
-
-case 0 : Button_Contact_Counter_RB = 0;
-SETxAPIxVAL(21, 0);
-break;
-
-default : break;
-}
-
-
-switch(!PORTBbits.RB2)
-{
-case 1 : if(Button_Contact_Counter_RF <= GETxAPIxVAL(11))
-{
-Button_Contact_Counter_RF++;
-break;
-}
-else {SETxAPIxVAL(22, 1); }
-break;
-
-case 0 : Button_Contact_Counter_RF = 0;
-SETxAPIxVAL(22, 0);
-break;
-
-default : break;
-}
-
-
-switch(PORTCbits.RC1)
-{
-case 1 : if(Reed_Contact_LMU_Counter <= GETxAPIxVAL(11))
-{
-Reed_Contact_LMU_Counter++;
-break;
-}
-else {SETxAPIxVAL(25, 1); }
-break;
-
-case 0 : Reed_Contact_LMU_Counter = 0;
-SETxAPIxVAL(25, 0);
-break;
-
-default : break;
-}
-
-
-switch(PORTDbits.RD4)
-{
-case 1 : if(Reed_Contact_LMD_Counter <= GETxAPIxVAL(11))
-{
-Reed_Contact_LMD_Counter++;
-break;
-}
-else {SETxAPIxVAL(26, 1); }
-break;
-
-case 0 : Reed_Contact_LMD_Counter = 0;
-SETxAPIxVAL(26, 0);
-break;
-
-default : break;
-}
-
-
-switch(PORTCbits.RC4)
-{
-case 1 : if(Reed_Contact_RMU_Counter <= GETxAPIxVAL(11))
-{
-Reed_Contact_RMU_Counter++;
-break;
-}
-else {SETxAPIxVAL(27, 1); }
-break;
-
-case 0 : Reed_Contact_RMU_Counter = 0;
-SETxAPIxVAL(27, 0);
-break;
-
-default : break;
-}
-
-
-switch(PORTCbits.RC5)
-{
-case 1 : if(Reed_Contact_RMD_Counter <= GETxAPIxVAL(11))
-{
-Reed_Contact_RMD_Counter++;
-break;
-}
-else {SETxAPIxVAL(28, 1); }
-break;
-
-case 0 : Reed_Contact_RMD_Counter = 0;
-SETxAPIxVAL(28, 0);
-break;
-
-default : break;
-}
-}
-
-# 2156
-static void Eeprom_Store(void)
-{
-INTCON = 0x00;
-
-EECON1bits.EEPGD = 0;
-EECON1bits.WREN = 1;
-EEADR = 0x01;
-EEDATA = GETxAPIxVAL(7);
-EECON2 = 0x55;
-EECON2 = 0xaa;
-EECON1bits.WR = 1;
-while (!PIR2bits.EEIF);
-PIR2bits.EEIF = 0;
-
-EECON1bits.EEPGD = 0;
-EECON1bits.WREN = 1;
-EEADR = 0x00;
-EEDATA = GETxAPIxVAL(7)>>8;
-EECON2 = 0x55;
-EECON2 = 0xaa;
-EECON1bits.WR = 1;
-while (!PIR2bits.EEIF);
-PIR2bits.EEIF = 0;
-
-EECON1bits.EEPGD = 0;
-EECON1bits.WREN = 1;
-EEADR = 0x03;
-EEDATA = GETxAPIxVAL(8);
-EECON2 = 0x55;
-EECON2 = 0xaa;
-EECON1bits.WR = 1;
-while (!PIR2bits.EEIF);
-PIR2bits.EEIF = 0;
-
-EECON1bits.EEPGD = 0;
-EECON1bits.WREN = 1;
-EEADR = 0x02;
-EEDATA = GETxAPIxVAL(8)>>8;
-EECON2 = 0x55;
-EECON2 = 0xaa;
-EECON1bits.WR = 1;
-while (!PIR2bits.EEIF);
-PIR2bits.EEIF = 0;
-
-EECON1bits.EEPGD = 0;
-EECON1bits.WREN = 1;
-EEADR = 0x04;
-EEDATA = GETxAPIxVAL(9);
-EECON2 = 0x55;
-EECON2 = 0xaa;
-EECON1bits.WR = 1;
-while (!PIR2bits.EEIF);
-PIR2bits.EEIF = 0;
-
-
-INTCON = 0xA0;
 }

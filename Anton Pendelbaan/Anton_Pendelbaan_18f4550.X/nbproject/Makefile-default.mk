@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../Main.c ../State_Mchn.c ../eusart1.c ../terminal.c ../api.c
+SOURCEFILES_QUOTED_IF_SPACED=../Main.c ../State_Mchn.c ../eusart1.c ../terminal.c ../api.c ../eeprom_settings.c ../io.c ../junction.c ../train_move_left.c ../train_move_right.c ../set_pwm.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/Main.p1 ${OBJECTDIR}/_ext/1472/State_Mchn.p1 ${OBJECTDIR}/_ext/1472/eusart1.p1 ${OBJECTDIR}/_ext/1472/terminal.p1 ${OBJECTDIR}/_ext/1472/api.p1
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/Main.p1.d ${OBJECTDIR}/_ext/1472/State_Mchn.p1.d ${OBJECTDIR}/_ext/1472/eusart1.p1.d ${OBJECTDIR}/_ext/1472/terminal.p1.d ${OBJECTDIR}/_ext/1472/api.p1.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1472/Main.p1 ${OBJECTDIR}/_ext/1472/State_Mchn.p1 ${OBJECTDIR}/_ext/1472/eusart1.p1 ${OBJECTDIR}/_ext/1472/terminal.p1 ${OBJECTDIR}/_ext/1472/api.p1 ${OBJECTDIR}/_ext/1472/eeprom_settings.p1 ${OBJECTDIR}/_ext/1472/io.p1 ${OBJECTDIR}/_ext/1472/junction.p1 ${OBJECTDIR}/_ext/1472/train_move_left.p1 ${OBJECTDIR}/_ext/1472/train_move_right.p1 ${OBJECTDIR}/_ext/1472/set_pwm.p1
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1472/Main.p1.d ${OBJECTDIR}/_ext/1472/State_Mchn.p1.d ${OBJECTDIR}/_ext/1472/eusart1.p1.d ${OBJECTDIR}/_ext/1472/terminal.p1.d ${OBJECTDIR}/_ext/1472/api.p1.d ${OBJECTDIR}/_ext/1472/eeprom_settings.p1.d ${OBJECTDIR}/_ext/1472/io.p1.d ${OBJECTDIR}/_ext/1472/junction.p1.d ${OBJECTDIR}/_ext/1472/train_move_left.p1.d ${OBJECTDIR}/_ext/1472/train_move_right.p1.d ${OBJECTDIR}/_ext/1472/set_pwm.p1.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1472/Main.p1 ${OBJECTDIR}/_ext/1472/State_Mchn.p1 ${OBJECTDIR}/_ext/1472/eusart1.p1 ${OBJECTDIR}/_ext/1472/terminal.p1 ${OBJECTDIR}/_ext/1472/api.p1
+OBJECTFILES=${OBJECTDIR}/_ext/1472/Main.p1 ${OBJECTDIR}/_ext/1472/State_Mchn.p1 ${OBJECTDIR}/_ext/1472/eusart1.p1 ${OBJECTDIR}/_ext/1472/terminal.p1 ${OBJECTDIR}/_ext/1472/api.p1 ${OBJECTDIR}/_ext/1472/eeprom_settings.p1 ${OBJECTDIR}/_ext/1472/io.p1 ${OBJECTDIR}/_ext/1472/junction.p1 ${OBJECTDIR}/_ext/1472/train_move_left.p1 ${OBJECTDIR}/_ext/1472/train_move_right.p1 ${OBJECTDIR}/_ext/1472/set_pwm.p1
 
 # Source Files
-SOURCEFILES=../Main.c ../State_Mchn.c ../eusart1.c ../terminal.c ../api.c
+SOURCEFILES=../Main.c ../State_Mchn.c ../eusart1.c ../terminal.c ../api.c ../eeprom_settings.c ../io.c ../junction.c ../train_move_left.c ../train_move_right.c ../set_pwm.c
 
 
 CFLAGS=
@@ -127,6 +127,54 @@ ${OBJECTDIR}/_ext/1472/api.p1: ../api.c  nbproject/Makefile-${CND_CONF}.mk
 	@-${MV} ${OBJECTDIR}/_ext/1472/api.d ${OBJECTDIR}/_ext/1472/api.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/api.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
+${OBJECTDIR}/_ext/1472/eeprom_settings.p1: ../eeprom_settings.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/eeprom_settings.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/eeprom_settings.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/eeprom_settings.p1  ../eeprom_settings.c 
+	@-${MV} ${OBJECTDIR}/_ext/1472/eeprom_settings.d ${OBJECTDIR}/_ext/1472/eeprom_settings.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/eeprom_settings.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/_ext/1472/io.p1: ../io.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/io.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/io.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/io.p1  ../io.c 
+	@-${MV} ${OBJECTDIR}/_ext/1472/io.d ${OBJECTDIR}/_ext/1472/io.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/io.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/_ext/1472/junction.p1: ../junction.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/junction.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/junction.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/junction.p1  ../junction.c 
+	@-${MV} ${OBJECTDIR}/_ext/1472/junction.d ${OBJECTDIR}/_ext/1472/junction.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/junction.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/_ext/1472/train_move_left.p1: ../train_move_left.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/train_move_left.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/train_move_left.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/train_move_left.p1  ../train_move_left.c 
+	@-${MV} ${OBJECTDIR}/_ext/1472/train_move_left.d ${OBJECTDIR}/_ext/1472/train_move_left.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/train_move_left.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/_ext/1472/train_move_right.p1: ../train_move_right.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/train_move_right.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/train_move_right.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/train_move_right.p1  ../train_move_right.c 
+	@-${MV} ${OBJECTDIR}/_ext/1472/train_move_right.d ${OBJECTDIR}/_ext/1472/train_move_right.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/train_move_right.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/_ext/1472/set_pwm.p1: ../set_pwm.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/set_pwm.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/set_pwm.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  -D__DEBUG=1 --debugger=pickit3  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/set_pwm.p1  ../set_pwm.c 
+	@-${MV} ${OBJECTDIR}/_ext/1472/set_pwm.d ${OBJECTDIR}/_ext/1472/set_pwm.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/set_pwm.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
 else
 ${OBJECTDIR}/_ext/1472/Main.p1: ../Main.c  nbproject/Makefile-${CND_CONF}.mk
 	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
@@ -167,6 +215,54 @@ ${OBJECTDIR}/_ext/1472/api.p1: ../api.c  nbproject/Makefile-${CND_CONF}.mk
 	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/api.p1  ../api.c 
 	@-${MV} ${OBJECTDIR}/_ext/1472/api.d ${OBJECTDIR}/_ext/1472/api.p1.d 
 	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/api.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/_ext/1472/eeprom_settings.p1: ../eeprom_settings.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/eeprom_settings.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/eeprom_settings.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/eeprom_settings.p1  ../eeprom_settings.c 
+	@-${MV} ${OBJECTDIR}/_ext/1472/eeprom_settings.d ${OBJECTDIR}/_ext/1472/eeprom_settings.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/eeprom_settings.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/_ext/1472/io.p1: ../io.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/io.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/io.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/io.p1  ../io.c 
+	@-${MV} ${OBJECTDIR}/_ext/1472/io.d ${OBJECTDIR}/_ext/1472/io.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/io.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/_ext/1472/junction.p1: ../junction.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/junction.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/junction.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/junction.p1  ../junction.c 
+	@-${MV} ${OBJECTDIR}/_ext/1472/junction.d ${OBJECTDIR}/_ext/1472/junction.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/junction.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/_ext/1472/train_move_left.p1: ../train_move_left.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/train_move_left.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/train_move_left.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/train_move_left.p1  ../train_move_left.c 
+	@-${MV} ${OBJECTDIR}/_ext/1472/train_move_left.d ${OBJECTDIR}/_ext/1472/train_move_left.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/train_move_left.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/_ext/1472/train_move_right.p1: ../train_move_right.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/train_move_right.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/train_move_right.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/train_move_right.p1  ../train_move_right.c 
+	@-${MV} ${OBJECTDIR}/_ext/1472/train_move_right.d ${OBJECTDIR}/_ext/1472/train_move_right.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/train_move_right.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
+	
+${OBJECTDIR}/_ext/1472/set_pwm.p1: ../set_pwm.c  nbproject/Makefile-${CND_CONF}.mk
+	@${MKDIR} "${OBJECTDIR}/_ext/1472" 
+	@${RM} ${OBJECTDIR}/_ext/1472/set_pwm.p1.d 
+	@${RM} ${OBJECTDIR}/_ext/1472/set_pwm.p1 
+	${MP_CC} --pass1 $(MP_EXTRA_CC_PRE) --chip=$(MP_PROCESSOR_OPTION) -Q -G  --double=24 --float=24 --emi=wordwrite --opt=default,+asm,+asmfile,-speed,+space,-debug --addrqual=ignore --mode=free -P -N255 --warn=-3 --asmlist -DXPRJ_default=$(CND_CONF)  --summary=default,-psect,-class,+mem,-hex,-file --output=default,-inhx032 --runtime=default,+clear,+init,-keep,-no_startup,-download,+config,+clib,+plib $(COMPARISON_BUILD)  --output=-mcof,+elf:multilocs --stack=compiled:auto:auto:auto "--errformat=%f:%l: error: (%n) %s" "--warnformat=%f:%l: warning: (%n) %s" "--msgformat=%f:%l: advisory: (%n) %s"    -o${OBJECTDIR}/_ext/1472/set_pwm.p1  ../set_pwm.c 
+	@-${MV} ${OBJECTDIR}/_ext/1472/set_pwm.d ${OBJECTDIR}/_ext/1472/set_pwm.p1.d 
+	@${FIXDEPS} ${OBJECTDIR}/_ext/1472/set_pwm.p1.d $(SILENT) -rsi ${MP_CC_DIR}../  
 	
 endif
 

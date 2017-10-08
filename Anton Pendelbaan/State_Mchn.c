@@ -2,22 +2,13 @@
 #include "State_Mchn.h"
 #include <xc.h>
 #include "api.h"
+#include "io.h"
+#include "eeprom_settings.h"
+#include "junction.h"
+#include "train_move_left.h"
+#include "train_move_right.h"
 
-#define Straight	0
-#define Bend		1
-#define Left		0
-#define Right		1
-
-//#define Start_Move	0
-//#define Brake_Move	3
-
-
-#define ERROR (char)0xEE	// general switch case when error
-#define Busy (char)-1
-#define Finished (char)0
-
-#define AdjustSpeed 20
-  
+#define AdjustSpeed 20  
 #define Init 0
 #define Run2 1
 #define Run1 2
@@ -38,70 +29,22 @@
 #define Middle 4
 #define OneTrain 9
 
-#define Blink 2
-#define BlinkHz 3000
-#define Blink1 3
-#define BlinkHz1 1000
 #define ActivateControlsTime 10000
 
-#define LMU 1
-#define LMD 2
-#define RMD 3
-#define RMU 4
-
-unsigned char 	Switch_Junction = 0,
-				Switch_Train_Move = 0,
-				Switch_Main = Init,
-				Switch_Main_Old = 0,
-				Switch_Program = 0,				
-				Switch_Program_Old = 0,
-				Switch_Train_Path = 0,
-				Switch_Adjust_LB = 0,
+unsigned char   Switch_Main = Init,
+                Switch_Init = 0,
+                Switch_Program = 0,
+                Switch_Activate_Controls = 0,
+                Switch_Adjust_LB = 0,
 				Switch_Adjust_LF = 0,
 				Switch_Adjust_RB = 0,
 				Switch_Adjust_RF = 0,
-				Switch_Init = 0,							
-				Switch_Activate_Controls = 0,
-                Stop_Program = Off,	
-                Reed_Contact_LF_Counter = 0,
-				Reed_Contact_LB_Counter = 0,
-				Reed_Contact_RF_Counter = 0,
-				Reed_Contact_RB_Counter = 0,
-				Reed_Contact_LMU_Counter = 0,
-				Reed_Contact_LMD_Counter = 0,
-				Reed_Contact_RMU_Counter = 0,
-				Reed_Contact_RMD_Counter = 0,
-				Button_Contact_Counter_Start = 0,
-				Button_Contact_Counter_Stop = 0,
-				Button_Contact_Counter_Middle = 0,
-				Button_Contact_Counter_LB = 0,
-				Button_Contact_Counter_LF = 0,
-				Button_Contact_Counter_RB = 0,
-				Button_Contact_Counter_RF = 0;
+                Switch_Train_Path = 0,
+                Stop_Program = Off;
 				
-				
-unsigned int	Train_Move_Pwm_Count = 511,
-				Train_Move_Pwm_Fast_Count = 0,
-				Adjust_Counter = 0,
-				Green_Led_Counter = 0,
-				Red_Led_Counter = 0,
-				Activate_Controls_Counter = 0;
-
-
-static char Junction(unsigned char Left_Right, unsigned char Straight_Bend);
-static char Train_Move_Right_Start(void);
-static char Right_Mountain_From_The_Right(unsigned char rc);
-static char Left_Mountain_From_The_Right(unsigned char rc);
-static char Left_Mountain_From_The_Left(unsigned char rc);
-static char Right_Mountain_From_The_Left(unsigned char rc);
-static char Train_Move_Right_Brake(void);
-static char Train_Move_Left_Start(void);
-static char Train_Move_Left_Brake(void);
-static char Train_Path(unsigned char From, unsigned char To);
-static void Debounce_Inputs(void);
-static void Eeprom_Store(void);
-static void Green_Led(unsigned char Operation);
-static void Red_Led(unsigned char Operation);
+unsigned int	Adjust_Counter = 0,
+                Activate_Controls_Counter = 0;
+               
 
 /******************************************************************************
  * Function:        void Update_StateMchn(void)
@@ -951,105 +894,6 @@ void Update_StateMchn(void)
 			}
 }
 
-/******************************************************************************
- * Function:        static void Green_Led(unsigned char Operation)
- *                  Blinking routine for green led
- *
- * PreCondition:    None
- *
- * Input:           Blinking speed
- *
- * Output:          None
- *
- * Side Effects:    None
- *
- * Overview:        None
- *****************************************************************************/
-static void Green_Led(unsigned char Operation)
-{
-	switch(Operation)
-	{
-		case	Off		:	Green = Off; 	break;
-		
-		case	On		:	Green = On;		break;
-		
-		case	Blink	:	Green_Led_Counter++;
-							if(Green_Led_Counter >= BlinkHz)
-							{
-								Green_Led_Counter = 0;
-							}
-							if(Green_Led_Counter >= BlinkHz/2)
-							{
-								Green = On;
-							}
-							else {Green = Off;}
-							break;
-							
-		case	Blink1	:	Green_Led_Counter++;
-							if(Green_Led_Counter >= BlinkHz1)
-							{
-								Green_Led_Counter = 0;
-							}
-							if(Green_Led_Counter >= BlinkHz1/2)
-							{
-								Green = On;
-							}
-							else {Green = Off;}
-							break;
-							
-		default			:	break;
-	}
-}
-
-/******************************************************************************
- * Function:        static void Red_Led(unsigned char Operation)
- *                  Blinking routine for red led
- *
- * PreCondition:    None
- *
- * Input:           Blinking speed
- *
- * Output:          None
- *
- * Side Effects:    None
- *
- * Overview:        None
- *****************************************************************************/
-static void Red_Led(unsigned char Operation)
-{
-	switch(Operation)
-	{
-		case	Off		:	Red = Off; 	break;
-		
-		case	On		:	Red = On; 	break;
-		
-		case	Blink	:	Red_Led_Counter++;
-							if(Red_Led_Counter >= BlinkHz)
-							{
-								Red_Led_Counter = 0;
-							}
-							if(Red_Led_Counter >= BlinkHz/2)
-							{
-								Red = On;
-							}
-							else {Red = Off;}
-							break;
-							
-		case	Blink1	:	Red_Led_Counter++;
-							if(Red_Led_Counter >= BlinkHz1)
-							{
-								Red_Led_Counter = 0;
-							}
-							if(Red_Led_Counter >= BlinkHz1/2)
-							{
-								Red = On;
-							}
-							else {Red = Off;}
-							break;
-							
-		default			:	break;
-	}
-}
 
 /******************************************************************************
  * Function:        static char Train_Path(unsigned char From, unsigned char To)
@@ -1065,7 +909,7 @@ static void Red_Led(unsigned char Operation)
  *
  * Overview:        None
  *****************************************************************************/
-static char Train_Path(unsigned char From, unsigned char To)
+char Train_Path(unsigned char From, unsigned char To)
 {
 	static char Return_Val = Busy;
 	
@@ -1190,11 +1034,7 @@ static char Train_Path(unsigned char From, unsigned char To)
                                             else if(GETxAPIxVAL(RC_RMU) == On){ // Right Mountain down encountered while driving to the right
                                                 Switch_Train_Path = 8;
                                             }
-                                            else{
-                                                SetDCPWM1(GETxAPIxVAL(MAX_PWM_RIGHT));
-                                                Train_Move_Pwm_Count = GETxAPIxVAL(MAX_PWM_RIGHT);
-                                            }
-											Return_Val = Busy;
+                                            Return_Val = Busy;
 											break;
 							case	RF	:	if(GETxAPIxVAL(RC_RF) == On){
 												Switch_Train_Path = 4;		    // End of station stop the train
@@ -1210,11 +1050,7 @@ static char Train_Path(unsigned char From, unsigned char To)
                                             }
                                             else if(GETxAPIxVAL(RC_RMU) == On){ // Right Mountain down encountered while driving to the right
                                                 Switch_Train_Path = 8;
-                                            }
-                                            else{
-                                                SetDCPWM1(GETxAPIxVAL(MAX_PWM_RIGHT));
-                                                Train_Move_Pwm_Count = GETxAPIxVAL(MAX_PWM_RIGHT);
-                                            }
+                                            }                                            
 											Return_Val = Busy;
 											break;
 							case	LB	:	if(GETxAPIxVAL(RC_LB) == On)
@@ -1232,11 +1068,7 @@ static char Train_Path(unsigned char From, unsigned char To)
                                             }
                                             else if(GETxAPIxVAL(RC_RMU) == On){ // Right Mountain down encountered while driving to the left
                                                 Switch_Train_Path = 12;
-                                            }
-                                            else{
-                                                SetDCPWM1(GETxAPIxVAL(MAX_PWM_LEFT));
-                                                Train_Move_Pwm_Count = GETxAPIxVAL(MAX_PWM_LEFT);
-                                            }
+                                            }                                            
 											Return_Val = Busy;
 											break;
 							case	LF	:	if(GETxAPIxVAL(RC_LF) == On)
@@ -1254,11 +1086,7 @@ static char Train_Path(unsigned char From, unsigned char To)
                                             }
                                             else if(GETxAPIxVAL(RC_RMU) == On){ // Right Mountain down encountered while driving to the left
                                                 Switch_Train_Path = 12;
-                                            }
-                                            else{
-                                                SetDCPWM1(GETxAPIxVAL(MAX_PWM_LEFT));
-                                                Train_Move_Pwm_Count = GETxAPIxVAL(MAX_PWM_LEFT);
-                                            }
+                                            }                                            
 											Return_Val = Busy;
 											break;
 							default		:	break;
@@ -1305,908 +1133,62 @@ static char Train_Path(unsigned char From, unsigned char To)
                         
         case    5   :   //to the right
                         if(Left_Mountain_From_The_Left(LMU) == Finished){
-                            Switch_Train_Path = 3;
-                            Return_Val = Busy;
+                            Switch_Train_Path = 3;                            
                         }
+                        Return_Val = Busy;
                         break;
             
         case    6   :   //to the right
                         if(Left_Mountain_From_The_Left(LMD) == Finished){
                             Switch_Train_Path = 3;
-                            Return_Val = Busy;
                         }
+                        Return_Val = Busy;
                         break;
                         
         case    7   :   //to the right
                         if(Right_Mountain_From_The_Left(RMD) == Finished){
                             Switch_Train_Path = 3;
-                            Return_Val = Busy;
                         }
+                        Return_Val = Busy;
                         break;
             
         case    8   :   //to the right
                         if(Right_Mountain_From_The_Left(RMU) == Finished){
                             Switch_Train_Path = 3;
-                            Return_Val = Busy;
                         }
+                        Return_Val = Busy;
                         break;
                         
         case    9   :   //to the left
                         if(Right_Mountain_From_The_Right(RMU) == Finished){
                             Switch_Train_Path = 3;
-                            Return_Val = Busy;
                         }
+                        Return_Val = Busy;
                         break;
             
         case    10  :   //to the left
                         if(Right_Mountain_From_The_Right(RMD) == Finished){
                             Switch_Train_Path = 3;
-                            Return_Val = Busy;
                         }
+                        Return_Val = Busy;
                         break;
                         
         case    11  :   //to the left
                         if(Left_Mountain_From_The_Right(LMD) == Finished){
                             Switch_Train_Path = 3;
-                            Return_Val = Busy;
                         }
+                        Return_Val = Busy;
                         break;
             
         case    12  :   //to the left
                         if(Left_Mountain_From_The_Right(LMU) == Finished){
                             Switch_Train_Path = 3;
-                            Return_Val = Busy;
                         }
+                        Return_Val = Busy;
                         break;
                         
-        
-		
-		default		:	Switch_Train_Path = 0;	break;
+		default		:	Switch_Train_Path = 0; Return_Val = Busy;	break;
 	}
 	
 	return(Return_Val);
-}
-
-
-/******************************************************************************
- * Function:        static char Train_Move_Left_Start(void)
- *                  Start moving the train to the left
- *
- * PreCondition:    None
- *
- * Input:           None
- *
- * Output:          returns busy or finished
- *
- * Side Effects:    None
- *
- * Overview:        None
- *****************************************************************************/
-static char Train_Move_Left_Start(void)
-{
-	static char Return_Val = Busy;
-	static unsigned int Train_Move_Wait_Time = 0;
-	
-	switch(Switch_Train_Move)
-	{
-		////////////////When Starting jumping to case 0 (Start_Move)////////////////////////////
-		
-		case	0	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(LIGHTS_ON_WAIT_TIME))
-						{
-							Switch_Train_Move = 1;
-							Train_Move_Wait_Time = 0;
-							Return_Val = Busy;
-							break;
-						}
-						Train_Move_Wait_Time++;
-						Switch_Train_Move = 0;
-						Return_Val = Busy;
-						break;
-		
-		case	1	:	SetDCPWM1(GETxAPIxVAL(STATIONARY_LEFT));
-						Train_Move_Pwm_Count = GETxAPIxVAL(STATIONARY_LEFT);
-						Brake = 0;
-						Switch_Train_Move = 2;
-						Return_Val = Busy;
-						break;
-						
-		case	2	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(TRAIN_WAIT_TIME))
-						{
-							Switch_Train_Move = 3;
-							Train_Move_Wait_Time = 0;
-							Return_Val = Busy;
-							break;
-						}
-						Train_Move_Wait_Time++;
-						Switch_Train_Move = 2;
-						Return_Val = Busy;
-						break;
-						
-		case	3	:	SetDCPWM1(Train_Move_Pwm_Count);
-						Return_Val = Busy;
-						if (Train_Move_Pwm_Count <= GETxAPIxVAL(MAX_PWM_LEFT))
-						{
-							Switch_Train_Move = 0;
-							Return_Val = Finished;
-							break;
-						}
-						if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
-						{
-							Train_Move_Pwm_Count--;
-							Train_Move_Pwm_Fast_Count = 0;
-						}
-						Train_Move_Pwm_Fast_Count++;
-						break;
-			default		:	break;
-	}
-	
-	return(Return_Val);	
-	
-}
-
-/******************************************************************************
- * Function:        static char Right_Mountain_From_The_Right(unsigned char rc)
- *                  Encountering right mountain from the right
- *
- * PreCondition:    None
- *
- * Input:           Reed contact
- *
- * Output:          returns busy or finished
- *
- * Side Effects:    None
- *
- * Overview:        None
- *****************************************************************************/
-static char Right_Mountain_From_The_Right(unsigned char rc)
-{
-    static char Return_Val = Busy;
-    if(rc == RMU){
-        SetDCPWM1(Train_Move_Pwm_Count);        
-        if (Train_Move_Pwm_Count >= GETxAPIxVAL(MAX_PWM_RMU_LEFT))              // when actual speed is adjusted for going down at RMU
-        {
-            Switch_Train_Move = 0;
-            Return_Val = Finished;            
-        }
-        if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
-        {
-            Train_Move_Pwm_Count++;
-            Train_Move_Pwm_Fast_Count = 0;
-        }
-        Train_Move_Pwm_Fast_Count++;
-    }
-    else if (rc == RMD){
-        SetDCPWM1(Train_Move_Pwm_Count);        
-        if (Train_Move_Pwm_Count <= GETxAPIxVAL(MAX_PWM_LEFT))                  // when actual speed is adjusted to normal speed
-        {
-            Switch_Train_Move = 0;
-            Return_Val = Finished;            
-        }
-        if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
-        {
-            Train_Move_Pwm_Count--;
-            Train_Move_Pwm_Fast_Count = 0;
-        }
-        Train_Move_Pwm_Fast_Count++;
-    }
-    return(Return_Val);
-}
-
-/******************************************************************************
- * Function:        static char Left_Mountain_From_The_Right(unsigned char rc)
- *                  Encountering left mountain from the right
- *
- * PreCondition:    None
- *
- * Input:           Reed contact
- *
- * Output:          returns busy or finished
- *
- * Side Effects:    None
- *
- * Overview:        None
- *****************************************************************************/
-static char Left_Mountain_From_The_Right(unsigned char rc)
-{
-    static char Return_Val = Busy;
-    return(Return_Val);
-}
-
-/******************************************************************************
- * Function:        static char Left_Mountain_From_The_Left(unsigned char rc)
- *                  Encountering left mountain from the left
- *
- * PreCondition:    None
- *
- * Input:           Reed contact
- *
- * Output:          returns busy or finished
- *
- * Side Effects:    None
- *
- * Overview:        None
- *****************************************************************************/
-static char Left_Mountain_From_The_Left(unsigned char rc)
-{
-    static char Return_Val = Busy;
-    return(Return_Val);
-}
-
-/******************************************************************************
- * Function:        static char Right_Mountain_From_The_Left(unsigned char rc)
- *                  Encountering right mountain from the left
- *
- * PreCondition:    None
- *
- * Input:           Reed contact
- *
- * Output:          returns busy or finished
- *
- * Side Effects:    None
- *
- * Overview:        None
- *****************************************************************************/
-static char Right_Mountain_From_The_Left(unsigned char rc)
-{
-    static char Return_Val = Busy;
-    return(Return_Val);
-}
-
-/******************************************************************************
- * Function:        static char Train_Move_Left_Brake(void)
- *                  Stop moving the train to the left
- *
- * PreCondition:    None
- *
- * Input:           None
- *
- * Output:          returns busy or finished
- *
- * Side Effects:    None
- *
- * Overview:        None
- *****************************************************************************/
-static char Train_Move_Left_Brake(void)
-{
-	static char Return_Val = Busy;
-	static unsigned int Train_Move_Wait_Time = 0;
-	
-	switch(Switch_Train_Move)
-	{
-		case	0	:	SetDCPWM1(Train_Move_Pwm_Count);
-						Return_Val = Busy;
-						if (Train_Move_Pwm_Count >= GETxAPIxVAL(STATIONARY_LEFT))
-						{
-							Switch_Train_Move = 1;
-							Return_Val = Busy;
-							break;
-						}
-						if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM_BRAKE))
-						{
-							Train_Move_Pwm_Count++;
-							Train_Move_Pwm_Fast_Count = 0;
-						}
-						Train_Move_Pwm_Fast_Count++;
-						break;
-						
-		case	1	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(TRAIN_WAIT_TIME))
-						{
-							Switch_Train_Move = 2;
-							Train_Move_Wait_Time = 0;
-							Return_Val = Busy;
-							break;
-						}
-						Return_Val = Busy;
-						Train_Move_Wait_Time++;
-						Switch_Train_Move = 1;
-						break;
-						
-		case	2	:	SetDCPWM1(GETxAPIxVAL(STATIONARY_LEFT));
-						Brake = 1;
-						Train_Move_Pwm_Count = GETxAPIxVAL(STATIONARY_LEFT);
-						Switch_Train_Move = 3;
-						Return_Val = Busy;
-						break;
-						
-		case	3	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(LIGHTS_ON_WAIT_TIME))
-						{
-							Switch_Train_Move = 0;
-							Train_Move_Wait_Time = 0;
-							Return_Val = Finished;
-							break;
-						}
-						Train_Move_Wait_Time++;
-						Switch_Train_Move = 3;
-						Return_Val = Busy;
-						break;
-						
-		default		:	break;
-	}
-	
-	return(Return_Val);	
-	
-}
-
-
-/******************************************************************************
- * Function:        static char Train_Move_Right_Start(void)
- *                  Start moving the train to the right
- *
- * PreCondition:    None
- *
- * Input:           None
- *
- * Output:          returns busy or finished
- *
- * Side Effects:    None
- *
- * Overview:        None
- *****************************************************************************/
-static char Train_Move_Right_Start(void)
-{
-	static char Return_Val = Busy;
-	static unsigned int Train_Move_Wait_Time = 0;
-	
-	switch(Switch_Train_Move)
-	{
-		////////////////When Starting jumping to case 0 (Start_Move)////////////////////////////
-		
-		case	0	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(LIGHTS_ON_WAIT_TIME))
-						{
-							Switch_Train_Move = 1;
-							Train_Move_Wait_Time = 0;
-							Return_Val = Busy;
-							break;
-						}
-						Train_Move_Wait_Time++;
-						Switch_Train_Move = 0;
-						Return_Val = Busy;
-						break;
-		
-		case	1	:	SetDCPWM1(GETxAPIxVAL(STATIONARY_RIGHT));
-						Train_Move_Pwm_Count = GETxAPIxVAL(STATIONARY_RIGHT);
-						Brake = 0;
-						Return_Val = Busy;
-						Switch_Train_Move = 2;						
-						break;
-						
-		case	2	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(TRAIN_WAIT_TIME))
-						{
-							Switch_Train_Move = 3;
-							Train_Move_Wait_Time = 0;
-							Return_Val = Busy;
-							break;
-						}
-						Return_Val = Busy;
-						Train_Move_Wait_Time++;
-						Switch_Train_Move = 2;
-						break;
-						
-		case	3	:	SetDCPWM1(Train_Move_Pwm_Count);
-						if (Train_Move_Pwm_Count >= GETxAPIxVAL(MAX_PWM_RIGHT))
-						{
-							Switch_Train_Move = 0;
-							Return_Val = Finished;
-							break;
-						}
-						if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
-						{
-							Train_Move_Pwm_Count++;
-							Train_Move_Pwm_Fast_Count = 0;
-						}
-						Train_Move_Pwm_Fast_Count++;
-						Return_Val = Busy;
-						break;
-						
-		default		:	break;
-	}
-	
-	return(Return_Val);	
-	
-}
-
-/******************************************************************************
- * Function:        static char Train_Move_Right_Brake(void)
- *                  Stop moving the train to the right
- *
- * PreCondition:    None
- *
- * Input:           None
- *
- * Output:          returns busy or finished
- *
- * Side Effects:    None
- *
- * Overview:        None
- *****************************************************************************/
-static char Train_Move_Right_Brake(void)
-{
-	static char Return_Val = Busy;
-	static unsigned int Train_Move_Wait_Time = 0;
-	
-	switch(Switch_Train_Move)
-	{
-	case	0	:		SetDCPWM1(Train_Move_Pwm_Count);
-						if (Train_Move_Pwm_Count <= GETxAPIxVAL(STATIONARY_RIGHT))
-						{
-							Switch_Train_Move = 1;
-							Return_Val = Busy;
-							break;
-						}
-						if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM_BRAKE))
-						{
-							Train_Move_Pwm_Count--;
-							Train_Move_Pwm_Fast_Count = 0;
-						}
-						Train_Move_Pwm_Fast_Count++;
-						Return_Val = Busy;
-						break;
-						
-		case	1	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(TRAIN_WAIT_TIME))
-						{
-							Switch_Train_Move = 2;
-							Train_Move_Wait_Time = 0;
-							Return_Val = Busy;
-							break;
-						}
-						Return_Val = Busy;
-						Train_Move_Wait_Time++;
-						Switch_Train_Move = 1;
-						break;
-						
-		case	2	:	SetDCPWM1(GETxAPIxVAL(STATIONARY_RIGHT));
-						Brake = 1;
-						Train_Move_Pwm_Count = GETxAPIxVAL(STATIONARY_RIGHT);
-						Switch_Train_Move = 3;
-						Return_Val = Busy;
-						break;
-						
-		case	3	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(LIGHTS_ON_WAIT_TIME))
-						{
-							Switch_Train_Move = 0;
-							Train_Move_Wait_Time = 0;
-							Return_Val = Finished;
-							break;
-						}
-						Train_Move_Wait_Time++;
-						Switch_Train_Move = 3;
-						Return_Val = Busy;
-						break;
-						
-		default		:	break;
-	}
-	
-	return(Return_Val);	
-	
-}
-
-/******************************************************************************
- * Function:        static char Junction(unsigned char Junction_Left_Right, 
- *                                              unsigned char Straight_Bend)
- *                  Set the junction accordingly
- *
- * PreCondition:    None
- *
- * Input:           Junction Left or right, straight or bend the junction
- *
- * Output:          returns busy or finished
- *
- * Side Effects:    None
- *
- * Overview:        None
- *****************************************************************************/
-static char Junction(unsigned char Junction_Left_Right, unsigned char Straight_Bend)
-{
-	static char Return_Val = Busy;
-	static unsigned int Junction_Switch_Time = 0;
-	
-	switch (Switch_Junction)
-	{
-		case	0			:	Return_Val = Busy;
-								switch (Junction_Left_Right)
-								{
-									case	Left	:	switch (Straight_Bend)
-														{
-															case	Straight	:	Wl_Left_Str = 1;	break;
-															case	Bend		:	Wl_Left_Bnd	= 1;	break;
-															default				:	break;
-														}
-														break;
-														
-									case	Right	:	switch (Straight_Bend)
-														{
-															case	Straight	:	Wl_Right_Str = 1;	break;
-															case	Bend		:	Wl_Right_Bnd = 1;	break;
-															default				:	break;
-														}
-														break;
-														
-									default			:	break;
-								}
-								Switch_Junction = 1;
-								break;	
-								
-		case	1			:	if (Junction_Switch_Time >= GETxAPIxVAL(JUNCTION_WAIT_TIME))	
-								{
-									Switch_Junction = 2;
-									Junction_Switch_Time = 0;
-									Return_Val = Busy;
-									break;
-								}
-								Return_Val = Busy;
-								Switch_Junction = 1;
-								Junction_Switch_Time++;
-								break;
-								
-		case	2			:	Wl_Left_Str = 0;
-								Wl_Left_Bnd	= 0;
-								Wl_Right_Str = 0;
-								Wl_Right_Bnd = 0;
-								Switch_Junction = 0;
-								Return_Val = Finished;
-								break;
-		
-		default				:	break;
-	}
-	
-	return (Return_Val);
-}
-
-
-/******************************************************************************
- * Function:        static void Debounce_Inputs(void)
- *                  Debounce all the inputs
- *
- * PreCondition:    None
- *
- * Input:           None
- *
- * Output:          None
- *
- * Side Effects:    Updates API[index] accordingly
- *
- * Overview:        None
- *****************************************************************************/
-static void Debounce_Inputs(void)
-{
-	switch(Reed_Contact_LF)
-	{
-		case	On	:	Reed_Contact_LF_Counter = 0;
-						SETxAPIxVAL(RC_LF, Off);
-						break;
-						
-		case	Off	:	if(Reed_Contact_LF_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Reed_Contact_LF_Counter++;
-							break;
-						}
-						else {SETxAPIxVAL(RC_LF, On);}
-						break;
-		
-		default		:	break;
-	}
-	
-	
-	switch(Reed_Contact_LB)
-	{
-		case	On	:	Reed_Contact_LB_Counter = 0;
-						SETxAPIxVAL(RC_LB, Off);
-						break;
-						
-		case	Off	:	if(Reed_Contact_LB_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Reed_Contact_LB_Counter++;
-							break;
-						}
-						else {SETxAPIxVAL(RC_LB, On);}
-						break;
-		
-		default		:	break;
-	}
-	
-	
-	switch(Reed_Contact_RF)
-	{
-		case	On	:	Reed_Contact_RF_Counter = 0;
-						SETxAPIxVAL(RC_RF, Off);
-						break;
-						
-		case	Off	:	if(Reed_Contact_RF_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Reed_Contact_RF_Counter++;
-							break;
-						}
-						else {SETxAPIxVAL(RC_RF, On);}
-						break;
-		
-		default		:	break;
-	}
-	
-
-	switch(Reed_Contact_RB)
-	{
-		case	On	:	Reed_Contact_RB_Counter = 0;
-						SETxAPIxVAL(RC_RB, Off);
-						break;
-						
-		case	Off	:	if(Reed_Contact_RB_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Reed_Contact_RB_Counter++;
-							break;
-						}
-						else {SETxAPIxVAL(RC_RB, On);}
-						break;
-		
-		default		:	break;
-	}
-	
-	
-	switch(But_Start)
-	{
-		case	On	:	if(Button_Contact_Counter_Start <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Button_Contact_Counter_Start++;
-							break;
-						}
-						else {SETxAPIxVAL(BTN_START, On); }
-						break;
-		
-		case	Off	:	Button_Contact_Counter_Start = 0;
-						SETxAPIxVAL(BTN_START, Off);
-						break;
-						
-		default		:	break;
-	}
-	
-	
-	switch(But_Stop)
-	{
-		case	On	:	if(Button_Contact_Counter_Stop <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Button_Contact_Counter_Stop++;
-							break;
-						}
-						else {SETxAPIxVAL(BTN_STOP, On); }
-						break;
-		
-		case	Off	:	Button_Contact_Counter_Stop = 0;
-						SETxAPIxVAL(BTN_STOP, Off);
-						break;
-						
-		default		:	break;
-	}
-	
-	
-	switch(But_Middle)
-	{
-		case	On	:	if(Button_Contact_Counter_Middle <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Button_Contact_Counter_Middle++;
-							break;
-						}
-						else {SETxAPIxVAL(BTN_MID, On); }
-						break;
-		
-		case	Off	:	Button_Contact_Counter_Middle = 0;
-						SETxAPIxVAL(BTN_MID, Off);
-						break;
-						
-		default		:	break;
-	}
-	
-	
-	switch(But_LB)
-	{
-		case	On	:	if(Button_Contact_Counter_LB <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Button_Contact_Counter_LB++;
-							break;
-						}
-						else {SETxAPIxVAL(BTN_LB, On); }
-						break;
-		
-		case	Off	:	Button_Contact_Counter_LB = 0;
-						SETxAPIxVAL(BTN_LB, Off);
-						break;
-						
-		default		:	break;
-	}
-	
-	
-	switch(But_LF)
-	{
-		case	On	:	if(Button_Contact_Counter_LF <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Button_Contact_Counter_LF++;
-							break;
-						}
-						else {SETxAPIxVAL(BTN_LF, On); }
-						break;
-		
-		case	Off	:	Button_Contact_Counter_LF = 0;
-						SETxAPIxVAL(BTN_LF, Off);
-						break;
-						
-		default		:	break;
-	}
-	
-	
-	switch(But_RB)
-	{
-		case	On	:	if(Button_Contact_Counter_RB <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Button_Contact_Counter_RB++;
-							break;
-						}
-						else {SETxAPIxVAL(BTN_RB, On); }
-						break;
-		
-		case	Off	:	Button_Contact_Counter_RB = 0;
-						SETxAPIxVAL(BTN_RB, Off);
-						break;
-						
-		default		:	break;
-	}
-	
-	
-		switch(But_RF)
-	{
-		case	On	:	if(Button_Contact_Counter_RF <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Button_Contact_Counter_RF++;
-							break;
-						}
-						else {SETxAPIxVAL(BTN_RF, On); }
-						break;
-		
-		case	Off	:	Button_Contact_Counter_RF = 0;
-						SETxAPIxVAL(BTN_RF, Off);
-						break;
-						
-		default		:	break;
-	}
-	
-	
-	switch(Reed_Contact_LMU)
-	{
-		case	On	:	if(Reed_Contact_LMU_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Reed_Contact_LMU_Counter++;
-							break;
-						}
-						else {SETxAPIxVAL(RC_LMU, On); }
-						break;
-		
-		case	Off	:	Reed_Contact_LMU_Counter = 0;
-						SETxAPIxVAL(RC_LMU, Off);
-						break;
-						
-		default		:	break;
-	}
-	
-	
-	switch(Reed_Contact_LMD)
-	{
-		case	On	:	if(Reed_Contact_LMD_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Reed_Contact_LMD_Counter++;
-							break;
-						}
-						else {SETxAPIxVAL(RC_LMD, On); }
-						break;
-		
-		case	Off	:	Reed_Contact_LMD_Counter = 0;
-						SETxAPIxVAL(RC_LMD, Off);
-						break;
-						
-		default		:	break;
-	}
-	
-	
-	switch(Reed_Contact_RMU)
-	{
-		case	On	:	if(Reed_Contact_RMU_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Reed_Contact_RMU_Counter++;
-							break;
-						}
-						else {SETxAPIxVAL(RC_RMU, On); }
-						break;
-		
-		case	Off	:	Reed_Contact_RMU_Counter = 0;
-						SETxAPIxVAL(RC_RMU, Off);
-						break;
-						
-		default		:	break;
-	}
-	
-	
-	switch(Reed_Contact_RMD)
-	{
-		case	On	:	if(Reed_Contact_RMD_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
-						{
-							Reed_Contact_RMD_Counter++;
-							break;
-						}
-						else {SETxAPIxVAL(RC_RMD, On); }
-						break;
-		
-		case	Off	:	Reed_Contact_RMD_Counter = 0;
-						SETxAPIxVAL(RC_RMD, Off);
-						break;
-						
-		default		:	break;
-	}
-}
-
-/******************************************************************************
- * Function:        static void Eeprom_Store(void)
- *                  Store program values in EEPROM
- *
- * PreCondition:    None
- *
- * Input:           None
- *
- * Output:          None
- *
- * Side Effects:    Stores vital program variables in EEPROM
- *
- * Overview:        None
- *****************************************************************************/
-static void Eeprom_Store(void)
-{
-	INTCON = 0x00;
-	
-		EECON1bits.EEPGD = 0;
-		EECON1bits.WREN = 1; 
-		EEADR = 0x01;
-		EEDATA = GETxAPIxVAL(MAX_PWM_RIGHT);
-		EECON2 = 0x55;
-		EECON2 = 0xaa;
-		EECON1bits.WR = 1;
-		while (!PIR2bits.EEIF);
-		PIR2bits.EEIF = 0;
-																
-		EECON1bits.EEPGD = 0;
-		EECON1bits.WREN = 1; 
-		EEADR = 0x00;
-		EEDATA = GETxAPIxVAL(MAX_PWM_RIGHT)>>8;
-		EECON2 = 0x55;
-		EECON2 = 0xaa;
-		EECON1bits.WR = 1;
-		while (!PIR2bits.EEIF);
-		PIR2bits.EEIF = 0;
-
-		EECON1bits.EEPGD = 0;
-		EECON1bits.WREN = 1; 
-		EEADR = 0x03;
-		EEDATA = GETxAPIxVAL(MAX_PWM_LEFT);
-		EECON2 = 0x55;
-		EECON2 = 0xaa;
-		EECON1bits.WR = 1;
-		while (!PIR2bits.EEIF);
-		PIR2bits.EEIF = 0;
-																
-		EECON1bits.EEPGD = 0;
-		EECON1bits.WREN = 1; 
-		EEADR = 0x02;
-		EEDATA = GETxAPIxVAL(MAX_PWM_LEFT)>>8;
-		EECON2 = 0x55;
-		EECON2 = 0xaa;
-		EECON1bits.WR = 1;
-		while (!PIR2bits.EEIF);
-		PIR2bits.EEIF = 0;
-
-		EECON1bits.EEPGD = 0;
-		EECON1bits.WREN = 1; 
-		EEADR = 0x04;
-		EEDATA = GETxAPIxVAL(MAX_JERK_PWM_BRAKE);
-		EECON2 = 0x55;
-		EECON2 = 0xaa;
-		EECON1bits.WR = 1;
-		while (!PIR2bits.EEIF);
-		PIR2bits.EEIF = 0;
-			
-															
-	INTCON = 0xA0;
 }
