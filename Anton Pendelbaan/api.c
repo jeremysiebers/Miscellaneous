@@ -111,9 +111,7 @@ void APIxInitialize(){
 	API[DELAY_LMD_DOWN]				= 	100;
 	API[DELAY_LMD_UP]				= 	100;
 	API[DELAY_LMU_DOWN]				= 	100;
-	API[DELAY_LMU_UP]				= 	100;
-	
-	
+	API[DELAY_LMU_UP]				= 	100;	
 }
 
 /******************************************************************************
