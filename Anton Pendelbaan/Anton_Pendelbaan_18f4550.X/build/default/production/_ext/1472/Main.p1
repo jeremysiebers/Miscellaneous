@@ -70,6 +70,28 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S209 . . . . ]
 "2993
 [v _PORTDbits `VS209 ~T0 @X0 0 e@3971 ]
+"4207
+[s S282 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S282 . TRISC0 TRISC1 TRISC2 . TRISC6 TRISC7 ]
+"4215
+[s S283 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S283 . RC0 RC1 RC2 . RC6 RC7 ]
+"4206
+[u S281 `S282 1 `S283 1 ]
+[n S281 . . . ]
+"4224
+[v _TRISCbits `VS281 ~T0 @X0 0 e@3988 ]
+"4581
+[s S294 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S294 . TRISE0 TRISE1 TRISE2 ]
+"4586
+[s S295 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
+[n S295 . RE0 RE1 RE2 ]
+"4580
+[u S293 `S294 1 `S295 1 ]
+[n S293 . . . ]
+"4592
+[v _TRISEbits `VS293 ~T0 @X0 0 e@3990 ]
 "3986
 [s S276 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S276 . TRISB0 TRISB1 TRISB2 TRISB3 TRISB4 TRISB5 TRISB6 TRISB7 ]
@@ -217,17 +239,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _CCP1CON `Vuc ~T0 @X0 0 e@4029 ]
 "7583
 [v _T2CON `Vuc ~T0 @X0 0 e@4042 ]
-"4207
-[s S282 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S282 . TRISC0 TRISC1 TRISC2 . TRISC6 TRISC7 ]
-"4215
-[s S283 :1 `uc 1 :1 `uc 1 :1 `uc 1 :3 `uc 1 :1 `uc 1 :1 `uc 1 ]
-[n S283 . RC0 RC1 RC2 . RC6 RC7 ]
-"4206
-[u S281 `S282 1 `S283 1 ]
-[n S281 . . . ]
-"4224
-[v _TRISCbits `VS281 ~T0 @X0 0 e@3988 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -5032,12 +5043,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Main.c: 119: PORTAbits.RA0 = 0;
 "119
 [e = . . _PORTAbits 0 0 -> -> 0 `i `uc ]
-[; ;Main.c: 121: TRISDbits.TRISD2=1;TRISDbits.TRISD3=1;TRISDbits.TRISD0=1;TRISDbits.TRISD1=1;
+[; ;Main.c: 121: TRISDbits.TRISD2=1;TRISDbits.TRISD3=1;TRISDbits.TRISD0=1;TRISDbits.TRISD1=1;TRISCbits.TRISC1=1;TRISDbits.TRISD4=1;TRISEbits.TRISE0=1;TRISEbits.TRISE1=1;;
 "121
 [e = . . _TRISDbits 0 2 -> -> 1 `i `uc ]
 [e = . . _TRISDbits 0 3 -> -> 1 `i `uc ]
 [e = . . _TRISDbits 0 0 -> -> 1 `i `uc ]
 [e = . . _TRISDbits 0 1 -> -> 1 `i `uc ]
+[e = . . _TRISCbits 0 1 -> -> 1 `i `uc ]
+[e = . . _TRISDbits 0 4 -> -> 1 `i `uc ]
+[e = . . _TRISEbits 0 0 -> -> 1 `i `uc ]
+[e = . . _TRISEbits 0 1 -> -> 1 `i `uc ]
 [; ;Main.c: 122: TRISBbits.TRISB0=1;TRISBbits.TRISB1=1;TRISBbits.TRISB2=1;TRISBbits.TRISB3=1;TRISBbits.TRISB4=1;TRISBbits.TRISB5=1;TRISDbits.TRISD7=1;;
 "122
 [e = . . _TRISBbits 0 0 -> -> 1 `i `uc ]

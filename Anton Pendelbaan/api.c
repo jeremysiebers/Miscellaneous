@@ -133,7 +133,9 @@ unsigned int GETxAPIxRW(unsigned char index){
 }
 
 void SETxAPIxVAL(unsigned char index, unsigned int value){
-    API[index] = value;
+    if(API[index] != value){
+        API[index] = value;
+    }    
 }
 unsigned int GETxAPIxVAL(unsigned char index){
     return API[index];

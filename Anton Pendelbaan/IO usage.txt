@@ -18,8 +18,8 @@ PORTC 0    Brake
 PORTC 1	   Reed_Contact_LMU
 PORTC 2	   PWM_OUTPUT
    
-PORTC 4	   Reed_Contact_RMU
-PORTC 5	   Reed_Contact_RMD
+PORTC 4	   USB do not use
+PORTC 5	   USB do not use
 PORTC 6    RS232
 PORTC 7    RS232
 
@@ -32,7 +32,7 @@ PORTD 5    Led Red
 PORTD 6    Led Green
 PORTD 7    But_Stop
 
-PORTE 0
-PORTE 1
+PORTE 0    Reed_Contact_RMD
+PORTE 1    Reed_Contact_RMU
 PORTE 2
 PORTE 3    MRESET

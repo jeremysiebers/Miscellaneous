@@ -89,7 +89,7 @@
 #define Init_Led_Outputs()			TRISAbits.TRISA4=0;TRISDbits.TRISD5=0;TRISDbits.TRISD6=0;
 #define Init_Wissel_Outputs()		TRISAbits.TRISA0=0;TRISAbits.TRISA1=0;TRISAbits.TRISA2=0;TRISAbits.TRISA3=0;
 #define	Init_Switches()				TRISBbits.TRISB0=1;TRISBbits.TRISB1=1;TRISBbits.TRISB2=1;TRISBbits.TRISB3=1;TRISBbits.TRISB4=1;TRISBbits.TRISB5=1;TRISDbits.TRISD7=1;
-#define Init_Reed_Contacts()		TRISDbits.TRISD2=1;TRISDbits.TRISD3=1;TRISDbits.TRISD0=1;TRISDbits.TRISD1=1;
+#define Init_Reed_Contacts()		TRISDbits.TRISD2=1;TRISDbits.TRISD3=1;TRISDbits.TRISD0=1;TRISDbits.TRISD1=1;TRISCbits.TRISC1=1;TRISDbits.TRISD4=1;TRISEbits.TRISE0=1;TRISEbits.TRISE1=1;
 
 #define Led1_Blink 	100
 #define Led1_Off	700
@@ -118,7 +118,7 @@ void main (void)
 	Wl_Right_Str = 0;
 	Wl_Right_Bnd = 0;
 	
-	Init_Reed_Contacts()
+	Init_Reed_Contacts();
 	Init_Switches();
     APIxInitialize();
 	Init_Pwm();

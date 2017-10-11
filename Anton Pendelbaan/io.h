@@ -13,14 +13,14 @@
 #define	But_LF						!PORTBbits.RB4
 #define	But_RB						!PORTBbits.RB3
 #define	But_RF						!PORTBbits.RB2
-#define Reed_Contact_LF				PORTDbits.RD2
-#define Reed_Contact_LB				PORTDbits.RD3
-#define Reed_Contact_RF				PORTDbits.RD0
-#define Reed_Contact_RB				PORTDbits.RD1
+#define Reed_Contact_RB				PORTDbits.RD2
+#define Reed_Contact_RF				PORTDbits.RD3
+#define Reed_Contact_LB				PORTDbits.RD0
+#define Reed_Contact_LF				PORTDbits.RD1
 #define Reed_Contact_LMU     		PORTCbits.RC1
 #define Reed_Contact_LMD     		PORTDbits.RD4
-#define Reed_Contact_RMU     		PORTCbits.RC4
-#define Reed_Contact_RMD     		PORTCbits.RC5
+#define Reed_Contact_RMU     		PORTEbits.RE1
+#define Reed_Contact_RMD     		PORTEbits.RE0
 #define Red							PORTDbits.RD5
 #define Green						PORTDbits.RD6
 
