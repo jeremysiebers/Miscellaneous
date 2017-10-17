@@ -1,6 +1,8 @@
 #include "terminal.h"
 #include "eusart1.h"
 #include <xc.h>
+#include <string.h>
+#include <stdio.h>
 
 #define Height 40
 #define Width 22
@@ -9,15 +11,12 @@
 
 //http://www.termsys.demon.co.uk/vtansi.htm
 
-void INIT_TERMINAL(){
-    int i = 0;
-    for (i=0; i<Width; i++){
+
+
+void SENDxMESSAGE(unsigned char index, unsigned int value){
         
-    }
-}
-
-
-
-void UPDATExTERMINAL(){
-    EUSART1_Write('A');
+    unsigned char high = value >> 8;
+    unsigned char low = value;
+    
+    printf("\r\nM#%x %x%x\r\n", index, high, low);  
 }

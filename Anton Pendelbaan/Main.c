@@ -160,8 +160,7 @@ void interrupt high_priority tc_high(void) {
 		}
 		if(Led1_Counter >= Led1_Off)
 		{
-			Led1_Counter = 0;
-            UPDATExTERMINAL();
+			Led1_Counter = 0;            
 		}
 		Led1_Counter++;
 		Update_State_Machine = True;

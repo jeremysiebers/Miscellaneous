@@ -149,8 +149,12 @@ void Debounce_Inputs(void)
 {
 	switch(Reed_Contact_LF)
 	{
-		case	On	:	Reed_Contact_LF_Counter = 0;
-						SETxAPIxVAL(RC_LF, Off);
+		case	On	:	if(Reed_Contact_LF_Counter > 0)
+						{
+							Reed_Contact_LF_Counter--;
+							break;
+						}
+						else {SETxAPIxVAL(RC_LF, Off);}
 						break;
 						
 		case	Off	:	if(Reed_Contact_LF_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
@@ -167,8 +171,12 @@ void Debounce_Inputs(void)
 	
 	switch(Reed_Contact_LB)
 	{
-		case	On	:	Reed_Contact_LB_Counter = 0;
-						SETxAPIxVAL(RC_LB, Off);
+		case	On	:	if(Reed_Contact_LB_Counter > 0)
+						{
+							Reed_Contact_LB_Counter--;
+							break;
+						}
+						else {SETxAPIxVAL(RC_LB, Off);}
 						break;
 						
 		case	Off	:	if(Reed_Contact_LB_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
@@ -185,8 +193,12 @@ void Debounce_Inputs(void)
 	
 	switch(Reed_Contact_RF)
 	{
-		case	On	:	Reed_Contact_RF_Counter = 0;
-						SETxAPIxVAL(RC_RF, Off);
+		case	On	:	if(Reed_Contact_RF_Counter > 0)
+						{
+							Reed_Contact_RF_Counter--;
+							break;
+						}
+						else {SETxAPIxVAL(RC_RF, Off);}
 						break;
 						
 		case	Off	:	if(Reed_Contact_RF_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
@@ -203,8 +215,12 @@ void Debounce_Inputs(void)
 
 	switch(Reed_Contact_RB)
 	{
-		case	On	:	Reed_Contact_RB_Counter = 0;
-						SETxAPIxVAL(RC_RB, Off);
+		case	On	:	if(Reed_Contact_RB_Counter > 0)
+						{
+							Reed_Contact_RB_Counter--;
+							break;
+						}
+						else {SETxAPIxVAL(RC_RB, Off);}
 						break;
 						
 		case	Off	:	if(Reed_Contact_RB_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
@@ -229,8 +245,12 @@ void Debounce_Inputs(void)
 						else {SETxAPIxVAL(BTN_START, On); }
 						break;
 		
-		case	Off	:	Button_Contact_Counter_Start = 0;
-						SETxAPIxVAL(BTN_START, Off);
+		case	Off	:	if(Button_Contact_Counter_Start > 0)
+						{
+							Button_Contact_Counter_Start--;
+							break;
+						}
+						else {SETxAPIxVAL(BTN_START, Off);}
 						break;
 						
 		default		:	break;
@@ -247,8 +267,12 @@ void Debounce_Inputs(void)
 						else {SETxAPIxVAL(BTN_STOP, On); }
 						break;
 		
-		case	Off	:	Button_Contact_Counter_Stop = 0;
-						SETxAPIxVAL(BTN_STOP, Off);
+		case	Off	:	if(Button_Contact_Counter_Stop > 0)
+						{
+							Button_Contact_Counter_Stop--;
+							break;
+						}
+						else {SETxAPIxVAL(BTN_STOP, Off);}
 						break;
 						
 		default		:	break;
@@ -265,8 +289,12 @@ void Debounce_Inputs(void)
 						else {SETxAPIxVAL(BTN_MID, On); }
 						break;
 		
-		case	Off	:	Button_Contact_Counter_Middle = 0;
-						SETxAPIxVAL(BTN_MID, Off);
+		case	Off	:	if(Button_Contact_Counter_Middle > 0)
+						{
+							Button_Contact_Counter_Middle--;
+							break;
+						}
+						else {SETxAPIxVAL(BTN_MID, Off);}
 						break;
 						
 		default		:	break;
@@ -283,8 +311,12 @@ void Debounce_Inputs(void)
 						else {SETxAPIxVAL(BTN_LB, On); }
 						break;
 		
-		case	Off	:	Button_Contact_Counter_LB = 0;
-						SETxAPIxVAL(BTN_LB, Off);
+		case	Off	:	if(Button_Contact_Counter_LB > 0)
+						{
+							Button_Contact_Counter_LB--;
+							break;
+						}
+						else {SETxAPIxVAL(BTN_LB, Off);}
 						break;
 						
 		default		:	break;
@@ -301,8 +333,12 @@ void Debounce_Inputs(void)
 						else {SETxAPIxVAL(BTN_LF, On); }
 						break;
 		
-		case	Off	:	Button_Contact_Counter_LF = 0;
-						SETxAPIxVAL(BTN_LF, Off);
+		case	Off	:	if(Button_Contact_Counter_LF > 0)
+						{
+							Button_Contact_Counter_LF--;
+							break;
+						}
+						else {SETxAPIxVAL(BTN_LF, Off);}
 						break;
 						
 		default		:	break;
@@ -319,8 +355,12 @@ void Debounce_Inputs(void)
 						else {SETxAPIxVAL(BTN_RB, On); }
 						break;
 		
-		case	Off	:	Button_Contact_Counter_RB = 0;
-						SETxAPIxVAL(BTN_RB, Off);
+		case	Off	:	if(Button_Contact_Counter_RB > 0)
+						{
+							Button_Contact_Counter_RB--;
+							break;
+						}
+						else {SETxAPIxVAL(BTN_RB, Off);}
 						break;
 						
 		default		:	break;
@@ -337,8 +377,12 @@ void Debounce_Inputs(void)
 						else {SETxAPIxVAL(BTN_RF, On); }
 						break;
 		
-		case	Off	:	Button_Contact_Counter_RF = 0;
-						SETxAPIxVAL(BTN_RF, Off);
+		case	Off	:	if(Button_Contact_Counter_RF > 0)
+						{
+							Button_Contact_Counter_RF--;
+							break;
+						}
+						else {SETxAPIxVAL(BTN_RF, Off);}
 						break;
 						
 		default		:	break;
@@ -347,7 +391,7 @@ void Debounce_Inputs(void)
 	
 	switch(Reed_Contact_LMU)
 	{
-		case	On	:	if(Reed_Contact_LMU_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
+		case	Off	:	if(Reed_Contact_LMU_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Reed_Contact_LMU_Counter++;
 							break;
@@ -355,8 +399,12 @@ void Debounce_Inputs(void)
 						else {SETxAPIxVAL(RC_LMU, On); }
 						break;
 		
-		case	Off	:	Reed_Contact_LMU_Counter = 0;
-						SETxAPIxVAL(RC_LMU, Off);
+		case	On	:	if(Reed_Contact_LMU_Counter > 0)
+						{
+							Reed_Contact_LMU_Counter--;
+							break;
+						}
+						else {SETxAPIxVAL(RC_LMU, Off);}
 						break;
 						
 		default		:	break;
@@ -365,7 +413,7 @@ void Debounce_Inputs(void)
 	
 	switch(Reed_Contact_LMD)
 	{
-		case	On	:	if(Reed_Contact_LMD_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
+		case	Off	:	if(Reed_Contact_LMD_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Reed_Contact_LMD_Counter++;
 							break;
@@ -373,8 +421,12 @@ void Debounce_Inputs(void)
 						else {SETxAPIxVAL(RC_LMD, On); }
 						break;
 		
-		case	Off	:	Reed_Contact_LMD_Counter = 0;
-						SETxAPIxVAL(RC_LMD, Off);
+		case	On	:	if(Reed_Contact_LMD_Counter > 0)
+						{
+							Reed_Contact_LMD_Counter--;
+							break;
+						}
+						else {SETxAPIxVAL(RC_LMD, Off);}
 						break;
 						
 		default		:	break;
@@ -383,7 +435,7 @@ void Debounce_Inputs(void)
 	
 	switch(Reed_Contact_RMU)
 	{
-		case	On	:	if(Reed_Contact_RMU_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
+		case	Off	:	if(Reed_Contact_RMU_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Reed_Contact_RMU_Counter++;
 							break;
@@ -391,8 +443,12 @@ void Debounce_Inputs(void)
 						else {SETxAPIxVAL(RC_RMU, On); }
 						break;
 		
-		case	Off	:	Reed_Contact_RMU_Counter = 0;
-						SETxAPIxVAL(RC_RMU, Off);
+		case	On	:	if(Reed_Contact_RMU_Counter > 0)
+						{
+							Reed_Contact_RMU_Counter--;
+							break;
+						}
+						else {SETxAPIxVAL(RC_RMU, Off);}
 						break;
 						
 		default		:	break;
@@ -401,7 +457,7 @@ void Debounce_Inputs(void)
 	
 	switch(Reed_Contact_RMD)
 	{
-		case	On	:	if(Reed_Contact_RMD_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
+		case	Off	:	if(Reed_Contact_RMD_Counter <= GETxAPIxVAL(INPUT_DEBOUNCE))
 						{
 							Reed_Contact_RMD_Counter++;
 							break;
@@ -409,8 +465,12 @@ void Debounce_Inputs(void)
 						else {SETxAPIxVAL(RC_RMD, On); }
 						break;
 		
-		case	Off	:	Reed_Contact_RMD_Counter = 0;
-						SETxAPIxVAL(RC_RMD, Off);
+		case	On	:	if(Reed_Contact_RMD_Counter > 0)
+						{
+							Reed_Contact_RMD_Counter--;
+							break;
+						}
+						else {SETxAPIxVAL(RC_RMD, Off);}
 						break;
 						
 		default		:	break;

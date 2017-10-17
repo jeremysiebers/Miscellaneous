@@ -353,6 +353,7 @@ typedef uint32_t uintmax_t
          </code>
      */
     extern void EUSART1_Write(uint8_t txData);
+    extern void putch(char data);
 
     /**
       @Summary

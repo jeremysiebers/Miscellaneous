@@ -1,9 +1,9 @@
 
 Memory Summary:
-    Program space        used  2DD0h ( 11728) of  8000h bytes   ( 35.8%)
-    Data space           used   272h (   626) of   800h bytes   ( 30.6%)
+    Program space        used  315Ah ( 12634) of  8000h bytes   ( 38.6%)
+    Data space           used   286h (   646) of   800h bytes   ( 31.5%)
     Configuration bits   used     7h (     7) of     7h words   (100.0%)
     EEPROM space         used     0h (     0) of   100h bytes   (  0.0%)
     ID Location space    used     8h (     8) of     8h bytes   (100.0%)
-    Data stack space     used     0h (     0) of   57Bh bytes   (  0.0%)
+    Data stack space     used     0h (     0) of   504h bytes   (  0.0%)
 

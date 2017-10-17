@@ -15,7 +15,7 @@ PORTB 6
 PORTB 7
 
 PORTC 0    Brake
-PORTC 1	   Reed_Contact_LMU
+PORTC 1	   Reed_Contact_LMU			Screw-block Back	: 2
 PORTC 2	   PWM_OUTPUT
    
 PORTC 4	   USB do not use
@@ -23,16 +23,16 @@ PORTC 5	   USB do not use
 PORTC 6    RS232
 PORTC 7    RS232
 
-PORTD 0    Reed_Contact_RF
-PORTD 1    Reed_Contact_RB
-PORTD 2    Reed_Contact_LF
-PORTD 3    Reed_Contact_LB
-PORTD 4	   Reed_Contact_LMD
+PORTD 0    Reed_Contact_RF			Screw-block Front	: 8
+PORTD 1    Reed_Contact_RB			Screw-block Front	: 9
+PORTD 2    Reed_Contact_LF			Screw-block Front	: 10
+PORTD 3    Reed_Contact_LB			Screw-block Front	: 11
+PORTD 4	   Reed_Contact_LMD			Screw-block Back	: 3
 PORTD 5    Led Red
 PORTD 6    Led Green
 PORTD 7    But_Stop
 
-PORTE 0    Reed_Contact_RMD
-PORTE 1    Reed_Contact_RMU
+PORTE 0    Reed_Contact_RMD			Screw-block Back	: 5
+PORTE 1    Reed_Contact_RMU			Screw-block Back	: 4
 PORTE 2
 PORTE 3    MRESET

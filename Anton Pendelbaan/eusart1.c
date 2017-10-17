@@ -174,6 +174,12 @@ void EUSART1_Write(uint8_t txData) {
     PIE1bits.TX1IE = 1;
 }
 
+void putch(char data) {
+    while(! TXIF)
+        continue;
+    TXREG1 = data;
+}
+
 void EUSART1_Transmit_ISR(void) {
 
     // add your EUSART1 interrupt custom code

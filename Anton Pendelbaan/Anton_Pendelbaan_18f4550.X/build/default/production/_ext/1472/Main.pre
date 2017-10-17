@@ -6250,16 +6250,17 @@ extern uint8_t EUSART1_Read(void);
 
 # 355
 extern void EUSART1_Write(uint8_t txData);
+extern void putch(char data);
 
-# 376
+# 377
 extern void EUSART1_Transmit_ISR(void);
 
-# 397
+# 398
 extern void EUSART1_Receive_ISR(void);
 
 # 73 "../terminal.h"
 extern void INIT_TERMINAL(void);
-extern void UPDATExTERMINAL(void);
+extern void SENDxMESSAGE(unsigned char index, unsigned int value);
 
 # 11 "../api.h"
 extern void APIxInitialize(void);
@@ -6341,7 +6342,6 @@ PORTAbits.RA4 = 0;
 if(Led1_Counter >= 700)
 {
 Led1_Counter = 0;
-UPDATExTERMINAL();
 }
 Led1_Counter++;
 Update_State_Machine = 1;

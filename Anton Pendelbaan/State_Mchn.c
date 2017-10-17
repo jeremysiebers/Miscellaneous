@@ -1058,16 +1058,16 @@ char Train_Path(unsigned char From, unsigned char To)
 												Switch_Train_Path = 4;		    // End of station stop the train
 											}
                                             else if(GETxAPIxVAL(RC_LMU) == On){ // Left Mountain up encountered while driving to the left
-                                                Switch_Train_Path = 9;	        
+                                                Switch_Train_Path = 12;	        
                                             }                                            
                                             else if(GETxAPIxVAL(RC_LMD) == On){ // Left Mountain down encountered while driving to the left
-                                                Switch_Train_Path = 10;
-                                            }
-                                            else if(GETxAPIxVAL(RC_RMD) == On){ // Right Mountain down encountered while driving to the left
                                                 Switch_Train_Path = 11;
                                             }
+                                            else if(GETxAPIxVAL(RC_RMD) == On){ // Right Mountain down encountered while driving to the left
+                                                Switch_Train_Path = 10;
+                                            }
                                             else if(GETxAPIxVAL(RC_RMU) == On){ // Right Mountain down encountered while driving to the left
-                                                Switch_Train_Path = 12;
+                                                Switch_Train_Path = 9;
                                             }                                            
 											Return_Val = Busy;
 											break;
@@ -1076,16 +1076,16 @@ char Train_Path(unsigned char From, unsigned char To)
 												Switch_Train_Path = 4;		    // End of station stop the train
 											}
                                             else if(GETxAPIxVAL(RC_LMU) == On){ // Left Mountain up encountered while driving to the left
-                                                Switch_Train_Path = 9;	        
+                                                Switch_Train_Path = 12;	        
                                             }                                            
                                             else if(GETxAPIxVAL(RC_LMD) == On){ // Left Mountain down encountered while driving to the left
-                                                Switch_Train_Path = 10;
-                                            }
-                                            else if(GETxAPIxVAL(RC_RMD) == On){ // Right Mountain down encountered while driving to the left
                                                 Switch_Train_Path = 11;
                                             }
+                                            else if(GETxAPIxVAL(RC_RMD) == On){ // Right Mountain down encountered while driving to the left
+                                                Switch_Train_Path = 10;
+                                            }
                                             else if(GETxAPIxVAL(RC_RMU) == On){ // Right Mountain down encountered while driving to the left
-                                                Switch_Train_Path = 12;
+                                                Switch_Train_Path = 9;
                                             }                                            
 											Return_Val = Busy;
 											break;

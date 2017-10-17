@@ -8,6 +8,7 @@
 #include <xc.h>
 #include "api.h"
 #include "Main.h"
+#include "terminal.h"
 
 unsigned int API[APISIZE];                                                      // API RAM space
 unsigned int API_RW[APISIZE];                                                   // API Read/Write register, defines whether a location is writable and not read only (0 = read only)
@@ -65,7 +66,22 @@ void APIxInitialize(){
 	API_RW[RC_LMD]  				= 	RO;
 	API_RW[RC_RMU]  				= 	RO;
 	API_RW[RC_RMD]  				= 	RO;
-	
+	API_RW[MAX_PWM_RMU_RIGHT]		= 	RW;
+	API_RW[MAX_PWM_RMU_LEFT]		= 	RW;
+	API_RW[MAX_PWM_RMD_RIGHT]		= 	RW;
+	API_RW[MAX_PWM_RMD_LEFT]		= 	RW;
+	API_RW[MAX_PWM_LMU_RIGHT]		= 	RW;
+	API_RW[MAX_PWM_LMU_LEFT]		= 	RW;
+	API_RW[MAX_PWM_LMD_RIGHT]		= 	RW;
+	API_RW[MAX_PWM_LMD_LEFT]		= 	RW;
+	API_RW[DELAY_RMU_DOWN]			= 	RW;
+	API_RW[DELAY_RMU_UP]			= 	RW;
+	API_RW[DELAY_RMD_DOWN]			= 	RW;
+	API_RW[DELAY_RMD_UP]			= 	RW;
+	API_RW[DELAY_LMD_DOWN]			= 	RW;
+	API_RW[DELAY_LMD_UP]			= 	RW;
+	API_RW[DELAY_LMU_DOWN]			= 	RW;
+	API_RW[DELAY_LMU_UP]			= 	RW;	
     
 	/*  Set the API data */
     API[API_SIZE] = APISIZE;                                                    // Set the APISIZE on the API_SIZE location within API
@@ -96,14 +112,14 @@ void APIxInitialize(){
 	API[RC_LMD]						= 	Off;
 	API[RC_RMU]						= 	Off;
 	API[RC_RMD]			  			= 	Off;
-	API[MAX_PWM_RMU_RIGHT]			= 	107;
-	API[MAX_PWM_RMU_LEFT]			= 	107;
-	API[MAX_PWM_RMD_RIGHT]			= 	107;
-	API[MAX_PWM_RMD_LEFT]			= 	107;
-	API[MAX_PWM_LMU_RIGHT]			= 	107;
-	API[MAX_PWM_LMU_LEFT]			= 	107;
-    API[MAX_PWM_LMD_RIGHT]			= 	107;
-    API[MAX_PWM_LMD_LEFT]			= 	107;	
+	API[MAX_PWM_RMU_RIGHT]			= 	0;
+	API[MAX_PWM_RMU_LEFT]			= 	80;
+	API[MAX_PWM_RMD_RIGHT]			= 	120;
+	API[MAX_PWM_RMD_LEFT]			= 	0;
+	API[MAX_PWM_LMU_RIGHT]			= 	80;
+	API[MAX_PWM_LMU_LEFT]			= 	0;
+    API[MAX_PWM_LMD_RIGHT]			= 	0;
+    API[MAX_PWM_LMD_LEFT]			= 	120;	
 	API[DELAY_RMU_DOWN]				= 	100;
 	API[DELAY_RMU_UP]				= 	100;
 	API[DELAY_RMD_DOWN]				= 	100;
@@ -135,6 +151,7 @@ unsigned int GETxAPIxRW(unsigned char index){
 void SETxAPIxVAL(unsigned char index, unsigned int value){
     if(API[index] != value){
         API[index] = value;
+        SENDxMESSAGE(index, value);
     }    
 }
 unsigned int GETxAPIxVAL(unsigned char index){

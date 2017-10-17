@@ -65,7 +65,7 @@ char Train_Move_Right_Start(void)
 						break;
 						
 		case	3	:	SETxPWM(Train_Move_Pwm_Count, Right);
-						if (Train_Move_Pwm_Count <= GETxAPIxVAL(MAX_PWM_RIGHT))
+						if (Train_Move_Pwm_Count >= GETxAPIxVAL(MAX_PWM_RIGHT))
 						{
 							Switch_Train_Move = 0;
 							Return_Val = Finished;
@@ -116,40 +116,44 @@ char Left_Mountain_From_The_Left(unsigned char rc)
                 }
                 else{
                     Mountain_Delay_Counter++;
-                }                
-            break;
+                }  
+                Return_Val = Busy;
+                break;
             
         case 1: if(rc == LMU){
                     SETxPWM(Train_Move_Pwm_Count, Right);        
-                    if (Train_Move_Pwm_Count >= GETxAPIxVAL(MAX_PWM_LMU_RIGHT)) // when actual speed is too high for going down at LMU
+                    if (Train_Move_Pwm_Count <= GETxAPIxVAL(MAX_PWM_LMU_RIGHT)) // when actual speed is too high for going down at LMU
                     {
                         Switch_Train_Move = 0;
                         Switch_Moutain = 0;
-                        Return_Val = Finished;            
+                        Return_Val = Finished; 
+                        break;
                     }
-                    if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
+                    else if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
                     {
                         Train_Move_Pwm_Count--;                                 // Less current is required
                         Train_Move_Pwm_Fast_Count = 0;
                     }
-                    Train_Move_Pwm_Fast_Count++;
+                    else{Train_Move_Pwm_Fast_Count++;}
                 }
                 else if (rc == LMD){
                     SETxPWM(Train_Move_Pwm_Count, Right);        
-                    if (Train_Move_Pwm_Count <= GETxAPIxVAL(MAX_PWM_RIGHT))     // when actual speed is slower then normal speed
+                    if (Train_Move_Pwm_Count >= GETxAPIxVAL(MAX_PWM_RIGHT))     // when actual speed is slower then normal speed
                     {
                         Switch_Train_Move = 0;
                         Switch_Moutain = 0;
-                        Return_Val = Finished;            
+                        Return_Val = Finished;
+                        break;
                     }
-                    if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
+                    else if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
                     {
                         Train_Move_Pwm_Count++;
                         Train_Move_Pwm_Fast_Count = 0;
                     }
-                    Train_Move_Pwm_Fast_Count++;
+                    else {Train_Move_Pwm_Fast_Count++;}
                 }
-            break;
+                Return_Val = Busy;
+                break;
             
         default:
             break;
@@ -177,18 +181,19 @@ char Right_Mountain_From_The_Left(unsigned char rc)
     static char Return_Val = Busy;
     
     switch (Switch_Moutain){
-        case 0: if (rc == RMU){                                                 // when train arrives down on right mountain no delay is required
+        case 0: if (rc == RMU){                                                 // when train arrives up on right mountain no delay is required
                     Switch_Moutain = 1;
                     Mountain_Delay_Counter = 0;
                 }
                 else if(Mountain_Delay_Counter >= GETxAPIxVAL(DELAY_RMD_UP)){
-                    Switch_Moutain = 0;
+                    Switch_Moutain = 1;
                     Mountain_Delay_Counter = 0;
                 }
                 else{
                     Mountain_Delay_Counter++;
                 }
-            break;
+                Return_Val = Busy;
+                break;
             
         case 1: if(rc == RMD){
                     SETxPWM(Train_Move_Pwm_Count, Right);        
@@ -196,31 +201,34 @@ char Right_Mountain_From_The_Left(unsigned char rc)
                     {
                         Switch_Train_Move = 0;
                         Switch_Moutain = 0;
-                        Return_Val = Finished;            
+                        Return_Val = Finished;
+                        break;
                     }
-                    if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
+                    else if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
                     {
                         Train_Move_Pwm_Count++;                                 // More current is required
                         Train_Move_Pwm_Fast_Count = 0;
                     }
-                    Train_Move_Pwm_Fast_Count++;
+                    else{Train_Move_Pwm_Fast_Count++;}
                 }
                 else if (rc == RMU){
                     SETxPWM(Train_Move_Pwm_Count, Right);        
-                    if (Train_Move_Pwm_Count >= GETxAPIxVAL(MAX_PWM_RIGHT))     // when actual speed is higher then normal speed
+                    if (Train_Move_Pwm_Count <= GETxAPIxVAL(MAX_PWM_RIGHT))     // when actual speed is higher then normal speed
                     {
                         Switch_Train_Move = 0;
                         Switch_Moutain = 0;
-                        Return_Val = Finished;            
+                        Return_Val = Finished;   
+                        break;
                     }
-                    if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
+                    else if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(MAX_JERK_PWM))
                     {
                         Train_Move_Pwm_Count--;                                 // Less current is required
                         Train_Move_Pwm_Fast_Count = 0;
                     }
-                    Train_Move_Pwm_Fast_Count++;
+                    else{Train_Move_Pwm_Fast_Count++;}
                 }
-            break;
+                Return_Val = Busy;
+                break;
             
         default:
             break;
@@ -251,7 +259,7 @@ char Train_Move_Right_Brake(void)
 	switch(Switch_Train_Move)
 	{
 	case	0	:		SETxPWM(Train_Move_Pwm_Count, Right);
-						if (Train_Move_Pwm_Count >= GETxAPIxVAL(STATIONARY_RIGHT))
+						if (Train_Move_Pwm_Count <= GETxAPIxVAL(STATIONARY_RIGHT))
 						{
 							Switch_Train_Move = 1;
 							Return_Val = Busy;
@@ -262,7 +270,7 @@ char Train_Move_Right_Brake(void)
 							Train_Move_Pwm_Count--;
 							Train_Move_Pwm_Fast_Count = 0;
 						}
-						Train_Move_Pwm_Fast_Count++;
+                        else{Train_Move_Pwm_Fast_Count++;}
 						Return_Val = Busy;
 						break;
 						

@@ -7119,16 +7119,16 @@ case 0 : if(GETxAPIxVAL(14) == 1)
 Switch_Train_Path = 4;
 }
 else if(GETxAPIxVAL(25) == 1){
-Switch_Train_Path = 9;
+Switch_Train_Path = 12;
 }
 else if(GETxAPIxVAL(26) == 1){
-Switch_Train_Path = 10;
-}
-else if(GETxAPIxVAL(28) == 1){
 Switch_Train_Path = 11;
 }
+else if(GETxAPIxVAL(28) == 1){
+Switch_Train_Path = 10;
+}
 else if(GETxAPIxVAL(27) == 1){
-Switch_Train_Path = 12;
+Switch_Train_Path = 9;
 }
 Return_Val = 1;
 break;
@@ -7137,16 +7137,16 @@ case 1 : if(GETxAPIxVAL(15) == 1)
 Switch_Train_Path = 4;
 }
 else if(GETxAPIxVAL(25) == 1){
-Switch_Train_Path = 9;
+Switch_Train_Path = 12;
 }
 else if(GETxAPIxVAL(26) == 1){
-Switch_Train_Path = 10;
-}
-else if(GETxAPIxVAL(28) == 1){
 Switch_Train_Path = 11;
 }
+else if(GETxAPIxVAL(28) == 1){
+Switch_Train_Path = 10;
+}
 else if(GETxAPIxVAL(27) == 1){
-Switch_Train_Path = 12;
+Switch_Train_Path = 9;
 }
 Return_Val = 1;
 break;

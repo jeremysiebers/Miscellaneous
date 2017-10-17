@@ -103,11 +103,12 @@ extern uint8_t EUSART1_Read(void);
 
 # 355
 extern void EUSART1_Write(uint8_t txData);
+extern void putch(char data);
 
-# 376
+# 377
 extern void EUSART1_Transmit_ISR(void);
 
-# 397
+# 398
 extern void EUSART1_Receive_ISR(void);
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.37\include\htc.h"
@@ -6279,6 +6280,12 @@ eusart1TxHead = 0;
 eusart1TxBufferRemaining--;
 }
 PIE1bits.TX1IE = 1;
+}
+
+void putch(char data) {
+while(! TXIF)
+continue;
+TXREG1 = data;
 }
 
 void EUSART1_Transmit_ISR(void) {
