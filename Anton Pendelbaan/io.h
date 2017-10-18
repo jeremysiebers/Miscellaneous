@@ -43,6 +43,29 @@
 #define Left		0
 #define Right		1
 
+#define AdjustSpeed 20  
+#define Init 0
+#define Run2 1
+#define Run1 2
+
+#define RB_LB 0	//drive path presets
+#define RB_LF 1
+#define RF_LB 2
+#define RF_LF 3
+#define LB_RB 4
+#define LB_RF 5
+#define LF_RB 6
+#define LF_RF 7
+
+#define LB 0	//to create drive path
+#define LF 1
+#define RB 2
+#define RF 3
+#define Middle 4
+#define OneTrain 9
+
+#define ActivateControlsTime 10000
+
 unsigned int	Train_Move_Pwm_Count;
 
 extern void Debounce_Inputs(void);

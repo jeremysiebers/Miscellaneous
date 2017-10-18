@@ -23,10 +23,12 @@ void SETxPWM(unsigned int speed, unsigned char direction){
     
     if (direction == Left){
         pwm_speed = 511 - (speed * 2);
-        SetDCPWM1(pwm_speed);
+        SETxAPIxVAL(ACTUAL_PWM_SPEED, pwm_speed);
+        //SetDCPWM1(pwm_speed);
     }
     else if (direction == Right){
         pwm_speed = 511 + (speed * 2);
-        SetDCPWM1(pwm_speed);
+        SETxAPIxVAL(ACTUAL_PWM_SPEED, pwm_speed);
+        //SetDCPWM1(pwm_speed);
     }
 }

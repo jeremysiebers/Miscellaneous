@@ -133,7 +133,7 @@ void Red_Led(unsigned char Operation)
 
 /******************************************************************************
  * Function:        static void Debounce_Inputs(void)
- *                  Debounce all the inputs
+ *                  Debounce all the inputs and set outputs according API
  *
  * PreCondition:    None
  *
@@ -147,7 +147,14 @@ void Red_Led(unsigned char Operation)
  *****************************************************************************/
 void Debounce_Inputs(void)
 {
-	switch(Reed_Contact_LF)
+    Wl_Left_Str     = GETxAPIxVAL(JUNCTION_LEFT_STR);
+    Wl_Left_Bnd     = GETxAPIxVAL(JUNCTION_LEFT_BND);
+    Wl_Right_Str    = GETxAPIxVAL(JUNCTION_RIGHT_STR);
+    Wl_Right_Bnd    = GETxAPIxVAL(JUNCTION_RIGHT_BND);
+    Brake           = GETxAPIxVAL(PWM_BRAKE);
+    SetDCPWM1(GETxAPIxVAL(ACTUAL_PWM_SPEED));
+    
+    switch(Reed_Contact_LF)
 	{
 		case	On	:	if(Reed_Contact_LF_Counter > 0)
 						{

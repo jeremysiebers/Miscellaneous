@@ -71,6 +71,7 @@ extern "C" {
     // linkage so the functions can be used by the c code. 
     
     extern void SENDxMESSAGE(unsigned char index, unsigned int value);
+    extern void READxRECEIVEDxMESSAGE(void);
 
 #ifdef	__cplusplus
 }

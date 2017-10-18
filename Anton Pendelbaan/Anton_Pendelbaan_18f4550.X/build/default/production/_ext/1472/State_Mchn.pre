@@ -6094,7 +6094,7 @@ extern void DECRxAPIxVAL(unsigned char index);
 extern unsigned int GETxAPIxVAL(unsigned char index);
 extern unsigned int API[];
 
-# 46 "../io.h"
+# 69 "../io.h"
 unsigned int Train_Move_Pwm_Count;
 
 extern void Debounce_Inputs(void);
@@ -6119,7 +6119,7 @@ extern char Left_Mountain_From_The_Left(unsigned char rc);
 extern char Right_Mountain_From_The_Left(unsigned char rc);
 extern char Train_Move_Right_Brake(void);
 
-# 34 "../State_Mchn.c"
+# 11 "../State_Mchn.c"
 unsigned char Switch_Main = 0,
 Switch_Init = 0,
 Switch_Program = 0,
@@ -6134,7 +6134,7 @@ Stop_Program = 0;
 unsigned int Adjust_Counter = 0,
 Activate_Controls_Counter = 0;
 
-# 63
+# 40
 void Update_StateMchn(void)
 {
 Debounce_Inputs();
@@ -6148,33 +6148,33 @@ Red_Led(0);
 Switch_Init = 1;
 break;
 
-case 1 : if(GETxAPIxVAL(19))
+case 1 : if(GETxAPIxVAL(0x23))
 {
-SETxAPIxVAL(23, 0);
+SETxAPIxVAL(0x27, 0);
 Switch_Init = 2;
 break;
 }
-if(GETxAPIxVAL(20))
+if(GETxAPIxVAL(0x24))
 {
-SETxAPIxVAL(23, 1);
+SETxAPIxVAL(0x27, 1);
 Switch_Init = 2;
 break;
 }
-if(GETxAPIxVAL(21))
+if(GETxAPIxVAL(0x25))
 {
-SETxAPIxVAL(23, 2);
+SETxAPIxVAL(0x27, 2);
 Switch_Init = 2;
 break;
 }
-if(GETxAPIxVAL(22))
+if(GETxAPIxVAL(0x26))
 {
-SETxAPIxVAL(23, 3);
+SETxAPIxVAL(0x27, 3);
 Switch_Init = 2;
 break;
 }
-if(GETxAPIxVAL(18))
+if(GETxAPIxVAL(0x22))
 {
-SETxAPIxVAL(23, 4);
+SETxAPIxVAL(0x27, 4);
 Switch_Init = 2;
 break;
 }
@@ -6182,7 +6182,7 @@ Switch_Init = 1;
 Green_Led(2);
 break;
 
-case 2 : if(!GETxAPIxVAL(19) && !GETxAPIxVAL(20) && !GETxAPIxVAL(21) && !GETxAPIxVAL(22) && !GETxAPIxVAL(18) && !GETxAPIxVAL(16))
+case 2 : if(!GETxAPIxVAL(0x23) && !GETxAPIxVAL(0x24) && !GETxAPIxVAL(0x25) && !GETxAPIxVAL(0x26) && !GETxAPIxVAL(0x22) && !GETxAPIxVAL(0x20))
 {
 Switch_Init = 3;
 }
@@ -6190,39 +6190,39 @@ Red_Led(0);
 Green_Led(2);
 break;
 
-case 3 : if(GETxAPIxVAL(19))
+case 3 : if(GETxAPIxVAL(0x23))
 {
-SETxAPIxVAL(24, 0);
+SETxAPIxVAL(0x28, 0);
 Switch_Init = 4;
 break;
 }
-if(GETxAPIxVAL(20))
+if(GETxAPIxVAL(0x24))
 {
-SETxAPIxVAL(24, 1);
+SETxAPIxVAL(0x28, 1);
 Switch_Init = 4;
 break;
 }
-if(GETxAPIxVAL(21))
+if(GETxAPIxVAL(0x25))
 {
-SETxAPIxVAL(24, 2);
+SETxAPIxVAL(0x28, 2);
 Switch_Init = 4;
 break;
 }
-if(GETxAPIxVAL(22))
+if(GETxAPIxVAL(0x26))
 {
-SETxAPIxVAL(24, 3);
+SETxAPIxVAL(0x28, 3);
 Switch_Init = 4;
 break;
 }
-if(GETxAPIxVAL(18))
+if(GETxAPIxVAL(0x22))
 {
-SETxAPIxVAL(24, 4);
+SETxAPIxVAL(0x28, 4);
 Switch_Init = 4;
 break;
 }
-if(GETxAPIxVAL(16))
+if(GETxAPIxVAL(0x20))
 {
-SETxAPIxVAL(24, 9);
+SETxAPIxVAL(0x28, 9);
 Switch_Init = 4;
 break;
 }
@@ -6230,14 +6230,14 @@ Green_Led(2);
 Switch_Init = 3;
 break;
 
-case 4 : if(!GETxAPIxVAL(19) && !GETxAPIxVAL(20) && !GETxAPIxVAL(21) && !GETxAPIxVAL(22) && !GETxAPIxVAL(18) && !GETxAPIxVAL(16))
+case 4 : if(!GETxAPIxVAL(0x23) && !GETxAPIxVAL(0x24) && !GETxAPIxVAL(0x25) && !GETxAPIxVAL(0x26) && !GETxAPIxVAL(0x22) && !GETxAPIxVAL(0x20))
 {
-if(GETxAPIxVAL(23) == GETxAPIxVAL(24))
+if(GETxAPIxVAL(0x27) == GETxAPIxVAL(0x28))
 {
 Red_Led(1);
 Switch_Init = 1;
 }
-if(GETxAPIxVAL(23) != GETxAPIxVAL(24))
+if(GETxAPIxVAL(0x27) != GETxAPIxVAL(0x28))
 {
 Switch_Init = 5;
 }
@@ -6245,11 +6245,11 @@ Switch_Init = 5;
 Green_Led(2);
 break;
 
-case 5 : if(GETxAPIxVAL(24) != 9)
+case 5 : if(GETxAPIxVAL(0x28) != 9)
 {
 Switch_Init = 6;
 }
-if(GETxAPIxVAL(24) == 9)
+if(GETxAPIxVAL(0x28) == 9)
 {
 Switch_Init = 9;
 }
@@ -6258,7 +6258,7 @@ break;
 case 6 : Switch_Init = 8;
 break;
 
-case 7 : if(GETxAPIxVAL(16))
+case 7 : if(GETxAPIxVAL(0x20))
 {
 Switch_Main = 1;
 Switch_Init = 0;
@@ -6268,30 +6268,9 @@ Green_Led(3);
 Red_Led(0);
 break;
 
-case 8 : if(GETxAPIxVAL(23) == 4)
+case 8 : if(GETxAPIxVAL(0x27) == 4)
 {
-switch(GETxAPIxVAL(24))
-{
-case 0 : Switch_Program = 1;
-Switch_Init = 7;
-break;
-case 1 : Switch_Program = 5;
-Switch_Init = 7;
-break;
-case 2 : Switch_Program = 2;
-Switch_Init = 7;
-break;
-case 3 : Switch_Program = 3;
-Switch_Init = 7;
-break;
-default : Switch_Init = 8;
-Red_Led(1);
-break;
-}
-}
-if(GETxAPIxVAL(24) == 4)
-{
-switch(GETxAPIxVAL(23))
+switch(GETxAPIxVAL(0x28))
 {
 case 0 : Switch_Program = 1;
 Switch_Init = 7;
@@ -6310,11 +6289,32 @@ Red_Led(1);
 break;
 }
 }
-if((GETxAPIxVAL(23) != 4) && (GETxAPIxVAL(24) != 4))
+if(GETxAPIxVAL(0x28) == 4)
 {
-switch(GETxAPIxVAL(23))
+switch(GETxAPIxVAL(0x27))
 {
-case 0 : switch(GETxAPIxVAL(24))
+case 0 : Switch_Program = 1;
+Switch_Init = 7;
+break;
+case 1 : Switch_Program = 5;
+Switch_Init = 7;
+break;
+case 2 : Switch_Program = 2;
+Switch_Init = 7;
+break;
+case 3 : Switch_Program = 3;
+Switch_Init = 7;
+break;
+default : Switch_Init = 8;
+Red_Led(1);
+break;
+}
+}
+if((GETxAPIxVAL(0x27) != 4) && (GETxAPIxVAL(0x28) != 4))
+{
+switch(GETxAPIxVAL(0x27))
+{
+case 0 : switch(GETxAPIxVAL(0x28))
 {
 case 0 : Switch_Init = 0;
 break;
@@ -6332,7 +6332,7 @@ Red_Led(1);
 break;
 }
 break;
-case 1 : switch(GETxAPIxVAL(24))
+case 1 : switch(GETxAPIxVAL(0x28))
 {
 case 0 : Switch_Program = 1;
 Switch_Init = 7;
@@ -6350,7 +6350,7 @@ Red_Led(1);
 break;
 }
 break;
-case 2 : switch(GETxAPIxVAL(24))
+case 2 : switch(GETxAPIxVAL(0x28))
 {
 case 0 : Switch_Program = 2;
 Switch_Init = 7;
@@ -6368,7 +6368,7 @@ Red_Led(1);
 break;
 }
 break;
-case 3 : switch(GETxAPIxVAL(24))
+case 3 : switch(GETxAPIxVAL(0x28))
 {
 case 0 : Switch_Program = 4;
 Switch_Init = 7;
@@ -6396,7 +6396,7 @@ break;
 case 9 : Switch_Init = 11;
 break;
 
-case 10 : if(GETxAPIxVAL(16))
+case 10 : if(GETxAPIxVAL(0x20))
 {
 Switch_Main = 2;
 Switch_Init = 0;
@@ -6406,12 +6406,12 @@ Green_Led(3);
 Red_Led(0);
 break;
 
-case 11 : if(GETxAPIxVAL(23) == 4)
+case 11 : if(GETxAPIxVAL(0x27) == 4)
 {
 Switch_Program = 0;
 Switch_Init = 10;
 }
-else switch(GETxAPIxVAL(23))
+else switch(GETxAPIxVAL(0x27))
 {
 case 0 : Switch_Program = 1;Switch_Init = 10; break;
 case 1 : Switch_Program = 3;Switch_Init = 10; break;
@@ -6534,7 +6534,7 @@ default : break;
 
 switch(Switch_Activate_Controls)
 {
-case 0 : if(GETxAPIxVAL(20) && GETxAPIxVAL(22))
+case 0 : if(GETxAPIxVAL(0x24) && GETxAPIxVAL(0x26))
 {
 Switch_Activate_Controls = 1;
 Red_Led(3);
@@ -6546,7 +6546,7 @@ Red_Led(0);
 }
 break;
 
-case 1 : if(!GETxAPIxVAL(20) && !GETxAPIxVAL(22))
+case 1 : if(!GETxAPIxVAL(0x24) && !GETxAPIxVAL(0x26))
 {
 Switch_Activate_Controls = 2;
 Red_Led(3);
@@ -6559,7 +6559,7 @@ Red_Led(3);
 Activate_Controls_Counter = 10000;
 break;
 
-case 2 : if(!GETxAPIxVAL(20) && !GETxAPIxVAL(22) && !GETxAPIxVAL(21) && !GETxAPIxVAL(19))
+case 2 : if(!GETxAPIxVAL(0x24) && !GETxAPIxVAL(0x26) && !GETxAPIxVAL(0x25) && !GETxAPIxVAL(0x23))
 {
 Activate_Controls_Counter--;
 }
@@ -6570,20 +6570,20 @@ Activate_Controls_Counter = 10000;
 
 Red_Led(3);
 
-switch(GETxAPIxVAL(19))
+switch(GETxAPIxVAL(0x23))
 {
 case 0 : Switch_Adjust_LB = 0;
 break;
 
 case 1 : switch(Switch_Adjust_LB)
 {
-case 0 : if(GETxAPIxVAL(7) >= GETxAPIxVAL(6))
+case 0 : if(GETxAPIxVAL(0x17) >= GETxAPIxVAL(0x16))
 {
-DECRxAPIxVAL(7);
+DECRxAPIxVAL(0x17);
 }
-if(GETxAPIxVAL(8) <= GETxAPIxVAL(5))
+if(GETxAPIxVAL(0x18) <= GETxAPIxVAL(0x15))
 {
-INCRxAPIxVAL(8);
+INCRxAPIxVAL(0x18);
 }
 Switch_Adjust_LB = 1;
 break;
@@ -6606,20 +6606,20 @@ default : break;
 }
 
 
-switch(GETxAPIxVAL(20))
+switch(GETxAPIxVAL(0x24))
 {
 case 0 : Switch_Adjust_LF = 0;
 break;
 
 case 1 : switch(Switch_Adjust_LF)
 {
-case 0 : if(GETxAPIxVAL(7) <= 1022)
+case 0 : if(GETxAPIxVAL(0x17) <= 1022)
 {
-INCRxAPIxVAL(7);
+INCRxAPIxVAL(0x17);
 }
-if(GETxAPIxVAL(8) >= 1)
+if(GETxAPIxVAL(0x18) >= 1)
 {
-DECRxAPIxVAL(8);
+DECRxAPIxVAL(0x18);
 }
 Switch_Adjust_LF = 1;
 break;
@@ -6641,16 +6641,16 @@ break;
 default : break;
 }
 
-switch(GETxAPIxVAL(21))
+switch(GETxAPIxVAL(0x25))
 {
 case 0 : Switch_Adjust_RB = 0;
 break;
 
 case 1 : switch(Switch_Adjust_RB)
 {
-case 0 : if(GETxAPIxVAL(9) <= 250)
+case 0 : if(GETxAPIxVAL(0x19) <= 250)
 {
-INCRxAPIxVAL(9);
+INCRxAPIxVAL(0x19);
 }
 Switch_Adjust_RB = 1;
 break;
@@ -6673,16 +6673,16 @@ default : break;
 }
 
 
-switch(GETxAPIxVAL(22))
+switch(GETxAPIxVAL(0x26))
 {
 case 0 : Switch_Adjust_RF = 0;
 break;
 
 case 1 : switch(Switch_Adjust_RF)
 {
-case 0 : if(GETxAPIxVAL(9) >= 1)
+case 0 : if(GETxAPIxVAL(0x19) >= 1)
 {
-DECRxAPIxVAL(9);
+DECRxAPIxVAL(0x19);
 } Switch_Adjust_RF = 1;
 break;
 
@@ -6714,7 +6714,7 @@ Red_Led(0);
 break;
 }
 
-if(GETxAPIxVAL(17))
+if(GETxAPIxVAL(0x21))
 {
 Stop_Program = 1;
 }
@@ -6784,7 +6784,7 @@ default : break;
 
 switch(Switch_Activate_Controls)
 {
-case 0 : if(GETxAPIxVAL(20) && GETxAPIxVAL(22))
+case 0 : if(GETxAPIxVAL(0x24) && GETxAPIxVAL(0x26))
 {
 Switch_Activate_Controls = 1;
 Red_Led(3);
@@ -6796,7 +6796,7 @@ Red_Led(0);
 }
 break;
 
-case 1 : if(!GETxAPIxVAL(20) && !GETxAPIxVAL(22))
+case 1 : if(!GETxAPIxVAL(0x24) && !GETxAPIxVAL(0x26))
 {
 Switch_Activate_Controls = 2;
 Red_Led(3);
@@ -6809,7 +6809,7 @@ Red_Led(3);
 Activate_Controls_Counter = 10000;
 break;
 
-case 2 : if(!GETxAPIxVAL(20) && !GETxAPIxVAL(22) && !GETxAPIxVAL(21) && !GETxAPIxVAL(19))
+case 2 : if(!GETxAPIxVAL(0x24) && !GETxAPIxVAL(0x26) && !GETxAPIxVAL(0x25) && !GETxAPIxVAL(0x23))
 {
 Activate_Controls_Counter--;
 }
@@ -6820,20 +6820,20 @@ Activate_Controls_Counter = 10000;
 
 Red_Led(3);
 
-switch(GETxAPIxVAL(19))
+switch(GETxAPIxVAL(0x23))
 {
 case 0 : Switch_Adjust_LB = 0;
 break;
 
 case 1 : switch(Switch_Adjust_LB)
 {
-case 0 : if(GETxAPIxVAL(7) >= GETxAPIxVAL(6))
+case 0 : if(GETxAPIxVAL(0x17) >= GETxAPIxVAL(0x16))
 {
-DECRxAPIxVAL(7);
+DECRxAPIxVAL(0x17);
 }
-if(GETxAPIxVAL(8) <= GETxAPIxVAL(5))
+if(GETxAPIxVAL(0x18) <= GETxAPIxVAL(0x15))
 {
-INCRxAPIxVAL(8);
+INCRxAPIxVAL(0x18);
 }
 Switch_Adjust_LB = 1;
 break;
@@ -6856,20 +6856,20 @@ default : break;
 }
 
 
-switch(GETxAPIxVAL(20))
+switch(GETxAPIxVAL(0x24))
 {
 case 0 : Switch_Adjust_LF = 0;
 break;
 
 case 1 : switch(Switch_Adjust_LF)
 {
-case 0 : if(GETxAPIxVAL(7) <= 1022)
+case 0 : if(GETxAPIxVAL(0x17) <= 1022)
 {
-INCRxAPIxVAL(7);
+INCRxAPIxVAL(0x17);
 }
-if(GETxAPIxVAL(8) >= 1)
+if(GETxAPIxVAL(0x18) >= 1)
 {
-DECRxAPIxVAL(8);
+DECRxAPIxVAL(0x18);
 }
 Switch_Adjust_LF = 1;
 break;
@@ -6891,16 +6891,16 @@ break;
 default : break;
 }
 
-switch(GETxAPIxVAL(21))
+switch(GETxAPIxVAL(0x25))
 {
 case 0 : Switch_Adjust_RB = 0;
 break;
 
 case 1 : switch(Switch_Adjust_RB)
 {
-case 0 : if(GETxAPIxVAL(9) <= 250)
+case 0 : if(GETxAPIxVAL(0x19) <= 250)
 {
-INCRxAPIxVAL(9);
+INCRxAPIxVAL(0x19);
 }
 Switch_Adjust_RB = 1;
 break;
@@ -6923,16 +6923,16 @@ default : break;
 }
 
 
-switch(GETxAPIxVAL(22))
+switch(GETxAPIxVAL(0x26))
 {
 case 0 : Switch_Adjust_RF = 0;
 break;
 
 case 1 : switch(Switch_Adjust_RF)
 {
-case 0 : if(GETxAPIxVAL(9) >= 1)
+case 0 : if(GETxAPIxVAL(0x19) >= 1)
 {
-DECRxAPIxVAL(9);
+DECRxAPIxVAL(0x19);
 }
 Switch_Adjust_RF = 1;
 break;
@@ -6967,12 +6967,16 @@ break;
 
 default : break;
 }
+SETxAPIxVAL(0x3F, Switch_Main);
 }
 
-# 912
+# 890
 char Train_Path(unsigned char From, unsigned char To)
 {
 static char Return_Val = 1;
+
+SETxAPIxVAL(0x3D, From);
+SETxAPIxVAL(0x3E, To);
 
 switch(Switch_Train_Path)
 {
@@ -7080,72 +7084,72 @@ break;
 
 case 3 : switch(To)
 {
-case 2 : if(GETxAPIxVAL(12) == 1){
+case 2 : if(GETxAPIxVAL(0x1C) == 1){
 Switch_Train_Path = 4;
 }
-else if(GETxAPIxVAL(25) == 1){
+else if(GETxAPIxVAL(0x29) == 1){
 Switch_Train_Path = 5;
 }
-else if(GETxAPIxVAL(26) == 1){
+else if(GETxAPIxVAL(0x2A) == 1){
 Switch_Train_Path = 6;
 }
-else if(GETxAPIxVAL(28) == 1){
+else if(GETxAPIxVAL(0x2C) == 1){
 Switch_Train_Path = 7;
 }
-else if(GETxAPIxVAL(27) == 1){
+else if(GETxAPIxVAL(0x2B) == 1){
 Switch_Train_Path = 8;
 }
 Return_Val = 1;
 break;
-case 3 : if(GETxAPIxVAL(13) == 1){
+case 3 : if(GETxAPIxVAL(0x1D) == 1){
 Switch_Train_Path = 4;
 }
-else if(GETxAPIxVAL(25) == 1){
+else if(GETxAPIxVAL(0x29) == 1){
 Switch_Train_Path = 5;
 }
-else if(GETxAPIxVAL(26) == 1){
+else if(GETxAPIxVAL(0x2A) == 1){
 Switch_Train_Path = 6;
 }
-else if(GETxAPIxVAL(28) == 1){
+else if(GETxAPIxVAL(0x2C) == 1){
 Switch_Train_Path = 7;
 }
-else if(GETxAPIxVAL(27) == 1){
+else if(GETxAPIxVAL(0x2B) == 1){
 Switch_Train_Path = 8;
 }
 Return_Val = 1;
 break;
-case 0 : if(GETxAPIxVAL(14) == 1)
+case 0 : if(GETxAPIxVAL(0x1E) == 1)
 {
 Switch_Train_Path = 4;
 }
-else if(GETxAPIxVAL(25) == 1){
+else if(GETxAPIxVAL(0x29) == 1){
 Switch_Train_Path = 12;
 }
-else if(GETxAPIxVAL(26) == 1){
+else if(GETxAPIxVAL(0x2A) == 1){
 Switch_Train_Path = 11;
 }
-else if(GETxAPIxVAL(28) == 1){
+else if(GETxAPIxVAL(0x2C) == 1){
 Switch_Train_Path = 10;
 }
-else if(GETxAPIxVAL(27) == 1){
+else if(GETxAPIxVAL(0x2B) == 1){
 Switch_Train_Path = 9;
 }
 Return_Val = 1;
 break;
-case 1 : if(GETxAPIxVAL(15) == 1)
+case 1 : if(GETxAPIxVAL(0x1F) == 1)
 {
 Switch_Train_Path = 4;
 }
-else if(GETxAPIxVAL(25) == 1){
+else if(GETxAPIxVAL(0x29) == 1){
 Switch_Train_Path = 12;
 }
-else if(GETxAPIxVAL(26) == 1){
+else if(GETxAPIxVAL(0x2A) == 1){
 Switch_Train_Path = 11;
 }
-else if(GETxAPIxVAL(28) == 1){
+else if(GETxAPIxVAL(0x2C) == 1){
 Switch_Train_Path = 10;
 }
-else if(GETxAPIxVAL(27) == 1){
+else if(GETxAPIxVAL(0x2B) == 1){
 Switch_Train_Path = 9;
 }
 Return_Val = 1;

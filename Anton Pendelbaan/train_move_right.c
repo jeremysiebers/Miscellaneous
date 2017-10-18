@@ -47,7 +47,7 @@ char Train_Move_Right_Start(void)
 		
 		case	1	:	SETxPWM(GETxAPIxVAL(STATIONARY_RIGHT), Right);
 						Train_Move_Pwm_Count = GETxAPIxVAL(STATIONARY_RIGHT);
-						Brake = 0;
+						SETxAPIxVAL(PWM_BRAKE, Off);;
 						Return_Val = Busy;
 						Switch_Train_Move = 2;						
 						break;
@@ -287,7 +287,7 @@ char Train_Move_Right_Brake(void)
 						break;
 						
 		case	2	:	SETxPWM(GETxAPIxVAL(STATIONARY_RIGHT), Right);
-						Brake = 1;
+						SETxAPIxVAL(PWM_BRAKE, On);;
 						Train_Move_Pwm_Count = GETxAPIxVAL(STATIONARY_RIGHT);
 						Switch_Train_Move = 3;
 						Return_Val = Busy;

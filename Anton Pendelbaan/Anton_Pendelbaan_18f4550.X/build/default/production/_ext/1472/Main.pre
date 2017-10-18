@@ -6259,8 +6259,8 @@ extern void EUSART1_Transmit_ISR(void);
 extern void EUSART1_Receive_ISR(void);
 
 # 73 "../terminal.h"
-extern void INIT_TERMINAL(void);
 extern void SENDxMESSAGE(unsigned char index, unsigned int value);
+extern void READxRECEIVEDxMESSAGE(void);
 
 # 11 "../api.h"
 extern void APIxInitialize(void);
@@ -6271,7 +6271,7 @@ extern void DECRxAPIxVAL(unsigned char index);
 extern unsigned int GETxAPIxVAL(unsigned char index);
 extern unsigned int API[];
 
-# 46 "../io.h"
+# 69 "../io.h"
 unsigned int Train_Move_Pwm_Count;
 
 extern void Debounce_Inputs(void);
@@ -6309,7 +6309,6 @@ APIxInitialize();
 Init_Pwm();
 Init_Timers();
 EUSART1_Initialize();
-INIT_TERMINAL();
 
 while(1)
 {
@@ -6317,12 +6316,14 @@ if (1 == Update_State_Machine)
 {
 Update_State_Machine = 0;
 Update_StateMchn();
+}
+
+READxRECEIVEDxMESSAGE();
 
 }
 }
-}
 
-# 145
+# 146
 void interrupt low_priority tc_low(void) {
 
 }
@@ -6374,7 +6375,7 @@ T0CON = 0xC3;
 void Init_Pwm(void)
 {
 
-PORTCbits.RC0 = 1;
+SETxAPIxVAL(0x45, 1);
 PR2=0xFF;
 CCPR1L = 0x7F;
 CCP1CON = 0x0F;

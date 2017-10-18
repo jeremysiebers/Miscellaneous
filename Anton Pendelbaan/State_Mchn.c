@@ -8,29 +8,6 @@
 #include "train_move_left.h"
 #include "train_move_right.h"
 
-#define AdjustSpeed 20  
-#define Init 0
-#define Run2 1
-#define Run1 2
-
-#define RB_LB 0	//drive path presets
-#define RB_LF 1
-#define RF_LB 2
-#define RF_LF 3
-#define LB_RB 4
-#define LB_RF 5
-#define LF_RB 6
-#define LF_RF 7
-
-#define LB 0	//to create drive path
-#define LF 1
-#define RB 2
-#define RF 3
-#define Middle 4
-#define OneTrain 9
-
-#define ActivateControlsTime 10000
-
 unsigned char   Switch_Main = Init,
                 Switch_Init = 0,
                 Switch_Program = 0,
@@ -892,6 +869,7 @@ void Update_StateMchn(void)
 				
 				default			:	break;
 			}
+    SETxAPIxVAL(MAIN_PROGRAM, Switch_Main);
 }
 
 
@@ -912,6 +890,9 @@ void Update_StateMchn(void)
 char Train_Path(unsigned char From, unsigned char To)
 {
 	static char Return_Val = Busy;
+    
+    SETxAPIxVAL(TRAIN_PATH_FROM, From);
+    SETxAPIxVAL(TRAIN_PATH_TO, To);
 	
 	switch(Switch_Train_Path)
 	{

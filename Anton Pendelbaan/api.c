@@ -9,6 +9,7 @@
 #include "api.h"
 #include "Main.h"
 #include "terminal.h"
+#include "io.h"
 
 unsigned int API[APISIZE];                                                      // API RAM space
 unsigned int API_RW[APISIZE];                                                   // API Read/Write register, defines whether a location is writable and not read only (0 = read only)
@@ -82,7 +83,19 @@ void APIxInitialize(){
 	API_RW[DELAY_LMD_UP]			= 	RW;
 	API_RW[DELAY_LMU_DOWN]			= 	RW;
 	API_RW[DELAY_LMU_UP]			= 	RW;	
-    
+	API_RW[TRAIN_PATH_FROM]     	=	RO;
+    API_RW[TRAIN_PATH_TO]       	=	RO;
+	API_RW[MAIN_PROGRAM]			=	RO;
+	API_RW[JUNCTION_LEFT_STR]  		=	RW;
+	API_RW[JUNCTION_LEFT_BND]  		=	RW;
+	API_RW[JUNCTION_RIGHT_STR] 		=	RW;
+	API_RW[JUNCTION_RIGHT_BND] 		=	RW;
+	API_RW[ACTUAL_PWM_SPEED]		=	RW;
+	API_RW[PWM_BRAKE]				=	RW;
+	
+	
+	
+	
 	/*  Set the API data */
     API[API_SIZE] = APISIZE;                                                    // Set the APISIZE on the API_SIZE location within API
 	API[TRAIN_WAIT_TIME]            =   10000; 								
@@ -128,6 +141,16 @@ void APIxInitialize(){
 	API[DELAY_LMD_UP]				= 	100;
 	API[DELAY_LMU_DOWN]				= 	100;
 	API[DELAY_LMU_UP]				= 	100;	
+	API[TRAIN_PATH_FROM]     		=	0;
+	API[TRAIN_PATH_TO]       		=	0;
+	API[MAIN_PROGRAM]				=	Init;
+	API[JUNCTION_LEFT_STR]  		=	0;
+	API[JUNCTION_LEFT_BND]  		=	0;
+	API[JUNCTION_RIGHT_STR]  		=	0;
+	API[JUNCTION_RIGHT_BND]  		=	0;
+	API[ACTUAL_PWM_SPEED]			=	511;
+	API[PWM_BRAKE]					=	On;
+	
 }
 
 /******************************************************************************

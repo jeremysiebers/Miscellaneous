@@ -6082,8 +6082,8 @@ extern __nonreentrant void _delaywdt(unsigned long);
 extern __nonreentrant void _delay3(unsigned char);
 
 # 73 "../terminal.h"
-extern void INIT_TERMINAL(void);
 extern void SENDxMESSAGE(unsigned char index, unsigned int value);
+extern void READxRECEIVEDxMESSAGE(void);
 
 # 22 "../eusart1.h"
 typedef signed char int8_t;
@@ -6287,23 +6287,74 @@ extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupport
 extern int sprintf(char *, const char *, ...);
 extern int printf(const char *, ...);
 
-# 14 "../terminal.c"
-void INIT_TERMINAL(){
-int i = 0;
-for (i=0; i<22; i++){
+# 7 "../terminal.c"
+char Received_Data = 0;
+unsigned char RxSwitch = 0;
+unsigned char const DataLen = 10;
+unsigned char Data[DataLen];
+unsigned char *pData;
 
+# 26
+void READxRECEIVEDxMESSAGE(void){
+
+if ((eusart1RxCount) > 0){
+
+
+Received_Data = EUSART1_Read();
+
+switch (RxSwitch){
+case 0 :
+pData = &Data[0];
+if (Received_Data == 's' || Received_Data == 'g'){
+*pData = Received_Data;
+*pData++;
+RxSwitch = 1;
+}
+else{
+RxSwitch = 0;
+}
+break;
+
+case 1 :
+if (Received_Data == 'x'){
+*pData = Received_Data;
+*pData++;
+RxSwitch = 2;
+}
+else{
+RxSwitch = 0;
+}
+break;
+
+case 2 :
+if (Received_Data == 'G'){
+*pData = Received_Data;
+pData++;
+*pData = '\0';
+printf("\r\X0\r\n");
+RxSwitch = 0;
+}
+else{
+*pData = Received_Data;
+pData++;
+RxSwitch = 2;
+}
+break;
+
+default :
+break;
 }
 }
 
 
 
+}
+
+# 94
 void SENDxMESSAGE(unsigned char index, unsigned int value){
-
 
 unsigned char high = value >> 8;
 unsigned char low = value;
 
 printf("\r\nM#%x %x%x\r\n", index, high, low);
-
-# 47
 }

@@ -124,7 +124,6 @@ void main (void)
 	Init_Pwm();
 	Init_Timers();
     EUSART1_Initialize();
-    INIT_TERMINAL();
 			
 	while(1)
 	{
@@ -132,8 +131,10 @@ void main (void)
 		{
 			Update_State_Machine = False;
 			Update_StateMchn();
-            
 		}
+        
+        READxRECEIVEDxMESSAGE();
+        
 	}
 }
 
@@ -193,7 +194,7 @@ void Init_Timers(void)
 void Init_Pwm(void)
 {
 	// PWM setup
-	Brake = On;
+    SETxAPIxVAL(PWM_BRAKE, On);
 	PR2=0xFF;				//PWM Period TMR2 zelfde voor PWM1 en PWM2
 	CCPR1L = 0x7F;			//PWM Duty cycle PWM1
 	CCP1CON = 0x0F;			//PWM Mode

@@ -32,16 +32,16 @@ char Junction(unsigned char Junction_Left_Right, unsigned char Straight_Bend)
 								{
 									case	Left	:	switch (Straight_Bend)
 														{
-															case	Straight	:	Wl_Left_Str = 1;	break;
-															case	Bend		:	Wl_Left_Bnd	= 1;	break;
+															case	Straight	:	SETxAPIxVAL(JUNCTION_LEFT_STR, On);	break;
+															case	Bend		:	SETxAPIxVAL(JUNCTION_LEFT_BND, On);	break;
 															default				:	break;
 														}
 														break;
 														
 									case	Right	:	switch (Straight_Bend)
 														{
-															case	Straight	:	Wl_Right_Str = 1;	break;
-															case	Bend		:	Wl_Right_Bnd = 1;	break;
+															case	Straight	:	SETxAPIxVAL(JUNCTION_RIGHT_STR,On);	break;
+															case	Bend		:	SETxAPIxVAL(JUNCTION_RIGHT_BND,On);	break;
 															default				:	break;
 														}
 														break;
@@ -63,10 +63,10 @@ char Junction(unsigned char Junction_Left_Right, unsigned char Straight_Bend)
 								Junction_Switch_Time++;
 								break;
 								
-		case	2			:	Wl_Left_Str = 0;
-								Wl_Left_Bnd	= 0;
-								Wl_Right_Str = 0;
-								Wl_Right_Bnd = 0;
+		case	2			:	SETxAPIxVAL(JUNCTION_LEFT_STR, Off);
+								SETxAPIxVAL(JUNCTION_LEFT_BND, Off);
+								SETxAPIxVAL(JUNCTION_RIGHT_STR,Off);
+								SETxAPIxVAL(JUNCTION_RIGHT_BND,Off);
 								Switch_Junction = 0;
 								Return_Val = Finished;
 								break;
@@ -76,3 +76,8 @@ char Junction(unsigned char Junction_Left_Right, unsigned char Straight_Bend)
 	
 	return (Return_Val);
 }
+
+
+
+
+
