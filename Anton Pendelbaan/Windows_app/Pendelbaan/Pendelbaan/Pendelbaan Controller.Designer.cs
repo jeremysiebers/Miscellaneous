@@ -39,10 +39,11 @@
             // 
             // SerialRead
             // 
-            this.SerialRead.Location = new System.Drawing.Point(854, 549);
+            this.SerialRead.Location = new System.Drawing.Point(585, 549);
             this.SerialRead.Multiline = true;
             this.SerialRead.Name = "SerialRead";
-            this.SerialRead.Size = new System.Drawing.Size(105, 93);
+            this.SerialRead.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.SerialRead.Size = new System.Drawing.Size(374, 93);
             this.SerialRead.TabIndex = 0;
             // 
             // menuStrip1
@@ -66,7 +67,7 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 

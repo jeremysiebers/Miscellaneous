@@ -1,6 +1,10 @@
 #ifndef __io_H
 #define __io_H
 
+#define APISIZE 0x90                            // Size of the API array
+#define RO	0
+#define RW	1
+
 #define Brake						PORTCbits.RC0
 #define Wl_Left_Str					PORTAbits.RA3
 #define Wl_Left_Bnd					PORTAbits.RA2
@@ -57,11 +61,11 @@
 #define LF_RB 6
 #define LF_RF 7
 
-#define LB 0	//to create drive path
-#define LF 1
-#define RB 2
-#define RF 3
-#define Middle 4
+#define LB 1	//to create drive path
+#define LF 2
+#define RB 3
+#define RF 4
+#define Middle 5
 #define OneTrain 9
 
 #define ActivateControlsTime 10000

@@ -5,6 +5,18 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _EUSART1_Read `(uc ~T0 @X0 0 ef ]
 "195 C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
+"76 ../terminal.h
+[v _TranslateMessage `(v ~T0 @X0 0 ef ]
+"55 C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdlib.h
+[v _atoi `(i ~T0 @X0 0 ef1`*Cuc ]
+"12 ../api.h
+[v _GETxAPIxRW `(ui ~T0 @X0 0 ef1`uc ]
+"13
+[v _SETxAPIxVAL `(v ~T0 @X0 0 ef2`uc`ui ]
+"16
+[v _GETxAPIxVAL `(ui ~T0 @X0 0 ef1`uc ]
+"73 ../terminal.h
+[v _SENDxMESSAGE `(v ~T0 @X0 0 ef2`uc`ui ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -4616,6 +4628,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 161: extern __nonreentrant void _delay3(unsigned char);
 [; ;terminal.h: 73: extern void SENDxMESSAGE(unsigned char index, unsigned int value);
 [; ;terminal.h: 74: extern void READxRECEIVEDxMESSAGE(void);
+[; ;terminal.h: 76: void TranslateMessage(void);
 [; ;eusart1.h: 22: typedef signed char int8_t;
 [; ;eusart1.h: 29: typedef signed int int16_t;
 [; ;eusart1.h: 37: typedef signed short long int int24_t;
@@ -4707,213 +4720,498 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;stdio.h: 190: extern int vsscanf(const char *, const char *, va_list) __attribute__((unsupported("vsscanf() is not supported by this compiler")));
 [; ;stdio.h: 194: extern int sprintf(char *, const char *, ...);
 [; ;stdio.h: 195: extern int printf(const char *, ...);
-"7 ../terminal.c
+[; ;stdlib.h: 7: typedef unsigned short wchar_t;
+[; ;stdlib.h: 15: typedef struct {
+[; ;stdlib.h: 16: int rem;
+[; ;stdlib.h: 17: int quot;
+[; ;stdlib.h: 18: } div_t;
+[; ;stdlib.h: 19: typedef struct {
+[; ;stdlib.h: 20: unsigned rem;
+[; ;stdlib.h: 21: unsigned quot;
+[; ;stdlib.h: 22: } udiv_t;
+[; ;stdlib.h: 23: typedef struct {
+[; ;stdlib.h: 24: long quot;
+[; ;stdlib.h: 25: long rem;
+[; ;stdlib.h: 26: } ldiv_t;
+[; ;stdlib.h: 27: typedef struct {
+[; ;stdlib.h: 28: unsigned long quot;
+[; ;stdlib.h: 29: unsigned long rem;
+[; ;stdlib.h: 30: } uldiv_t;
+[; ;stdlib.h: 53: extern double atof(const char *);
+[; ;stdlib.h: 54: extern double strtod(const char *, const char **);
+[; ;stdlib.h: 55: extern int atoi(const char *);
+[; ;stdlib.h: 56: extern unsigned xtoi(const char *);
+[; ;stdlib.h: 57: extern long atol(const char *);
+[; ;stdlib.h: 58: extern long strtol(const char *, char **, int);
+[; ;stdlib.h: 60: extern int rand(void);
+[; ;stdlib.h: 61: extern void srand(unsigned int);
+[; ;stdlib.h: 62: extern void * calloc(size_t, size_t);
+[; ;stdlib.h: 63: extern div_t div(int numer, int denom);
+[; ;stdlib.h: 64: extern udiv_t udiv(unsigned numer, unsigned denom);
+[; ;stdlib.h: 65: extern ldiv_t ldiv(long numer, long denom);
+[; ;stdlib.h: 66: extern uldiv_t uldiv(unsigned long numer,unsigned long denom);
+[; ;stdlib.h: 67: extern unsigned long _lrotl(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 68: extern unsigned long _lrotr(unsigned long value, unsigned int shift);
+[; ;stdlib.h: 69: extern unsigned int _rotl(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 70: extern unsigned int _rotr(unsigned int value, unsigned int shift);
+[; ;stdlib.h: 75: extern void * malloc(size_t);
+[; ;stdlib.h: 76: extern void free(void *);
+[; ;stdlib.h: 77: extern void * realloc(void *, size_t);
+[; ;stdlib.h: 86: extern int atexit(void (*)(void));
+[; ;stdlib.h: 87: extern char * getenv(const char *);
+[; ;stdlib.h: 88: extern char ** environ;
+[; ;stdlib.h: 89: extern int system(char *);
+[; ;stdlib.h: 90: extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
+[; ;stdlib.h: 91: extern void * bsearch(const void *, void *, size_t, size_t, int(*)(const void *, const void *));
+[; ;stdlib.h: 92: extern int abs(int);
+[; ;stdlib.h: 93: extern long labs(long);
+[; ;stdlib.h: 95: extern char * itoa(char * buf, int val, int base);
+[; ;stdlib.h: 96: extern char * utoa(char * buf, unsigned val, int base);
+[; ;stdlib.h: 101: extern char * ltoa(char * buf, long val, int base);
+[; ;stdlib.h: 102: extern char * ultoa(char * buf, unsigned long val, int base);
+[; ;stdlib.h: 104: extern char * ftoa(float f, int * status);
+[; ;api.h: 11: extern void APIxInitialize(void);
+[; ;api.h: 12: extern unsigned int GETxAPIxRW(unsigned char index);
+[; ;api.h: 13: extern void SETxAPIxVAL(unsigned char index, unsigned int value);
+[; ;api.h: 14: extern void INCRxAPIxVAL(unsigned char index);
+[; ;api.h: 15: extern void DECRxAPIxVAL(unsigned char index);
+[; ;api.h: 16: extern unsigned int GETxAPIxVAL(unsigned char index);
+[; ;api.h: 17: extern unsigned int API[];
+"73 ../io.h
+[v _Train_Move_Pwm_Count `ui ~T0 @X0 1 e ]
+[; ;io.h: 73: unsigned int Train_Move_Pwm_Count;
+[; ;io.h: 75: extern void Debounce_Inputs(void);
+[; ;io.h: 76: extern void Green_Led(unsigned char Operation);
+[; ;io.h: 77: extern void Red_Led(unsigned char Operation);
+"10 ../terminal.c
 [v _Received_Data `uc ~T0 @X0 1 e ]
 [i _Received_Data
 -> -> 0 `i `uc
 ]
-[; ;terminal.c: 7: char Received_Data = 0;
-"8
+[; ;terminal.c: 10: char Received_Data = 0;
+"11
 [v _RxSwitch `uc ~T0 @X0 1 e ]
 [i _RxSwitch
 -> -> 0 `i `uc
 ]
-[; ;terminal.c: 8: unsigned char RxSwitch = 0;
-"9
+[; ;terminal.c: 11: unsigned char RxSwitch = 0;
+"12
 [v _DataLen `Cuc ~T0 @X0 1 e ]
 [i _DataLen
 -> -> 10 `i `uc
 ]
-[; ;terminal.c: 9: unsigned char const DataLen = 10;
-"10
+[; ;terminal.c: 12: unsigned char const DataLen = 10;
+"13
 [v _Data `uc ~T0 @X0 -> _DataLen `ux e ]
-[; ;terminal.c: 10: unsigned char Data[DataLen];
-"11
+[; ;terminal.c: 13: unsigned char Data[DataLen];
+"14
 [v _pData `*uc ~T0 @X0 1 e ]
-[; ;terminal.c: 11: unsigned char *pData;
-"26
+[v _pLen `*uc ~T0 @X0 1 e ]
+[; ;terminal.c: 14: unsigned char *pData, *pLen;
+"15
+[v _Message_To_Translate `uc ~T0 @X0 1 e ]
+[i _Message_To_Translate
+-> -> 0 `i `uc
+]
+[; ;terminal.c: 15: unsigned char Message_To_Translate = 0;
+"16
+[v _TrSwitch `uc ~T0 @X0 1 e ]
+[i _TrSwitch
+-> -> 0 `i `uc
+]
+[; ;terminal.c: 16: unsigned char TrSwitch = 0;
+"32
 [v _READxRECEIVEDxMESSAGE `(v ~T0 @X0 1 ef ]
 {
-[; ;terminal.c: 26: void READxRECEIVEDxMESSAGE(void){
+[; ;terminal.c: 32: void READxRECEIVEDxMESSAGE(void){
 [e :U _READxRECEIVEDxMESSAGE ]
 [f ]
-[; ;terminal.c: 28: if ((eusart1RxCount) > 0){
-"28
-[e $ ! > -> _eusart1RxCount `i -> 0 `i 565  ]
-{
-[; ;terminal.c: 31: Received_Data = EUSART1_Read();
-"31
-[e = _Received_Data ( _EUSART1_Read ..  ]
-[; ;terminal.c: 33: switch (RxSwitch){
-"33
-[e $U 567  ]
-{
-[; ;terminal.c: 34: case 0 :
+[; ;terminal.c: 34: if ((eusart1RxCount) > 0){
 "34
-[e :U 568 ]
-[; ;terminal.c: 35: pData = &Data[0];
-"35
-[e = _pData &U *U + &U _Data * -> -> -> 0 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
-[; ;terminal.c: 36: if (Received_Data == 's' || Received_Data == 'g'){
-"36
-[e $ ! || == -> _Received_Data `ui -> 115 `ui == -> _Received_Data `ui -> 103 `ui 569  ]
+[e $ ! > -> _eusart1RxCount `i -> 0 `i 569  ]
 {
-[; ;terminal.c: 37: *pData = Received_Data;
+[; ;terminal.c: 37: Received_Data = EUSART1_Read();
 "37
-[e = *U _pData _Received_Data ]
-[; ;terminal.c: 38: *pData++;
-"38
-[e *U ++ _pData * -> -> 1 `i `x -> -> # *U _pData `i `x ]
-[; ;terminal.c: 39: RxSwitch = 1;
+[e = _Received_Data ( _EUSART1_Read ..  ]
+[; ;terminal.c: 39: switch (RxSwitch){
 "39
-[e = _RxSwitch -> -> 1 `i `uc ]
+[e $U 571  ]
+{
+[; ;terminal.c: 40: case 0 :
 "40
-}
-[; ;terminal.c: 40: }
-[e $U 570  ]
-"41
-[e :U 569 ]
-[; ;terminal.c: 41: else{
-{
-[; ;terminal.c: 42: RxSwitch = 0;
-"42
-[e = _RxSwitch -> -> 0 `i `uc ]
-"43
-}
-[e :U 570 ]
-[; ;terminal.c: 43: }
-[; ;terminal.c: 44: break;
-"44
-[e $U 566  ]
-[; ;terminal.c: 46: case 1 :
-"46
-[e :U 571 ]
-[; ;terminal.c: 47: if (Received_Data == 'x'){
-"47
-[e $ ! == -> _Received_Data `ui -> 120 `ui 572  ]
-{
-[; ;terminal.c: 48: *pData = Received_Data;
-"48
-[e = *U _pData _Received_Data ]
-[; ;terminal.c: 49: *pData++;
-"49
-[e *U ++ _pData * -> -> 1 `i `x -> -> # *U _pData `i `x ]
-[; ;terminal.c: 50: RxSwitch = 2;
-"50
-[e = _RxSwitch -> -> 2 `i `uc ]
-"51
-}
-[; ;terminal.c: 51: }
-[e $U 573  ]
-"52
 [e :U 572 ]
-[; ;terminal.c: 52: else{
+[; ;terminal.c: 41: pData = &Data[0];
+"41
+[e = _pData &U *U + &U _Data * -> -> -> 0 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
+[; ;terminal.c: 42: pLen = &Data[DataLen - 1];
+"42
+[e = _pLen &U *U + &U _Data * -> -> - -> _DataLen `i -> 1 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
+[; ;terminal.c: 43: if (Received_Data == 's' || Received_Data == 'g'){
+"43
+[e $ ! || == -> _Received_Data `ui -> 115 `ui == -> _Received_Data `ui -> 103 `ui 573  ]
 {
-[; ;terminal.c: 53: RxSwitch = 0;
-"53
-[e = _RxSwitch -> -> 0 `i `uc ]
-"54
+[; ;terminal.c: 44: *pData = Received_Data;
+"44
+[e = *U _pData _Received_Data ]
+[; ;terminal.c: 45: *pData++;
+"45
+[e *U ++ _pData * -> -> 1 `i `x -> -> # *U _pData `i `x ]
+[; ;terminal.c: 46: RxSwitch = 1;
+"46
+[e = _RxSwitch -> -> 1 `i `uc ]
+"47
 }
+[; ;terminal.c: 47: }
+[e $U 574  ]
+"48
 [e :U 573 ]
-[; ;terminal.c: 54: }
-[; ;terminal.c: 55: break;
-"55
-[e $U 566  ]
-[; ;terminal.c: 57: case 2 :
-"57
-[e :U 574 ]
-[; ;terminal.c: 58: if (Received_Data == 'G'){
-"58
-[e $ ! == -> _Received_Data `ui -> 71 `ui 575  ]
+[; ;terminal.c: 48: else{
 {
-[; ;terminal.c: 59: *pData = Received_Data;
-"59
-[e = *U _pData _Received_Data ]
-[; ;terminal.c: 60: pData++;
-"60
-[e ++ _pData * -> -> 1 `i `x -> -> # *U _pData `i `x ]
-[; ;terminal.c: 61: *pData = '\0';
-"61
-[e = *U _pData -> -> 0 `ui `uc ]
-[; ;terminal.c: 62: printf("\r\X0\r\n");
-"62
-[e ( _printf :s 1C ]
-[; ;terminal.c: 63: RxSwitch = 0;
-"63
+[; ;terminal.c: 49: RxSwitch = 0;
+"49
 [e = _RxSwitch -> -> 0 `i `uc ]
-"64
+"50
 }
-[; ;terminal.c: 64: }
-[e $U 576  ]
-"65
+[e :U 574 ]
+[; ;terminal.c: 50: }
+[; ;terminal.c: 51: break;
+"51
+[e $U 570  ]
+[; ;terminal.c: 53: case 1 :
+"53
 [e :U 575 ]
-[; ;terminal.c: 65: else{
+[; ;terminal.c: 54: if (Received_Data == 'x'){
+"54
+[e $ ! == -> _Received_Data `ui -> 120 `ui 576  ]
 {
-[; ;terminal.c: 66: *pData = Received_Data;
-"66
+[; ;terminal.c: 55: *pData = Received_Data;
+"55
 [e = *U _pData _Received_Data ]
-[; ;terminal.c: 67: pData++;
-"67
-[e ++ _pData * -> -> 1 `i `x -> -> # *U _pData `i `x ]
-[; ;terminal.c: 68: RxSwitch = 2;
-"68
+[; ;terminal.c: 56: *pData++;
+"56
+[e *U ++ _pData * -> -> 1 `i `x -> -> # *U _pData `i `x ]
+[; ;terminal.c: 57: RxSwitch = 2;
+"57
 [e = _RxSwitch -> -> 2 `i `uc ]
-"69
+"58
 }
+[; ;terminal.c: 58: }
+[e $U 577  ]
+"59
 [e :U 576 ]
-[; ;terminal.c: 69: }
-[; ;terminal.c: 70: break;
-"70
-[e $U 566  ]
-[; ;terminal.c: 72: default :
-"72
-[e :U 577 ]
-[; ;terminal.c: 73: break;
-"73
-[e $U 566  ]
-"74
+[; ;terminal.c: 59: else{
+{
+[; ;terminal.c: 60: RxSwitch = 0;
+"60
+[e = _RxSwitch -> -> 0 `i `uc ]
+"61
 }
-[; ;terminal.c: 74: }
-[e $U 566  ]
-"33
-[e :U 567 ]
-[e [\ _RxSwitch , $ -> -> 0 `i `uc 568
- , $ -> -> 1 `i `uc 571
- , $ -> -> 2 `i `uc 574
- 577 ]
+[e :U 577 ]
+[; ;terminal.c: 61: }
+[; ;terminal.c: 62: break;
+"62
+[e $U 570  ]
+[; ;terminal.c: 64: case 2 :
+"64
+[e :U 578 ]
+[; ;terminal.c: 65: if (Received_Data == 'G'){
+"65
+[e $ ! == -> _Received_Data `ui -> 71 `ui 579  ]
+{
+[; ;terminal.c: 68: while(pLen > pData){
+"68
+[e $U 580  ]
+[e :U 581 ]
+{
+[; ;terminal.c: 69: *pData = '\0';
+"69
+[e = *U _pData -> -> 0 `ui `uc ]
+[; ;terminal.c: 70: pData++;
+"70
+[e ++ _pData * -> -> 1 `i `x -> -> # *U _pData `i `x ]
+"71
+}
+[e :U 580 ]
+"68
+[e $ > _pLen _pData 581  ]
+[e :U 582 ]
+[; ;terminal.c: 71: }
+[; ;terminal.c: 72: printf("\r\nX0\r\n");
+"72
+[e ( _printf :s 1C ]
+[; ;terminal.c: 73: RxSwitch = 3;
+"73
+[e = _RxSwitch -> -> 3 `i `uc ]
+[; ;terminal.c: 74: Message_To_Translate = 1;
 "74
-[e :U 566 ]
+[e = _Message_To_Translate -> -> 1 `i `uc ]
 "75
 }
-[e :U 565 ]
 [; ;terminal.c: 75: }
-[; ;terminal.c: 79: }
+[e $U 583  ]
+"76
+[e :U 579 ]
+[; ;terminal.c: 76: else{
+{
+[; ;terminal.c: 77: *pData = Received_Data;
+"77
+[e = *U _pData _Received_Data ]
+[; ;terminal.c: 78: if (pData > pLen){
+"78
+[e $ ! > _pData _pLen 584  ]
+{
+[; ;terminal.c: 79: printf("\r\nE#10\r\n");
 "79
-[e :UE 564 ]
+[e ( _printf :s 2C ]
+[; ;terminal.c: 80: RxSwitch = 0;
+"80
+[e = _RxSwitch -> -> 0 `i `uc ]
+"81
 }
+[; ;terminal.c: 81: }
+[e $U 585  ]
+"82
+[e :U 584 ]
+[; ;terminal.c: 82: else{
+{
+[; ;terminal.c: 83: pData++;
+"83
+[e ++ _pData * -> -> 1 `i `x -> -> # *U _pData `i `x ]
+[; ;terminal.c: 84: RxSwitch = 2;
+"84
+[e = _RxSwitch -> -> 2 `i `uc ]
+"85
+}
+[e :U 585 ]
+"86
+}
+[e :U 583 ]
+[; ;terminal.c: 85: }
+[; ;terminal.c: 86: }
+[; ;terminal.c: 87: break;
+"87
+[e $U 570  ]
+[; ;terminal.c: 89: case 3 :
+"89
+[e :U 586 ]
+[; ;terminal.c: 90: break;
+"90
+[e $U 570  ]
+[; ;terminal.c: 92: default :
+"92
+[e :U 587 ]
+[; ;terminal.c: 93: break;
+"93
+[e $U 570  ]
 "94
+}
+[; ;terminal.c: 94: }
+[e $U 570  ]
+"39
+[e :U 571 ]
+[e [\ _RxSwitch , $ -> -> 0 `i `uc 572
+ , $ -> -> 1 `i `uc 575
+ , $ -> -> 2 `i `uc 578
+ , $ -> -> 3 `i `uc 586
+ 587 ]
+"94
+[e :U 570 ]
+"95
+}
+[e :U 569 ]
+[; ;terminal.c: 95: }
+[; ;terminal.c: 97: if (Message_To_Translate == 1){
+"97
+[e $ ! == -> _Message_To_Translate `i -> 1 `i 588  ]
+{
+[; ;terminal.c: 98: TranslateMessage();
+"98
+[e ( _TranslateMessage ..  ]
+[; ;terminal.c: 99: Message_To_Translate = 0;
+"99
+[e = _Message_To_Translate -> -> 0 `i `uc ]
+[; ;terminal.c: 100: RxSwitch = 0;
+"100
+[e = _RxSwitch -> -> 0 `i `uc ]
+"101
+}
+[e :U 588 ]
+[; ;terminal.c: 101: }
+[; ;terminal.c: 102: }
+"102
+[e :UE 568 ]
+}
+"118
+[v _TranslateMessage `(v ~T0 @X0 1 ef ]
+{
+[; ;terminal.c: 118: void TranslateMessage(void){
+[e :U _TranslateMessage ]
+[f ]
+"120
+[v _Value `ui ~T0 @X0 1 a ]
+[v _Index `ui ~T0 @X0 1 a ]
+[; ;terminal.c: 120: unsigned int Value, Index;
+[; ;terminal.c: 122: if(Data[0] == 's'){
+"122
+[e $ ! == -> *U + &U _Data * -> -> -> 0 `i `ui `ux -> -> # *U &U _Data `ui `ux `ui -> 115 `ui 590  ]
+{
+[; ;terminal.c: 124: pData = &Data[2];
+"124
+[e = _pData &U *U + &U _Data * -> -> -> 2 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
+[; ;terminal.c: 125: Index = atoi (pData);
+"125
+[e = _Index -> ( _atoi (1 -> _pData `*Cuc `ui ]
+[; ;terminal.c: 126: pData = &Data[5];
+"126
+[e = _pData &U *U + &U _Data * -> -> -> 5 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
+[; ;terminal.c: 127: Value = atoi (pData);
+"127
+[e = _Value -> ( _atoi (1 -> _pData `*Cuc `ui ]
+[; ;terminal.c: 129: if (GETxAPIxRW(Index) == 0){
+"129
+[e $ ! == ( _GETxAPIxRW (1 -> _Index `uc -> -> 0 `i `ui 591  ]
+{
+[; ;terminal.c: 130: printf("\r\nE#11\r\n");
+"130
+[e ( _printf :s 3C ]
+"131
+}
+[; ;terminal.c: 131: }
+[e $U 592  ]
+"132
+[e :U 591 ]
+[; ;terminal.c: 132: else if (Index < 0xF){
+[e $ ! < _Index -> -> 15 `i `ui 593  ]
+{
+[; ;terminal.c: 133: printf("\r\nE#12\r\n");
+"133
+[e ( _printf :s 4C ]
+"134
+}
+[; ;terminal.c: 134: }
+[e $U 594  ]
+"135
+[e :U 593 ]
+[; ;terminal.c: 135: else if (Index > 0x90){
+[e $ ! > _Index -> -> 144 `i `ui 595  ]
+{
+[; ;terminal.c: 136: printf("\r\nE#13\r\n");
+"136
+[e ( _printf :s 5C ]
+"137
+}
+[; ;terminal.c: 137: }
+[e $U 596  ]
+"138
+[e :U 595 ]
+[; ;terminal.c: 138: else if (Value > 0xFFFE){
+[e $ ! > _Value -> 65534 `ui 597  ]
+{
+[; ;terminal.c: 139: printf("\r\nE#14\r\n");
+"139
+[e ( _printf :s 6C ]
+"140
+}
+[; ;terminal.c: 140: }
+[e $U 598  ]
+"141
+[e :U 597 ]
+[; ;terminal.c: 141: else{
+{
+[; ;terminal.c: 142: SETxAPIxVAL(Index, Value);
+"142
+[e ( _SETxAPIxVAL (2 , -> _Index `uc _Value ]
+"143
+}
+[e :U 598 ]
+[e :U 596 ]
+[e :U 594 ]
+[e :U 592 ]
+"144
+}
+[; ;terminal.c: 143: }
+[; ;terminal.c: 144: }
+[e $U 599  ]
+"146
+[e :U 590 ]
+[; ;terminal.c: 146: else if (Data[0] == 'g'){
+[e $ ! == -> *U + &U _Data * -> -> -> 0 `i `ui `ux -> -> # *U &U _Data `ui `ux `ui -> 103 `ui 600  ]
+{
+[; ;terminal.c: 148: pData = &Data[2];
+"148
+[e = _pData &U *U + &U _Data * -> -> -> 2 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
+[; ;terminal.c: 149: Index = atoi (pData);
+"149
+[e = _Index -> ( _atoi (1 -> _pData `*Cuc `ui ]
+[; ;terminal.c: 151: if (Index < 0xF){
+"151
+[e $ ! < _Index -> -> 15 `i `ui 601  ]
+{
+[; ;terminal.c: 152: printf("\r\nE#12\r\n");
+"152
+[e ( _printf :s 7C ]
+"153
+}
+[; ;terminal.c: 153: }
+[e $U 602  ]
+"154
+[e :U 601 ]
+[; ;terminal.c: 154: else if (Index > 0x90){
+[e $ ! > _Index -> -> 144 `i `ui 603  ]
+{
+[; ;terminal.c: 155: printf("\r\nE#13\r\n");
+"155
+[e ( _printf :s 8C ]
+"156
+}
+[; ;terminal.c: 156: }
+[e $U 604  ]
+"157
+[e :U 603 ]
+[; ;terminal.c: 157: else{
+{
+[; ;terminal.c: 158: Value = GETxAPIxVAL(Index);
+"158
+[e = _Value ( _GETxAPIxVAL (1 -> _Index `uc ]
+[; ;terminal.c: 159: SENDxMESSAGE(Index, Value);
+"159
+[e ( _SENDxMESSAGE (2 , -> _Index `uc _Value ]
+"160
+}
+[e :U 604 ]
+[e :U 602 ]
+"162
+}
+[e :U 600 ]
+"163
+[e :U 599 ]
+[; ;terminal.c: 160: }
+[; ;terminal.c: 162: }
+[; ;terminal.c: 163: }
+[e :UE 589 ]
+}
+"178
 [v _SENDxMESSAGE `(v ~T0 @X0 1 ef2`uc`ui ]
 {
-[; ;terminal.c: 94: void SENDxMESSAGE(unsigned char index, unsigned int value){
+[; ;terminal.c: 178: void SENDxMESSAGE(unsigned char index, unsigned int value){
 [e :U _SENDxMESSAGE ]
 [v _index `uc ~T0 @X0 1 r1 ]
 [v _value `ui ~T0 @X0 1 r2 ]
 [f ]
-"96
-[v _high `uc ~T0 @X0 1 a ]
-[; ;terminal.c: 96: unsigned char high = value >> 8;
-[e = _high -> >> _value -> 8 `i `uc ]
-"97
-[v _low `uc ~T0 @X0 1 a ]
-[; ;terminal.c: 97: unsigned char low = value;
-[e = _low -> _value `uc ]
-[; ;terminal.c: 99: printf("\r\nM#%x %x%x\r\n", index, high, low);
-"99
-[e ( _printf , , , (. :s 2C -> _index `i -> _high `i -> _low `i ]
-[; ;terminal.c: 100: }
-"100
-[e :UE 578 ]
+[; ;terminal.c: 184: printf("\r\nM#%d %d\r\n", index, value);
+"184
+[e ( _printf , , (. :s 9C -> _index `i _value ]
+[; ;terminal.c: 185: }
+"185
+[e :UE 605 ]
 }
-[p f _printf 12582912 ]
-[a 2C 13 10 77 35 37 120 32 37 120 37 120 13 10 0 ]
-[a 1C 13 88 48 13 10 0 ]
+[p f _printf 8388736 ]
+[a 9C 13 10 77 35 37 100 32 37 100 13 10 0 ]
+[a 6C 13 10 69 35 49 52 13 10 0 ]
+[a 5C 13 10 69 35 49 51 13 10 0 ]
+[a 8C 13 10 69 35 49 51 13 10 0 ]
+[a 4C 13 10 69 35 49 50 13 10 0 ]
+[a 7C 13 10 69 35 49 50 13 10 0 ]
+[a 3C 13 10 69 35 49 49 13 10 0 ]
+[a 1C 13 10 88 48 13 10 0 ]
+[a 2C 13 10 69 35 49 48 13 10 0 ]

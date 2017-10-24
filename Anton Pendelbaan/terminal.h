@@ -72,6 +72,8 @@ extern "C" {
     
     extern void SENDxMESSAGE(unsigned char index, unsigned int value);
     extern void READxRECEIVEDxMESSAGE(void);
+    
+    void TranslateMessage(void);
 
 #ifdef	__cplusplus
 }

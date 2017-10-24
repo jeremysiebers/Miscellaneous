@@ -1,24 +1,20 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"71 ../io.h
-[v _Debounce_Inputs `(v ~T0 @X0 0 ef ]
-"72
-[v _Green_Led `(v ~T0 @X0 0 ef1`uc ]
-"73
-[v _Red_Led `(v ~T0 @X0 0 ef1`uc ]
 "16 ../api.h
 [v _GETxAPIxVAL `(ui ~T0 @X0 0 ef1`uc ]
 "13
 [v _SETxAPIxVAL `(v ~T0 @X0 0 ef2`uc`ui ]
+"75 ../io.h
+[v _Debounce_Inputs `(v ~T0 @X0 0 ef ]
+"15 ../junction.h
+[v _Junction `(uc ~T0 @X0 0 ef2`uc`uc ]
+"76 ../io.h
+[v _Green_Led `(v ~T0 @X0 0 ef1`uc ]
+"77
+[v _Red_Led `(v ~T0 @X0 0 ef1`uc ]
 "5 ../State_Mchn.h
 [v _Train_Path `(uc ~T0 @X0 0 ef2`uc`uc ]
 "15 ../eeprom_settings.h
 [v _Eeprom_Store `(v ~T0 @X0 0 ef ]
-"15 ../api.h
-[v _DECRxAPIxVAL `(v ~T0 @X0 0 ef1`uc ]
-"14
-[v _INCRxAPIxVAL `(v ~T0 @X0 0 ef1`uc ]
-"15 ../junction.h
-[v _Junction `(uc ~T0 @X0 0 ef2`uc`uc ]
 "15 ../train_move_right.h
 [v _Train_Move_Right_Start `(uc ~T0 @X0 0 ef ]
 "17 ../train_move_left.h
@@ -4653,12 +4649,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;api.h: 15: extern void DECRxAPIxVAL(unsigned char index);
 [; ;api.h: 16: extern unsigned int GETxAPIxVAL(unsigned char index);
 [; ;api.h: 17: extern unsigned int API[];
-"69 ../io.h
+"73 ../io.h
 [v _Train_Move_Pwm_Count `ui ~T0 @X0 1 e ]
-[; ;io.h: 69: unsigned int Train_Move_Pwm_Count;
-[; ;io.h: 71: extern void Debounce_Inputs(void);
-[; ;io.h: 72: extern void Green_Led(unsigned char Operation);
-[; ;io.h: 73: extern void Red_Led(unsigned char Operation);
+[; ;io.h: 73: unsigned int Train_Move_Pwm_Count;
+[; ;io.h: 75: extern void Debounce_Inputs(void);
+[; ;io.h: 76: extern void Green_Led(unsigned char Operation);
+[; ;io.h: 77: extern void Red_Led(unsigned char Operation);
 [; ;eeprom_settings.h: 15: extern void Eeprom_Store(void);
 [; ;junction.h: 15: extern char Junction(unsigned char Left_Right, unsigned char Straight_Bend);
 [; ;train_move_left.h: 15: extern char Right_Mountain_From_The_Right(unsigned char rc);
@@ -4749,3752 +4745,2776 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;State_Mchn.c: 41: {
 [e :U _Update_StateMchn ]
 [f ]
-[; ;State_Mchn.c: 42: Debounce_Inputs();
+[; ;State_Mchn.c: 42: if (GETxAPIxVAL(72)){
 "42
-[e ( _Debounce_Inputs ..  ]
-[; ;State_Mchn.c: 44: switch (Switch_Main)
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 72 `i `uc -> -> 0 `i `ui 564  ]
+{
+[; ;State_Mchn.c: 43: SETxAPIxVAL(72, 0);
+"43
+[e ( _SETxAPIxVAL (2 , -> -> 72 `i `uc -> -> 0 `i `ui ]
+[; ;State_Mchn.c: 44: asm("reset");
 "44
-[e $U 565  ]
-[; ;State_Mchn.c: 45: {
+[; <" reset ;# ">
 "45
-{
-[; ;State_Mchn.c: 46: case 0 : switch(Switch_Init)
-"46
-[e :U 566 ]
-[e $U 568  ]
-[; ;State_Mchn.c: 47: {
-"47
-{
-[; ;State_Mchn.c: 48: case 0 : Green_Led(0);
-"48
-[e :U 569 ]
-[e ( _Green_Led (1 -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 49: Red_Led(0);
-"49
-[e ( _Red_Led (1 -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 50: Switch_Init = 1;
-"50
-[e = _Switch_Init -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 51: break;
-"51
-[e $U 567  ]
-[; ;State_Mchn.c: 53: case 1 : if(GETxAPIxVAL(0x23))
-"53
-[e :U 570 ]
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 35 `i `uc -> -> 0 `i `ui 571  ]
-[; ;State_Mchn.c: 54: {
-"54
-{
-[; ;State_Mchn.c: 55: SETxAPIxVAL(0x27, 0);
-"55
-[e ( _SETxAPIxVAL (2 , -> -> 39 `i `uc -> -> 0 `i `ui ]
-[; ;State_Mchn.c: 56: Switch_Init = 2;
-"56
-[e = _Switch_Init -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 57: break;
-"57
-[e $U 567  ]
-"58
 }
-[e :U 571 ]
-[; ;State_Mchn.c: 58: }
-[; ;State_Mchn.c: 59: if(GETxAPIxVAL(0x24))
-"59
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui 572  ]
-[; ;State_Mchn.c: 60: {
-"60
+[e :U 564 ]
+[; ;State_Mchn.c: 45: }
+[; ;State_Mchn.c: 47: Debounce_Inputs();
+"47
+[e ( _Debounce_Inputs ..  ]
+[; ;State_Mchn.c: 49: switch (Switch_Main)
+"49
+[e $U 566  ]
+[; ;State_Mchn.c: 50: {
+"50
 {
-[; ;State_Mchn.c: 61: SETxAPIxVAL(0x27, 1);
-"61
-[e ( _SETxAPIxVAL (2 , -> -> 39 `i `uc -> -> 1 `i `ui ]
-[; ;State_Mchn.c: 62: Switch_Init = 2;
-"62
-[e = _Switch_Init -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 63: break;
-"63
-[e $U 567  ]
-"64
+[; ;State_Mchn.c: 51: case 0 :
+"51
+[e :U 567 ]
+[; ;State_Mchn.c: 52: if (GETxAPIxVAL(74)){
+"52
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 74 `i `uc -> -> 0 `i `ui 568  ]
+{
+[; ;State_Mchn.c: 53: if(Junction(0, 1) == 0){
+"53
+[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 1 `i `uc `i -> 0 `i 569  ]
+{
+[; ;State_Mchn.c: 54: SETxAPIxVAL(74, 0);
+"54
+[e ( _SETxAPIxVAL (2 , -> -> 74 `i `uc -> -> 0 `i `ui ]
+"55
+}
+[e :U 569 ]
+"56
+}
+[; ;State_Mchn.c: 55: }
+[; ;State_Mchn.c: 56: }
+[e $U 570  ]
+"57
+[e :U 568 ]
+[; ;State_Mchn.c: 57: else if (GETxAPIxVAL(73)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 73 `i `uc -> -> 0 `i `ui 571  ]
+{
+[; ;State_Mchn.c: 58: if(Junction(0, 0) == 0){
+"58
+[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 0 `i `uc `i -> 0 `i 572  ]
+{
+[; ;State_Mchn.c: 59: SETxAPIxVAL(73, 0);
+"59
+[e ( _SETxAPIxVAL (2 , -> -> 73 `i `uc -> -> 0 `i `ui ]
+"60
 }
 [e :U 572 ]
-[; ;State_Mchn.c: 64: }
-[; ;State_Mchn.c: 65: if(GETxAPIxVAL(0x25))
+"61
+}
+[; ;State_Mchn.c: 60: }
+[; ;State_Mchn.c: 61: }
+[e $U 573  ]
+"62
+[e :U 571 ]
+[; ;State_Mchn.c: 62: else if (GETxAPIxVAL(76)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 76 `i `uc -> -> 0 `i `ui 574  ]
+{
+[; ;State_Mchn.c: 63: if(Junction(1, 1) == 0){
+"63
+[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 1 `i `uc `i -> 0 `i 575  ]
+{
+[; ;State_Mchn.c: 64: SETxAPIxVAL(76, 0);
+"64
+[e ( _SETxAPIxVAL (2 , -> -> 76 `i `uc -> -> 0 `i `ui ]
 "65
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 37 `i `uc -> -> 0 `i `ui 573  ]
-[; ;State_Mchn.c: 66: {
-"66
-{
-[; ;State_Mchn.c: 67: SETxAPIxVAL(0x27, 2);
-"67
-[e ( _SETxAPIxVAL (2 , -> -> 39 `i `uc -> -> 2 `i `ui ]
-[; ;State_Mchn.c: 68: Switch_Init = 2;
-"68
-[e = _Switch_Init -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 69: break;
-"69
-[e $U 567  ]
-"70
-}
-[e :U 573 ]
-[; ;State_Mchn.c: 70: }
-[; ;State_Mchn.c: 71: if(GETxAPIxVAL(0x26))
-"71
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui 574  ]
-[; ;State_Mchn.c: 72: {
-"72
-{
-[; ;State_Mchn.c: 73: SETxAPIxVAL(0x27, 3);
-"73
-[e ( _SETxAPIxVAL (2 , -> -> 39 `i `uc -> -> 3 `i `ui ]
-[; ;State_Mchn.c: 74: Switch_Init = 2;
-"74
-[e = _Switch_Init -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 75: break;
-"75
-[e $U 567  ]
-"76
-}
-[e :U 574 ]
-[; ;State_Mchn.c: 76: }
-[; ;State_Mchn.c: 77: if(GETxAPIxVAL(0x22))
-"77
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 34 `i `uc -> -> 0 `i `ui 575  ]
-[; ;State_Mchn.c: 78: {
-"78
-{
-[; ;State_Mchn.c: 79: SETxAPIxVAL(0x27, 4);
-"79
-[e ( _SETxAPIxVAL (2 , -> -> 39 `i `uc -> -> 4 `i `ui ]
-[; ;State_Mchn.c: 80: Switch_Init = 2;
-"80
-[e = _Switch_Init -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 81: break;
-"81
-[e $U 567  ]
-"82
 }
 [e :U 575 ]
-[; ;State_Mchn.c: 82: }
-[; ;State_Mchn.c: 83: Switch_Init = 1;
-"83
-[e = _Switch_Init -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 84: Green_Led(2);
-"84
-[e ( _Green_Led (1 -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 85: break;
-"85
-[e $U 567  ]
-[; ;State_Mchn.c: 87: case 2 : if(!GETxAPIxVAL(0x23) && !GETxAPIxVAL(0x24) && !GETxAPIxVAL(0x25) && !GETxAPIxVAL(0x26) && !GETxAPIxVAL(0x22) && !GETxAPIxVAL(0x20))
-"87
-[e :U 576 ]
-[e $ ! && && && && && ! != ( _GETxAPIxVAL (1 -> -> 35 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 37 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 34 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 32 `i `uc -> -> 0 `i `ui 577  ]
-[; ;State_Mchn.c: 88: {
-"88
-{
-[; ;State_Mchn.c: 89: Switch_Init = 3;
-"89
-[e = _Switch_Init -> -> 3 `i `uc ]
-"90
+"66
 }
-[e :U 577 ]
-[; ;State_Mchn.c: 90: }
-[; ;State_Mchn.c: 91: Red_Led(0);
-"91
-[e ( _Red_Led (1 -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 92: Green_Led(2);
-"92
-[e ( _Green_Led (1 -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 93: break;
-"93
-[e $U 567  ]
-[; ;State_Mchn.c: 95: case 3 : if(GETxAPIxVAL(0x23))
-"95
+[; ;State_Mchn.c: 65: }
+[; ;State_Mchn.c: 66: }
+[e $U 576  ]
+"67
+[e :U 574 ]
+[; ;State_Mchn.c: 67: else if (GETxAPIxVAL(75)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 75 `i `uc -> -> 0 `i `ui 577  ]
+{
+[; ;State_Mchn.c: 68: if(Junction(1, 0) == 0){
+"68
+[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 0 `i `uc `i -> 0 `i 578  ]
+{
+[; ;State_Mchn.c: 69: SETxAPIxVAL(75, 0);
+"69
+[e ( _SETxAPIxVAL (2 , -> -> 75 `i `uc -> -> 0 `i `ui ]
+"70
+}
 [e :U 578 ]
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 35 `i `uc -> -> 0 `i `ui 579  ]
-[; ;State_Mchn.c: 96: {
-"96
-{
-[; ;State_Mchn.c: 97: SETxAPIxVAL(0x28, 0);
-"97
-[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 0 `i `ui ]
-[; ;State_Mchn.c: 98: Switch_Init = 4;
-"98
-[e = _Switch_Init -> -> 4 `i `uc ]
-[; ;State_Mchn.c: 99: break;
-"99
-[e $U 567  ]
-"100
+"71
 }
-[e :U 579 ]
-[; ;State_Mchn.c: 100: }
-[; ;State_Mchn.c: 101: if(GETxAPIxVAL(0x24))
-"101
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui 580  ]
-[; ;State_Mchn.c: 102: {
-"102
+[; ;State_Mchn.c: 70: }
+[; ;State_Mchn.c: 71: }
+[e $U 579  ]
+"72
+[e :U 577 ]
+[; ;State_Mchn.c: 72: else if (GETxAPIxVAL(77)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 77 `i `uc -> -> 0 `i `ui 580  ]
 {
-[; ;State_Mchn.c: 103: SETxAPIxVAL(0x28, 1);
-"103
-[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 1 `i `ui ]
-[; ;State_Mchn.c: 104: Switch_Init = 4;
-"104
-[e = _Switch_Init -> -> 4 `i `uc ]
-[; ;State_Mchn.c: 105: break;
-"105
-[e $U 567  ]
-"106
+[; ;State_Mchn.c: 73: SETxAPIxVAL(69, 1);
+"73
+[e ( _SETxAPIxVAL (2 , -> -> 69 `i `uc -> -> 1 `i `ui ]
+[; ;State_Mchn.c: 74: SETxAPIxVAL(77, 0);
+"74
+[e ( _SETxAPIxVAL (2 , -> -> 77 `i `uc -> -> 0 `i `ui ]
+"75
 }
+[; ;State_Mchn.c: 75: }
+[e $U 581  ]
+"76
 [e :U 580 ]
-[; ;State_Mchn.c: 106: }
-[; ;State_Mchn.c: 107: if(GETxAPIxVAL(0x25))
-"107
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 37 `i `uc -> -> 0 `i `ui 581  ]
-[; ;State_Mchn.c: 108: {
-"108
+[; ;State_Mchn.c: 76: else if (GETxAPIxVAL(78)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 78 `i `uc -> -> 0 `i `ui 582  ]
 {
-[; ;State_Mchn.c: 109: SETxAPIxVAL(0x28, 2);
-"109
-[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 2 `i `ui ]
-[; ;State_Mchn.c: 110: Switch_Init = 4;
-"110
-[e = _Switch_Init -> -> 4 `i `uc ]
-[; ;State_Mchn.c: 111: break;
-"111
-[e $U 567  ]
-"112
+[; ;State_Mchn.c: 77: SETxAPIxVAL(69, 0);
+"77
+[e ( _SETxAPIxVAL (2 , -> -> 69 `i `uc -> -> 0 `i `ui ]
+[; ;State_Mchn.c: 78: SETxAPIxVAL(78, 0);
+"78
+[e ( _SETxAPIxVAL (2 , -> -> 78 `i `uc -> -> 0 `i `ui ]
+"79
 }
-[e :U 581 ]
-[; ;State_Mchn.c: 112: }
-[; ;State_Mchn.c: 113: if(GETxAPIxVAL(0x26))
-"113
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui 582  ]
-[; ;State_Mchn.c: 114: {
-"114
-{
-[; ;State_Mchn.c: 115: SETxAPIxVAL(0x28, 3);
-"115
-[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 3 `i `ui ]
-[; ;State_Mchn.c: 116: Switch_Init = 4;
-"116
-[e = _Switch_Init -> -> 4 `i `uc ]
-[; ;State_Mchn.c: 117: break;
-"117
-[e $U 567  ]
-"118
-}
+[; ;State_Mchn.c: 79: }
+[e $U 583  ]
+"80
 [e :U 582 ]
-[; ;State_Mchn.c: 118: }
-[; ;State_Mchn.c: 119: if(GETxAPIxVAL(0x22))
-"119
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 34 `i `uc -> -> 0 `i `ui 583  ]
-[; ;State_Mchn.c: 120: {
-"120
+[; ;State_Mchn.c: 80: else if (GETxAPIxVAL(68) != GETxAPIxVAL(79)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 68 `i `uc ( _GETxAPIxVAL (1 -> -> 79 `i `uc 584  ]
 {
-[; ;State_Mchn.c: 121: SETxAPIxVAL(0x28, 4);
-"121
-[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 4 `i `ui ]
-[; ;State_Mchn.c: 122: Switch_Init = 4;
-"122
-[e = _Switch_Init -> -> 4 `i `uc ]
-[; ;State_Mchn.c: 123: break;
-"123
-[e $U 567  ]
-"124
+[; ;State_Mchn.c: 81: SETxAPIxVAL(68, GETxAPIxVAL(79));
+"81
+[e ( _SETxAPIxVAL (2 , -> -> 68 `i `uc ( _GETxAPIxVAL (1 -> -> 79 `i `uc ]
+"82
 }
-[e :U 583 ]
-[; ;State_Mchn.c: 124: }
-[; ;State_Mchn.c: 125: if(GETxAPIxVAL(0x20))
-"125
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 32 `i `uc -> -> 0 `i `ui 584  ]
-[; ;State_Mchn.c: 126: {
-"126
-{
-[; ;State_Mchn.c: 127: SETxAPIxVAL(0x28, 9);
-"127
-[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 9 `i `ui ]
-[; ;State_Mchn.c: 128: Switch_Init = 4;
-"128
-[e = _Switch_Init -> -> 4 `i `uc ]
-[; ;State_Mchn.c: 129: break;
-"129
-[e $U 567  ]
-"130
-}
+[; ;State_Mchn.c: 82: }
+[e $U 585  ]
+"83
 [e :U 584 ]
-[; ;State_Mchn.c: 130: }
-[; ;State_Mchn.c: 131: Green_Led(2);
-"131
+[; ;State_Mchn.c: 83: else{
+{
+[; ;State_Mchn.c: 85: switch(Switch_Init)
+"85
+[e $U 587  ]
+[; ;State_Mchn.c: 86: {
+"86
+{
+[; ;State_Mchn.c: 87: case 0 : Green_Led(0);
+"87
+[e :U 588 ]
+[e ( _Green_Led (1 -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 88: Red_Led(0);
+"88
+[e ( _Red_Led (1 -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 89: Switch_Init = 1;
+"89
+[e = _Switch_Init -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 90: break;
+"90
+[e $U 586  ]
+[; ;State_Mchn.c: 92: case 1 : if(GETxAPIxVAL(35))
+"92
+[e :U 589 ]
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 35 `i `uc -> -> 0 `i `ui 590  ]
+[; ;State_Mchn.c: 93: {
+"93
+{
+[; ;State_Mchn.c: 94: SETxAPIxVAL(39, 1);
+"94
+[e ( _SETxAPIxVAL (2 , -> -> 39 `i `uc -> -> 1 `i `ui ]
+[; ;State_Mchn.c: 95: Switch_Init = 2;
+"95
+[e = _Switch_Init -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 96: break;
+"96
+[e $U 586  ]
+"97
+}
+[e :U 590 ]
+[; ;State_Mchn.c: 97: }
+[; ;State_Mchn.c: 98: if(GETxAPIxVAL(36))
+"98
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui 591  ]
+[; ;State_Mchn.c: 99: {
+"99
+{
+[; ;State_Mchn.c: 100: SETxAPIxVAL(39, 2);
+"100
+[e ( _SETxAPIxVAL (2 , -> -> 39 `i `uc -> -> 2 `i `ui ]
+[; ;State_Mchn.c: 101: Switch_Init = 2;
+"101
+[e = _Switch_Init -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 102: break;
+"102
+[e $U 586  ]
+"103
+}
+[e :U 591 ]
+[; ;State_Mchn.c: 103: }
+[; ;State_Mchn.c: 104: if(GETxAPIxVAL(37))
+"104
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 37 `i `uc -> -> 0 `i `ui 592  ]
+[; ;State_Mchn.c: 105: {
+"105
+{
+[; ;State_Mchn.c: 106: SETxAPIxVAL(39, 3);
+"106
+[e ( _SETxAPIxVAL (2 , -> -> 39 `i `uc -> -> 3 `i `ui ]
+[; ;State_Mchn.c: 107: Switch_Init = 2;
+"107
+[e = _Switch_Init -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 108: break;
+"108
+[e $U 586  ]
+"109
+}
+[e :U 592 ]
+[; ;State_Mchn.c: 109: }
+[; ;State_Mchn.c: 110: if(GETxAPIxVAL(38))
+"110
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui 593  ]
+[; ;State_Mchn.c: 111: {
+"111
+{
+[; ;State_Mchn.c: 112: SETxAPIxVAL(39, 4);
+"112
+[e ( _SETxAPIxVAL (2 , -> -> 39 `i `uc -> -> 4 `i `ui ]
+[; ;State_Mchn.c: 113: Switch_Init = 2;
+"113
+[e = _Switch_Init -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 114: break;
+"114
+[e $U 586  ]
+"115
+}
+[e :U 593 ]
+[; ;State_Mchn.c: 115: }
+[; ;State_Mchn.c: 116: if(GETxAPIxVAL(34))
+"116
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 34 `i `uc -> -> 0 `i `ui 594  ]
+[; ;State_Mchn.c: 117: {
+"117
+{
+[; ;State_Mchn.c: 118: SETxAPIxVAL(39, 5);
+"118
+[e ( _SETxAPIxVAL (2 , -> -> 39 `i `uc -> -> 5 `i `ui ]
+[; ;State_Mchn.c: 119: Switch_Init = 2;
+"119
+[e = _Switch_Init -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 120: break;
+"120
+[e $U 586  ]
+"121
+}
+[e :U 594 ]
+[; ;State_Mchn.c: 121: }
+[; ;State_Mchn.c: 122: if(GETxAPIxVAL(39) > 0 && GETxAPIxVAL(40) > 0){
+"122
+[e $ ! && > ( _GETxAPIxVAL (1 -> -> 39 `i `uc -> -> 0 `i `ui > ( _GETxAPIxVAL (1 -> -> 40 `i `uc -> -> 0 `i `ui 595  ]
+{
+[; ;State_Mchn.c: 123: Switch_Init = 4;
+"123
+[e = _Switch_Init -> -> 4 `i `uc ]
+[; ;State_Mchn.c: 124: break;
+"124
+[e $U 586  ]
+"125
+}
+[e :U 595 ]
+[; ;State_Mchn.c: 125: }
+[; ;State_Mchn.c: 126: Switch_Init = 1;
+"126
+[e = _Switch_Init -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 127: Green_Led(2);
+"127
 [e ( _Green_Led (1 -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 128: break;
+"128
+[e $U 586  ]
+[; ;State_Mchn.c: 130: case 2 : if(!GETxAPIxVAL(35) && !GETxAPIxVAL(36) && !GETxAPIxVAL(37) && !GETxAPIxVAL(38) && !GETxAPIxVAL(34) && !GETxAPIxVAL(32))
+"130
+[e :U 596 ]
+[e $ ! && && && && && ! != ( _GETxAPIxVAL (1 -> -> 35 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 37 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 34 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 32 `i `uc -> -> 0 `i `ui 597  ]
+[; ;State_Mchn.c: 131: {
+"131
+{
 [; ;State_Mchn.c: 132: Switch_Init = 3;
 "132
 [e = _Switch_Init -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 133: break;
 "133
-[e $U 567  ]
-[; ;State_Mchn.c: 135: case 4 : if(!GETxAPIxVAL(0x23) && !GETxAPIxVAL(0x24) && !GETxAPIxVAL(0x25) && !GETxAPIxVAL(0x26) && !GETxAPIxVAL(0x22) && !GETxAPIxVAL(0x20))
+}
+[e :U 597 ]
+[; ;State_Mchn.c: 133: }
+[; ;State_Mchn.c: 134: Red_Led(0);
+"134
+[e ( _Red_Led (1 -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 135: Green_Led(2);
 "135
-[e :U 585 ]
-[e $ ! && && && && && ! != ( _GETxAPIxVAL (1 -> -> 35 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 37 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 34 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 32 `i `uc -> -> 0 `i `ui 586  ]
-[; ;State_Mchn.c: 136: {
-"136
-{
-[; ;State_Mchn.c: 137: if(GETxAPIxVAL(0x27) == GETxAPIxVAL(0x28))
-"137
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 39 `i `uc ( _GETxAPIxVAL (1 -> -> 40 `i `uc 587  ]
-[; ;State_Mchn.c: 138: {
-"138
-{
-[; ;State_Mchn.c: 139: Red_Led(1);
-"139
-[e ( _Red_Led (1 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 140: Switch_Init = 1;
-"140
-[e = _Switch_Init -> -> 1 `i `uc ]
-"141
-}
-[e :U 587 ]
-[; ;State_Mchn.c: 141: }
-[; ;State_Mchn.c: 142: if(GETxAPIxVAL(0x27) != GETxAPIxVAL(0x28))
-"142
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 39 `i `uc ( _GETxAPIxVAL (1 -> -> 40 `i `uc 588  ]
-[; ;State_Mchn.c: 143: {
-"143
-{
-[; ;State_Mchn.c: 144: Switch_Init = 5;
-"144
-[e = _Switch_Init -> -> 5 `i `uc ]
-"145
-}
-[e :U 588 ]
-"146
-}
-[e :U 586 ]
-[; ;State_Mchn.c: 145: }
-[; ;State_Mchn.c: 146: }
-[; ;State_Mchn.c: 147: Green_Led(2);
-"147
 [e ( _Green_Led (1 -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 136: break;
+"136
+[e $U 586  ]
+[; ;State_Mchn.c: 138: case 3 : if(GETxAPIxVAL(35))
+"138
+[e :U 598 ]
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 35 `i `uc -> -> 0 `i `ui 599  ]
+[; ;State_Mchn.c: 139: {
+"139
+{
+[; ;State_Mchn.c: 140: SETxAPIxVAL(40, 1);
+"140
+[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 1 `i `ui ]
+[; ;State_Mchn.c: 141: Switch_Init = 4;
+"141
+[e = _Switch_Init -> -> 4 `i `uc ]
+[; ;State_Mchn.c: 142: break;
+"142
+[e $U 586  ]
+"143
+}
+[e :U 599 ]
+[; ;State_Mchn.c: 143: }
+[; ;State_Mchn.c: 144: if(GETxAPIxVAL(36))
+"144
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui 600  ]
+[; ;State_Mchn.c: 145: {
+"145
+{
+[; ;State_Mchn.c: 146: SETxAPIxVAL(40, 2);
+"146
+[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 2 `i `ui ]
+[; ;State_Mchn.c: 147: Switch_Init = 4;
+"147
+[e = _Switch_Init -> -> 4 `i `uc ]
 [; ;State_Mchn.c: 148: break;
 "148
-[e $U 567  ]
-[; ;State_Mchn.c: 150: case 5 : if(GETxAPIxVAL(0x28) != 9)
+[e $U 586  ]
+"149
+}
+[e :U 600 ]
+[; ;State_Mchn.c: 149: }
+[; ;State_Mchn.c: 150: if(GETxAPIxVAL(37))
 "150
-[e :U 589 ]
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 40 `i `uc -> -> 9 `i `ui 590  ]
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 37 `i `uc -> -> 0 `i `ui 601  ]
 [; ;State_Mchn.c: 151: {
 "151
 {
-[; ;State_Mchn.c: 152: Switch_Init = 6;
+[; ;State_Mchn.c: 152: SETxAPIxVAL(40, 3);
 "152
-[e = _Switch_Init -> -> 6 `i `uc ]
+[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 3 `i `ui ]
+[; ;State_Mchn.c: 153: Switch_Init = 4;
 "153
-}
-[e :U 590 ]
-[; ;State_Mchn.c: 153: }
-[; ;State_Mchn.c: 154: if(GETxAPIxVAL(0x28) == 9)
+[e = _Switch_Init -> -> 4 `i `uc ]
+[; ;State_Mchn.c: 154: break;
 "154
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 40 `i `uc -> -> 9 `i `ui 591  ]
-[; ;State_Mchn.c: 155: {
+[e $U 586  ]
 "155
-{
-[; ;State_Mchn.c: 156: Switch_Init = 9;
-"156
-[e = _Switch_Init -> -> 9 `i `uc ]
-"157
 }
-[e :U 591 ]
-[; ;State_Mchn.c: 157: }
-[; ;State_Mchn.c: 158: break;
-"158
-[e $U 567  ]
-[; ;State_Mchn.c: 160: case 6 : Switch_Init = 8;
-"160
-[e :U 592 ]
-[e = _Switch_Init -> -> 8 `i `uc ]
-[; ;State_Mchn.c: 161: break;
-"161
-[e $U 567  ]
-[; ;State_Mchn.c: 163: case 7 : if(GETxAPIxVAL(0x20))
-"163
-[e :U 593 ]
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 32 `i `uc -> -> 0 `i `ui 594  ]
-[; ;State_Mchn.c: 164: {
-"164
-{
-[; ;State_Mchn.c: 165: Switch_Main = 1;
-"165
-[e = _Switch_Main -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 166: Switch_Init = 0;
-"166
-[e = _Switch_Init -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 167: Stop_Program = 0;
-"167
-[e = _Stop_Program -> -> 0 `i `uc ]
-"168
-}
-[e :U 594 ]
-[; ;State_Mchn.c: 168: }
-[; ;State_Mchn.c: 169: Green_Led(3);
-"169
-[e ( _Green_Led (1 -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 170: Red_Led(0);
-"170
-[e ( _Red_Led (1 -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 171: break;
-"171
-[e $U 567  ]
-[; ;State_Mchn.c: 173: case 8 : if(GETxAPIxVAL(0x27) == 4)
-"173
-[e :U 595 ]
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 39 `i `uc -> -> 4 `i `ui 596  ]
-[; ;State_Mchn.c: 174: {
-"174
-{
-[; ;State_Mchn.c: 175: switch(GETxAPIxVAL(0x28))
-"175
-[e $U 598  ]
-[; ;State_Mchn.c: 176: {
-"176
-{
-[; ;State_Mchn.c: 177: case 0 : Switch_Program = 1;
-"177
-[e :U 599 ]
-[e = _Switch_Program -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 178: Switch_Init = 7;
-"178
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 179: break;
-"179
-[e $U 597  ]
-[; ;State_Mchn.c: 180: case 1 : Switch_Program = 5;
-"180
-[e :U 600 ]
-[e = _Switch_Program -> -> 5 `i `uc ]
-[; ;State_Mchn.c: 181: Switch_Init = 7;
-"181
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 182: break;
-"182
-[e $U 597  ]
-[; ;State_Mchn.c: 183: case 2 : Switch_Program = 2;
-"183
 [e :U 601 ]
-[e = _Switch_Program -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 184: Switch_Init = 7;
-"184
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 185: break;
-"185
-[e $U 597  ]
-[; ;State_Mchn.c: 186: case 3 : Switch_Program = 3;
-"186
+[; ;State_Mchn.c: 155: }
+[; ;State_Mchn.c: 156: if(GETxAPIxVAL(38))
+"156
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui 602  ]
+[; ;State_Mchn.c: 157: {
+"157
+{
+[; ;State_Mchn.c: 158: SETxAPIxVAL(40, 4);
+"158
+[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 4 `i `ui ]
+[; ;State_Mchn.c: 159: Switch_Init = 4;
+"159
+[e = _Switch_Init -> -> 4 `i `uc ]
+[; ;State_Mchn.c: 160: break;
+"160
+[e $U 586  ]
+"161
+}
 [e :U 602 ]
-[e = _Switch_Program -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 187: Switch_Init = 7;
-"187
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 188: break;
-"188
-[e $U 597  ]
-[; ;State_Mchn.c: 189: default : Switch_Init = 8;
-"189
+[; ;State_Mchn.c: 161: }
+[; ;State_Mchn.c: 162: if(GETxAPIxVAL(34))
+"162
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 34 `i `uc -> -> 0 `i `ui 603  ]
+[; ;State_Mchn.c: 163: {
+"163
+{
+[; ;State_Mchn.c: 164: SETxAPIxVAL(40, 5);
+"164
+[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 5 `i `ui ]
+[; ;State_Mchn.c: 165: Switch_Init = 4;
+"165
+[e = _Switch_Init -> -> 4 `i `uc ]
+[; ;State_Mchn.c: 166: break;
+"166
+[e $U 586  ]
+"167
+}
 [e :U 603 ]
-[e = _Switch_Init -> -> 8 `i `uc ]
-[; ;State_Mchn.c: 190: Red_Led(1);
-"190
-[e ( _Red_Led (1 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 191: break;
-"191
-[e $U 597  ]
-"192
-}
-[; ;State_Mchn.c: 192: }
-[e $U 597  ]
-"175
-[e :U 598 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 40 `i `uc , $ -> -> 0 `i `ui 599
- , $ -> -> 1 `i `ui 600
- , $ -> -> 2 `i `ui 601
- , $ -> -> 3 `i `ui 602
- 603 ]
-"192
-[e :U 597 ]
-"193
-}
-[e :U 596 ]
-[; ;State_Mchn.c: 193: }
-[; ;State_Mchn.c: 194: if(GETxAPIxVAL(0x28) == 4)
-"194
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 40 `i `uc -> -> 4 `i `ui 604  ]
-[; ;State_Mchn.c: 195: {
-"195
+[; ;State_Mchn.c: 167: }
+[; ;State_Mchn.c: 168: if(GETxAPIxVAL(32))
+"168
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 32 `i `uc -> -> 0 `i `ui 604  ]
+[; ;State_Mchn.c: 169: {
+"169
 {
-[; ;State_Mchn.c: 196: switch(GETxAPIxVAL(0x27))
-"196
-[e $U 606  ]
-[; ;State_Mchn.c: 197: {
-"197
-{
-[; ;State_Mchn.c: 198: case 0 : Switch_Program = 1;
-"198
-[e :U 607 ]
-[e = _Switch_Program -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 199: Switch_Init = 7;
-"199
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 200: break;
-"200
-[e $U 605  ]
-[; ;State_Mchn.c: 201: case 1 : Switch_Program = 5;
-"201
-[e :U 608 ]
-[e = _Switch_Program -> -> 5 `i `uc ]
-[; ;State_Mchn.c: 202: Switch_Init = 7;
-"202
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 203: break;
-"203
-[e $U 605  ]
-[; ;State_Mchn.c: 204: case 2 : Switch_Program = 2;
-"204
-[e :U 609 ]
-[e = _Switch_Program -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 205: Switch_Init = 7;
-"205
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 206: break;
-"206
-[e $U 605  ]
-[; ;State_Mchn.c: 207: case 3 : Switch_Program = 3;
-"207
-[e :U 610 ]
-[e = _Switch_Program -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 208: Switch_Init = 7;
-"208
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 209: break;
-"209
-[e $U 605  ]
-[; ;State_Mchn.c: 210: default : Switch_Init = 8;
-"210
-[e :U 611 ]
-[e = _Switch_Init -> -> 8 `i `uc ]
-[; ;State_Mchn.c: 211: Red_Led(1);
-"211
-[e ( _Red_Led (1 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 212: break;
-"212
-[e $U 605  ]
-"213
-}
-[; ;State_Mchn.c: 213: }
-[e $U 605  ]
-"196
-[e :U 606 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 39 `i `uc , $ -> -> 0 `i `ui 607
- , $ -> -> 1 `i `ui 608
- , $ -> -> 2 `i `ui 609
- , $ -> -> 3 `i `ui 610
- 611 ]
-"213
-[e :U 605 ]
-"214
+[; ;State_Mchn.c: 170: SETxAPIxVAL(40, 9);
+"170
+[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 9 `i `ui ]
+[; ;State_Mchn.c: 171: Switch_Init = 4;
+"171
+[e = _Switch_Init -> -> 4 `i `uc ]
+[; ;State_Mchn.c: 172: break;
+"172
+[e $U 586  ]
+"173
 }
 [e :U 604 ]
-[; ;State_Mchn.c: 214: }
-[; ;State_Mchn.c: 215: if((GETxAPIxVAL(0x27) != 4) && (GETxAPIxVAL(0x28) != 4))
-"215
-[e $ ! && != ( _GETxAPIxVAL (1 -> -> 39 `i `uc -> -> 4 `i `ui != ( _GETxAPIxVAL (1 -> -> 40 `i `uc -> -> 4 `i `ui 612  ]
-[; ;State_Mchn.c: 216: {
-"216
+[; ;State_Mchn.c: 173: }
+[; ;State_Mchn.c: 174: if(GETxAPIxVAL(39) > 0 && GETxAPIxVAL(40) > 0){
+"174
+[e $ ! && > ( _GETxAPIxVAL (1 -> -> 39 `i `uc -> -> 0 `i `ui > ( _GETxAPIxVAL (1 -> -> 40 `i `uc -> -> 0 `i `ui 605  ]
 {
-[; ;State_Mchn.c: 217: switch(GETxAPIxVAL(0x27))
-"217
-[e $U 614  ]
-[; ;State_Mchn.c: 218: {
-"218
-{
-[; ;State_Mchn.c: 219: case 0 : switch(GETxAPIxVAL(0x28))
-"219
-[e :U 615 ]
-[e $U 617  ]
-[; ;State_Mchn.c: 220: {
-"220
-{
-[; ;State_Mchn.c: 221: case 0 : Switch_Init = 0;
-"221
-[e :U 618 ]
-[e = _Switch_Init -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 222: break;
-"222
-[e $U 616  ]
-[; ;State_Mchn.c: 223: case 1 : Switch_Program = 1;
-"223
-[e :U 619 ]
-[e = _Switch_Program -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 224: Switch_Init = 7;
-"224
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 225: break;
-"225
-[e $U 616  ]
-[; ;State_Mchn.c: 226: case 2 : Switch_Program = 2;
-"226
-[e :U 620 ]
-[e = _Switch_Program -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 227: Switch_Init = 7;
-"227
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 228: break;
-"228
-[e $U 616  ]
-[; ;State_Mchn.c: 229: case 3 : Switch_Program = 4;
-"229
-[e :U 621 ]
-[e = _Switch_Program -> -> 4 `i `uc ]
-[; ;State_Mchn.c: 230: Switch_Init = 7;
-"230
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 231: break;
-"231
-[e $U 616  ]
-[; ;State_Mchn.c: 232: default : Switch_Init = 8;
-"232
-[e :U 622 ]
-[e = _Switch_Init -> -> 8 `i `uc ]
-[; ;State_Mchn.c: 233: Red_Led(1);
-"233
-[e ( _Red_Led (1 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 234: break;
-"234
-[e $U 616  ]
-"235
+[; ;State_Mchn.c: 175: Switch_Init = 4;
+"175
+[e = _Switch_Init -> -> 4 `i `uc ]
+[; ;State_Mchn.c: 176: break;
+"176
+[e $U 586  ]
+"177
 }
-[; ;State_Mchn.c: 235: }
-[e $U 616  ]
-"219
-[e :U 617 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 40 `i `uc , $ -> -> 0 `i `ui 618
- , $ -> -> 1 `i `ui 619
- , $ -> -> 2 `i `ui 620
- , $ -> -> 3 `i `ui 621
- 622 ]
-"235
-[e :U 616 ]
-[; ;State_Mchn.c: 236: break;
-"236
-[e $U 613  ]
-[; ;State_Mchn.c: 237: case 1 : switch(GETxAPIxVAL(0x28))
-"237
-[e :U 623 ]
-[e $U 625  ]
-[; ;State_Mchn.c: 238: {
-"238
+[e :U 605 ]
+[; ;State_Mchn.c: 177: }
+[; ;State_Mchn.c: 178: Green_Led(2);
+"178
+[e ( _Green_Led (1 -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 179: Switch_Init = 3;
+"179
+[e = _Switch_Init -> -> 3 `i `uc ]
+[; ;State_Mchn.c: 180: break;
+"180
+[e $U 586  ]
+[; ;State_Mchn.c: 182: case 4 : if(!GETxAPIxVAL(35) && !GETxAPIxVAL(36) && !GETxAPIxVAL(37) && !GETxAPIxVAL(38) && !GETxAPIxVAL(34) && !GETxAPIxVAL(32))
+"182
+[e :U 606 ]
+[e $ ! && && && && && ! != ( _GETxAPIxVAL (1 -> -> 35 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 37 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 34 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 32 `i `uc -> -> 0 `i `ui 607  ]
+[; ;State_Mchn.c: 183: {
+"183
 {
-[; ;State_Mchn.c: 239: case 0 : Switch_Program = 1;
-"239
-[e :U 626 ]
-[e = _Switch_Program -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 240: Switch_Init = 7;
-"240
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 241: break;
-"241
-[e $U 624  ]
-[; ;State_Mchn.c: 242: case 1 : Switch_Init = 0;
-"242
-[e :U 627 ]
-[e = _Switch_Init -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 243: break;
-"243
-[e $U 624  ]
-[; ;State_Mchn.c: 244: case 2 : Switch_Program = 0;
-"244
-[e :U 628 ]
-[e = _Switch_Program -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 245: Switch_Init = 7;
-"245
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 246: break;
-"246
-[e $U 624  ]
-[; ;State_Mchn.c: 247: case 3 : Switch_Program = 6;
-"247
-[e :U 629 ]
-[e = _Switch_Program -> -> 6 `i `uc ]
-[; ;State_Mchn.c: 248: Switch_Init = 7;
-"248
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 249: break;
-"249
-[e $U 624  ]
-[; ;State_Mchn.c: 250: default : Switch_Init = 8;
-"250
-[e :U 630 ]
-[e = _Switch_Init -> -> 8 `i `uc ]
-[; ;State_Mchn.c: 251: Red_Led(1);
-"251
-[e ( _Red_Led (1 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 252: break;
-"252
-[e $U 624  ]
-"253
-}
-[; ;State_Mchn.c: 253: }
-[e $U 624  ]
-"237
-[e :U 625 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 40 `i `uc , $ -> -> 0 `i `ui 626
- , $ -> -> 1 `i `ui 627
- , $ -> -> 2 `i `ui 628
- , $ -> -> 3 `i `ui 629
- 630 ]
-"253
-[e :U 624 ]
-[; ;State_Mchn.c: 254: break;
-"254
-[e $U 613  ]
-[; ;State_Mchn.c: 255: case 2 : switch(GETxAPIxVAL(0x28))
-"255
-[e :U 631 ]
-[e $U 633  ]
-[; ;State_Mchn.c: 256: {
-"256
+[; ;State_Mchn.c: 184: if(GETxAPIxVAL(39) == GETxAPIxVAL(40))
+"184
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 39 `i `uc ( _GETxAPIxVAL (1 -> -> 40 `i `uc 608  ]
+[; ;State_Mchn.c: 185: {
+"185
 {
-[; ;State_Mchn.c: 257: case 0 : Switch_Program = 2;
-"257
-[e :U 634 ]
-[e = _Switch_Program -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 258: Switch_Init = 7;
-"258
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 259: break;
-"259
-[e $U 632  ]
-[; ;State_Mchn.c: 260: case 1 : Switch_Program = 0;
-"260
-[e :U 635 ]
-[e = _Switch_Program -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 261: Switch_Init = 7;
-"261
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 262: break;
-"262
-[e $U 632  ]
-[; ;State_Mchn.c: 263: case 2 : Switch_Init = 0;
-"263
-[e :U 636 ]
-[e = _Switch_Init -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 264: break;
-"264
-[e $U 632  ]
-[; ;State_Mchn.c: 265: case 3 : Switch_Program = 3;
-"265
-[e :U 637 ]
-[e = _Switch_Program -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 266: Switch_Init = 7;
-"266
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 267: break;
-"267
-[e $U 632  ]
-[; ;State_Mchn.c: 268: default : Switch_Init = 8;
-"268
-[e :U 638 ]
-[e = _Switch_Init -> -> 8 `i `uc ]
-[; ;State_Mchn.c: 269: Red_Led(1);
-"269
+[; ;State_Mchn.c: 186: SETxAPIxVAL(40, 0);
+"186
+[e ( _SETxAPIxVAL (2 , -> -> 40 `i `uc -> -> 0 `i `ui ]
+[; ;State_Mchn.c: 187: SETxAPIxVAL(39, 0);
+"187
+[e ( _SETxAPIxVAL (2 , -> -> 39 `i `uc -> -> 0 `i `ui ]
+[; ;State_Mchn.c: 188: Red_Led(1);
+"188
 [e ( _Red_Led (1 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 270: break;
-"270
-[e $U 632  ]
-"271
+[; ;State_Mchn.c: 189: Switch_Init = 1;
+"189
+[e = _Switch_Init -> -> 1 `i `uc ]
+"191
 }
-[; ;State_Mchn.c: 271: }
-[e $U 632  ]
-"255
-[e :U 633 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 40 `i `uc , $ -> -> 0 `i `ui 634
- , $ -> -> 1 `i `ui 635
- , $ -> -> 2 `i `ui 636
- , $ -> -> 3 `i `ui 637
- 638 ]
-"271
-[e :U 632 ]
-[; ;State_Mchn.c: 272: break;
-"272
-[e $U 613  ]
-[; ;State_Mchn.c: 273: case 3 : switch(GETxAPIxVAL(0x28))
-"273
-[e :U 639 ]
-[e $U 641  ]
-[; ;State_Mchn.c: 274: {
-"274
+[e :U 608 ]
+[; ;State_Mchn.c: 191: }
+[; ;State_Mchn.c: 192: if(GETxAPIxVAL(39) != GETxAPIxVAL(40))
+"192
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 39 `i `uc ( _GETxAPIxVAL (1 -> -> 40 `i `uc 609  ]
+[; ;State_Mchn.c: 193: {
+"193
 {
-[; ;State_Mchn.c: 275: case 0 : Switch_Program = 4;
-"275
-[e :U 642 ]
-[e = _Switch_Program -> -> 4 `i `uc ]
-[; ;State_Mchn.c: 276: Switch_Init = 7;
-"276
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 277: break;
-"277
-[e $U 640  ]
-[; ;State_Mchn.c: 278: case 1 : Switch_Program = 6;
-"278
-[e :U 643 ]
-[e = _Switch_Program -> -> 6 `i `uc ]
-[; ;State_Mchn.c: 279: Switch_Init = 7;
-"279
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 280: break;
-"280
-[e $U 640  ]
-[; ;State_Mchn.c: 281: case 2 : Switch_Program = 3;
-"281
-[e :U 644 ]
-[e = _Switch_Program -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 282: Switch_Init = 7;
-"282
-[e = _Switch_Init -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 283: break;
-"283
-[e $U 640  ]
-[; ;State_Mchn.c: 284: case 3 : Switch_Init = 0;
-"284
-[e :U 645 ]
-[e = _Switch_Init -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 285: break;
-"285
-[e $U 640  ]
-[; ;State_Mchn.c: 286: default : Switch_Init = 8;
-"286
-[e :U 646 ]
-[e = _Switch_Init -> -> 8 `i `uc ]
-[; ;State_Mchn.c: 287: Red_Led(1);
-"287
-[e ( _Red_Led (1 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 288: break;
-"288
-[e $U 640  ]
-"289
+[; ;State_Mchn.c: 194: Switch_Init = 5;
+"194
+[e = _Switch_Init -> -> 5 `i `uc ]
+"195
 }
-[; ;State_Mchn.c: 289: }
-[e $U 640  ]
-"273
-[e :U 641 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 40 `i `uc , $ -> -> 0 `i `ui 642
- , $ -> -> 1 `i `ui 643
- , $ -> -> 2 `i `ui 644
- , $ -> -> 3 `i `ui 645
- 646 ]
-"289
-[e :U 640 ]
-[; ;State_Mchn.c: 290: break;
-"290
-[e $U 613  ]
-[; ;State_Mchn.c: 291: default : Switch_Init = 8;
-"291
-[e :U 647 ]
-[e = _Switch_Init -> -> 8 `i `uc ]
-[; ;State_Mchn.c: 292: Red_Led(1);
-"292
-[e ( _Red_Led (1 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 293: break;
-"293
-[e $U 613  ]
-"294
+[e :U 609 ]
+"196
 }
-[; ;State_Mchn.c: 294: }
-[e $U 613  ]
-"217
-[e :U 614 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 39 `i `uc , $ -> -> 0 `i `ui 615
- , $ -> -> 1 `i `ui 623
- , $ -> -> 2 `i `ui 631
- , $ -> -> 3 `i `ui 639
- 647 ]
-"294
-[e :U 613 ]
-"295
+[e :U 607 ]
+[; ;State_Mchn.c: 195: }
+[; ;State_Mchn.c: 196: }
+[; ;State_Mchn.c: 197: Green_Led(2);
+"197
+[e ( _Green_Led (1 -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 198: break;
+"198
+[e $U 586  ]
+[; ;State_Mchn.c: 200: case 5 : if(GETxAPIxVAL(40) != 9)
+"200
+[e :U 610 ]
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 40 `i `uc -> -> 9 `i `ui 611  ]
+[; ;State_Mchn.c: 201: {
+"201
+{
+[; ;State_Mchn.c: 202: Switch_Init = 6;
+"202
+[e = _Switch_Init -> -> 6 `i `uc ]
+"203
+}
+[e :U 611 ]
+[; ;State_Mchn.c: 203: }
+[; ;State_Mchn.c: 204: if(GETxAPIxVAL(40) == 9)
+"204
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 40 `i `uc -> -> 9 `i `ui 612  ]
+[; ;State_Mchn.c: 205: {
+"205
+{
+[; ;State_Mchn.c: 206: Switch_Init = 9;
+"206
+[e = _Switch_Init -> -> 9 `i `uc ]
+"207
 }
 [e :U 612 ]
-[; ;State_Mchn.c: 295: }
-[; ;State_Mchn.c: 296: break;
-"296
-[e $U 567  ]
-[; ;State_Mchn.c: 298: case 9 : Switch_Init = 11;
-"298
-[e :U 648 ]
-[e = _Switch_Init -> -> 11 `i `uc ]
-[; ;State_Mchn.c: 299: break;
-"299
-[e $U 567  ]
-[; ;State_Mchn.c: 301: case 10 : if(GETxAPIxVAL(0x20))
-"301
-[e :U 649 ]
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 32 `i `uc -> -> 0 `i `ui 650  ]
-[; ;State_Mchn.c: 302: {
-"302
+[; ;State_Mchn.c: 207: }
+[; ;State_Mchn.c: 208: break;
+"208
+[e $U 586  ]
+[; ;State_Mchn.c: 210: case 6 : Switch_Init = 8;
+"210
+[e :U 613 ]
+[e = _Switch_Init -> -> 8 `i `uc ]
+[; ;State_Mchn.c: 211: break;
+"211
+[e $U 586  ]
+[; ;State_Mchn.c: 213: case 7 : if(GETxAPIxVAL(32) || GETxAPIxVAL(70))
+"213
+[e :U 614 ]
+[e $ ! || != ( _GETxAPIxVAL (1 -> -> 32 `i `uc -> -> 0 `i `ui != ( _GETxAPIxVAL (1 -> -> 70 `i `uc -> -> 0 `i `ui 615  ]
+[; ;State_Mchn.c: 214: {
+"214
 {
-[; ;State_Mchn.c: 303: Switch_Main = 2;
-"303
-[e = _Switch_Main -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 304: Switch_Init = 0;
-"304
+[; ;State_Mchn.c: 215: Switch_Main = 1;
+"215
+[e = _Switch_Main -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 216: Switch_Init = 0;
+"216
 [e = _Switch_Init -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 305: Stop_Program = 0;
-"305
+[; ;State_Mchn.c: 217: Stop_Program = 0;
+"217
 [e = _Stop_Program -> -> 0 `i `uc ]
-"306
+[; ;State_Mchn.c: 218: SETxAPIxVAL(70, 0);
+"218
+[e ( _SETxAPIxVAL (2 , -> -> 70 `i `uc -> -> 0 `i `ui ]
+"219
 }
-[e :U 650 ]
-[; ;State_Mchn.c: 306: }
-[; ;State_Mchn.c: 307: Green_Led(3);
-"307
+[e :U 615 ]
+[; ;State_Mchn.c: 219: }
+[; ;State_Mchn.c: 220: Green_Led(3);
+"220
 [e ( _Green_Led (1 -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 308: Red_Led(0);
-"308
+[; ;State_Mchn.c: 221: Red_Led(0);
+"221
 [e ( _Red_Led (1 -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 309: break;
-"309
-[e $U 567  ]
-[; ;State_Mchn.c: 311: case 11 : if(GETxAPIxVAL(0x27) == 4)
-"311
-[e :U 651 ]
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 39 `i `uc -> -> 4 `i `ui 652  ]
-[; ;State_Mchn.c: 312: {
-"312
+[; ;State_Mchn.c: 222: break;
+"222
+[e $U 586  ]
+[; ;State_Mchn.c: 224: case 8 : if(GETxAPIxVAL(39) == 5)
+"224
+[e :U 616 ]
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 39 `i `uc -> -> 5 `i `ui 617  ]
+[; ;State_Mchn.c: 225: {
+"225
 {
-[; ;State_Mchn.c: 313: Switch_Program = 0;
-"313
-[e = _Switch_Program -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 314: Switch_Init = 10;
-"314
-[e = _Switch_Init -> -> 10 `i `uc ]
-"315
-}
-[; ;State_Mchn.c: 315: }
-[e $U 653  ]
-"316
-[e :U 652 ]
-[; ;State_Mchn.c: 316: else switch(GETxAPIxVAL(0x27))
-[e $U 655  ]
-[; ;State_Mchn.c: 317: {
-"317
+[; ;State_Mchn.c: 226: switch(GETxAPIxVAL(40))
+"226
+[e $U 619  ]
+[; ;State_Mchn.c: 227: {
+"227
 {
-[; ;State_Mchn.c: 318: case 0 : Switch_Program = 1;Switch_Init = 10; break;
-"318
-[e :U 656 ]
+[; ;State_Mchn.c: 228: case 1 : Switch_Program = 1;
+"228
+[e :U 620 ]
 [e = _Switch_Program -> -> 1 `i `uc ]
-[e = _Switch_Init -> -> 10 `i `uc ]
-[e $U 654  ]
-[; ;State_Mchn.c: 319: case 1 : Switch_Program = 3;Switch_Init = 10; break;
-"319
-[e :U 657 ]
-[e = _Switch_Program -> -> 3 `i `uc ]
-[e = _Switch_Init -> -> 10 `i `uc ]
-[e $U 654  ]
-[; ;State_Mchn.c: 320: case 2 : Switch_Program = 0;Switch_Init = 10; break;
-"320
-[e :U 658 ]
-[e = _Switch_Program -> -> 0 `i `uc ]
-[e = _Switch_Init -> -> 10 `i `uc ]
-[e $U 654  ]
-[; ;State_Mchn.c: 321: case 3 : Switch_Program = 2;Switch_Init = 10; break;
-"321
-[e :U 659 ]
+[; ;State_Mchn.c: 229: Switch_Init = 7;
+"229
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 230: break;
+"230
+[e $U 618  ]
+[; ;State_Mchn.c: 231: case 2 : Switch_Program = 5;
+"231
+[e :U 621 ]
+[e = _Switch_Program -> -> 5 `i `uc ]
+[; ;State_Mchn.c: 232: Switch_Init = 7;
+"232
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 233: break;
+"233
+[e $U 618  ]
+[; ;State_Mchn.c: 234: case 3 : Switch_Program = 2;
+"234
+[e :U 622 ]
 [e = _Switch_Program -> -> 2 `i `uc ]
-[e = _Switch_Init -> -> 10 `i `uc ]
-[e $U 654  ]
-[; ;State_Mchn.c: 322: default : Switch_Init = 11;
-"322
-[e :U 660 ]
-[e = _Switch_Init -> -> 11 `i `uc ]
-[; ;State_Mchn.c: 323: Red_Led(1);
-"323
+[; ;State_Mchn.c: 235: Switch_Init = 7;
+"235
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 236: break;
+"236
+[e $U 618  ]
+[; ;State_Mchn.c: 237: case 4 : Switch_Program = 3;
+"237
+[e :U 623 ]
+[e = _Switch_Program -> -> 3 `i `uc ]
+[; ;State_Mchn.c: 238: Switch_Init = 7;
+"238
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 239: break;
+"239
+[e $U 618  ]
+[; ;State_Mchn.c: 240: default : Switch_Init = 8;
+"240
+[e :U 624 ]
+[e = _Switch_Init -> -> 8 `i `uc ]
+[; ;State_Mchn.c: 241: Red_Led(1);
+"241
 [e ( _Red_Led (1 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 324: break;
-"324
-[e $U 654  ]
-"325
+[; ;State_Mchn.c: 242: break;
+"242
+[e $U 618  ]
+"243
 }
-[; ;State_Mchn.c: 325: }
-[e $U 654  ]
-"316
-[e :U 655 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 39 `i `uc , $ -> -> 0 `i `ui 656
- , $ -> -> 1 `i `ui 657
- , $ -> -> 2 `i `ui 658
- , $ -> -> 3 `i `ui 659
- 660 ]
-"325
-[e :U 654 ]
-[e :U 653 ]
-[; ;State_Mchn.c: 326: break;
-"326
-[e $U 567  ]
-[; ;State_Mchn.c: 328: default : Switch_Init = 0;
-"328
-[e :U 661 ]
-[e = _Switch_Init -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 329: Red_Led(1);
-"329
-[e ( _Red_Led (1 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 330: break;
-"330
-[e $U 567  ]
-"331
+[; ;State_Mchn.c: 243: }
+[e $U 618  ]
+"226
+[e :U 619 ]
+[e [\ ( _GETxAPIxVAL (1 -> -> 40 `i `uc , $ -> -> 1 `i `ui 620
+ , $ -> -> 2 `i `ui 621
+ , $ -> -> 3 `i `ui 622
+ , $ -> -> 4 `i `ui 623
+ 624 ]
+"243
+[e :U 618 ]
+"244
 }
-[; ;State_Mchn.c: 331: }
-[e $U 567  ]
-"46
-[e :U 568 ]
-[e [\ _Switch_Init , $ -> -> 0 `i `uc 569
- , $ -> -> 1 `i `uc 570
- , $ -> -> 2 `i `uc 576
- , $ -> -> 3 `i `uc 578
- , $ -> -> 4 `i `uc 585
- , $ -> -> 5 `i `uc 589
- , $ -> -> 6 `i `uc 592
- , $ -> -> 7 `i `uc 593
- , $ -> -> 8 `i `uc 595
- , $ -> -> 9 `i `uc 648
- , $ -> -> 10 `i `uc 649
- , $ -> -> 11 `i `uc 651
- 661 ]
-"331
-[e :U 567 ]
-[; ;State_Mchn.c: 332: break;
-"332
-[e $U 564  ]
-[; ;State_Mchn.c: 334: case 1 : switch (Switch_Program)
-"334
-[e :U 662 ]
-[e $U 664  ]
-[; ;State_Mchn.c: 335: {
-"335
+[e :U 617 ]
+[; ;State_Mchn.c: 244: }
+[; ;State_Mchn.c: 245: if(GETxAPIxVAL(40) == 5)
+"245
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 40 `i `uc -> -> 5 `i `ui 625  ]
+[; ;State_Mchn.c: 246: {
+"246
 {
-[; ;State_Mchn.c: 336: case 0 : if (Train_Path(2,0) == 0)
-"336
-[e :U 665 ]
-[e $ ! == -> ( _Train_Path (2 , -> -> 2 `i `uc -> -> 0 `i `uc `i -> 0 `i 666  ]
-[; ;State_Mchn.c: 337: {
-"337
+[; ;State_Mchn.c: 247: switch(GETxAPIxVAL(39))
+"247
+[e $U 627  ]
+[; ;State_Mchn.c: 248: {
+"248
 {
-[; ;State_Mchn.c: 338: Switch_Program = 1;
-"338
+[; ;State_Mchn.c: 249: case 1 : Switch_Program = 1;
+"249
+[e :U 628 ]
 [e = _Switch_Program -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 339: Eeprom_Store();
-"339
-[e ( _Eeprom_Store ..  ]
-[; ;State_Mchn.c: 340: if(Stop_Program == 1)
-"340
-[e $ ! == -> _Stop_Program `i -> 1 `i 667  ]
-[; ;State_Mchn.c: 341: {
-"341
-{
-[; ;State_Mchn.c: 342: Switch_Main = 0;
-"342
-[e = _Switch_Main -> -> 0 `i `uc ]
-"344
+[; ;State_Mchn.c: 250: Switch_Init = 7;
+"250
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 251: break;
+"251
+[e $U 626  ]
+[; ;State_Mchn.c: 252: case 2 : Switch_Program = 5;
+"252
+[e :U 629 ]
+[e = _Switch_Program -> -> 5 `i `uc ]
+[; ;State_Mchn.c: 253: Switch_Init = 7;
+"253
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 254: break;
+"254
+[e $U 626  ]
+[; ;State_Mchn.c: 255: case 3 : Switch_Program = 2;
+"255
+[e :U 630 ]
+[e = _Switch_Program -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 256: Switch_Init = 7;
+"256
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 257: break;
+"257
+[e $U 626  ]
+[; ;State_Mchn.c: 258: case 4 : Switch_Program = 3;
+"258
+[e :U 631 ]
+[e = _Switch_Program -> -> 3 `i `uc ]
+[; ;State_Mchn.c: 259: Switch_Init = 7;
+"259
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 260: break;
+"260
+[e $U 626  ]
+[; ;State_Mchn.c: 261: default : Switch_Init = 8;
+"261
+[e :U 632 ]
+[e = _Switch_Init -> -> 8 `i `uc ]
+[; ;State_Mchn.c: 262: Red_Led(1);
+"262
+[e ( _Red_Led (1 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 263: break;
+"263
+[e $U 626  ]
+"264
 }
+[; ;State_Mchn.c: 264: }
+[e $U 626  ]
+"247
+[e :U 627 ]
+[e [\ ( _GETxAPIxVAL (1 -> -> 39 `i `uc , $ -> -> 1 `i `ui 628
+ , $ -> -> 2 `i `ui 629
+ , $ -> -> 3 `i `ui 630
+ , $ -> -> 4 `i `ui 631
+ 632 ]
+"264
+[e :U 626 ]
+"265
+}
+[e :U 625 ]
+[; ;State_Mchn.c: 265: }
+[; ;State_Mchn.c: 266: if((GETxAPIxVAL(39) != 5) && (GETxAPIxVAL(40) != 5))
+"266
+[e $ ! && != ( _GETxAPIxVAL (1 -> -> 39 `i `uc -> -> 5 `i `ui != ( _GETxAPIxVAL (1 -> -> 40 `i `uc -> -> 5 `i `ui 633  ]
+[; ;State_Mchn.c: 267: {
+"267
+{
+[; ;State_Mchn.c: 268: switch(GETxAPIxVAL(39))
+"268
+[e $U 635  ]
+[; ;State_Mchn.c: 269: {
+"269
+{
+[; ;State_Mchn.c: 270: case 1 : switch(GETxAPIxVAL(40))
+"270
+[e :U 636 ]
+[e $U 638  ]
+[; ;State_Mchn.c: 271: {
+"271
+{
+[; ;State_Mchn.c: 272: case 1 : Switch_Init = 0;
+"272
+[e :U 639 ]
+[e = _Switch_Init -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 273: break;
+"273
+[e $U 637  ]
+[; ;State_Mchn.c: 274: case 2 : Switch_Program = 1;
+"274
+[e :U 640 ]
+[e = _Switch_Program -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 275: Switch_Init = 7;
+"275
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 276: break;
+"276
+[e $U 637  ]
+[; ;State_Mchn.c: 277: case 3 : Switch_Program = 2;
+"277
+[e :U 641 ]
+[e = _Switch_Program -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 278: Switch_Init = 7;
+"278
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 279: break;
+"279
+[e $U 637  ]
+[; ;State_Mchn.c: 280: case 4 : Switch_Program = 4;
+"280
+[e :U 642 ]
+[e = _Switch_Program -> -> 4 `i `uc ]
+[; ;State_Mchn.c: 281: Switch_Init = 7;
+"281
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 282: break;
+"282
+[e $U 637  ]
+[; ;State_Mchn.c: 283: default : Switch_Init = 8;
+"283
+[e :U 643 ]
+[e = _Switch_Init -> -> 8 `i `uc ]
+[; ;State_Mchn.c: 284: Red_Led(1);
+"284
+[e ( _Red_Led (1 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 285: break;
+"285
+[e $U 637  ]
+"286
+}
+[; ;State_Mchn.c: 286: }
+[e $U 637  ]
+"270
+[e :U 638 ]
+[e [\ ( _GETxAPIxVAL (1 -> -> 40 `i `uc , $ -> -> 1 `i `ui 639
+ , $ -> -> 2 `i `ui 640
+ , $ -> -> 3 `i `ui 641
+ , $ -> -> 4 `i `ui 642
+ 643 ]
+"286
+[e :U 637 ]
+[; ;State_Mchn.c: 287: break;
+"287
+[e $U 634  ]
+[; ;State_Mchn.c: 288: case 2 : switch(GETxAPIxVAL(40))
+"288
+[e :U 644 ]
+[e $U 646  ]
+[; ;State_Mchn.c: 289: {
+"289
+{
+[; ;State_Mchn.c: 290: case 1 : Switch_Program = 1;
+"290
+[e :U 647 ]
+[e = _Switch_Program -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 291: Switch_Init = 7;
+"291
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 292: break;
+"292
+[e $U 645  ]
+[; ;State_Mchn.c: 293: case 2 : Switch_Init = 0;
+"293
+[e :U 648 ]
+[e = _Switch_Init -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 294: break;
+"294
+[e $U 645  ]
+[; ;State_Mchn.c: 295: case 3 : Switch_Program = 0;
+"295
+[e :U 649 ]
+[e = _Switch_Program -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 296: Switch_Init = 7;
+"296
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 297: break;
+"297
+[e $U 645  ]
+[; ;State_Mchn.c: 298: case 4 : Switch_Program = 6;
+"298
+[e :U 650 ]
+[e = _Switch_Program -> -> 6 `i `uc ]
+[; ;State_Mchn.c: 299: Switch_Init = 7;
+"299
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 300: break;
+"300
+[e $U 645  ]
+[; ;State_Mchn.c: 301: default : Switch_Init = 8;
+"301
+[e :U 651 ]
+[e = _Switch_Init -> -> 8 `i `uc ]
+[; ;State_Mchn.c: 302: Red_Led(1);
+"302
+[e ( _Red_Led (1 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 303: break;
+"303
+[e $U 645  ]
+"304
+}
+[; ;State_Mchn.c: 304: }
+[e $U 645  ]
+"288
+[e :U 646 ]
+[e [\ ( _GETxAPIxVAL (1 -> -> 40 `i `uc , $ -> -> 1 `i `ui 647
+ , $ -> -> 2 `i `ui 648
+ , $ -> -> 3 `i `ui 649
+ , $ -> -> 4 `i `ui 650
+ 651 ]
+"304
+[e :U 645 ]
+[; ;State_Mchn.c: 305: break;
+"305
+[e $U 634  ]
+[; ;State_Mchn.c: 306: case 3 : switch(GETxAPIxVAL(40))
+"306
+[e :U 652 ]
+[e $U 654  ]
+[; ;State_Mchn.c: 307: {
+"307
+{
+[; ;State_Mchn.c: 308: case 1 : Switch_Program = 2;
+"308
+[e :U 655 ]
+[e = _Switch_Program -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 309: Switch_Init = 7;
+"309
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 310: break;
+"310
+[e $U 653  ]
+[; ;State_Mchn.c: 311: case 2 : Switch_Program = 0;
+"311
+[e :U 656 ]
+[e = _Switch_Program -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 312: Switch_Init = 7;
+"312
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 313: break;
+"313
+[e $U 653  ]
+[; ;State_Mchn.c: 314: case 3 : Switch_Init = 0;
+"314
+[e :U 657 ]
+[e = _Switch_Init -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 315: break;
+"315
+[e $U 653  ]
+[; ;State_Mchn.c: 316: case 4 : Switch_Program = 3;
+"316
+[e :U 658 ]
+[e = _Switch_Program -> -> 3 `i `uc ]
+[; ;State_Mchn.c: 317: Switch_Init = 7;
+"317
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 318: break;
+"318
+[e $U 653  ]
+[; ;State_Mchn.c: 319: default : Switch_Init = 8;
+"319
+[e :U 659 ]
+[e = _Switch_Init -> -> 8 `i `uc ]
+[; ;State_Mchn.c: 320: Red_Led(1);
+"320
+[e ( _Red_Led (1 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 321: break;
+"321
+[e $U 653  ]
+"322
+}
+[; ;State_Mchn.c: 322: }
+[e $U 653  ]
+"306
+[e :U 654 ]
+[e [\ ( _GETxAPIxVAL (1 -> -> 40 `i `uc , $ -> -> 1 `i `ui 655
+ , $ -> -> 2 `i `ui 656
+ , $ -> -> 3 `i `ui 657
+ , $ -> -> 4 `i `ui 658
+ 659 ]
+"322
+[e :U 653 ]
+[; ;State_Mchn.c: 323: break;
+"323
+[e $U 634  ]
+[; ;State_Mchn.c: 324: case 4 : switch(GETxAPIxVAL(40))
+"324
+[e :U 660 ]
+[e $U 662  ]
+[; ;State_Mchn.c: 325: {
+"325
+{
+[; ;State_Mchn.c: 326: case 1 : Switch_Program = 4;
+"326
+[e :U 663 ]
+[e = _Switch_Program -> -> 4 `i `uc ]
+[; ;State_Mchn.c: 327: Switch_Init = 7;
+"327
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 328: break;
+"328
+[e $U 661  ]
+[; ;State_Mchn.c: 329: case 2 : Switch_Program = 6;
+"329
+[e :U 664 ]
+[e = _Switch_Program -> -> 6 `i `uc ]
+[; ;State_Mchn.c: 330: Switch_Init = 7;
+"330
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 331: break;
+"331
+[e $U 661  ]
+[; ;State_Mchn.c: 332: case 3 : Switch_Program = 3;
+"332
+[e :U 665 ]
+[e = _Switch_Program -> -> 3 `i `uc ]
+[; ;State_Mchn.c: 333: Switch_Init = 7;
+"333
+[e = _Switch_Init -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 334: break;
+"334
+[e $U 661  ]
+[; ;State_Mchn.c: 335: case 4 : Switch_Init = 0;
+"335
+[e :U 666 ]
+[e = _Switch_Init -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 336: break;
+"336
+[e $U 661  ]
+[; ;State_Mchn.c: 337: default : Switch_Init = 8;
+"337
 [e :U 667 ]
+[e = _Switch_Init -> -> 8 `i `uc ]
+[; ;State_Mchn.c: 338: Red_Led(1);
+"338
+[e ( _Red_Led (1 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 339: break;
+"339
+[e $U 661  ]
+"340
+}
+[; ;State_Mchn.c: 340: }
+[e $U 661  ]
+"324
+[e :U 662 ]
+[e [\ ( _GETxAPIxVAL (1 -> -> 40 `i `uc , $ -> -> 1 `i `ui 663
+ , $ -> -> 2 `i `ui 664
+ , $ -> -> 3 `i `ui 665
+ , $ -> -> 4 `i `ui 666
+ 667 ]
+"340
+[e :U 661 ]
+[; ;State_Mchn.c: 341: break;
+"341
+[e $U 634  ]
+[; ;State_Mchn.c: 342: default : Switch_Init = 8;
+"342
+[e :U 668 ]
+[e = _Switch_Init -> -> 8 `i `uc ]
+[; ;State_Mchn.c: 343: Red_Led(1);
+"343
+[e ( _Red_Led (1 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 344: break;
+"344
+[e $U 634  ]
 "345
 }
-[e :U 666 ]
-[; ;State_Mchn.c: 344: }
 [; ;State_Mchn.c: 345: }
-[; ;State_Mchn.c: 346: break;
+[e $U 634  ]
+"268
+[e :U 635 ]
+[e [\ ( _GETxAPIxVAL (1 -> -> 39 `i `uc , $ -> -> 1 `i `ui 636
+ , $ -> -> 2 `i `ui 644
+ , $ -> -> 3 `i `ui 652
+ , $ -> -> 4 `i `ui 660
+ 668 ]
+"345
+[e :U 634 ]
 "346
-[e $U 663  ]
-[; ;State_Mchn.c: 348: case 1 : if (Train_Path(1,2) == 0)
-"348
-[e :U 668 ]
-[e $ ! == -> ( _Train_Path (2 , -> -> 1 `i `uc -> -> 2 `i `uc `i -> 0 `i 669  ]
-[; ;State_Mchn.c: 349: {
+}
+[e :U 633 ]
+[; ;State_Mchn.c: 346: }
+[; ;State_Mchn.c: 347: break;
+"347
+[e $U 586  ]
+[; ;State_Mchn.c: 349: case 9 : Switch_Init = 11;
 "349
-{
-[; ;State_Mchn.c: 350: Switch_Program = 2;
+[e :U 669 ]
+[e = _Switch_Init -> -> 11 `i `uc ]
+[; ;State_Mchn.c: 350: break;
 "350
-[e = _Switch_Program -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 351: Eeprom_Store();
-"351
-[e ( _Eeprom_Store ..  ]
-[; ;State_Mchn.c: 352: if(Stop_Program == 1)
+[e $U 586  ]
+[; ;State_Mchn.c: 352: case 10 : if(GETxAPIxVAL(32) || GETxAPIxVAL(70))
 "352
-[e $ ! == -> _Stop_Program `i -> 1 `i 670  ]
+[e :U 670 ]
+[e $ ! || != ( _GETxAPIxVAL (1 -> -> 32 `i `uc -> -> 0 `i `ui != ( _GETxAPIxVAL (1 -> -> 70 `i `uc -> -> 0 `i `ui 671  ]
 [; ;State_Mchn.c: 353: {
 "353
 {
-[; ;State_Mchn.c: 354: Switch_Main = 0;
+[; ;State_Mchn.c: 354: Switch_Main = 2;
 "354
-[e = _Switch_Main -> -> 0 `i `uc ]
+[e = _Switch_Main -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 355: Switch_Init = 0;
+"355
+[e = _Switch_Init -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 356: Stop_Program = 0;
 "356
-}
-[e :U 670 ]
+[e = _Stop_Program -> -> 0 `i `uc ]
 "357
 }
-[e :U 669 ]
-[; ;State_Mchn.c: 356: }
-[; ;State_Mchn.c: 357: }
-[; ;State_Mchn.c: 358: break;
-"358
-[e $U 663  ]
-[; ;State_Mchn.c: 360: case 2 : if (Train_Path(0,3) == 0)
-"360
 [e :U 671 ]
-[e $ ! == -> ( _Train_Path (2 , -> -> 0 `i `uc -> -> 3 `i `uc `i -> 0 `i 672  ]
-[; ;State_Mchn.c: 361: {
-"361
-{
-[; ;State_Mchn.c: 362: Switch_Program = 3;
+[; ;State_Mchn.c: 357: }
+[; ;State_Mchn.c: 358: Green_Led(3);
+"358
+[e ( _Green_Led (1 -> -> 3 `i `uc ]
+[; ;State_Mchn.c: 359: Red_Led(0);
+"359
+[e ( _Red_Led (1 -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 360: break;
+"360
+[e $U 586  ]
+[; ;State_Mchn.c: 362: case 11 : if(GETxAPIxVAL(39) == 5)
 "362
-[e = _Switch_Program -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 363: Eeprom_Store();
-"363
-[e ( _Eeprom_Store ..  ]
-[; ;State_Mchn.c: 364: if(Stop_Program == 1)
-"364
-[e $ ! == -> _Stop_Program `i -> 1 `i 673  ]
-[; ;State_Mchn.c: 365: {
-"365
-{
-[; ;State_Mchn.c: 366: Switch_Main = 0;
-"366
-[e = _Switch_Main -> -> 0 `i `uc ]
-"368
-}
-[e :U 673 ]
-"369
-}
 [e :U 672 ]
-[; ;State_Mchn.c: 368: }
-[; ;State_Mchn.c: 369: }
-[; ;State_Mchn.c: 370: break;
-"370
-[e $U 663  ]
-[; ;State_Mchn.c: 372: case 3 : if (Train_Path(2,0) == 0)
-"372
-[e :U 674 ]
-[e $ ! == -> ( _Train_Path (2 , -> -> 2 `i `uc -> -> 0 `i `uc `i -> 0 `i 675  ]
-[; ;State_Mchn.c: 373: {
-"373
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 39 `i `uc -> -> 5 `i `ui 673  ]
+[; ;State_Mchn.c: 363: {
+"363
 {
-[; ;State_Mchn.c: 374: Switch_Program = 4;
-"374
-[e = _Switch_Program -> -> 4 `i `uc ]
-[; ;State_Mchn.c: 375: Eeprom_Store();
-"375
-[e ( _Eeprom_Store ..  ]
-[; ;State_Mchn.c: 376: if(Stop_Program == 1)
-"376
-[e $ ! == -> _Stop_Program `i -> 1 `i 676  ]
-[; ;State_Mchn.c: 377: {
-"377
+[; ;State_Mchn.c: 364: Switch_Program = 0;
+"364
+[e = _Switch_Program -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 365: Switch_Init = 10;
+"365
+[e = _Switch_Init -> -> 10 `i `uc ]
+"366
+}
+[; ;State_Mchn.c: 366: }
+[e $U 674  ]
+"367
+[e :U 673 ]
+[; ;State_Mchn.c: 367: else switch(GETxAPIxVAL(39))
+[e $U 676  ]
+[; ;State_Mchn.c: 368: {
+"368
 {
-[; ;State_Mchn.c: 378: Switch_Main = 0;
-"378
-[e = _Switch_Main -> -> 0 `i `uc ]
-"380
-}
-[e :U 676 ]
-"381
-}
-[e :U 675 ]
-[; ;State_Mchn.c: 380: }
-[; ;State_Mchn.c: 381: }
-[; ;State_Mchn.c: 382: break;
-"382
-[e $U 663  ]
-[; ;State_Mchn.c: 384: case 4 : if (Train_Path(3,1) == 0)
-"384
+[; ;State_Mchn.c: 369: case 1 : Switch_Program = 1;Switch_Init = 10; break;
+"369
 [e :U 677 ]
-[e $ ! == -> ( _Train_Path (2 , -> -> 3 `i `uc -> -> 1 `i `uc `i -> 0 `i 678  ]
-[; ;State_Mchn.c: 385: {
-"385
-{
-[; ;State_Mchn.c: 386: Switch_Program = 5;
+[e = _Switch_Program -> -> 1 `i `uc ]
+[e = _Switch_Init -> -> 10 `i `uc ]
+[e $U 675  ]
+[; ;State_Mchn.c: 370: case 2 : Switch_Program = 3;Switch_Init = 10; break;
+"370
+[e :U 678 ]
+[e = _Switch_Program -> -> 3 `i `uc ]
+[e = _Switch_Init -> -> 10 `i `uc ]
+[e $U 675  ]
+[; ;State_Mchn.c: 371: case 3 : Switch_Program = 0;Switch_Init = 10; break;
+"371
+[e :U 679 ]
+[e = _Switch_Program -> -> 0 `i `uc ]
+[e = _Switch_Init -> -> 10 `i `uc ]
+[e $U 675  ]
+[; ;State_Mchn.c: 372: case 4 : Switch_Program = 2;Switch_Init = 10; break;
+"372
+[e :U 680 ]
+[e = _Switch_Program -> -> 2 `i `uc ]
+[e = _Switch_Init -> -> 10 `i `uc ]
+[e $U 675  ]
+[; ;State_Mchn.c: 373: default : Switch_Init = 11;
+"373
+[e :U 681 ]
+[e = _Switch_Init -> -> 11 `i `uc ]
+[; ;State_Mchn.c: 374: Red_Led(1);
+"374
+[e ( _Red_Led (1 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 375: break;
+"375
+[e $U 675  ]
+"376
+}
+[; ;State_Mchn.c: 376: }
+[e $U 675  ]
+"367
+[e :U 676 ]
+[e [\ ( _GETxAPIxVAL (1 -> -> 39 `i `uc , $ -> -> 1 `i `ui 677
+ , $ -> -> 2 `i `ui 678
+ , $ -> -> 3 `i `ui 679
+ , $ -> -> 4 `i `ui 680
+ 681 ]
+"376
+[e :U 675 ]
+[e :U 674 ]
+[; ;State_Mchn.c: 377: break;
+"377
+[e $U 586  ]
+[; ;State_Mchn.c: 379: default : Switch_Init = 0;
+"379
+[e :U 682 ]
+[e = _Switch_Init -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 380: Red_Led(1);
+"380
+[e ( _Red_Led (1 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 381: break;
+"381
+[e $U 586  ]
+"382
+}
+[; ;State_Mchn.c: 382: }
+[e $U 586  ]
+"85
+[e :U 587 ]
+[e [\ _Switch_Init , $ -> -> 0 `i `uc 588
+ , $ -> -> 1 `i `uc 589
+ , $ -> -> 2 `i `uc 596
+ , $ -> -> 3 `i `uc 598
+ , $ -> -> 4 `i `uc 606
+ , $ -> -> 5 `i `uc 610
+ , $ -> -> 6 `i `uc 613
+ , $ -> -> 7 `i `uc 614
+ , $ -> -> 8 `i `uc 616
+ , $ -> -> 9 `i `uc 669
+ , $ -> -> 10 `i `uc 670
+ , $ -> -> 11 `i `uc 672
+ 682 ]
+"382
+[e :U 586 ]
+"383
+}
+[e :U 585 ]
+[e :U 583 ]
+[e :U 581 ]
+[e :U 579 ]
+[e :U 576 ]
+[e :U 573 ]
+[e :U 570 ]
+[; ;State_Mchn.c: 383: }
+[; ;State_Mchn.c: 384: break;
+"384
+[e $U 565  ]
+[; ;State_Mchn.c: 386: case 1 : switch (Switch_Program)
 "386
-[e = _Switch_Program -> -> 5 `i `uc ]
-[; ;State_Mchn.c: 387: Eeprom_Store();
+[e :U 683 ]
+[e $U 685  ]
+[; ;State_Mchn.c: 387: {
 "387
-[e ( _Eeprom_Store ..  ]
-[; ;State_Mchn.c: 388: if(Stop_Program == 1)
+{
+[; ;State_Mchn.c: 388: case 0 : if (Train_Path(3,1) == 0)
 "388
-[e $ ! == -> _Stop_Program `i -> 1 `i 679  ]
+[e :U 686 ]
+[e $ ! == -> ( _Train_Path (2 , -> -> 3 `i `uc -> -> 1 `i `uc `i -> 0 `i 687  ]
 [; ;State_Mchn.c: 389: {
 "389
 {
-[; ;State_Mchn.c: 390: Switch_Main = 0;
+[; ;State_Mchn.c: 390: Switch_Program = 1;
 "390
-[e = _Switch_Main -> -> 0 `i `uc ]
-"392
-}
-[e :U 679 ]
-"393
-}
-[e :U 678 ]
-[; ;State_Mchn.c: 392: }
-[; ;State_Mchn.c: 393: }
-[; ;State_Mchn.c: 394: break;
-"394
-[e $U 663  ]
-[; ;State_Mchn.c: 396: case 5 : if (Train_Path(0,3) == 0)
-"396
-[e :U 680 ]
-[e $ ! == -> ( _Train_Path (2 , -> -> 0 `i `uc -> -> 3 `i `uc `i -> 0 `i 681  ]
-[; ;State_Mchn.c: 397: {
-"397
-{
-[; ;State_Mchn.c: 398: Switch_Program = 6;
-"398
-[e = _Switch_Program -> -> 6 `i `uc ]
-[; ;State_Mchn.c: 399: Eeprom_Store();
-"399
+[e = _Switch_Program -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 391: Eeprom_Store();
+"391
 [e ( _Eeprom_Store ..  ]
-[; ;State_Mchn.c: 400: if(Stop_Program == 1)
+[; ;State_Mchn.c: 392: if(Stop_Program == 1)
+"392
+[e $ ! == -> _Stop_Program `i -> 1 `i 688  ]
+[; ;State_Mchn.c: 393: {
+"393
+{
+[; ;State_Mchn.c: 394: Switch_Main = 0;
+"394
+[e = _Switch_Main -> -> 0 `i `uc ]
+"396
+}
+[e :U 688 ]
+"397
+}
+[e :U 687 ]
+[; ;State_Mchn.c: 396: }
+[; ;State_Mchn.c: 397: }
+[; ;State_Mchn.c: 398: break;
+"398
+[e $U 684  ]
+[; ;State_Mchn.c: 400: case 1 : if (Train_Path(2,3) == 0)
 "400
-[e $ ! == -> _Stop_Program `i -> 1 `i 682  ]
+[e :U 689 ]
+[e $ ! == -> ( _Train_Path (2 , -> -> 2 `i `uc -> -> 3 `i `uc `i -> 0 `i 690  ]
 [; ;State_Mchn.c: 401: {
 "401
 {
-[; ;State_Mchn.c: 402: Switch_Main = 0;
+[; ;State_Mchn.c: 402: Switch_Program = 2;
 "402
-[e = _Switch_Main -> -> 0 `i `uc ]
-"404
-}
-[e :U 682 ]
-"405
-}
-[e :U 681 ]
-[; ;State_Mchn.c: 404: }
-[; ;State_Mchn.c: 405: }
-[; ;State_Mchn.c: 406: break;
-"406
-[e $U 663  ]
-[; ;State_Mchn.c: 408: case 6 : if (Train_Path(1,2) == 0)
-"408
-[e :U 683 ]
-[e $ ! == -> ( _Train_Path (2 , -> -> 1 `i `uc -> -> 2 `i `uc `i -> 0 `i 684  ]
-[; ;State_Mchn.c: 409: {
-"409
-{
-[; ;State_Mchn.c: 410: Switch_Program = 7;
-"410
-[e = _Switch_Program -> -> 7 `i `uc ]
-[; ;State_Mchn.c: 411: Eeprom_Store();
-"411
+[e = _Switch_Program -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 403: Eeprom_Store();
+"403
 [e ( _Eeprom_Store ..  ]
-[; ;State_Mchn.c: 412: if(Stop_Program == 1)
+[; ;State_Mchn.c: 404: if(Stop_Program == 1)
+"404
+[e $ ! == -> _Stop_Program `i -> 1 `i 691  ]
+[; ;State_Mchn.c: 405: {
+"405
+{
+[; ;State_Mchn.c: 406: Switch_Main = 0;
+"406
+[e = _Switch_Main -> -> 0 `i `uc ]
+"408
+}
+[e :U 691 ]
+"409
+}
+[e :U 690 ]
+[; ;State_Mchn.c: 408: }
+[; ;State_Mchn.c: 409: }
+[; ;State_Mchn.c: 410: break;
+"410
+[e $U 684  ]
+[; ;State_Mchn.c: 412: case 2 : if (Train_Path(1,4) == 0)
 "412
-[e $ ! == -> _Stop_Program `i -> 1 `i 685  ]
+[e :U 692 ]
+[e $ ! == -> ( _Train_Path (2 , -> -> 1 `i `uc -> -> 4 `i `uc `i -> 0 `i 693  ]
 [; ;State_Mchn.c: 413: {
 "413
 {
-[; ;State_Mchn.c: 414: Switch_Main = 0;
+[; ;State_Mchn.c: 414: Switch_Program = 3;
 "414
-[e = _Switch_Main -> -> 0 `i `uc ]
-"416
-}
-[e :U 685 ]
-"417
-}
-[e :U 684 ]
-[; ;State_Mchn.c: 416: }
-[; ;State_Mchn.c: 417: }
-[; ;State_Mchn.c: 418: break;
-"418
-[e $U 663  ]
-[; ;State_Mchn.c: 420: case 7 : if (Train_Path(3,1) == 0)
-"420
-[e :U 686 ]
-[e $ ! == -> ( _Train_Path (2 , -> -> 3 `i `uc -> -> 1 `i `uc `i -> 0 `i 687  ]
-[; ;State_Mchn.c: 421: {
-"421
-{
-[; ;State_Mchn.c: 422: Switch_Program = 0;
-"422
-[e = _Switch_Program -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 423: Eeprom_Store();
-"423
+[e = _Switch_Program -> -> 3 `i `uc ]
+[; ;State_Mchn.c: 415: Eeprom_Store();
+"415
 [e ( _Eeprom_Store ..  ]
-[; ;State_Mchn.c: 424: if(Stop_Program == 1)
+[; ;State_Mchn.c: 416: if(Stop_Program == 1)
+"416
+[e $ ! == -> _Stop_Program `i -> 1 `i 694  ]
+[; ;State_Mchn.c: 417: {
+"417
+{
+[; ;State_Mchn.c: 418: Switch_Main = 0;
+"418
+[e = _Switch_Main -> -> 0 `i `uc ]
+"420
+}
+[e :U 694 ]
+"421
+}
+[e :U 693 ]
+[; ;State_Mchn.c: 420: }
+[; ;State_Mchn.c: 421: }
+[; ;State_Mchn.c: 422: break;
+"422
+[e $U 684  ]
+[; ;State_Mchn.c: 424: case 3 : if (Train_Path(3,1) == 0)
 "424
-[e $ ! == -> _Stop_Program `i -> 1 `i 688  ]
+[e :U 695 ]
+[e $ ! == -> ( _Train_Path (2 , -> -> 3 `i `uc -> -> 1 `i `uc `i -> 0 `i 696  ]
 [; ;State_Mchn.c: 425: {
 "425
 {
-[; ;State_Mchn.c: 426: Switch_Main = 0;
+[; ;State_Mchn.c: 426: Switch_Program = 4;
 "426
-[e = _Switch_Main -> -> 0 `i `uc ]
+[e = _Switch_Program -> -> 4 `i `uc ]
+[; ;State_Mchn.c: 427: Eeprom_Store();
+"427
+[e ( _Eeprom_Store ..  ]
+[; ;State_Mchn.c: 428: if(Stop_Program == 1)
 "428
-}
-[e :U 688 ]
+[e $ ! == -> _Stop_Program `i -> 1 `i 697  ]
+[; ;State_Mchn.c: 429: {
 "429
-}
-[e :U 687 ]
-[; ;State_Mchn.c: 428: }
-[; ;State_Mchn.c: 429: }
-[; ;State_Mchn.c: 430: break;
+{
+[; ;State_Mchn.c: 430: Switch_Main = 0;
 "430
-[e $U 663  ]
-[; ;State_Mchn.c: 434: default : break;
-"434
-[e :U 689 ]
-[e $U 663  ]
-"435
-}
-[; ;State_Mchn.c: 435: }
-[e $U 663  ]
-"334
-[e :U 664 ]
-[e [\ _Switch_Program , $ -> -> 0 `i `uc 665
- , $ -> -> 1 `i `uc 668
- , $ -> -> 2 `i `uc 671
- , $ -> -> 3 `i `uc 674
- , $ -> -> 4 `i `uc 677
- , $ -> -> 5 `i `uc 680
- , $ -> -> 6 `i `uc 683
- , $ -> -> 7 `i `uc 686
- 689 ]
-"435
-[e :U 663 ]
-[; ;State_Mchn.c: 437: switch(Switch_Activate_Controls)
-"437
-[e $U 691  ]
-[; ;State_Mchn.c: 438: {
-"438
-{
-[; ;State_Mchn.c: 439: case 0 : if(GETxAPIxVAL(0x24) && GETxAPIxVAL(0x26))
-"439
-[e :U 692 ]
-[e $ ! && != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui 693  ]
-[; ;State_Mchn.c: 440: {
-"440
-{
-[; ;State_Mchn.c: 441: Switch_Activate_Controls = 1;
-"441
-[e = _Switch_Activate_Controls -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 442: Red_Led(3);
-"442
-[e ( _Red_Led (1 -> -> 3 `i `uc ]
-"443
-}
-[; ;State_Mchn.c: 443: }
-[e $U 694  ]
-"444
-[e :U 693 ]
-[; ;State_Mchn.c: 444: else
-[; ;State_Mchn.c: 445: {
-"445
-{
-[; ;State_Mchn.c: 446: Switch_Activate_Controls = 0;
-"446
-[e = _Switch_Activate_Controls -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 447: Red_Led(0);
-"447
-[e ( _Red_Led (1 -> -> 0 `i `uc ]
-"448
-}
-[e :U 694 ]
-[; ;State_Mchn.c: 448: }
-[; ;State_Mchn.c: 449: break;
-"449
-[e $U 690  ]
-[; ;State_Mchn.c: 451: case 1 : if(!GETxAPIxVAL(0x24) && !GETxAPIxVAL(0x26))
-"451
-[e :U 695 ]
-[e $ ! && ! != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui 696  ]
-[; ;State_Mchn.c: 452: {
-"452
-{
-[; ;State_Mchn.c: 453: Switch_Activate_Controls = 2;
-"453
-[e = _Switch_Activate_Controls -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 454: Red_Led(3);
-"454
-[e ( _Red_Led (1 -> -> 3 `i `uc ]
-"455
-}
-[; ;State_Mchn.c: 455: }
-[e $U 697  ]
-"456
-[e :U 696 ]
-[; ;State_Mchn.c: 456: else
-[; ;State_Mchn.c: 457: {
-"457
-{
-[; ;State_Mchn.c: 458: Switch_Activate_Controls = 1;
-"458
-[e = _Switch_Activate_Controls -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 459: Red_Led(3);
-"459
-[e ( _Red_Led (1 -> -> 3 `i `uc ]
-"460
+[e = _Switch_Main -> -> 0 `i `uc ]
+"432
 }
 [e :U 697 ]
-[; ;State_Mchn.c: 460: }
-[; ;State_Mchn.c: 461: Activate_Controls_Counter = 10000;
-"461
-[e = _Activate_Controls_Counter -> -> 10000 `i `ui ]
-[; ;State_Mchn.c: 462: break;
-"462
-[e $U 690  ]
-[; ;State_Mchn.c: 464: case 2 : if(!GETxAPIxVAL(0x24) && !GETxAPIxVAL(0x26) && !GETxAPIxVAL(0x25) && !GETxAPIxVAL(0x23))
-"464
+"433
+}
+[e :U 696 ]
+[; ;State_Mchn.c: 432: }
+[; ;State_Mchn.c: 433: }
+[; ;State_Mchn.c: 434: break;
+"434
+[e $U 684  ]
+[; ;State_Mchn.c: 436: case 4 : if (Train_Path(4,2) == 0)
+"436
 [e :U 698 ]
-[e $ ! && && && ! != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 37 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 35 `i `uc -> -> 0 `i `ui 699  ]
+[e $ ! == -> ( _Train_Path (2 , -> -> 4 `i `uc -> -> 2 `i `uc `i -> 0 `i 699  ]
+[; ;State_Mchn.c: 437: {
+"437
+{
+[; ;State_Mchn.c: 438: Switch_Program = 5;
+"438
+[e = _Switch_Program -> -> 5 `i `uc ]
+[; ;State_Mchn.c: 439: Eeprom_Store();
+"439
+[e ( _Eeprom_Store ..  ]
+[; ;State_Mchn.c: 440: if(Stop_Program == 1)
+"440
+[e $ ! == -> _Stop_Program `i -> 1 `i 700  ]
+[; ;State_Mchn.c: 441: {
+"441
+{
+[; ;State_Mchn.c: 442: Switch_Main = 0;
+"442
+[e = _Switch_Main -> -> 0 `i `uc ]
+"444
+}
+[e :U 700 ]
+"445
+}
+[e :U 699 ]
+[; ;State_Mchn.c: 444: }
+[; ;State_Mchn.c: 445: }
+[; ;State_Mchn.c: 446: break;
+"446
+[e $U 684  ]
+[; ;State_Mchn.c: 448: case 5 : if (Train_Path(1,4) == 0)
+"448
+[e :U 701 ]
+[e $ ! == -> ( _Train_Path (2 , -> -> 1 `i `uc -> -> 4 `i `uc `i -> 0 `i 702  ]
+[; ;State_Mchn.c: 449: {
+"449
+{
+[; ;State_Mchn.c: 450: Switch_Program = 6;
+"450
+[e = _Switch_Program -> -> 6 `i `uc ]
+[; ;State_Mchn.c: 451: Eeprom_Store();
+"451
+[e ( _Eeprom_Store ..  ]
+[; ;State_Mchn.c: 452: if(Stop_Program == 1)
+"452
+[e $ ! == -> _Stop_Program `i -> 1 `i 703  ]
+[; ;State_Mchn.c: 453: {
+"453
+{
+[; ;State_Mchn.c: 454: Switch_Main = 0;
+"454
+[e = _Switch_Main -> -> 0 `i `uc ]
+"456
+}
+[e :U 703 ]
+"457
+}
+[e :U 702 ]
+[; ;State_Mchn.c: 456: }
+[; ;State_Mchn.c: 457: }
+[; ;State_Mchn.c: 458: break;
+"458
+[e $U 684  ]
+[; ;State_Mchn.c: 460: case 6 : if (Train_Path(2,3) == 0)
+"460
+[e :U 704 ]
+[e $ ! == -> ( _Train_Path (2 , -> -> 2 `i `uc -> -> 3 `i `uc `i -> 0 `i 705  ]
+[; ;State_Mchn.c: 461: {
+"461
+{
+[; ;State_Mchn.c: 462: Switch_Program = 7;
+"462
+[e = _Switch_Program -> -> 7 `i `uc ]
+[; ;State_Mchn.c: 463: Eeprom_Store();
+"463
+[e ( _Eeprom_Store ..  ]
+[; ;State_Mchn.c: 464: if(Stop_Program == 1)
+"464
+[e $ ! == -> _Stop_Program `i -> 1 `i 706  ]
 [; ;State_Mchn.c: 465: {
 "465
 {
-[; ;State_Mchn.c: 466: Activate_Controls_Counter--;
+[; ;State_Mchn.c: 466: Switch_Main = 0;
 "466
-[e -- _Activate_Controls_Counter -> -> 1 `i `ui ]
-"467
-}
-[; ;State_Mchn.c: 467: }
-[e $U 700  ]
+[e = _Switch_Main -> -> 0 `i `uc ]
 "468
-[e :U 699 ]
-[; ;State_Mchn.c: 468: else
-[; ;State_Mchn.c: 469: {
+}
+[e :U 706 ]
 "469
-{
-[; ;State_Mchn.c: 470: Activate_Controls_Counter = 10000;
+}
+[e :U 705 ]
+[; ;State_Mchn.c: 468: }
+[; ;State_Mchn.c: 469: }
+[; ;State_Mchn.c: 470: break;
 "470
-[e = _Activate_Controls_Counter -> -> 10000 `i `ui ]
-"471
-}
-[e :U 700 ]
-[; ;State_Mchn.c: 471: }
-[; ;State_Mchn.c: 473: Red_Led(3);
-"473
-[e ( _Red_Led (1 -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 475: switch(GETxAPIxVAL(0x23))
-"475
-[e $U 702  ]
-[; ;State_Mchn.c: 476: {
-"476
-{
-[; ;State_Mchn.c: 477: case 0 : Switch_Adjust_LB = 0;
-"477
-[e :U 703 ]
-[e = _Switch_Adjust_LB -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 478: break;
-"478
-[e $U 701  ]
-[; ;State_Mchn.c: 480: case 1 : switch(Switch_Adjust_LB)
-"480
-[e :U 704 ]
-[e $U 706  ]
-[; ;State_Mchn.c: 481: {
-"481
-{
-[; ;State_Mchn.c: 482: case 0 : if(GETxAPIxVAL(0x17) >= GETxAPIxVAL(0x16))
-"482
+[e $U 684  ]
+[; ;State_Mchn.c: 472: case 7 : if (Train_Path(4,2) == 0)
+"472
 [e :U 707 ]
-[e $ ! >= ( _GETxAPIxVAL (1 -> -> 23 `i `uc ( _GETxAPIxVAL (1 -> -> 22 `i `uc 708  ]
-[; ;State_Mchn.c: 483: {
-"483
+[e $ ! == -> ( _Train_Path (2 , -> -> 4 `i `uc -> -> 2 `i `uc `i -> 0 `i 708  ]
+[; ;State_Mchn.c: 473: {
+"473
 {
-[; ;State_Mchn.c: 484: DECRxAPIxVAL(0x17);
-"484
-[e ( _DECRxAPIxVAL (1 -> -> 23 `i `uc ]
-"485
-}
-[e :U 708 ]
-[; ;State_Mchn.c: 485: }
-[; ;State_Mchn.c: 486: if(GETxAPIxVAL(0x18) <= GETxAPIxVAL(0x15))
-"486
-[e $ ! <= ( _GETxAPIxVAL (1 -> -> 24 `i `uc ( _GETxAPIxVAL (1 -> -> 21 `i `uc 709  ]
-[; ;State_Mchn.c: 487: {
-"487
+[; ;State_Mchn.c: 474: Switch_Program = 0;
+"474
+[e = _Switch_Program -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 475: Eeprom_Store();
+"475
+[e ( _Eeprom_Store ..  ]
+[; ;State_Mchn.c: 476: if(Stop_Program == 1)
+"476
+[e $ ! == -> _Stop_Program `i -> 1 `i 709  ]
+[; ;State_Mchn.c: 477: {
+"477
 {
-[; ;State_Mchn.c: 488: INCRxAPIxVAL(0x18);
-"488
-[e ( _INCRxAPIxVAL (1 -> -> 24 `i `uc ]
-"489
+[; ;State_Mchn.c: 478: Switch_Main = 0;
+"478
+[e = _Switch_Main -> -> 0 `i `uc ]
+"480
 }
 [e :U 709 ]
-[; ;State_Mchn.c: 489: }
-[; ;State_Mchn.c: 490: Switch_Adjust_LB = 1;
-"490
-[e = _Switch_Adjust_LB -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 491: break;
-"491
-[e $U 705  ]
-[; ;State_Mchn.c: 493: case 1 : if(Adjust_Counter >= 20)
-"493
+"481
+}
+[e :U 708 ]
+[; ;State_Mchn.c: 480: }
+[; ;State_Mchn.c: 481: }
+[; ;State_Mchn.c: 482: break;
+"482
+[e $U 684  ]
+[; ;State_Mchn.c: 486: default : break;
+"486
 [e :U 710 ]
-[e $ ! >= _Adjust_Counter -> -> 20 `i `ui 711  ]
-[; ;State_Mchn.c: 494: {
-"494
-{
-[; ;State_Mchn.c: 495: Adjust_Counter = 0;
-"495
-[e = _Adjust_Counter -> -> 0 `i `ui ]
-[; ;State_Mchn.c: 496: Switch_Adjust_LB = 0;
-"496
-[e = _Switch_Adjust_LB -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 497: break;
-"497
-[e $U 705  ]
-"498
+[e $U 684  ]
+"487
 }
-[; ;State_Mchn.c: 498: }
-[e $U 712  ]
-"499
-[e :U 711 ]
-[; ;State_Mchn.c: 499: else {Adjust_Counter++;}
-{
-[e ++ _Adjust_Counter -> -> 1 `i `ui ]
-}
-[e :U 712 ]
-[; ;State_Mchn.c: 500: break;
-"500
-[e $U 705  ]
-[; ;State_Mchn.c: 502: default : Switch_Adjust_LB = 0;
-"502
-[e :U 713 ]
-[e = _Switch_Adjust_LB -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 503: break;
-"503
-[e $U 705  ]
-"504
-}
-[; ;State_Mchn.c: 504: }
-[e $U 705  ]
-"480
-[e :U 706 ]
-[e [\ _Switch_Adjust_LB , $ -> -> 0 `i `uc 707
- , $ -> -> 1 `i `uc 710
- 713 ]
-"504
-[e :U 705 ]
-[; ;State_Mchn.c: 505: break;
-"505
-[e $U 701  ]
-[; ;State_Mchn.c: 507: default : break;
-"507
-[e :U 714 ]
-[e $U 701  ]
-"508
-}
-[; ;State_Mchn.c: 508: }
-[e $U 701  ]
-"475
-[e :U 702 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 35 `i `uc , $ -> -> 0 `i `ui 703
- , $ -> -> 1 `i `ui 704
- 714 ]
-"508
-[e :U 701 ]
-[; ;State_Mchn.c: 511: switch(GETxAPIxVAL(0x24))
-"511
-[e $U 716  ]
-[; ;State_Mchn.c: 512: {
-"512
-{
-[; ;State_Mchn.c: 513: case 0 : Switch_Adjust_LF = 0;
-"513
-[e :U 717 ]
-[e = _Switch_Adjust_LF -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 514: break;
-"514
-[e $U 715  ]
-[; ;State_Mchn.c: 516: case 1 : switch(Switch_Adjust_LF)
-"516
-[e :U 718 ]
-[e $U 720  ]
-[; ;State_Mchn.c: 517: {
-"517
-{
-[; ;State_Mchn.c: 518: case 0 : if(GETxAPIxVAL(0x17) <= 1022)
-"518
-[e :U 721 ]
-[e $ ! <= ( _GETxAPIxVAL (1 -> -> 23 `i `uc -> -> 1022 `i `ui 722  ]
-[; ;State_Mchn.c: 519: {
-"519
-{
-[; ;State_Mchn.c: 520: INCRxAPIxVAL(0x17);
-"520
-[e ( _INCRxAPIxVAL (1 -> -> 23 `i `uc ]
-"521
-}
-[e :U 722 ]
-[; ;State_Mchn.c: 521: }
-[; ;State_Mchn.c: 522: if(GETxAPIxVAL(0x18) >= 1)
-"522
-[e $ ! >= ( _GETxAPIxVAL (1 -> -> 24 `i `uc -> -> 1 `i `ui 723  ]
-[; ;State_Mchn.c: 523: {
-"523
-{
-[; ;State_Mchn.c: 524: DECRxAPIxVAL(0x18);
-"524
-[e ( _DECRxAPIxVAL (1 -> -> 24 `i `uc ]
-"525
-}
-[e :U 723 ]
-[; ;State_Mchn.c: 525: }
-[; ;State_Mchn.c: 526: Switch_Adjust_LF = 1;
-"526
-[e = _Switch_Adjust_LF -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 527: break;
-"527
-[e $U 719  ]
-[; ;State_Mchn.c: 529: case 1 : if(Adjust_Counter >= 20)
-"529
-[e :U 724 ]
-[e $ ! >= _Adjust_Counter -> -> 20 `i `ui 725  ]
-[; ;State_Mchn.c: 530: {
-"530
-{
-[; ;State_Mchn.c: 531: Adjust_Counter = 0;
-"531
-[e = _Adjust_Counter -> -> 0 `i `ui ]
-[; ;State_Mchn.c: 532: Switch_Adjust_LF = 0;
-"532
-[e = _Switch_Adjust_LF -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 533: break;
-"533
-[e $U 719  ]
-"534
-}
-[; ;State_Mchn.c: 534: }
-[e $U 726  ]
-"535
-[e :U 725 ]
-[; ;State_Mchn.c: 535: else {Adjust_Counter++;}
-{
-[e ++ _Adjust_Counter -> -> 1 `i `ui ]
-}
-[e :U 726 ]
-[; ;State_Mchn.c: 536: break;
-"536
-[e $U 719  ]
-[; ;State_Mchn.c: 538: default : Switch_Adjust_LF = 0;
-"538
-[e :U 727 ]
-[e = _Switch_Adjust_LF -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 539: break;
-"539
-[e $U 719  ]
-"540
-}
-[; ;State_Mchn.c: 540: }
-[e $U 719  ]
-"516
-[e :U 720 ]
-[e [\ _Switch_Adjust_LF , $ -> -> 0 `i `uc 721
- , $ -> -> 1 `i `uc 724
- 727 ]
-"540
-[e :U 719 ]
-[; ;State_Mchn.c: 541: break;
-"541
-[e $U 715  ]
-[; ;State_Mchn.c: 543: default : break;
-"543
-[e :U 728 ]
-[e $U 715  ]
-"544
-}
-[; ;State_Mchn.c: 544: }
-[e $U 715  ]
-"511
-[e :U 716 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 36 `i `uc , $ -> -> 0 `i `ui 717
- , $ -> -> 1 `i `ui 718
- 728 ]
-"544
-[e :U 715 ]
-[; ;State_Mchn.c: 546: switch(GETxAPIxVAL(0x25))
-"546
-[e $U 730  ]
-[; ;State_Mchn.c: 547: {
-"547
-{
-[; ;State_Mchn.c: 548: case 0 : Switch_Adjust_RB = 0;
-"548
-[e :U 731 ]
-[e = _Switch_Adjust_RB -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 549: break;
-"549
-[e $U 729  ]
-[; ;State_Mchn.c: 551: case 1 : switch(Switch_Adjust_RB)
-"551
-[e :U 732 ]
-[e $U 734  ]
-[; ;State_Mchn.c: 552: {
-"552
-{
-[; ;State_Mchn.c: 553: case 0 : if(GETxAPIxVAL(0x19) <= 250)
-"553
-[e :U 735 ]
-[e $ ! <= ( _GETxAPIxVAL (1 -> -> 25 `i `uc -> -> 250 `i `ui 736  ]
-[; ;State_Mchn.c: 554: {
-"554
-{
-[; ;State_Mchn.c: 555: INCRxAPIxVAL(0x19);
-"555
-[e ( _INCRxAPIxVAL (1 -> -> 25 `i `uc ]
-"556
-}
-[e :U 736 ]
-[; ;State_Mchn.c: 556: }
-[; ;State_Mchn.c: 557: Switch_Adjust_RB = 1;
-"557
-[e = _Switch_Adjust_RB -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 558: break;
-"558
-[e $U 733  ]
-[; ;State_Mchn.c: 560: case 1 : if(Adjust_Counter >= 20)
-"560
-[e :U 737 ]
-[e $ ! >= _Adjust_Counter -> -> 20 `i `ui 738  ]
-[; ;State_Mchn.c: 561: {
-"561
-{
-[; ;State_Mchn.c: 562: Adjust_Counter = 0;
-"562
-[e = _Adjust_Counter -> -> 0 `i `ui ]
-[; ;State_Mchn.c: 563: Switch_Adjust_RB = 0;
-"563
-[e = _Switch_Adjust_RB -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 564: break;
-"564
-[e $U 733  ]
-"565
-}
-[; ;State_Mchn.c: 565: }
-[e $U 739  ]
-"566
-[e :U 738 ]
-[; ;State_Mchn.c: 566: else {Adjust_Counter++;}
-{
-[e ++ _Adjust_Counter -> -> 1 `i `ui ]
-}
-[e :U 739 ]
-[; ;State_Mchn.c: 567: break;
-"567
-[e $U 733  ]
-[; ;State_Mchn.c: 569: default : Switch_Adjust_RB = 0;
-"569
-[e :U 740 ]
-[e = _Switch_Adjust_RB -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 570: break;
-"570
-[e $U 733  ]
-"571
-}
-[; ;State_Mchn.c: 571: }
-[e $U 733  ]
-"551
-[e :U 734 ]
-[e [\ _Switch_Adjust_RB , $ -> -> 0 `i `uc 735
- , $ -> -> 1 `i `uc 737
- 740 ]
-"571
-[e :U 733 ]
-[; ;State_Mchn.c: 572: break;
-"572
-[e $U 729  ]
-[; ;State_Mchn.c: 574: default : break;
-"574
-[e :U 741 ]
-[e $U 729  ]
-"575
-}
-[; ;State_Mchn.c: 575: }
-[e $U 729  ]
-"546
-[e :U 730 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 37 `i `uc , $ -> -> 0 `i `ui 731
- , $ -> -> 1 `i `ui 732
- 741 ]
-"575
-[e :U 729 ]
-[; ;State_Mchn.c: 578: switch(GETxAPIxVAL(0x26))
-"578
-[e $U 743  ]
-[; ;State_Mchn.c: 579: {
-"579
-{
-[; ;State_Mchn.c: 580: case 0 : Switch_Adjust_RF = 0;
-"580
-[e :U 744 ]
-[e = _Switch_Adjust_RF -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 581: break;
-"581
-[e $U 742  ]
-[; ;State_Mchn.c: 583: case 1 : switch(Switch_Adjust_RF)
-"583
-[e :U 745 ]
-[e $U 747  ]
-[; ;State_Mchn.c: 584: {
-"584
-{
-[; ;State_Mchn.c: 585: case 0 : if(GETxAPIxVAL(0x19) >= 1)
-"585
-[e :U 748 ]
-[e $ ! >= ( _GETxAPIxVAL (1 -> -> 25 `i `uc -> -> 1 `i `ui 749  ]
-[; ;State_Mchn.c: 586: {
-"586
-{
-[; ;State_Mchn.c: 587: DECRxAPIxVAL(0x19);
-"587
-[e ( _DECRxAPIxVAL (1 -> -> 25 `i `uc ]
-"588
-}
-[e :U 749 ]
-[; ;State_Mchn.c: 588: } Switch_Adjust_RF = 1;
-[e = _Switch_Adjust_RF -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 589: break;
-"589
-[e $U 746  ]
-[; ;State_Mchn.c: 591: case 1 : if(Adjust_Counter >= 20)
-"591
-[e :U 750 ]
-[e $ ! >= _Adjust_Counter -> -> 20 `i `ui 751  ]
-[; ;State_Mchn.c: 592: {
-"592
-{
-[; ;State_Mchn.c: 593: Adjust_Counter = 0;
-"593
-[e = _Adjust_Counter -> -> 0 `i `ui ]
-[; ;State_Mchn.c: 594: Switch_Adjust_RF = 0;
-"594
-[e = _Switch_Adjust_RF -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 595: break;
-"595
-[e $U 746  ]
-"596
-}
-[; ;State_Mchn.c: 596: }
-[e $U 752  ]
-"597
-[e :U 751 ]
-[; ;State_Mchn.c: 597: else {Adjust_Counter++;}
-{
-[e ++ _Adjust_Counter -> -> 1 `i `ui ]
-}
-[e :U 752 ]
-[; ;State_Mchn.c: 598: break;
-"598
-[e $U 746  ]
-[; ;State_Mchn.c: 600: default : Switch_Adjust_RF = 0;
-"600
-[e :U 753 ]
-[e = _Switch_Adjust_RF -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 601: break;
-"601
-[e $U 746  ]
-"602
-}
-[; ;State_Mchn.c: 602: }
-[e $U 746  ]
-"583
-[e :U 747 ]
-[e [\ _Switch_Adjust_RF , $ -> -> 0 `i `uc 748
- , $ -> -> 1 `i `uc 750
- 753 ]
-"602
-[e :U 746 ]
-[; ;State_Mchn.c: 603: break;
-"603
-[e $U 742  ]
-[; ;State_Mchn.c: 605: default : break;
-"605
-[e :U 754 ]
-[e $U 742  ]
-"606
-}
-[; ;State_Mchn.c: 606: }
-[e $U 742  ]
-"578
-[e :U 743 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 38 `i `uc , $ -> -> 0 `i `ui 744
- , $ -> -> 1 `i `ui 745
- 754 ]
-"606
-[e :U 742 ]
-[; ;State_Mchn.c: 607: if(Activate_Controls_Counter <= 1)
-"607
-[e $ ! <= _Activate_Controls_Counter -> -> 1 `i `ui 755  ]
-[; ;State_Mchn.c: 608: {
-"608
-{
-[; ;State_Mchn.c: 609: Switch_Activate_Controls = 0;
-"609
-[e = _Switch_Activate_Controls -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 610: Red_Led(0);
-"610
-[e ( _Red_Led (1 -> -> 0 `i `uc ]
-"611
-}
-[e :U 755 ]
-[; ;State_Mchn.c: 611: }
-[; ;State_Mchn.c: 612: break;
-"612
-[e $U 690  ]
-[; ;State_Mchn.c: 614: default : Switch_Activate_Controls = 0;
-"614
-[e :U 756 ]
-[e = _Switch_Activate_Controls -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 615: Red_Led(0);
-"615
-[e ( _Red_Led (1 -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 616: break;
-"616
-[e $U 690  ]
-"617
-}
-[; ;State_Mchn.c: 617: }
-[e $U 690  ]
-"437
-[e :U 691 ]
-[e [\ _Switch_Activate_Controls , $ -> -> 0 `i `uc 692
- , $ -> -> 1 `i `uc 695
- , $ -> -> 2 `i `uc 698
- 756 ]
-"617
-[e :U 690 ]
-[; ;State_Mchn.c: 619: if(GETxAPIxVAL(0x21))
-"619
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 33 `i `uc -> -> 0 `i `ui 757  ]
-[; ;State_Mchn.c: 620: {
-"620
-{
-[; ;State_Mchn.c: 621: Stop_Program = 1;
-"621
-[e = _Stop_Program -> -> 1 `i `uc ]
-"622
-}
-[e :U 757 ]
-[; ;State_Mchn.c: 622: }
-[; ;State_Mchn.c: 624: if(Stop_Program == 1)
-"624
-[e $ ! == -> _Stop_Program `i -> 1 `i 758  ]
-[; ;State_Mchn.c: 625: {
-"625
-{
-[; ;State_Mchn.c: 626: Red_Led(2);
-"626
-[e ( _Red_Led (1 -> -> 2 `i `uc ]
-"627
-}
-[e :U 758 ]
-[; ;State_Mchn.c: 627: }
-[; ;State_Mchn.c: 629: Green_Led(1);
-"629
-[e ( _Green_Led (1 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 631: break;
-"631
-[e $U 564  ]
-[; ;State_Mchn.c: 634: case 2 : switch (Switch_Program)
-"634
-[e :U 759 ]
-[e $U 761  ]
-[; ;State_Mchn.c: 635: {
-"635
-{
-[; ;State_Mchn.c: 636: case 0 : if (Train_Path(2,0) == 0)
-"636
-[e :U 762 ]
-[e $ ! == -> ( _Train_Path (2 , -> -> 2 `i `uc -> -> 0 `i `uc `i -> 0 `i 763  ]
-[; ;State_Mchn.c: 637: {
-"637
-{
-[; ;State_Mchn.c: 638: Switch_Program = 1;
-"638
-[e = _Switch_Program -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 639: Eeprom_Store();
-"639
-[e ( _Eeprom_Store ..  ]
-[; ;State_Mchn.c: 640: if(Stop_Program == 1)
-"640
-[e $ ! == -> _Stop_Program `i -> 1 `i 764  ]
-[; ;State_Mchn.c: 641: {
-"641
-{
-[; ;State_Mchn.c: 642: Switch_Main = 0;
-"642
-[e = _Switch_Main -> -> 0 `i `uc ]
-"644
-}
-[e :U 764 ]
-"645
-}
-[e :U 763 ]
-[; ;State_Mchn.c: 644: }
-[; ;State_Mchn.c: 645: }
-[; ;State_Mchn.c: 646: break;
-"646
-[e $U 760  ]
-[; ;State_Mchn.c: 648: case 1 : if (Train_Path(0,3) == 0)
-"648
-[e :U 765 ]
-[e $ ! == -> ( _Train_Path (2 , -> -> 0 `i `uc -> -> 3 `i `uc `i -> 0 `i 766  ]
-[; ;State_Mchn.c: 649: {
-"649
-{
-[; ;State_Mchn.c: 650: Switch_Program = 2;
-"650
-[e = _Switch_Program -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 651: Eeprom_Store();
-"651
-[e ( _Eeprom_Store ..  ]
-[; ;State_Mchn.c: 652: if(Stop_Program == 1)
-"652
-[e $ ! == -> _Stop_Program `i -> 1 `i 767  ]
-[; ;State_Mchn.c: 653: {
-"653
-{
-[; ;State_Mchn.c: 654: Switch_Main = 0;
-"654
-[e = _Switch_Main -> -> 0 `i `uc ]
-"656
-}
-[e :U 767 ]
-"657
-}
-[e :U 766 ]
-[; ;State_Mchn.c: 656: }
-[; ;State_Mchn.c: 657: }
-[; ;State_Mchn.c: 658: break;
-"658
-[e $U 760  ]
-[; ;State_Mchn.c: 660: case 2 : if (Train_Path(3,1) == 0)
-"660
-[e :U 768 ]
-[e $ ! == -> ( _Train_Path (2 , -> -> 3 `i `uc -> -> 1 `i `uc `i -> 0 `i 769  ]
-[; ;State_Mchn.c: 661: {
-"661
-{
-[; ;State_Mchn.c: 662: Switch_Program = 3;
-"662
-[e = _Switch_Program -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 663: Eeprom_Store();
-"663
-[e ( _Eeprom_Store ..  ]
-[; ;State_Mchn.c: 664: if(Stop_Program == 1)
-"664
-[e $ ! == -> _Stop_Program `i -> 1 `i 770  ]
-[; ;State_Mchn.c: 665: {
-"665
-{
-[; ;State_Mchn.c: 666: Switch_Main = 0;
-"666
-[e = _Switch_Main -> -> 0 `i `uc ]
-"668
-}
-[e :U 770 ]
-"669
-}
-[e :U 769 ]
-[; ;State_Mchn.c: 668: }
-[; ;State_Mchn.c: 669: }
-[; ;State_Mchn.c: 670: break;
-"670
-[e $U 760  ]
-[; ;State_Mchn.c: 672: case 3 : if (Train_Path(1,2) == 0)
+[; ;State_Mchn.c: 487: }
+[e $U 684  ]
+"386
+[e :U 685 ]
+[e [\ _Switch_Program , $ -> -> 0 `i `uc 686
+ , $ -> -> 1 `i `uc 689
+ , $ -> -> 2 `i `uc 692
+ , $ -> -> 3 `i `uc 695
+ , $ -> -> 4 `i `uc 698
+ , $ -> -> 5 `i `uc 701
+ , $ -> -> 6 `i `uc 704
+ , $ -> -> 7 `i `uc 707
+ 710 ]
+"487
+[e :U 684 ]
+[; ;State_Mchn.c: 671: if(GETxAPIxVAL(33) || GETxAPIxVAL(71))
+"671
+[e $ ! || != ( _GETxAPIxVAL (1 -> -> 33 `i `uc -> -> 0 `i `ui != ( _GETxAPIxVAL (1 -> -> 71 `i `uc -> -> 0 `i `ui 711  ]
+[; ;State_Mchn.c: 672: {
 "672
-[e :U 771 ]
-[e $ ! == -> ( _Train_Path (2 , -> -> 1 `i `uc -> -> 2 `i `uc `i -> 0 `i 772  ]
-[; ;State_Mchn.c: 673: {
+{
+[; ;State_Mchn.c: 673: Stop_Program = 1;
 "673
-{
-[; ;State_Mchn.c: 674: Switch_Program = 0;
+[e = _Stop_Program -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 674: SETxAPIxVAL(71, 0);
 "674
-[e = _Switch_Program -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 675: Eeprom_Store();
+[e ( _SETxAPIxVAL (2 , -> -> 71 `i `uc -> -> 0 `i `ui ]
 "675
-[e ( _Eeprom_Store ..  ]
-[; ;State_Mchn.c: 676: if(Stop_Program == 1)
-"676
-[e $ ! == -> _Stop_Program `i -> 1 `i 773  ]
-[; ;State_Mchn.c: 677: {
+}
+[e :U 711 ]
+[; ;State_Mchn.c: 675: }
+[; ;State_Mchn.c: 677: if(Stop_Program == 1)
 "677
-{
-[; ;State_Mchn.c: 678: Switch_Main = 0;
+[e $ ! == -> _Stop_Program `i -> 1 `i 712  ]
+[; ;State_Mchn.c: 678: {
 "678
-[e = _Switch_Main -> -> 0 `i `uc ]
+{
+[; ;State_Mchn.c: 679: Red_Led(2);
+"679
+[e ( _Red_Led (1 -> -> 2 `i `uc ]
 "680
 }
-[e :U 773 ]
-"681
-}
-[e :U 772 ]
+[e :U 712 ]
 [; ;State_Mchn.c: 680: }
-[; ;State_Mchn.c: 681: }
-[; ;State_Mchn.c: 682: break;
+[; ;State_Mchn.c: 682: Green_Led(1);
 "682
-[e $U 760  ]
-[; ;State_Mchn.c: 684: default : break;
+[e ( _Green_Led (1 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 684: break;
 "684
-[e :U 774 ]
-[e $U 760  ]
-"685
-}
-[; ;State_Mchn.c: 685: }
-[e $U 760  ]
-"634
-[e :U 761 ]
-[e [\ _Switch_Program , $ -> -> 0 `i `uc 762
- , $ -> -> 1 `i `uc 765
- , $ -> -> 2 `i `uc 768
- , $ -> -> 3 `i `uc 771
- 774 ]
-"685
-[e :U 760 ]
-[; ;State_Mchn.c: 687: switch(Switch_Activate_Controls)
+[e $U 565  ]
+[; ;State_Mchn.c: 687: case 2 : switch (Switch_Program)
 "687
-[e $U 776  ]
+[e :U 713 ]
+[e $U 715  ]
 [; ;State_Mchn.c: 688: {
 "688
 {
-[; ;State_Mchn.c: 689: case 0 : if(GETxAPIxVAL(0x24) && GETxAPIxVAL(0x26))
+[; ;State_Mchn.c: 689: case 0 : if (Train_Path(3,1) == 0)
 "689
-[e :U 777 ]
-[e $ ! && != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui 778  ]
+[e :U 716 ]
+[e $ ! == -> ( _Train_Path (2 , -> -> 3 `i `uc -> -> 1 `i `uc `i -> 0 `i 717  ]
 [; ;State_Mchn.c: 690: {
 "690
 {
-[; ;State_Mchn.c: 691: Switch_Activate_Controls = 1;
+[; ;State_Mchn.c: 691: Switch_Program = 1;
 "691
-[e = _Switch_Activate_Controls -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 692: Red_Led(3);
+[e = _Switch_Program -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 692: Eeprom_Store();
 "692
-[e ( _Red_Led (1 -> -> 3 `i `uc ]
+[e ( _Eeprom_Store ..  ]
+[; ;State_Mchn.c: 693: if(Stop_Program == 1)
 "693
-}
-[; ;State_Mchn.c: 693: }
-[e $U 779  ]
+[e $ ! == -> _Stop_Program `i -> 1 `i 718  ]
+[; ;State_Mchn.c: 694: {
 "694
-[e :U 778 ]
-[; ;State_Mchn.c: 694: else
-[; ;State_Mchn.c: 695: {
-"695
 {
-[; ;State_Mchn.c: 696: Switch_Activate_Controls = 0;
-"696
-[e = _Switch_Activate_Controls -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 697: Red_Led(0);
+[; ;State_Mchn.c: 695: Switch_Main = 0;
+"695
+[e = _Switch_Main -> -> 0 `i `uc ]
 "697
-[e ( _Red_Led (1 -> -> 0 `i `uc ]
+}
+[e :U 718 ]
 "698
 }
-[e :U 779 ]
+[e :U 717 ]
+[; ;State_Mchn.c: 697: }
 [; ;State_Mchn.c: 698: }
 [; ;State_Mchn.c: 699: break;
 "699
-[e $U 775  ]
-[; ;State_Mchn.c: 701: case 1 : if(!GETxAPIxVAL(0x24) && !GETxAPIxVAL(0x26))
+[e $U 714  ]
+[; ;State_Mchn.c: 701: case 1 : if (Train_Path(1,4) == 0)
 "701
-[e :U 780 ]
-[e $ ! && ! != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui 781  ]
+[e :U 719 ]
+[e $ ! == -> ( _Train_Path (2 , -> -> 1 `i `uc -> -> 4 `i `uc `i -> 0 `i 720  ]
 [; ;State_Mchn.c: 702: {
 "702
 {
-[; ;State_Mchn.c: 703: Switch_Activate_Controls = 2;
+[; ;State_Mchn.c: 703: Switch_Program = 2;
 "703
-[e = _Switch_Activate_Controls -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 704: Red_Led(3);
+[e = _Switch_Program -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 704: Eeprom_Store();
 "704
-[e ( _Red_Led (1 -> -> 3 `i `uc ]
+[e ( _Eeprom_Store ..  ]
+[; ;State_Mchn.c: 705: if(Stop_Program == 1)
 "705
-}
-[; ;State_Mchn.c: 705: }
-[e $U 782  ]
+[e $ ! == -> _Stop_Program `i -> 1 `i 721  ]
+[; ;State_Mchn.c: 706: {
 "706
-[e :U 781 ]
-[; ;State_Mchn.c: 706: else
-[; ;State_Mchn.c: 707: {
-"707
 {
-[; ;State_Mchn.c: 708: Switch_Activate_Controls = 1;
-"708
-[e = _Switch_Activate_Controls -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 709: Red_Led(3);
+[; ;State_Mchn.c: 707: Switch_Main = 0;
+"707
+[e = _Switch_Main -> -> 0 `i `uc ]
 "709
-[e ( _Red_Led (1 -> -> 3 `i `uc ]
+}
+[e :U 721 ]
 "710
 }
-[e :U 782 ]
+[e :U 720 ]
+[; ;State_Mchn.c: 709: }
 [; ;State_Mchn.c: 710: }
-[; ;State_Mchn.c: 711: Activate_Controls_Counter = 10000;
+[; ;State_Mchn.c: 711: break;
 "711
-[e = _Activate_Controls_Counter -> -> 10000 `i `ui ]
-[; ;State_Mchn.c: 712: break;
-"712
-[e $U 775  ]
-[; ;State_Mchn.c: 714: case 2 : if(!GETxAPIxVAL(0x24) && !GETxAPIxVAL(0x26) && !GETxAPIxVAL(0x25) && !GETxAPIxVAL(0x23))
+[e $U 714  ]
+[; ;State_Mchn.c: 713: case 2 : if (Train_Path(4,2) == 0)
+"713
+[e :U 722 ]
+[e $ ! == -> ( _Train_Path (2 , -> -> 4 `i `uc -> -> 2 `i `uc `i -> 0 `i 723  ]
+[; ;State_Mchn.c: 714: {
 "714
-[e :U 783 ]
-[e $ ! && && && ! != ( _GETxAPIxVAL (1 -> -> 36 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 38 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 37 `i `uc -> -> 0 `i `ui ! != ( _GETxAPIxVAL (1 -> -> 35 `i `uc -> -> 0 `i `ui 784  ]
-[; ;State_Mchn.c: 715: {
+{
+[; ;State_Mchn.c: 715: Switch_Program = 3;
 "715
-{
-[; ;State_Mchn.c: 716: Activate_Controls_Counter--;
+[e = _Switch_Program -> -> 3 `i `uc ]
+[; ;State_Mchn.c: 716: Eeprom_Store();
 "716
-[e -- _Activate_Controls_Counter -> -> 1 `i `ui ]
+[e ( _Eeprom_Store ..  ]
+[; ;State_Mchn.c: 717: if(Stop_Program == 1)
 "717
-}
-[; ;State_Mchn.c: 717: }
-[e $U 785  ]
+[e $ ! == -> _Stop_Program `i -> 1 `i 724  ]
+[; ;State_Mchn.c: 718: {
 "718
-[e :U 784 ]
-[; ;State_Mchn.c: 718: else
-[; ;State_Mchn.c: 719: {
-"719
 {
-[; ;State_Mchn.c: 720: Activate_Controls_Counter = 10000;
-"720
-[e = _Activate_Controls_Counter -> -> 10000 `i `ui ]
+[; ;State_Mchn.c: 719: Switch_Main = 0;
+"719
+[e = _Switch_Main -> -> 0 `i `uc ]
 "721
 }
-[e :U 785 ]
+[e :U 724 ]
+"722
+}
+[e :U 723 ]
 [; ;State_Mchn.c: 721: }
-[; ;State_Mchn.c: 723: Red_Led(3);
+[; ;State_Mchn.c: 722: }
+[; ;State_Mchn.c: 723: break;
 "723
-[e ( _Red_Led (1 -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 725: switch(GETxAPIxVAL(0x23))
+[e $U 714  ]
+[; ;State_Mchn.c: 725: case 3 : if (Train_Path(2,3) == 0)
 "725
-[e $U 787  ]
+[e :U 725 ]
+[e $ ! == -> ( _Train_Path (2 , -> -> 2 `i `uc -> -> 3 `i `uc `i -> 0 `i 726  ]
 [; ;State_Mchn.c: 726: {
 "726
 {
-[; ;State_Mchn.c: 727: case 0 : Switch_Adjust_LB = 0;
+[; ;State_Mchn.c: 727: Switch_Program = 0;
 "727
-[e :U 788 ]
-[e = _Switch_Adjust_LB -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 728: break;
+[e = _Switch_Program -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 728: Eeprom_Store();
 "728
-[e $U 786  ]
-[; ;State_Mchn.c: 730: case 1 : switch(Switch_Adjust_LB)
+[e ( _Eeprom_Store ..  ]
+[; ;State_Mchn.c: 729: if(Stop_Program == 1)
+"729
+[e $ ! == -> _Stop_Program `i -> 1 `i 727  ]
+[; ;State_Mchn.c: 730: {
 "730
-[e :U 789 ]
-[e $U 791  ]
-[; ;State_Mchn.c: 731: {
+{
+[; ;State_Mchn.c: 731: Switch_Main = 0;
 "731
-{
-[; ;State_Mchn.c: 732: case 0 : if(GETxAPIxVAL(0x17) >= GETxAPIxVAL(0x16))
-"732
-[e :U 792 ]
-[e $ ! >= ( _GETxAPIxVAL (1 -> -> 23 `i `uc ( _GETxAPIxVAL (1 -> -> 22 `i `uc 793  ]
-[; ;State_Mchn.c: 733: {
+[e = _Switch_Main -> -> 0 `i `uc ]
 "733
-{
-[; ;State_Mchn.c: 734: DECRxAPIxVAL(0x17);
+}
+[e :U 727 ]
 "734
-[e ( _DECRxAPIxVAL (1 -> -> 23 `i `uc ]
+}
+[e :U 726 ]
+[; ;State_Mchn.c: 733: }
+[; ;State_Mchn.c: 734: }
+[; ;State_Mchn.c: 735: break;
 "735
-}
-[e :U 793 ]
-[; ;State_Mchn.c: 735: }
-[; ;State_Mchn.c: 736: if(GETxAPIxVAL(0x18) <= GETxAPIxVAL(0x15))
-"736
-[e $ ! <= ( _GETxAPIxVAL (1 -> -> 24 `i `uc ( _GETxAPIxVAL (1 -> -> 21 `i `uc 794  ]
-[; ;State_Mchn.c: 737: {
+[e $U 714  ]
+[; ;State_Mchn.c: 737: default : break;
 "737
-{
-[; ;State_Mchn.c: 738: INCRxAPIxVAL(0x18);
+[e :U 728 ]
+[e $U 714  ]
 "738
-[e ( _INCRxAPIxVAL (1 -> -> 24 `i `uc ]
-"739
 }
-[e :U 794 ]
-[; ;State_Mchn.c: 739: }
-[; ;State_Mchn.c: 740: Switch_Adjust_LB = 1;
-"740
-[e = _Switch_Adjust_LB -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 741: break;
-"741
-[e $U 790  ]
-[; ;State_Mchn.c: 743: case 1 : if(Adjust_Counter >= 20)
-"743
-[e :U 795 ]
-[e $ ! >= _Adjust_Counter -> -> 20 `i `ui 796  ]
-[; ;State_Mchn.c: 744: {
-"744
-{
-[; ;State_Mchn.c: 745: Adjust_Counter = 0;
-"745
-[e = _Adjust_Counter -> -> 0 `i `ui ]
-[; ;State_Mchn.c: 746: Switch_Adjust_LB = 0;
-"746
-[e = _Switch_Adjust_LB -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 747: break;
-"747
-[e $U 790  ]
-"748
-}
-[; ;State_Mchn.c: 748: }
-[e $U 797  ]
-"749
-[e :U 796 ]
-[; ;State_Mchn.c: 749: else {Adjust_Counter++;}
-{
-[e ++ _Adjust_Counter -> -> 1 `i `ui ]
-}
-[e :U 797 ]
-[; ;State_Mchn.c: 750: break;
-"750
-[e $U 790  ]
-[; ;State_Mchn.c: 752: default : Switch_Adjust_LB = 0;
-"752
-[e :U 798 ]
-[e = _Switch_Adjust_LB -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 753: break;
-"753
-[e $U 790  ]
-"754
-}
-[; ;State_Mchn.c: 754: }
-[e $U 790  ]
-"730
-[e :U 791 ]
-[e [\ _Switch_Adjust_LB , $ -> -> 0 `i `uc 792
- , $ -> -> 1 `i `uc 795
- 798 ]
-"754
-[e :U 790 ]
-[; ;State_Mchn.c: 755: break;
-"755
-[e $U 786  ]
-[; ;State_Mchn.c: 757: default : break;
-"757
-[e :U 799 ]
-[e $U 786  ]
-"758
-}
-[; ;State_Mchn.c: 758: }
-[e $U 786  ]
-"725
-[e :U 787 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 35 `i `uc , $ -> -> 0 `i `ui 788
- , $ -> -> 1 `i `ui 789
- 799 ]
-"758
-[e :U 786 ]
-[; ;State_Mchn.c: 761: switch(GETxAPIxVAL(0x24))
-"761
-[e $U 801  ]
-[; ;State_Mchn.c: 762: {
-"762
-{
-[; ;State_Mchn.c: 763: case 0 : Switch_Adjust_LF = 0;
-"763
-[e :U 802 ]
-[e = _Switch_Adjust_LF -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 764: break;
-"764
-[e $U 800  ]
-[; ;State_Mchn.c: 766: case 1 : switch(Switch_Adjust_LF)
-"766
-[e :U 803 ]
-[e $U 805  ]
-[; ;State_Mchn.c: 767: {
-"767
-{
-[; ;State_Mchn.c: 768: case 0 : if(GETxAPIxVAL(0x17) <= 1022)
-"768
-[e :U 806 ]
-[e $ ! <= ( _GETxAPIxVAL (1 -> -> 23 `i `uc -> -> 1022 `i `ui 807  ]
-[; ;State_Mchn.c: 769: {
-"769
-{
-[; ;State_Mchn.c: 770: INCRxAPIxVAL(0x17);
-"770
-[e ( _INCRxAPIxVAL (1 -> -> 23 `i `uc ]
-"771
-}
-[e :U 807 ]
-[; ;State_Mchn.c: 771: }
-[; ;State_Mchn.c: 772: if(GETxAPIxVAL(0x18) >= 1)
-"772
-[e $ ! >= ( _GETxAPIxVAL (1 -> -> 24 `i `uc -> -> 1 `i `ui 808  ]
-[; ;State_Mchn.c: 773: {
-"773
-{
-[; ;State_Mchn.c: 774: DECRxAPIxVAL(0x18);
-"774
-[e ( _DECRxAPIxVAL (1 -> -> 24 `i `uc ]
-"775
-}
-[e :U 808 ]
-[; ;State_Mchn.c: 775: }
-[; ;State_Mchn.c: 776: Switch_Adjust_LF = 1;
-"776
-[e = _Switch_Adjust_LF -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 777: break;
-"777
-[e $U 804  ]
-[; ;State_Mchn.c: 779: case 1 : if(Adjust_Counter >= 20)
-"779
-[e :U 809 ]
-[e $ ! >= _Adjust_Counter -> -> 20 `i `ui 810  ]
-[; ;State_Mchn.c: 780: {
-"780
-{
-[; ;State_Mchn.c: 781: Adjust_Counter = 0;
-"781
-[e = _Adjust_Counter -> -> 0 `i `ui ]
-[; ;State_Mchn.c: 782: Switch_Adjust_LF = 0;
-"782
-[e = _Switch_Adjust_LF -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 783: break;
-"783
-[e $U 804  ]
-"784
-}
-[; ;State_Mchn.c: 784: }
-[e $U 811  ]
-"785
-[e :U 810 ]
-[; ;State_Mchn.c: 785: else {Adjust_Counter++;}
-{
-[e ++ _Adjust_Counter -> -> 1 `i `ui ]
-}
-[e :U 811 ]
-[; ;State_Mchn.c: 786: break;
-"786
-[e $U 804  ]
-[; ;State_Mchn.c: 788: default : Switch_Adjust_LF = 0;
-"788
-[e :U 812 ]
-[e = _Switch_Adjust_LF -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 789: break;
-"789
-[e $U 804  ]
-"790
-}
-[; ;State_Mchn.c: 790: }
-[e $U 804  ]
-"766
-[e :U 805 ]
-[e [\ _Switch_Adjust_LF , $ -> -> 0 `i `uc 806
- , $ -> -> 1 `i `uc 809
- 812 ]
-"790
-[e :U 804 ]
-[; ;State_Mchn.c: 791: break;
-"791
-[e $U 800  ]
-[; ;State_Mchn.c: 793: default : break;
-"793
-[e :U 813 ]
-[e $U 800  ]
-"794
-}
-[; ;State_Mchn.c: 794: }
-[e $U 800  ]
-"761
-[e :U 801 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 36 `i `uc , $ -> -> 0 `i `ui 802
- , $ -> -> 1 `i `ui 803
- 813 ]
-"794
-[e :U 800 ]
-[; ;State_Mchn.c: 796: switch(GETxAPIxVAL(0x25))
-"796
-[e $U 815  ]
-[; ;State_Mchn.c: 797: {
-"797
-{
-[; ;State_Mchn.c: 798: case 0 : Switch_Adjust_RB = 0;
-"798
-[e :U 816 ]
-[e = _Switch_Adjust_RB -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 799: break;
-"799
-[e $U 814  ]
-[; ;State_Mchn.c: 801: case 1 : switch(Switch_Adjust_RB)
-"801
-[e :U 817 ]
-[e $U 819  ]
-[; ;State_Mchn.c: 802: {
-"802
-{
-[; ;State_Mchn.c: 803: case 0 : if(GETxAPIxVAL(0x19) <= 250)
-"803
-[e :U 820 ]
-[e $ ! <= ( _GETxAPIxVAL (1 -> -> 25 `i `uc -> -> 250 `i `ui 821  ]
-[; ;State_Mchn.c: 804: {
-"804
-{
-[; ;State_Mchn.c: 805: INCRxAPIxVAL(0x19);
-"805
-[e ( _INCRxAPIxVAL (1 -> -> 25 `i `uc ]
-"806
-}
-[e :U 821 ]
-[; ;State_Mchn.c: 806: }
-[; ;State_Mchn.c: 807: Switch_Adjust_RB = 1;
-"807
-[e = _Switch_Adjust_RB -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 808: break;
-"808
-[e $U 818  ]
-[; ;State_Mchn.c: 810: case 1 : if(Adjust_Counter >= 20)
-"810
-[e :U 822 ]
-[e $ ! >= _Adjust_Counter -> -> 20 `i `ui 823  ]
-[; ;State_Mchn.c: 811: {
-"811
-{
-[; ;State_Mchn.c: 812: Adjust_Counter = 0;
-"812
-[e = _Adjust_Counter -> -> 0 `i `ui ]
-[; ;State_Mchn.c: 813: Switch_Adjust_RB = 0;
-"813
-[e = _Switch_Adjust_RB -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 814: break;
-"814
-[e $U 818  ]
-"815
-}
-[; ;State_Mchn.c: 815: }
-[e $U 824  ]
-"816
-[e :U 823 ]
-[; ;State_Mchn.c: 816: else {Adjust_Counter++;}
-{
-[e ++ _Adjust_Counter -> -> 1 `i `ui ]
-}
-[e :U 824 ]
-[; ;State_Mchn.c: 817: break;
-"817
-[e $U 818  ]
-[; ;State_Mchn.c: 819: default : Switch_Adjust_RB = 0;
-"819
-[e :U 825 ]
-[e = _Switch_Adjust_RB -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 820: break;
-"820
-[e $U 818  ]
-"821
-}
-[; ;State_Mchn.c: 821: }
-[e $U 818  ]
-"801
-[e :U 819 ]
-[e [\ _Switch_Adjust_RB , $ -> -> 0 `i `uc 820
- , $ -> -> 1 `i `uc 822
- 825 ]
-"821
-[e :U 818 ]
-[; ;State_Mchn.c: 822: break;
-"822
-[e $U 814  ]
-[; ;State_Mchn.c: 824: default : break;
-"824
-[e :U 826 ]
-[e $U 814  ]
-"825
-}
-[; ;State_Mchn.c: 825: }
-[e $U 814  ]
-"796
-[e :U 815 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 37 `i `uc , $ -> -> 0 `i `ui 816
- , $ -> -> 1 `i `ui 817
- 826 ]
-"825
-[e :U 814 ]
-[; ;State_Mchn.c: 828: switch(GETxAPIxVAL(0x26))
-"828
-[e $U 828  ]
-[; ;State_Mchn.c: 829: {
-"829
-{
-[; ;State_Mchn.c: 830: case 0 : Switch_Adjust_RF = 0;
-"830
-[e :U 829 ]
-[e = _Switch_Adjust_RF -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 831: break;
-"831
-[e $U 827  ]
-[; ;State_Mchn.c: 833: case 1 : switch(Switch_Adjust_RF)
-"833
-[e :U 830 ]
-[e $U 832  ]
-[; ;State_Mchn.c: 834: {
-"834
-{
-[; ;State_Mchn.c: 835: case 0 : if(GETxAPIxVAL(0x19) >= 1)
-"835
-[e :U 833 ]
-[e $ ! >= ( _GETxAPIxVAL (1 -> -> 25 `i `uc -> -> 1 `i `ui 834  ]
-[; ;State_Mchn.c: 836: {
-"836
-{
-[; ;State_Mchn.c: 837: DECRxAPIxVAL(0x19);
-"837
-[e ( _DECRxAPIxVAL (1 -> -> 25 `i `uc ]
-"838
-}
-[e :U 834 ]
-[; ;State_Mchn.c: 838: }
-[; ;State_Mchn.c: 839: Switch_Adjust_RF = 1;
-"839
-[e = _Switch_Adjust_RF -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 840: break;
-"840
-[e $U 831  ]
-[; ;State_Mchn.c: 842: case 1 : if(Adjust_Counter >= 20)
-"842
-[e :U 835 ]
-[e $ ! >= _Adjust_Counter -> -> 20 `i `ui 836  ]
-[; ;State_Mchn.c: 843: {
-"843
-{
-[; ;State_Mchn.c: 844: Adjust_Counter = 0;
-"844
-[e = _Adjust_Counter -> -> 0 `i `ui ]
-[; ;State_Mchn.c: 845: Switch_Adjust_RF = 0;
-"845
-[e = _Switch_Adjust_RF -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 846: break;
-"846
-[e $U 831  ]
-"847
-}
-[; ;State_Mchn.c: 847: }
-[e $U 837  ]
-"848
-[e :U 836 ]
-[; ;State_Mchn.c: 848: else {Adjust_Counter++;}
-{
-[e ++ _Adjust_Counter -> -> 1 `i `ui ]
-}
-[e :U 837 ]
-[; ;State_Mchn.c: 849: break;
-"849
-[e $U 831  ]
-[; ;State_Mchn.c: 851: default : Switch_Adjust_RF = 0;
-"851
-[e :U 838 ]
-[e = _Switch_Adjust_RF -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 852: break;
-"852
-[e $U 831  ]
-"853
-}
-[; ;State_Mchn.c: 853: }
-[e $U 831  ]
-"833
-[e :U 832 ]
-[e [\ _Switch_Adjust_RF , $ -> -> 0 `i `uc 833
- , $ -> -> 1 `i `uc 835
- 838 ]
-"853
-[e :U 831 ]
-[; ;State_Mchn.c: 854: break;
-"854
-[e $U 827  ]
-[; ;State_Mchn.c: 856: default : break;
-"856
-[e :U 839 ]
-[e $U 827  ]
-"857
-}
-[; ;State_Mchn.c: 857: }
-[e $U 827  ]
-"828
-[e :U 828 ]
-[e [\ ( _GETxAPIxVAL (1 -> -> 38 `i `uc , $ -> -> 0 `i `ui 829
- , $ -> -> 1 `i `ui 830
- 839 ]
-"857
-[e :U 827 ]
-[; ;State_Mchn.c: 858: if(Activate_Controls_Counter <= 1)
-"858
-[e $ ! <= _Activate_Controls_Counter -> -> 1 `i `ui 840  ]
-[; ;State_Mchn.c: 859: {
-"859
-{
-[; ;State_Mchn.c: 860: Switch_Activate_Controls = 0;
-"860
-[e = _Switch_Activate_Controls -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 861: Red_Led(0);
-"861
-[e ( _Red_Led (1 -> -> 0 `i `uc ]
-"862
-}
-[e :U 840 ]
-[; ;State_Mchn.c: 862: }
-[; ;State_Mchn.c: 863: break;
-"863
-[e $U 775  ]
-[; ;State_Mchn.c: 865: default : Switch_Activate_Controls = 0;
-"865
-[e :U 841 ]
-[e = _Switch_Activate_Controls -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 866: Red_Led(0);
-"866
-[e ( _Red_Led (1 -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 867: break;
-"867
-[e $U 775  ]
-"868
-}
-[; ;State_Mchn.c: 868: }
-[e $U 775  ]
+[; ;State_Mchn.c: 738: }
+[e $U 714  ]
 "687
-[e :U 776 ]
-[e [\ _Switch_Activate_Controls , $ -> -> 0 `i `uc 777
- , $ -> -> 1 `i `uc 780
- , $ -> -> 2 `i `uc 783
- 841 ]
-"868
-[e :U 775 ]
-[; ;State_Mchn.c: 870: default : break;
-"870
-[e :U 842 ]
-[e $U 564  ]
-"871
+[e :U 715 ]
+[e [\ _Switch_Program , $ -> -> 0 `i `uc 716
+ , $ -> -> 1 `i `uc 719
+ , $ -> -> 2 `i `uc 722
+ , $ -> -> 3 `i `uc 725
+ 728 ]
+"738
+[e :U 714 ]
+[; ;State_Mchn.c: 922: if(GETxAPIxVAL(33) || GETxAPIxVAL(71))
+"922
+[e $ ! || != ( _GETxAPIxVAL (1 -> -> 33 `i `uc -> -> 0 `i `ui != ( _GETxAPIxVAL (1 -> -> 71 `i `uc -> -> 0 `i `ui 729  ]
+[; ;State_Mchn.c: 923: {
+"923
+{
+[; ;State_Mchn.c: 924: Stop_Program = 1;
+"924
+[e = _Stop_Program -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 925: SETxAPIxVAL(71, 0);
+"925
+[e ( _SETxAPIxVAL (2 , -> -> 71 `i `uc -> -> 0 `i `ui ]
+"926
 }
-[; ;State_Mchn.c: 871: }
-[e $U 564  ]
-"44
+[e :U 729 ]
+[; ;State_Mchn.c: 926: }
+[; ;State_Mchn.c: 928: if(Stop_Program == 1)
+"928
+[e $ ! == -> _Stop_Program `i -> 1 `i 730  ]
+[; ;State_Mchn.c: 929: {
+"929
+{
+[; ;State_Mchn.c: 930: Red_Led(2);
+"930
+[e ( _Red_Led (1 -> -> 2 `i `uc ]
+"931
+}
+[e :U 730 ]
+[; ;State_Mchn.c: 931: }
+[; ;State_Mchn.c: 933: Green_Led(1);
+"933
+[e ( _Green_Led (1 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 935: break;
+"935
+[e $U 565  ]
+[; ;State_Mchn.c: 937: default : break;
+"937
+[e :U 731 ]
+[e $U 565  ]
+"938
+}
+[; ;State_Mchn.c: 938: }
+[e $U 565  ]
+"49
+[e :U 566 ]
+[e [\ _Switch_Main , $ -> -> 0 `i `uc 567
+ , $ -> -> 1 `i `uc 683
+ , $ -> -> 2 `i `uc 713
+ 731 ]
+"938
 [e :U 565 ]
-[e [\ _Switch_Main , $ -> -> 0 `i `uc 566
- , $ -> -> 1 `i `uc 662
- , $ -> -> 2 `i `uc 759
- 842 ]
-"871
-[e :U 564 ]
-[; ;State_Mchn.c: 872: SETxAPIxVAL(0x3F, Switch_Main);
-"872
+[; ;State_Mchn.c: 939: SETxAPIxVAL(63, Switch_Main);
+"939
 [e ( _SETxAPIxVAL (2 , -> -> 63 `i `uc -> _Switch_Main `ui ]
-[; ;State_Mchn.c: 873: }
-"873
+[; ;State_Mchn.c: 940: }
+"940
 [e :UE 563 ]
 }
-"890
+"957
 [v _Train_Path `(uc ~T0 @X0 1 ef2`uc`uc ]
-"891
+"958
 {
-[; ;State_Mchn.c: 890: char Train_Path(unsigned char From, unsigned char To)
-[; ;State_Mchn.c: 891: {
+[; ;State_Mchn.c: 957: char Train_Path(unsigned char From, unsigned char To)
+[; ;State_Mchn.c: 958: {
 [e :U _Train_Path ]
-"890
+"957
 [v _From `uc ~T0 @X0 1 r1 ]
 [v _To `uc ~T0 @X0 1 r2 ]
-"891
+"958
 [f ]
-"892
+"959
 [v F5103 `uc ~T0 @X0 1 s Return_Val ]
 [i F5103
 -> -> 1 `i `uc
 ]
-[; ;State_Mchn.c: 892: static char Return_Val = 1;
-[; ;State_Mchn.c: 894: SETxAPIxVAL(0x3D, From);
-"894
-[e ( _SETxAPIxVAL (2 , -> -> 61 `i `uc -> _From `ui ]
-[; ;State_Mchn.c: 895: SETxAPIxVAL(0x3E, To);
-"895
-[e ( _SETxAPIxVAL (2 , -> -> 62 `i `uc -> _To `ui ]
-[; ;State_Mchn.c: 897: switch(Switch_Train_Path)
-"897
-[e $U 845  ]
-[; ;State_Mchn.c: 898: {
-"898
-{
-[; ;State_Mchn.c: 899: case 0 : switch(From)
-"899
-[e :U 846 ]
-[e $U 848  ]
-[; ;State_Mchn.c: 900: {
-"900
-{
-[; ;State_Mchn.c: 901: case 2 : if(Junction(1, 0) == 0)
-"901
-[e :U 849 ]
-[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 0 `i `uc `i -> 0 `i 850  ]
-[; ;State_Mchn.c: 902: {
-"902
-{
-[; ;State_Mchn.c: 903: Switch_Train_Path = 1;
-"903
-[e = _Switch_Train_Path -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 904: Return_Val = 1;
-"904
-[e = F5103 -> -> 1 `i `uc ]
-"905
-}
-[e :U 850 ]
-[; ;State_Mchn.c: 905: }
-[; ;State_Mchn.c: 906: Return_Val = 1;
-"906
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 907: break;
-"907
-[e $U 847  ]
-[; ;State_Mchn.c: 908: case 3 : if(Junction(1, 1) == 0)
-"908
-[e :U 851 ]
-[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 1 `i `uc `i -> 0 `i 852  ]
-[; ;State_Mchn.c: 909: {
-"909
-{
-[; ;State_Mchn.c: 910: Switch_Train_Path = 1;
-"910
-[e = _Switch_Train_Path -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 911: Return_Val = 1;
-"911
-[e = F5103 -> -> 1 `i `uc ]
-"912
-}
-[e :U 852 ]
-[; ;State_Mchn.c: 912: }
-[; ;State_Mchn.c: 913: Return_Val = 1;
-"913
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 914: break;
-"914
-[e $U 847  ]
-[; ;State_Mchn.c: 915: case 0 : if(Junction(0, 1) == 0)
-"915
-[e :U 853 ]
-[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 1 `i `uc `i -> 0 `i 854  ]
-[; ;State_Mchn.c: 916: {
-"916
-{
-[; ;State_Mchn.c: 917: Switch_Train_Path = 1;
-"917
-[e = _Switch_Train_Path -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 918: Return_Val = 1;
-"918
-[e = F5103 -> -> 1 `i `uc ]
-"919
-}
-[e :U 854 ]
-[; ;State_Mchn.c: 919: }
-[; ;State_Mchn.c: 920: Return_Val = 1;
-"920
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 921: break;
-"921
-[e $U 847  ]
-[; ;State_Mchn.c: 922: case 1 : if(Junction(0, 0) == 0)
-"922
-[e :U 855 ]
-[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 0 `i `uc `i -> 0 `i 856  ]
-[; ;State_Mchn.c: 923: {
-"923
-{
-[; ;State_Mchn.c: 924: Switch_Train_Path = 1;
-"924
-[e = _Switch_Train_Path -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 925: Return_Val = 1;
-"925
-[e = F5103 -> -> 1 `i `uc ]
-"926
-}
-[e :U 856 ]
-[; ;State_Mchn.c: 926: }
-[; ;State_Mchn.c: 927: Return_Val = 1;
-"927
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 928: break;
-"928
-[e $U 847  ]
-[; ;State_Mchn.c: 929: default : break;
-"929
-[e :U 857 ]
-[e $U 847  ]
-"930
-}
-[; ;State_Mchn.c: 930: }
-[e $U 847  ]
-"899
-[e :U 848 ]
-[e [\ _From , $ -> -> 2 `i `uc 849
- , $ -> -> 3 `i `uc 851
- , $ -> -> 0 `i `uc 853
- , $ -> -> 1 `i `uc 855
- 857 ]
-"930
-[e :U 847 ]
-[; ;State_Mchn.c: 931: break;
-"931
-[e $U 844  ]
-[; ;State_Mchn.c: 933: case 1 : switch(To)
-"933
-[e :U 858 ]
-[e $U 860  ]
-[; ;State_Mchn.c: 934: {
-"934
-{
-[; ;State_Mchn.c: 935: case 2 : if(Junction(1, 0) == 0)
-"935
-[e :U 861 ]
-[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 0 `i `uc `i -> 0 `i 862  ]
-[; ;State_Mchn.c: 936: {
-"936
-{
-[; ;State_Mchn.c: 937: Switch_Train_Path = 2;
-"937
-[e = _Switch_Train_Path -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 938: Return_Val = 1;
-"938
-[e = F5103 -> -> 1 `i `uc ]
-"939
-}
-[e :U 862 ]
-[; ;State_Mchn.c: 939: }
-[; ;State_Mchn.c: 940: Return_Val = 1;
-"940
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 941: break;
-"941
-[e $U 859  ]
-[; ;State_Mchn.c: 942: case 3 : if(Junction(1, 1) == 0)
-"942
-[e :U 863 ]
-[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 1 `i `uc `i -> 0 `i 864  ]
-[; ;State_Mchn.c: 943: {
-"943
-{
-[; ;State_Mchn.c: 944: Switch_Train_Path = 2;
-"944
-[e = _Switch_Train_Path -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 945: Return_Val = 1;
-"945
-[e = F5103 -> -> 1 `i `uc ]
-"946
-}
-[e :U 864 ]
-[; ;State_Mchn.c: 946: }
-[; ;State_Mchn.c: 947: Return_Val = 1;
-"947
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 948: break;
-"948
-[e $U 859  ]
-[; ;State_Mchn.c: 949: case 0 : if(Junction(0, 1) == 0)
-"949
-[e :U 865 ]
-[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 1 `i `uc `i -> 0 `i 866  ]
-[; ;State_Mchn.c: 950: {
-"950
-{
-[; ;State_Mchn.c: 951: Switch_Train_Path = 2;
-"951
-[e = _Switch_Train_Path -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 952: Return_Val = 1;
-"952
-[e = F5103 -> -> 1 `i `uc ]
-"953
-}
-[e :U 866 ]
-[; ;State_Mchn.c: 953: }
-[; ;State_Mchn.c: 954: Return_Val = 1;
-"954
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 955: break;
-"955
-[e $U 859  ]
-[; ;State_Mchn.c: 956: case 1 : if(Junction(0, 0) == 0)
-"956
-[e :U 867 ]
-[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 0 `i `uc `i -> 0 `i 868  ]
-[; ;State_Mchn.c: 957: {
-"957
-{
-[; ;State_Mchn.c: 958: Switch_Train_Path = 2;
-"958
-[e = _Switch_Train_Path -> -> 2 `i `uc ]
-[; ;State_Mchn.c: 959: Return_Val = 1;
-"959
-[e = F5103 -> -> 1 `i `uc ]
-"960
-}
-[e :U 868 ]
-[; ;State_Mchn.c: 960: }
-[; ;State_Mchn.c: 961: Return_Val = 1;
+[; ;State_Mchn.c: 959: static char Return_Val = 1;
+[; ;State_Mchn.c: 961: SETxAPIxVAL(61, From);
 "961
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 962: break;
+[e ( _SETxAPIxVAL (2 , -> -> 61 `i `uc -> _From `ui ]
+[; ;State_Mchn.c: 962: SETxAPIxVAL(62, To);
 "962
-[e $U 859  ]
-[; ;State_Mchn.c: 963: default : break;
-"963
-[e :U 869 ]
-[e $U 859  ]
+[e ( _SETxAPIxVAL (2 , -> -> 62 `i `uc -> _To `ui ]
+[; ;State_Mchn.c: 964: switch(Switch_Train_Path)
 "964
-}
-[; ;State_Mchn.c: 964: }
-[e $U 859  ]
-"933
-[e :U 860 ]
-[e [\ _To , $ -> -> 2 `i `uc 861
- , $ -> -> 3 `i `uc 863
- , $ -> -> 0 `i `uc 865
- , $ -> -> 1 `i `uc 867
- 869 ]
-"964
-[e :U 859 ]
-[; ;State_Mchn.c: 965: break;
+[e $U 734  ]
+[; ;State_Mchn.c: 965: {
 "965
-[e $U 844  ]
-[; ;State_Mchn.c: 967: case 2 : switch(To)
+{
+[; ;State_Mchn.c: 966: case 0 : switch(From)
+"966
+[e :U 735 ]
+[e $U 737  ]
+[; ;State_Mchn.c: 967: {
 "967
-[e :U 870 ]
-[e $U 872  ]
-[; ;State_Mchn.c: 968: {
+{
+[; ;State_Mchn.c: 968: case 3 : if(Junction(1, 0) == 0)
 "968
-{
-[; ;State_Mchn.c: 969: case 2 : if(Train_Move_Right_Start() == 0)
+[e :U 738 ]
+[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 0 `i `uc `i -> 0 `i 739  ]
+[; ;State_Mchn.c: 969: {
 "969
-[e :U 873 ]
-[e $ ! == -> ( _Train_Move_Right_Start ..  `i -> 0 `i 874  ]
-[; ;State_Mchn.c: 970: {
+{
+[; ;State_Mchn.c: 970: Switch_Train_Path = 1;
 "970
-{
-[; ;State_Mchn.c: 971: Switch_Train_Path = 3;
+[e = _Switch_Train_Path -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 971: Return_Val = 1;
 "971
-[e = _Switch_Train_Path -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 972: Return_Val = 1;
+[e = F5103 -> -> 1 `i `uc ]
 "972
-[e = F5103 -> -> 1 `i `uc ]
+}
+[e :U 739 ]
+[; ;State_Mchn.c: 972: }
+[; ;State_Mchn.c: 973: Return_Val = 1;
 "973
-}
-[e :U 874 ]
-[; ;State_Mchn.c: 973: }
-[; ;State_Mchn.c: 974: Return_Val = 1;
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 974: break;
 "974
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 975: break;
+[e $U 736  ]
+[; ;State_Mchn.c: 975: case 4 : if(Junction(1, 1) == 0)
 "975
-[e $U 871  ]
-[; ;State_Mchn.c: 976: case 3 : if(Train_Move_Right_Start() == 0)
+[e :U 740 ]
+[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 1 `i `uc `i -> 0 `i 741  ]
+[; ;State_Mchn.c: 976: {
 "976
-[e :U 875 ]
-[e $ ! == -> ( _Train_Move_Right_Start ..  `i -> 0 `i 876  ]
-[; ;State_Mchn.c: 977: {
+{
+[; ;State_Mchn.c: 977: Switch_Train_Path = 1;
 "977
-{
-[; ;State_Mchn.c: 978: Switch_Train_Path = 3;
+[e = _Switch_Train_Path -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 978: Return_Val = 1;
 "978
-[e = _Switch_Train_Path -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 979: Return_Val = 1;
+[e = F5103 -> -> 1 `i `uc ]
 "979
-[e = F5103 -> -> 1 `i `uc ]
+}
+[e :U 741 ]
+[; ;State_Mchn.c: 979: }
+[; ;State_Mchn.c: 980: Return_Val = 1;
 "980
-}
-[e :U 876 ]
-[; ;State_Mchn.c: 980: }
-[; ;State_Mchn.c: 981: Return_Val = 1;
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 981: break;
 "981
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 982: break;
+[e $U 736  ]
+[; ;State_Mchn.c: 982: case 1 : if(Junction(0, 1) == 0)
 "982
-[e $U 871  ]
-[; ;State_Mchn.c: 983: case 0 : if(Train_Move_Left_Start() == 0)
+[e :U 742 ]
+[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 1 `i `uc `i -> 0 `i 743  ]
+[; ;State_Mchn.c: 983: {
 "983
-[e :U 877 ]
-[e $ ! == -> ( _Train_Move_Left_Start ..  `i -> 0 `i 878  ]
-[; ;State_Mchn.c: 984: {
+{
+[; ;State_Mchn.c: 984: Switch_Train_Path = 1;
 "984
-{
-[; ;State_Mchn.c: 985: Switch_Train_Path = 3;
+[e = _Switch_Train_Path -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 985: Return_Val = 1;
 "985
-[e = _Switch_Train_Path -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 986: Return_Val = 1;
+[e = F5103 -> -> 1 `i `uc ]
 "986
-[e = F5103 -> -> 1 `i `uc ]
+}
+[e :U 743 ]
+[; ;State_Mchn.c: 986: }
+[; ;State_Mchn.c: 987: Return_Val = 1;
 "987
-}
-[e :U 878 ]
-[; ;State_Mchn.c: 987: }
-[; ;State_Mchn.c: 988: Return_Val = 1;
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 988: break;
 "988
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 989: break;
+[e $U 736  ]
+[; ;State_Mchn.c: 989: case 2 : if(Junction(0, 0) == 0)
 "989
-[e $U 871  ]
-[; ;State_Mchn.c: 990: case 1 : if(Train_Move_Left_Start() == 0)
+[e :U 744 ]
+[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 0 `i `uc `i -> 0 `i 745  ]
+[; ;State_Mchn.c: 990: {
 "990
-[e :U 879 ]
-[e $ ! == -> ( _Train_Move_Left_Start ..  `i -> 0 `i 880  ]
-[; ;State_Mchn.c: 991: {
+{
+[; ;State_Mchn.c: 991: Switch_Train_Path = 1;
 "991
-{
-[; ;State_Mchn.c: 992: Switch_Train_Path = 3;
+[e = _Switch_Train_Path -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 992: Return_Val = 1;
 "992
-[e = _Switch_Train_Path -> -> 3 `i `uc ]
-[; ;State_Mchn.c: 993: Return_Val = 1;
+[e = F5103 -> -> 1 `i `uc ]
 "993
-[e = F5103 -> -> 1 `i `uc ]
+}
+[e :U 745 ]
+[; ;State_Mchn.c: 993: }
+[; ;State_Mchn.c: 994: Return_Val = 1;
 "994
-}
-[e :U 880 ]
-[; ;State_Mchn.c: 994: }
-[; ;State_Mchn.c: 995: Return_Val = 1;
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 995: break;
 "995
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 996: break;
+[e $U 736  ]
+[; ;State_Mchn.c: 996: default : break;
 "996
-[e $U 871  ]
-[; ;State_Mchn.c: 997: default : break;
+[e :U 746 ]
+[e $U 736  ]
 "997
-[e :U 881 ]
-[e $U 871  ]
-"998
 }
-[; ;State_Mchn.c: 998: }
-[e $U 871  ]
-"967
-[e :U 872 ]
-[e [\ _To , $ -> -> 2 `i `uc 873
- , $ -> -> 3 `i `uc 875
- , $ -> -> 0 `i `uc 877
- , $ -> -> 1 `i `uc 879
- 881 ]
+[; ;State_Mchn.c: 997: }
+[e $U 736  ]
+"966
+[e :U 737 ]
+[e [\ _From , $ -> -> 3 `i `uc 738
+ , $ -> -> 4 `i `uc 740
+ , $ -> -> 1 `i `uc 742
+ , $ -> -> 2 `i `uc 744
+ 746 ]
+"997
+[e :U 736 ]
+[; ;State_Mchn.c: 998: break;
 "998
-[e :U 871 ]
-[; ;State_Mchn.c: 999: break;
-"999
-[e $U 844  ]
-[; ;State_Mchn.c: 1001: case 3 : switch(To)
+[e $U 733  ]
+[; ;State_Mchn.c: 1000: case 1 : switch(To)
+"1000
+[e :U 747 ]
+[e $U 749  ]
+[; ;State_Mchn.c: 1001: {
 "1001
-[e :U 882 ]
-[e $U 884  ]
-[; ;State_Mchn.c: 1002: {
+{
+[; ;State_Mchn.c: 1002: case 3 : if(Junction(1, 0) == 0)
 "1002
-{
-[; ;State_Mchn.c: 1003: case 2 : if(GETxAPIxVAL(0x1C) == 1){
+[e :U 750 ]
+[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 0 `i `uc `i -> 0 `i 751  ]
+[; ;State_Mchn.c: 1003: {
 "1003
-[e :U 885 ]
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 28 `i `uc -> -> 1 `i `ui 886  ]
 {
-[; ;State_Mchn.c: 1004: Switch_Train_Path = 4;
+[; ;State_Mchn.c: 1004: Switch_Train_Path = 2;
 "1004
-[e = _Switch_Train_Path -> -> 4 `i `uc ]
+[e = _Switch_Train_Path -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 1005: Return_Val = 1;
 "1005
-}
-[; ;State_Mchn.c: 1005: }
-[e $U 887  ]
-"1006
-[e :U 886 ]
-[; ;State_Mchn.c: 1006: else if(GETxAPIxVAL(0x29) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 41 `i `uc -> -> 1 `i `ui 888  ]
-{
-[; ;State_Mchn.c: 1007: Switch_Train_Path = 5;
-"1007
-[e = _Switch_Train_Path -> -> 5 `i `uc ]
-"1008
-}
-[; ;State_Mchn.c: 1008: }
-[e $U 889  ]
-"1009
-[e :U 888 ]
-[; ;State_Mchn.c: 1009: else if(GETxAPIxVAL(0x2A) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 42 `i `uc -> -> 1 `i `ui 890  ]
-{
-[; ;State_Mchn.c: 1010: Switch_Train_Path = 6;
-"1010
-[e = _Switch_Train_Path -> -> 6 `i `uc ]
-"1011
-}
-[; ;State_Mchn.c: 1011: }
-[e $U 891  ]
-"1012
-[e :U 890 ]
-[; ;State_Mchn.c: 1012: else if(GETxAPIxVAL(0x2C) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 44 `i `uc -> -> 1 `i `ui 892  ]
-{
-[; ;State_Mchn.c: 1013: Switch_Train_Path = 7;
-"1013
-[e = _Switch_Train_Path -> -> 7 `i `uc ]
-"1014
-}
-[; ;State_Mchn.c: 1014: }
-[e $U 893  ]
-"1015
-[e :U 892 ]
-[; ;State_Mchn.c: 1015: else if(GETxAPIxVAL(0x2B) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 43 `i `uc -> -> 1 `i `ui 894  ]
-{
-[; ;State_Mchn.c: 1016: Switch_Train_Path = 8;
-"1016
-[e = _Switch_Train_Path -> -> 8 `i `uc ]
-"1017
-}
-[e :U 894 ]
-"1018
-[e :U 893 ]
-[e :U 891 ]
-[e :U 889 ]
-[e :U 887 ]
-[; ;State_Mchn.c: 1017: }
-[; ;State_Mchn.c: 1018: Return_Val = 1;
 [e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1019: break;
+"1006
+}
+[e :U 751 ]
+[; ;State_Mchn.c: 1006: }
+[; ;State_Mchn.c: 1007: Return_Val = 1;
+"1007
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1008: break;
+"1008
+[e $U 748  ]
+[; ;State_Mchn.c: 1009: case 4 : if(Junction(1, 1) == 0)
+"1009
+[e :U 752 ]
+[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 1 `i `uc `i -> 0 `i 753  ]
+[; ;State_Mchn.c: 1010: {
+"1010
+{
+[; ;State_Mchn.c: 1011: Switch_Train_Path = 2;
+"1011
+[e = _Switch_Train_Path -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 1012: Return_Val = 1;
+"1012
+[e = F5103 -> -> 1 `i `uc ]
+"1013
+}
+[e :U 753 ]
+[; ;State_Mchn.c: 1013: }
+[; ;State_Mchn.c: 1014: Return_Val = 1;
+"1014
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1015: break;
+"1015
+[e $U 748  ]
+[; ;State_Mchn.c: 1016: case 1 : if(Junction(0, 1) == 0)
+"1016
+[e :U 754 ]
+[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 1 `i `uc `i -> 0 `i 755  ]
+[; ;State_Mchn.c: 1017: {
+"1017
+{
+[; ;State_Mchn.c: 1018: Switch_Train_Path = 2;
+"1018
+[e = _Switch_Train_Path -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 1019: Return_Val = 1;
 "1019
-[e $U 883  ]
-[; ;State_Mchn.c: 1020: case 3 : if(GETxAPIxVAL(0x1D) == 1){
+[e = F5103 -> -> 1 `i `uc ]
 "1020
-[e :U 895 ]
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 29 `i `uc -> -> 1 `i `ui 896  ]
-{
-[; ;State_Mchn.c: 1021: Switch_Train_Path = 4;
+}
+[e :U 755 ]
+[; ;State_Mchn.c: 1020: }
+[; ;State_Mchn.c: 1021: Return_Val = 1;
 "1021
-[e = _Switch_Train_Path -> -> 4 `i `uc ]
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1022: break;
 "1022
-}
-[; ;State_Mchn.c: 1022: }
-[e $U 897  ]
+[e $U 748  ]
+[; ;State_Mchn.c: 1023: case 2 : if(Junction(0, 0) == 0)
 "1023
-[e :U 896 ]
-[; ;State_Mchn.c: 1023: else if(GETxAPIxVAL(0x29) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 41 `i `uc -> -> 1 `i `ui 898  ]
-{
-[; ;State_Mchn.c: 1024: Switch_Train_Path = 5;
+[e :U 756 ]
+[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 0 `i `uc `i -> 0 `i 757  ]
+[; ;State_Mchn.c: 1024: {
 "1024
-[e = _Switch_Train_Path -> -> 5 `i `uc ]
+{
+[; ;State_Mchn.c: 1025: Switch_Train_Path = 2;
 "1025
-}
-[; ;State_Mchn.c: 1025: }
-[e $U 899  ]
+[e = _Switch_Train_Path -> -> 2 `i `uc ]
+[; ;State_Mchn.c: 1026: Return_Val = 1;
 "1026
-[e :U 898 ]
-[; ;State_Mchn.c: 1026: else if(GETxAPIxVAL(0x2A) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 42 `i `uc -> -> 1 `i `ui 900  ]
-{
-[; ;State_Mchn.c: 1027: Switch_Train_Path = 6;
+[e = F5103 -> -> 1 `i `uc ]
 "1027
-[e = _Switch_Train_Path -> -> 6 `i `uc ]
-"1028
 }
-[; ;State_Mchn.c: 1028: }
-[e $U 901  ]
+[e :U 757 ]
+[; ;State_Mchn.c: 1027: }
+[; ;State_Mchn.c: 1028: Return_Val = 1;
+"1028
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1029: break;
 "1029
-[e :U 900 ]
-[; ;State_Mchn.c: 1029: else if(GETxAPIxVAL(0x2C) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 44 `i `uc -> -> 1 `i `ui 902  ]
-{
-[; ;State_Mchn.c: 1030: Switch_Train_Path = 7;
+[e $U 748  ]
+[; ;State_Mchn.c: 1030: default : break;
 "1030
-[e = _Switch_Train_Path -> -> 7 `i `uc ]
+[e :U 758 ]
+[e $U 748  ]
 "1031
 }
 [; ;State_Mchn.c: 1031: }
-[e $U 903  ]
+[e $U 748  ]
+"1000
+[e :U 749 ]
+[e [\ _To , $ -> -> 3 `i `uc 750
+ , $ -> -> 4 `i `uc 752
+ , $ -> -> 1 `i `uc 754
+ , $ -> -> 2 `i `uc 756
+ 758 ]
+"1031
+[e :U 748 ]
+[; ;State_Mchn.c: 1032: break;
 "1032
-[e :U 902 ]
-[; ;State_Mchn.c: 1032: else if(GETxAPIxVAL(0x2B) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 43 `i `uc -> -> 1 `i `ui 904  ]
-{
-[; ;State_Mchn.c: 1033: Switch_Train_Path = 8;
-"1033
-[e = _Switch_Train_Path -> -> 8 `i `uc ]
+[e $U 733  ]
+[; ;State_Mchn.c: 1034: case 2 : switch(To)
 "1034
-}
-[e :U 904 ]
+[e :U 759 ]
+[e $U 761  ]
+[; ;State_Mchn.c: 1035: {
 "1035
-[e :U 903 ]
-[e :U 901 ]
-[e :U 899 ]
-[e :U 897 ]
-[; ;State_Mchn.c: 1034: }
-[; ;State_Mchn.c: 1035: Return_Val = 1;
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1036: break;
-"1036
-[e $U 883  ]
-[; ;State_Mchn.c: 1037: case 0 : if(GETxAPIxVAL(0x1E) == 1)
-"1037
-[e :U 905 ]
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 30 `i `uc -> -> 1 `i `ui 906  ]
-[; ;State_Mchn.c: 1038: {
-"1038
 {
-[; ;State_Mchn.c: 1039: Switch_Train_Path = 4;
+[; ;State_Mchn.c: 1036: case 3 : if(Train_Move_Right_Start() == 0)
+"1036
+[e :U 762 ]
+[e $ ! == -> ( _Train_Move_Right_Start ..  `i -> 0 `i 763  ]
+[; ;State_Mchn.c: 1037: {
+"1037
+{
+[; ;State_Mchn.c: 1038: Switch_Train_Path = 3;
+"1038
+[e = _Switch_Train_Path -> -> 3 `i `uc ]
+[; ;State_Mchn.c: 1039: Return_Val = 1;
 "1039
-[e = _Switch_Train_Path -> -> 4 `i `uc ]
+[e = F5103 -> -> 1 `i `uc ]
 "1040
 }
+[e :U 763 ]
 [; ;State_Mchn.c: 1040: }
-[e $U 907  ]
+[; ;State_Mchn.c: 1041: Return_Val = 1;
 "1041
-[e :U 906 ]
-[; ;State_Mchn.c: 1041: else if(GETxAPIxVAL(0x29) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 41 `i `uc -> -> 1 `i `ui 908  ]
-{
-[; ;State_Mchn.c: 1042: Switch_Train_Path = 12;
-"1042
-[e = _Switch_Train_Path -> -> 12 `i `uc ]
-"1043
-}
-[; ;State_Mchn.c: 1043: }
-[e $U 909  ]
-"1044
-[e :U 908 ]
-[; ;State_Mchn.c: 1044: else if(GETxAPIxVAL(0x2A) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 42 `i `uc -> -> 1 `i `ui 910  ]
-{
-[; ;State_Mchn.c: 1045: Switch_Train_Path = 11;
-"1045
-[e = _Switch_Train_Path -> -> 11 `i `uc ]
-"1046
-}
-[; ;State_Mchn.c: 1046: }
-[e $U 911  ]
-"1047
-[e :U 910 ]
-[; ;State_Mchn.c: 1047: else if(GETxAPIxVAL(0x2C) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 44 `i `uc -> -> 1 `i `ui 912  ]
-{
-[; ;State_Mchn.c: 1048: Switch_Train_Path = 10;
-"1048
-[e = _Switch_Train_Path -> -> 10 `i `uc ]
-"1049
-}
-[; ;State_Mchn.c: 1049: }
-[e $U 913  ]
-"1050
-[e :U 912 ]
-[; ;State_Mchn.c: 1050: else if(GETxAPIxVAL(0x2B) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 43 `i `uc -> -> 1 `i `ui 914  ]
-{
-[; ;State_Mchn.c: 1051: Switch_Train_Path = 9;
-"1051
-[e = _Switch_Train_Path -> -> 9 `i `uc ]
-"1052
-}
-[e :U 914 ]
-"1053
-[e :U 913 ]
-[e :U 911 ]
-[e :U 909 ]
-[e :U 907 ]
-[; ;State_Mchn.c: 1052: }
-[; ;State_Mchn.c: 1053: Return_Val = 1;
 [e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1054: break;
-"1054
-[e $U 883  ]
-[; ;State_Mchn.c: 1055: case 1 : if(GETxAPIxVAL(0x1F) == 1)
-"1055
-[e :U 915 ]
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 31 `i `uc -> -> 1 `i `ui 916  ]
-[; ;State_Mchn.c: 1056: {
-"1056
+[; ;State_Mchn.c: 1042: break;
+"1042
+[e $U 760  ]
+[; ;State_Mchn.c: 1043: case 4 : if(Train_Move_Right_Start() == 0)
+"1043
+[e :U 764 ]
+[e $ ! == -> ( _Train_Move_Right_Start ..  `i -> 0 `i 765  ]
+[; ;State_Mchn.c: 1044: {
+"1044
 {
-[; ;State_Mchn.c: 1057: Switch_Train_Path = 4;
-"1057
-[e = _Switch_Train_Path -> -> 4 `i `uc ]
-"1058
+[; ;State_Mchn.c: 1045: Switch_Train_Path = 3;
+"1045
+[e = _Switch_Train_Path -> -> 3 `i `uc ]
+[; ;State_Mchn.c: 1046: Return_Val = 1;
+"1046
+[e = F5103 -> -> 1 `i `uc ]
+"1047
 }
-[; ;State_Mchn.c: 1058: }
-[e $U 917  ]
-"1059
-[e :U 916 ]
-[; ;State_Mchn.c: 1059: else if(GETxAPIxVAL(0x29) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 41 `i `uc -> -> 1 `i `ui 918  ]
+[e :U 765 ]
+[; ;State_Mchn.c: 1047: }
+[; ;State_Mchn.c: 1048: Return_Val = 1;
+"1048
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1049: break;
+"1049
+[e $U 760  ]
+[; ;State_Mchn.c: 1050: case 1 : if(Train_Move_Left_Start() == 0)
+"1050
+[e :U 766 ]
+[e $ ! == -> ( _Train_Move_Left_Start ..  `i -> 0 `i 767  ]
+[; ;State_Mchn.c: 1051: {
+"1051
 {
-[; ;State_Mchn.c: 1060: Switch_Train_Path = 12;
+[; ;State_Mchn.c: 1052: Switch_Train_Path = 3;
+"1052
+[e = _Switch_Train_Path -> -> 3 `i `uc ]
+[; ;State_Mchn.c: 1053: Return_Val = 1;
+"1053
+[e = F5103 -> -> 1 `i `uc ]
+"1054
+}
+[e :U 767 ]
+[; ;State_Mchn.c: 1054: }
+[; ;State_Mchn.c: 1055: Return_Val = 1;
+"1055
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1056: break;
+"1056
+[e $U 760  ]
+[; ;State_Mchn.c: 1057: case 2 : if(Train_Move_Left_Start() == 0)
+"1057
+[e :U 768 ]
+[e $ ! == -> ( _Train_Move_Left_Start ..  `i -> 0 `i 769  ]
+[; ;State_Mchn.c: 1058: {
+"1058
+{
+[; ;State_Mchn.c: 1059: Switch_Train_Path = 3;
+"1059
+[e = _Switch_Train_Path -> -> 3 `i `uc ]
+[; ;State_Mchn.c: 1060: Return_Val = 1;
 "1060
-[e = _Switch_Train_Path -> -> 12 `i `uc ]
+[e = F5103 -> -> 1 `i `uc ]
 "1061
 }
+[e :U 769 ]
 [; ;State_Mchn.c: 1061: }
-[e $U 919  ]
+[; ;State_Mchn.c: 1062: Return_Val = 1;
 "1062
-[e :U 918 ]
-[; ;State_Mchn.c: 1062: else if(GETxAPIxVAL(0x2A) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 42 `i `uc -> -> 1 `i `ui 920  ]
-{
-[; ;State_Mchn.c: 1063: Switch_Train_Path = 11;
-"1063
-[e = _Switch_Train_Path -> -> 11 `i `uc ]
-"1064
-}
-[; ;State_Mchn.c: 1064: }
-[e $U 921  ]
-"1065
-[e :U 920 ]
-[; ;State_Mchn.c: 1065: else if(GETxAPIxVAL(0x2C) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 44 `i `uc -> -> 1 `i `ui 922  ]
-{
-[; ;State_Mchn.c: 1066: Switch_Train_Path = 10;
-"1066
-[e = _Switch_Train_Path -> -> 10 `i `uc ]
-"1067
-}
-[; ;State_Mchn.c: 1067: }
-[e $U 923  ]
-"1068
-[e :U 922 ]
-[; ;State_Mchn.c: 1068: else if(GETxAPIxVAL(0x2B) == 1){
-[e $ ! == ( _GETxAPIxVAL (1 -> -> 43 `i `uc -> -> 1 `i `ui 924  ]
-{
-[; ;State_Mchn.c: 1069: Switch_Train_Path = 9;
-"1069
-[e = _Switch_Train_Path -> -> 9 `i `uc ]
-"1070
-}
-[e :U 924 ]
-"1071
-[e :U 923 ]
-[e :U 921 ]
-[e :U 919 ]
-[e :U 917 ]
-[; ;State_Mchn.c: 1070: }
-[; ;State_Mchn.c: 1071: Return_Val = 1;
 [e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1072: break;
-"1072
-[e $U 883  ]
-[; ;State_Mchn.c: 1073: default : break;
-"1073
-[e :U 925 ]
-[e $U 883  ]
-"1074
+[; ;State_Mchn.c: 1063: break;
+"1063
+[e $U 760  ]
+[; ;State_Mchn.c: 1064: default : break;
+"1064
+[e :U 770 ]
+[e $U 760  ]
+"1065
 }
-[; ;State_Mchn.c: 1074: }
-[e $U 883  ]
-"1001
-[e :U 884 ]
-[e [\ _To , $ -> -> 2 `i `uc 885
- , $ -> -> 3 `i `uc 895
- , $ -> -> 0 `i `uc 905
- , $ -> -> 1 `i `uc 915
- 925 ]
+[; ;State_Mchn.c: 1065: }
+[e $U 760  ]
+"1034
+[e :U 761 ]
+[e [\ _To , $ -> -> 3 `i `uc 762
+ , $ -> -> 4 `i `uc 764
+ , $ -> -> 1 `i `uc 766
+ , $ -> -> 2 `i `uc 768
+ 770 ]
+"1065
+[e :U 760 ]
+[; ;State_Mchn.c: 1066: break;
+"1066
+[e $U 733  ]
+[; ;State_Mchn.c: 1068: case 3 : switch(To)
+"1068
+[e :U 771 ]
+[e $U 773  ]
+[; ;State_Mchn.c: 1069: {
+"1069
+{
+[; ;State_Mchn.c: 1070: case 3 : if(GETxAPIxVAL(28) == 1){
+"1070
+[e :U 774 ]
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 28 `i `uc -> -> 1 `i `ui 775  ]
+{
+[; ;State_Mchn.c: 1071: Switch_Train_Path = 4;
+"1071
+[e = _Switch_Train_Path -> -> 4 `i `uc ]
+"1072
+}
+[; ;State_Mchn.c: 1072: }
+[e $U 776  ]
+"1073
+[e :U 775 ]
+[; ;State_Mchn.c: 1073: else if(GETxAPIxVAL(41) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 41 `i `uc -> -> 1 `i `ui 777  ]
+{
+[; ;State_Mchn.c: 1074: Switch_Train_Path = 5;
 "1074
-[e :U 883 ]
-[; ;State_Mchn.c: 1075: break;
+[e = _Switch_Train_Path -> -> 5 `i `uc ]
 "1075
-[e $U 844  ]
-[; ;State_Mchn.c: 1077: case 4 : switch(To)
+}
+[; ;State_Mchn.c: 1075: }
+[e $U 778  ]
+"1076
+[e :U 777 ]
+[; ;State_Mchn.c: 1076: else if(GETxAPIxVAL(42) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 42 `i `uc -> -> 1 `i `ui 779  ]
+{
+[; ;State_Mchn.c: 1077: Switch_Train_Path = 6;
 "1077
-[e :U 926 ]
-[e $U 928  ]
-[; ;State_Mchn.c: 1078: {
+[e = _Switch_Train_Path -> -> 6 `i `uc ]
 "1078
-{
-[; ;State_Mchn.c: 1079: case 2 : if(Train_Move_Right_Brake() == 0)
+}
+[; ;State_Mchn.c: 1078: }
+[e $U 780  ]
 "1079
-[e :U 929 ]
-[e $ ! == -> ( _Train_Move_Right_Brake ..  `i -> 0 `i 930  ]
-[; ;State_Mchn.c: 1080: {
-"1080
+[e :U 779 ]
+[; ;State_Mchn.c: 1079: else if(GETxAPIxVAL(44) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 44 `i `uc -> -> 1 `i `ui 781  ]
 {
-[; ;State_Mchn.c: 1081: Switch_Train_Path = 0;
+[; ;State_Mchn.c: 1080: Switch_Train_Path = 7;
+"1080
+[e = _Switch_Train_Path -> -> 7 `i `uc ]
 "1081
-[e = _Switch_Train_Path -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 1082: Return_Val = 0;
+}
+[; ;State_Mchn.c: 1081: }
+[e $U 782  ]
 "1082
-[e = F5103 -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 1083: break;
+[e :U 781 ]
+[; ;State_Mchn.c: 1082: else if(GETxAPIxVAL(43) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 43 `i `uc -> -> 1 `i `ui 783  ]
+{
+[; ;State_Mchn.c: 1083: Switch_Train_Path = 8;
 "1083
-[e $U 927  ]
+[e = _Switch_Train_Path -> -> 8 `i `uc ]
 "1084
 }
-[e :U 930 ]
+[e :U 783 ]
+"1085
+[e :U 782 ]
+[e :U 780 ]
+[e :U 778 ]
+[e :U 776 ]
 [; ;State_Mchn.c: 1084: }
 [; ;State_Mchn.c: 1085: Return_Val = 1;
-"1085
 [e = F5103 -> -> 1 `i `uc ]
 [; ;State_Mchn.c: 1086: break;
 "1086
-[e $U 927  ]
-[; ;State_Mchn.c: 1087: case 3 : if(Train_Move_Right_Brake() == 0)
+[e $U 772  ]
+[; ;State_Mchn.c: 1087: case 4 : if(GETxAPIxVAL(29) == 1){
 "1087
-[e :U 931 ]
-[e $ ! == -> ( _Train_Move_Right_Brake ..  `i -> 0 `i 932  ]
-[; ;State_Mchn.c: 1088: {
-"1088
+[e :U 784 ]
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 29 `i `uc -> -> 1 `i `ui 785  ]
 {
-[; ;State_Mchn.c: 1089: Switch_Train_Path = 0;
+[; ;State_Mchn.c: 1088: Switch_Train_Path = 4;
+"1088
+[e = _Switch_Train_Path -> -> 4 `i `uc ]
 "1089
-[e = _Switch_Train_Path -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 1090: Return_Val = 0;
+}
+[; ;State_Mchn.c: 1089: }
+[e $U 786  ]
 "1090
-[e = F5103 -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 1091: break;
+[e :U 785 ]
+[; ;State_Mchn.c: 1090: else if(GETxAPIxVAL(41) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 41 `i `uc -> -> 1 `i `ui 787  ]
+{
+[; ;State_Mchn.c: 1091: Switch_Train_Path = 5;
 "1091
-[e $U 927  ]
+[e = _Switch_Train_Path -> -> 5 `i `uc ]
 "1092
 }
-[e :U 932 ]
 [; ;State_Mchn.c: 1092: }
-[; ;State_Mchn.c: 1093: Return_Val = 1;
+[e $U 788  ]
 "1093
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1094: break;
+[e :U 787 ]
+[; ;State_Mchn.c: 1093: else if(GETxAPIxVAL(42) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 42 `i `uc -> -> 1 `i `ui 789  ]
+{
+[; ;State_Mchn.c: 1094: Switch_Train_Path = 6;
 "1094
-[e $U 927  ]
-[; ;State_Mchn.c: 1095: case 0 : if(Train_Move_Left_Brake() == 0)
+[e = _Switch_Train_Path -> -> 6 `i `uc ]
 "1095
-[e :U 933 ]
-[e $ ! == -> ( _Train_Move_Left_Brake ..  `i -> 0 `i 934  ]
-[; ;State_Mchn.c: 1096: {
+}
+[; ;State_Mchn.c: 1095: }
+[e $U 790  ]
 "1096
+[e :U 789 ]
+[; ;State_Mchn.c: 1096: else if(GETxAPIxVAL(44) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 44 `i `uc -> -> 1 `i `ui 791  ]
 {
-[; ;State_Mchn.c: 1097: Switch_Train_Path = 0;
+[; ;State_Mchn.c: 1097: Switch_Train_Path = 7;
 "1097
-[e = _Switch_Train_Path -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 1098: Return_Val = 0;
+[e = _Switch_Train_Path -> -> 7 `i `uc ]
 "1098
-[e = F5103 -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 1099: break;
+}
+[; ;State_Mchn.c: 1098: }
+[e $U 792  ]
 "1099
-[e $U 927  ]
+[e :U 791 ]
+[; ;State_Mchn.c: 1099: else if(GETxAPIxVAL(43) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 43 `i `uc -> -> 1 `i `ui 793  ]
+{
+[; ;State_Mchn.c: 1100: Switch_Train_Path = 8;
 "1100
-}
-[e :U 934 ]
-[; ;State_Mchn.c: 1100: }
-[; ;State_Mchn.c: 1101: Return_Val = 1;
+[e = _Switch_Train_Path -> -> 8 `i `uc ]
 "1101
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1102: break;
+}
+[e :U 793 ]
 "1102
-[e $U 927  ]
-[; ;State_Mchn.c: 1103: case 1 : if(Train_Move_Left_Brake() == 0)
+[e :U 792 ]
+[e :U 790 ]
+[e :U 788 ]
+[e :U 786 ]
+[; ;State_Mchn.c: 1101: }
+[; ;State_Mchn.c: 1102: Return_Val = 1;
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1103: break;
 "1103
-[e :U 935 ]
-[e $ ! == -> ( _Train_Move_Left_Brake ..  `i -> 0 `i 936  ]
-[; ;State_Mchn.c: 1104: {
+[e $U 772  ]
+[; ;State_Mchn.c: 1104: case 1 : if(GETxAPIxVAL(30) == 1)
 "1104
-{
-[; ;State_Mchn.c: 1105: Switch_Train_Path = 0;
+[e :U 794 ]
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 30 `i `uc -> -> 1 `i `ui 795  ]
+[; ;State_Mchn.c: 1105: {
 "1105
-[e = _Switch_Train_Path -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 1106: Return_Val = 0;
+{
+[; ;State_Mchn.c: 1106: Switch_Train_Path = 4;
 "1106
-[e = F5103 -> -> 0 `i `uc ]
-[; ;State_Mchn.c: 1107: break;
+[e = _Switch_Train_Path -> -> 4 `i `uc ]
 "1107
-[e $U 927  ]
+}
+[; ;State_Mchn.c: 1107: }
+[e $U 796  ]
 "1108
-}
-[e :U 936 ]
-[; ;State_Mchn.c: 1108: }
-[; ;State_Mchn.c: 1109: Return_Val = 1;
+[e :U 795 ]
+[; ;State_Mchn.c: 1108: else if(GETxAPIxVAL(41) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 41 `i `uc -> -> 1 `i `ui 797  ]
+{
+[; ;State_Mchn.c: 1109: Switch_Train_Path = 12;
 "1109
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1110: break;
+[e = _Switch_Train_Path -> -> 12 `i `uc ]
 "1110
-[e $U 927  ]
-[; ;State_Mchn.c: 1111: default : break;
+}
+[; ;State_Mchn.c: 1110: }
+[e $U 798  ]
 "1111
-[e :U 937 ]
-[e $U 927  ]
+[e :U 797 ]
+[; ;State_Mchn.c: 1111: else if(GETxAPIxVAL(42) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 42 `i `uc -> -> 1 `i `ui 799  ]
+{
+[; ;State_Mchn.c: 1112: Switch_Train_Path = 11;
 "1112
-}
-[; ;State_Mchn.c: 1112: }
-[e $U 927  ]
-"1077
-[e :U 928 ]
-[e [\ _To , $ -> -> 2 `i `uc 929
- , $ -> -> 3 `i `uc 931
- , $ -> -> 0 `i `uc 933
- , $ -> -> 1 `i `uc 935
- 937 ]
-"1112
-[e :U 927 ]
-[; ;State_Mchn.c: 1113: break;
+[e = _Switch_Train_Path -> -> 11 `i `uc ]
 "1113
-[e $U 844  ]
-[; ;State_Mchn.c: 1115: case 5 :
-"1115
-[e :U 938 ]
-[; ;State_Mchn.c: 1116: if(Left_Mountain_From_The_Left(1) == 0){
-"1116
-[e $ ! == -> ( _Left_Mountain_From_The_Left (1 -> -> 1 `i `uc `i -> 0 `i 939  ]
-{
-[; ;State_Mchn.c: 1117: Switch_Train_Path = 3;
-"1117
-[e = _Switch_Train_Path -> -> 3 `i `uc ]
-"1118
 }
-[e :U 939 ]
-[; ;State_Mchn.c: 1118: }
-[; ;State_Mchn.c: 1119: Return_Val = 1;
-"1119
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1120: break;
-"1120
-[e $U 844  ]
-[; ;State_Mchn.c: 1122: case 6 :
-"1122
-[e :U 940 ]
-[; ;State_Mchn.c: 1123: if(Left_Mountain_From_The_Left(2) == 0){
-"1123
-[e $ ! == -> ( _Left_Mountain_From_The_Left (1 -> -> 2 `i `uc `i -> 0 `i 941  ]
+[; ;State_Mchn.c: 1113: }
+[e $U 800  ]
+"1114
+[e :U 799 ]
+[; ;State_Mchn.c: 1114: else if(GETxAPIxVAL(44) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 44 `i `uc -> -> 1 `i `ui 801  ]
 {
-[; ;State_Mchn.c: 1124: Switch_Train_Path = 3;
+[; ;State_Mchn.c: 1115: Switch_Train_Path = 10;
+"1115
+[e = _Switch_Train_Path -> -> 10 `i `uc ]
+"1116
+}
+[; ;State_Mchn.c: 1116: }
+[e $U 802  ]
+"1117
+[e :U 801 ]
+[; ;State_Mchn.c: 1117: else if(GETxAPIxVAL(43) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 43 `i `uc -> -> 1 `i `ui 803  ]
+{
+[; ;State_Mchn.c: 1118: Switch_Train_Path = 9;
+"1118
+[e = _Switch_Train_Path -> -> 9 `i `uc ]
+"1119
+}
+[e :U 803 ]
+"1120
+[e :U 802 ]
+[e :U 800 ]
+[e :U 798 ]
+[e :U 796 ]
+[; ;State_Mchn.c: 1119: }
+[; ;State_Mchn.c: 1120: Return_Val = 1;
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1121: break;
+"1121
+[e $U 772  ]
+[; ;State_Mchn.c: 1122: case 2 : if(GETxAPIxVAL(31) == 1)
+"1122
+[e :U 804 ]
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 31 `i `uc -> -> 1 `i `ui 805  ]
+[; ;State_Mchn.c: 1123: {
+"1123
+{
+[; ;State_Mchn.c: 1124: Switch_Train_Path = 4;
 "1124
-[e = _Switch_Train_Path -> -> 3 `i `uc ]
+[e = _Switch_Train_Path -> -> 4 `i `uc ]
 "1125
 }
-[e :U 941 ]
 [; ;State_Mchn.c: 1125: }
-[; ;State_Mchn.c: 1126: Return_Val = 1;
+[e $U 806  ]
 "1126
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1127: break;
+[e :U 805 ]
+[; ;State_Mchn.c: 1126: else if(GETxAPIxVAL(41) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 41 `i `uc -> -> 1 `i `ui 807  ]
+{
+[; ;State_Mchn.c: 1127: Switch_Train_Path = 12;
 "1127
-[e $U 844  ]
-[; ;State_Mchn.c: 1129: case 7 :
+[e = _Switch_Train_Path -> -> 12 `i `uc ]
+"1128
+}
+[; ;State_Mchn.c: 1128: }
+[e $U 808  ]
 "1129
-[e :U 942 ]
-[; ;State_Mchn.c: 1130: if(Right_Mountain_From_The_Left(3) == 0){
+[e :U 807 ]
+[; ;State_Mchn.c: 1129: else if(GETxAPIxVAL(42) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 42 `i `uc -> -> 1 `i `ui 809  ]
+{
+[; ;State_Mchn.c: 1130: Switch_Train_Path = 11;
 "1130
-[e $ ! == -> ( _Right_Mountain_From_The_Left (1 -> -> 3 `i `uc `i -> 0 `i 943  ]
-{
-[; ;State_Mchn.c: 1131: Switch_Train_Path = 3;
+[e = _Switch_Train_Path -> -> 11 `i `uc ]
 "1131
-[e = _Switch_Train_Path -> -> 3 `i `uc ]
+}
+[; ;State_Mchn.c: 1131: }
+[e $U 810  ]
 "1132
-}
-[e :U 943 ]
-[; ;State_Mchn.c: 1132: }
-[; ;State_Mchn.c: 1133: Return_Val = 1;
+[e :U 809 ]
+[; ;State_Mchn.c: 1132: else if(GETxAPIxVAL(44) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 44 `i `uc -> -> 1 `i `ui 811  ]
+{
+[; ;State_Mchn.c: 1133: Switch_Train_Path = 10;
 "1133
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1134: break;
+[e = _Switch_Train_Path -> -> 10 `i `uc ]
 "1134
-[e $U 844  ]
-[; ;State_Mchn.c: 1136: case 8 :
+}
+[; ;State_Mchn.c: 1134: }
+[e $U 812  ]
+"1135
+[e :U 811 ]
+[; ;State_Mchn.c: 1135: else if(GETxAPIxVAL(43) == 1){
+[e $ ! == ( _GETxAPIxVAL (1 -> -> 43 `i `uc -> -> 1 `i `ui 813  ]
+{
+[; ;State_Mchn.c: 1136: Switch_Train_Path = 9;
 "1136
-[e :U 944 ]
-[; ;State_Mchn.c: 1137: if(Right_Mountain_From_The_Left(4) == 0){
+[e = _Switch_Train_Path -> -> 9 `i `uc ]
 "1137
-[e $ ! == -> ( _Right_Mountain_From_The_Left (1 -> -> 4 `i `uc `i -> 0 `i 945  ]
-{
-[; ;State_Mchn.c: 1138: Switch_Train_Path = 3;
+}
+[e :U 813 ]
 "1138
-[e = _Switch_Train_Path -> -> 3 `i `uc ]
+[e :U 812 ]
+[e :U 810 ]
+[e :U 808 ]
+[e :U 806 ]
+[; ;State_Mchn.c: 1137: }
+[; ;State_Mchn.c: 1138: Return_Val = 1;
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1139: break;
 "1139
-}
-[e :U 945 ]
-[; ;State_Mchn.c: 1139: }
-[; ;State_Mchn.c: 1140: Return_Val = 1;
+[e $U 772  ]
+[; ;State_Mchn.c: 1140: default : break;
 "1140
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1141: break;
+[e :U 814 ]
+[e $U 772  ]
 "1141
-[e $U 844  ]
-[; ;State_Mchn.c: 1143: case 9 :
-"1143
-[e :U 946 ]
-[; ;State_Mchn.c: 1144: if(Right_Mountain_From_The_Right(4) == 0){
+}
+[; ;State_Mchn.c: 1141: }
+[e $U 772  ]
+"1068
+[e :U 773 ]
+[e [\ _To , $ -> -> 3 `i `uc 774
+ , $ -> -> 4 `i `uc 784
+ , $ -> -> 1 `i `uc 794
+ , $ -> -> 2 `i `uc 804
+ 814 ]
+"1141
+[e :U 772 ]
+[; ;State_Mchn.c: 1142: break;
+"1142
+[e $U 733  ]
+[; ;State_Mchn.c: 1144: case 4 : switch(To)
 "1144
-[e $ ! == -> ( _Right_Mountain_From_The_Right (1 -> -> 4 `i `uc `i -> 0 `i 947  ]
-{
-[; ;State_Mchn.c: 1145: Switch_Train_Path = 3;
+[e :U 815 ]
+[e $U 817  ]
+[; ;State_Mchn.c: 1145: {
 "1145
-[e = _Switch_Train_Path -> -> 3 `i `uc ]
+{
+[; ;State_Mchn.c: 1146: case 3 : if(Train_Move_Right_Brake() == 0)
 "1146
-}
-[e :U 947 ]
-[; ;State_Mchn.c: 1146: }
-[; ;State_Mchn.c: 1147: Return_Val = 1;
+[e :U 818 ]
+[e $ ! == -> ( _Train_Move_Right_Brake ..  `i -> 0 `i 819  ]
+[; ;State_Mchn.c: 1147: {
 "1147
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1148: break;
+{
+[; ;State_Mchn.c: 1148: Switch_Train_Path = 0;
 "1148
-[e $U 844  ]
-[; ;State_Mchn.c: 1150: case 10 :
+[e = _Switch_Train_Path -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 1149: Return_Val = 0;
+"1149
+[e = F5103 -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 1150: break;
 "1150
-[e :U 948 ]
-[; ;State_Mchn.c: 1151: if(Right_Mountain_From_The_Right(3) == 0){
+[e $U 816  ]
 "1151
-[e $ ! == -> ( _Right_Mountain_From_The_Right (1 -> -> 3 `i `uc `i -> 0 `i 949  ]
-{
-[; ;State_Mchn.c: 1152: Switch_Train_Path = 3;
+}
+[e :U 819 ]
+[; ;State_Mchn.c: 1151: }
+[; ;State_Mchn.c: 1152: Return_Val = 1;
 "1152
-[e = _Switch_Train_Path -> -> 3 `i `uc ]
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1153: break;
 "1153
-}
-[e :U 949 ]
-[; ;State_Mchn.c: 1153: }
-[; ;State_Mchn.c: 1154: Return_Val = 1;
+[e $U 816  ]
+[; ;State_Mchn.c: 1154: case 4 : if(Train_Move_Right_Brake() == 0)
 "1154
-[e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1155: break;
+[e :U 820 ]
+[e $ ! == -> ( _Train_Move_Right_Brake ..  `i -> 0 `i 821  ]
+[; ;State_Mchn.c: 1155: {
 "1155
-[e $U 844  ]
-[; ;State_Mchn.c: 1157: case 11 :
+{
+[; ;State_Mchn.c: 1156: Switch_Train_Path = 0;
+"1156
+[e = _Switch_Train_Path -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 1157: Return_Val = 0;
 "1157
-[e :U 950 ]
-[; ;State_Mchn.c: 1158: if(Left_Mountain_From_The_Right(2) == 0){
+[e = F5103 -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 1158: break;
 "1158
-[e $ ! == -> ( _Left_Mountain_From_The_Right (1 -> -> 2 `i `uc `i -> 0 `i 951  ]
-{
-[; ;State_Mchn.c: 1159: Switch_Train_Path = 3;
+[e $U 816  ]
 "1159
-[e = _Switch_Train_Path -> -> 3 `i `uc ]
-"1160
 }
-[e :U 951 ]
-[; ;State_Mchn.c: 1160: }
-[; ;State_Mchn.c: 1161: Return_Val = 1;
-"1161
+[e :U 821 ]
+[; ;State_Mchn.c: 1159: }
+[; ;State_Mchn.c: 1160: Return_Val = 1;
+"1160
 [e = F5103 -> -> 1 `i `uc ]
-[; ;State_Mchn.c: 1162: break;
+[; ;State_Mchn.c: 1161: break;
+"1161
+[e $U 816  ]
+[; ;State_Mchn.c: 1162: case 1 : if(Train_Move_Left_Brake() == 0)
 "1162
-[e $U 844  ]
-[; ;State_Mchn.c: 1164: case 12 :
-"1164
-[e :U 952 ]
-[; ;State_Mchn.c: 1165: if(Left_Mountain_From_The_Right(1) == 0){
-"1165
-[e $ ! == -> ( _Left_Mountain_From_The_Right (1 -> -> 1 `i `uc `i -> 0 `i 953  ]
+[e :U 822 ]
+[e $ ! == -> ( _Train_Move_Left_Brake ..  `i -> 0 `i 823  ]
+[; ;State_Mchn.c: 1163: {
+"1163
 {
-[; ;State_Mchn.c: 1166: Switch_Train_Path = 3;
+[; ;State_Mchn.c: 1164: Switch_Train_Path = 0;
+"1164
+[e = _Switch_Train_Path -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 1165: Return_Val = 0;
+"1165
+[e = F5103 -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 1166: break;
 "1166
-[e = _Switch_Train_Path -> -> 3 `i `uc ]
+[e $U 816  ]
 "1167
 }
-[e :U 953 ]
+[e :U 823 ]
 [; ;State_Mchn.c: 1167: }
 [; ;State_Mchn.c: 1168: Return_Val = 1;
 "1168
 [e = F5103 -> -> 1 `i `uc ]
 [; ;State_Mchn.c: 1169: break;
 "1169
-[e $U 844  ]
-[; ;State_Mchn.c: 1171: default : Switch_Train_Path = 0; Return_Val = 1; break;
+[e $U 816  ]
+[; ;State_Mchn.c: 1170: case 2 : if(Train_Move_Left_Brake() == 0)
+"1170
+[e :U 824 ]
+[e $ ! == -> ( _Train_Move_Left_Brake ..  `i -> 0 `i 825  ]
+[; ;State_Mchn.c: 1171: {
 "1171
-[e :U 954 ]
+{
+[; ;State_Mchn.c: 1172: Switch_Train_Path = 0;
+"1172
+[e = _Switch_Train_Path -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 1173: Return_Val = 0;
+"1173
+[e = F5103 -> -> 0 `i `uc ]
+[; ;State_Mchn.c: 1174: break;
+"1174
+[e $U 816  ]
+"1175
+}
+[e :U 825 ]
+[; ;State_Mchn.c: 1175: }
+[; ;State_Mchn.c: 1176: Return_Val = 1;
+"1176
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1177: break;
+"1177
+[e $U 816  ]
+[; ;State_Mchn.c: 1178: default : break;
+"1178
+[e :U 826 ]
+[e $U 816  ]
+"1179
+}
+[; ;State_Mchn.c: 1179: }
+[e $U 816  ]
+"1144
+[e :U 817 ]
+[e [\ _To , $ -> -> 3 `i `uc 818
+ , $ -> -> 4 `i `uc 820
+ , $ -> -> 1 `i `uc 822
+ , $ -> -> 2 `i `uc 824
+ 826 ]
+"1179
+[e :U 816 ]
+[; ;State_Mchn.c: 1180: break;
+"1180
+[e $U 733  ]
+[; ;State_Mchn.c: 1182: case 5 :
+"1182
+[e :U 827 ]
+[; ;State_Mchn.c: 1183: if(Left_Mountain_From_The_Left(1) == 0){
+"1183
+[e $ ! == -> ( _Left_Mountain_From_The_Left (1 -> -> 1 `i `uc `i -> 0 `i 828  ]
+{
+[; ;State_Mchn.c: 1184: Switch_Train_Path = 3;
+"1184
+[e = _Switch_Train_Path -> -> 3 `i `uc ]
+"1185
+}
+[e :U 828 ]
+[; ;State_Mchn.c: 1185: }
+[; ;State_Mchn.c: 1186: Return_Val = 1;
+"1186
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1187: break;
+"1187
+[e $U 733  ]
+[; ;State_Mchn.c: 1189: case 6 :
+"1189
+[e :U 829 ]
+[; ;State_Mchn.c: 1190: if(Left_Mountain_From_The_Left(2) == 0){
+"1190
+[e $ ! == -> ( _Left_Mountain_From_The_Left (1 -> -> 2 `i `uc `i -> 0 `i 830  ]
+{
+[; ;State_Mchn.c: 1191: Switch_Train_Path = 3;
+"1191
+[e = _Switch_Train_Path -> -> 3 `i `uc ]
+"1192
+}
+[e :U 830 ]
+[; ;State_Mchn.c: 1192: }
+[; ;State_Mchn.c: 1193: Return_Val = 1;
+"1193
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1194: break;
+"1194
+[e $U 733  ]
+[; ;State_Mchn.c: 1196: case 7 :
+"1196
+[e :U 831 ]
+[; ;State_Mchn.c: 1197: if(Right_Mountain_From_The_Left(3) == 0){
+"1197
+[e $ ! == -> ( _Right_Mountain_From_The_Left (1 -> -> 3 `i `uc `i -> 0 `i 832  ]
+{
+[; ;State_Mchn.c: 1198: Switch_Train_Path = 3;
+"1198
+[e = _Switch_Train_Path -> -> 3 `i `uc ]
+"1199
+}
+[e :U 832 ]
+[; ;State_Mchn.c: 1199: }
+[; ;State_Mchn.c: 1200: Return_Val = 1;
+"1200
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1201: break;
+"1201
+[e $U 733  ]
+[; ;State_Mchn.c: 1203: case 8 :
+"1203
+[e :U 833 ]
+[; ;State_Mchn.c: 1204: if(Right_Mountain_From_The_Left(4) == 0){
+"1204
+[e $ ! == -> ( _Right_Mountain_From_The_Left (1 -> -> 4 `i `uc `i -> 0 `i 834  ]
+{
+[; ;State_Mchn.c: 1205: Switch_Train_Path = 3;
+"1205
+[e = _Switch_Train_Path -> -> 3 `i `uc ]
+"1206
+}
+[e :U 834 ]
+[; ;State_Mchn.c: 1206: }
+[; ;State_Mchn.c: 1207: Return_Val = 1;
+"1207
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1208: break;
+"1208
+[e $U 733  ]
+[; ;State_Mchn.c: 1210: case 9 :
+"1210
+[e :U 835 ]
+[; ;State_Mchn.c: 1211: if(Right_Mountain_From_The_Right(4) == 0){
+"1211
+[e $ ! == -> ( _Right_Mountain_From_The_Right (1 -> -> 4 `i `uc `i -> 0 `i 836  ]
+{
+[; ;State_Mchn.c: 1212: Switch_Train_Path = 3;
+"1212
+[e = _Switch_Train_Path -> -> 3 `i `uc ]
+"1213
+}
+[e :U 836 ]
+[; ;State_Mchn.c: 1213: }
+[; ;State_Mchn.c: 1214: Return_Val = 1;
+"1214
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1215: break;
+"1215
+[e $U 733  ]
+[; ;State_Mchn.c: 1217: case 10 :
+"1217
+[e :U 837 ]
+[; ;State_Mchn.c: 1218: if(Right_Mountain_From_The_Right(3) == 0){
+"1218
+[e $ ! == -> ( _Right_Mountain_From_The_Right (1 -> -> 3 `i `uc `i -> 0 `i 838  ]
+{
+[; ;State_Mchn.c: 1219: Switch_Train_Path = 3;
+"1219
+[e = _Switch_Train_Path -> -> 3 `i `uc ]
+"1220
+}
+[e :U 838 ]
+[; ;State_Mchn.c: 1220: }
+[; ;State_Mchn.c: 1221: Return_Val = 1;
+"1221
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1222: break;
+"1222
+[e $U 733  ]
+[; ;State_Mchn.c: 1224: case 11 :
+"1224
+[e :U 839 ]
+[; ;State_Mchn.c: 1225: if(Left_Mountain_From_The_Right(2) == 0){
+"1225
+[e $ ! == -> ( _Left_Mountain_From_The_Right (1 -> -> 2 `i `uc `i -> 0 `i 840  ]
+{
+[; ;State_Mchn.c: 1226: Switch_Train_Path = 3;
+"1226
+[e = _Switch_Train_Path -> -> 3 `i `uc ]
+"1227
+}
+[e :U 840 ]
+[; ;State_Mchn.c: 1227: }
+[; ;State_Mchn.c: 1228: Return_Val = 1;
+"1228
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1229: break;
+"1229
+[e $U 733  ]
+[; ;State_Mchn.c: 1231: case 12 :
+"1231
+[e :U 841 ]
+[; ;State_Mchn.c: 1232: if(Left_Mountain_From_The_Right(1) == 0){
+"1232
+[e $ ! == -> ( _Left_Mountain_From_The_Right (1 -> -> 1 `i `uc `i -> 0 `i 842  ]
+{
+[; ;State_Mchn.c: 1233: Switch_Train_Path = 3;
+"1233
+[e = _Switch_Train_Path -> -> 3 `i `uc ]
+"1234
+}
+[e :U 842 ]
+[; ;State_Mchn.c: 1234: }
+[; ;State_Mchn.c: 1235: Return_Val = 1;
+"1235
+[e = F5103 -> -> 1 `i `uc ]
+[; ;State_Mchn.c: 1236: break;
+"1236
+[e $U 733  ]
+[; ;State_Mchn.c: 1238: default : Switch_Train_Path = 0; Return_Val = 1; break;
+"1238
+[e :U 843 ]
 [e = _Switch_Train_Path -> -> 0 `i `uc ]
 [e = F5103 -> -> 1 `i `uc ]
-[e $U 844  ]
-"1172
+[e $U 733  ]
+"1239
 }
-[; ;State_Mchn.c: 1172: }
-[e $U 844  ]
-"897
-[e :U 845 ]
-[e [\ _Switch_Train_Path , $ -> -> 0 `i `uc 846
- , $ -> -> 1 `i `uc 858
- , $ -> -> 2 `i `uc 870
- , $ -> -> 3 `i `uc 882
- , $ -> -> 4 `i `uc 926
- , $ -> -> 5 `i `uc 938
- , $ -> -> 6 `i `uc 940
- , $ -> -> 7 `i `uc 942
- , $ -> -> 8 `i `uc 944
- , $ -> -> 9 `i `uc 946
- , $ -> -> 10 `i `uc 948
- , $ -> -> 11 `i `uc 950
- , $ -> -> 12 `i `uc 952
- 954 ]
-"1172
-[e :U 844 ]
-[; ;State_Mchn.c: 1174: return(Return_Val);
-"1174
+[; ;State_Mchn.c: 1239: }
+[e $U 733  ]
+"964
+[e :U 734 ]
+[e [\ _Switch_Train_Path , $ -> -> 0 `i `uc 735
+ , $ -> -> 1 `i `uc 747
+ , $ -> -> 2 `i `uc 759
+ , $ -> -> 3 `i `uc 771
+ , $ -> -> 4 `i `uc 815
+ , $ -> -> 5 `i `uc 827
+ , $ -> -> 6 `i `uc 829
+ , $ -> -> 7 `i `uc 831
+ , $ -> -> 8 `i `uc 833
+ , $ -> -> 9 `i `uc 835
+ , $ -> -> 10 `i `uc 837
+ , $ -> -> 11 `i `uc 839
+ , $ -> -> 12 `i `uc 841
+ 843 ]
+"1239
+[e :U 733 ]
+[; ;State_Mchn.c: 1241: return(Return_Val);
+"1241
 [e ) F5103 ]
-[e $UE 843  ]
-[; ;State_Mchn.c: 1175: }
-"1175
-[e :UE 843 ]
+[e $UE 732  ]
+[; ;State_Mchn.c: 1242: }
+"1242
+[e :UE 732 ]
 }

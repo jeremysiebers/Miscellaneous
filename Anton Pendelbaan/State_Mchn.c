@@ -39,296 +39,348 @@ unsigned int	Adjust_Counter = 0,
  *****************************************************************************/
 void Update_StateMchn(void)
 {
+    if (GETxAPIxVAL(SW_RESET)){
+        SETxAPIxVAL(SW_RESET, Off);
+        RESET();
+    }
+    
 	Debounce_Inputs();
 	
 	switch (Switch_Main)
 			{
-				case	Init	:	switch(Switch_Init)
-									{
-										case	0	:	Green_Led(Off);
-														Red_Led(Off);
-														Switch_Init = 1;
-														break;
-														
-										case	1	:	if(GETxAPIxVAL(BTN_LB))
-														{
-															SETxAPIxVAL(TRAIN1_POS, LB);
-															Switch_Init = 2;
-															break;
-														}
-														if(GETxAPIxVAL(BTN_LF))
-														{
-															SETxAPIxVAL(TRAIN1_POS, LF);
-															Switch_Init = 2;
-															break;
-														}
-														if(GETxAPIxVAL(BTN_RB))
-														{
-															SETxAPIxVAL(TRAIN1_POS, RB);
-															Switch_Init = 2;
-															break;
-														}
-														if(GETxAPIxVAL(BTN_RF))
-														{
-															SETxAPIxVAL(TRAIN1_POS, RF);
-															Switch_Init = 2;
-															break;															
-														}
-														if(GETxAPIxVAL(BTN_MID))
-														{
-															SETxAPIxVAL(TRAIN1_POS, Middle);
-															Switch_Init = 2;
-															break;
-														}
-														Switch_Init = 1;														
-														Green_Led(Blink);
-														break;
-														
-										case	2	:	if(!GETxAPIxVAL(BTN_LB) && !GETxAPIxVAL(BTN_LF) && !GETxAPIxVAL(BTN_RB) && !GETxAPIxVAL(BTN_RF) && !GETxAPIxVAL(BTN_MID) && !GETxAPIxVAL(BTN_START))
-														{
-															Switch_Init = 3;
-														}
-														Red_Led(Off);
-														Green_Led(Blink);
-														break;
-														
-										case	3	:	if(GETxAPIxVAL(BTN_LB))
-														{
-															SETxAPIxVAL(TRAIN2_POS, LB);
-															Switch_Init = 4;
-															break;
-														}
-														if(GETxAPIxVAL(BTN_LF))
-														{
-															SETxAPIxVAL(TRAIN2_POS, LF);
-															Switch_Init = 4;
-															break;
-														}
-														if(GETxAPIxVAL(BTN_RB))
-														{
-															SETxAPIxVAL(TRAIN2_POS, RB);
-															Switch_Init = 4;
-															break;
-														}
-														if(GETxAPIxVAL(BTN_RF))
-														{
-															SETxAPIxVAL(TRAIN2_POS, RF);
-															Switch_Init = 4;
-															break;															
-														}
-														if(GETxAPIxVAL(BTN_MID))
-														{
-															SETxAPIxVAL(TRAIN2_POS, Middle);
-															Switch_Init = 4;
-															break;
-														}
-														if(GETxAPIxVAL(BTN_START))
-														{
-															SETxAPIxVAL(TRAIN2_POS, OneTrain);
-															Switch_Init = 4;
-															break;
-														}
-														Green_Led(Blink);
-														Switch_Init = 3;
-														break;
-														
-										case	4	:	if(!GETxAPIxVAL(BTN_LB) && !GETxAPIxVAL(BTN_LF) && !GETxAPIxVAL(BTN_RB) && !GETxAPIxVAL(BTN_RF) && !GETxAPIxVAL(BTN_MID) && !GETxAPIxVAL(BTN_START))
-														{
-															if(GETxAPIxVAL(TRAIN1_POS) == GETxAPIxVAL(TRAIN2_POS))
-															{
-																Red_Led(On);
-																Switch_Init = 1;
-															}
-															if(GETxAPIxVAL(TRAIN1_POS) != GETxAPIxVAL(TRAIN2_POS))
-															{
-																Switch_Init = 5;
-															}
-														}
-														Green_Led(Blink);
-														break;
-														
-										case	5	:	if(GETxAPIxVAL(TRAIN2_POS) != OneTrain)
-														{
-															Switch_Init = 6;	//2Trains
-														}
-														if(GETxAPIxVAL(TRAIN2_POS) == OneTrain)
-														{
-															Switch_Init = 9;	//1Train
-														}
-														break;
-														
-										case	6	:	Switch_Init = 8;														
-														break;
-														
-										case	7	:	if(GETxAPIxVAL(BTN_START))	// 2Trains Start
-														{
-															Switch_Main = Run2;
-															Switch_Init = 0;
-															Stop_Program = Off;
-														}
-														Green_Led(Blink1);
-														Red_Led(Off);
-														break;
-														
-										case	8	:	if(GETxAPIxVAL(TRAIN1_POS) == Middle)		// 2 Trains NEW MODE
-														{
-															switch(GETxAPIxVAL(TRAIN2_POS))
-															{
-																case	LB	:	Switch_Program = 1;
-																				Switch_Init = 7;
-																				break;
-																case	LF	:	Switch_Program = 5;
-																				Switch_Init = 7;
-																				break;
-																case	RB	:	Switch_Program = 2;
-																				Switch_Init = 7;
-																				break;
-																case	RF	:	Switch_Program = 3;
-																				Switch_Init = 7;
-																				break;
-																default		:	Switch_Init = 8;
-																				Red_Led(On);
-																				break;	
-															}
-														}
-														if(GETxAPIxVAL(TRAIN2_POS) == Middle)
-														{
-															switch(GETxAPIxVAL(TRAIN1_POS))
-															{
-																case	LB	:	Switch_Program = 1;
-																				Switch_Init = 7;
-																				break;
-																case	LF	:	Switch_Program = 5;
-																				Switch_Init = 7;
-																				break;
-																case	RB	:	Switch_Program = 2;
-																				Switch_Init = 7;
-																				break;
-																case	RF	:	Switch_Program = 3;
-																				Switch_Init = 7;
-																				break;
-																default		:	Switch_Init = 8;
-																				Red_Led(On);
-																				break;	
-															}
-														}
-														if((GETxAPIxVAL(TRAIN1_POS) != Middle) && (GETxAPIxVAL(TRAIN2_POS) != Middle))
-														{
-															switch(GETxAPIxVAL(TRAIN1_POS))
-															{
-																case	LB	:	switch(GETxAPIxVAL(TRAIN2_POS))
-																				{
-																					case	LB	:	Switch_Init = 0;
-																									break;
-																					case	LF	:	Switch_Program = 1;
-																									Switch_Init = 7;
-																									break;
-																					case	RB	:	Switch_Program = 2;
-																									Switch_Init = 7;
-																									break;
-																					case	RF	:	Switch_Program = 4;
-																									Switch_Init = 7;
-																									break;
-																					default		:	Switch_Init = 8;
-																									Red_Led(On);
-																									break;	
-																				}
-																				break;
-																case	LF	:	switch(GETxAPIxVAL(TRAIN2_POS))
-																				{
-																					case	LB	:	Switch_Program = 1;
-																									Switch_Init = 7;
-																									break;
-																					case	LF	:	Switch_Init = 0;
-																									break;
-																					case	RB	:	Switch_Program = 0;
-																									Switch_Init = 7;
-																									break;
-																					case	RF	:	Switch_Program = 6;
-																									Switch_Init = 7;
-																									break;
-																					default		:	Switch_Init = 8;
-																									Red_Led(On);
-																									break;	
-																				}
-																				break;
-																case	RB	:	switch(GETxAPIxVAL(TRAIN2_POS))
-																				{
-																					case	LB	:	Switch_Program = 2;
-																									Switch_Init = 7;
-																									break;
-																					case	LF	:	Switch_Program = 0;
-																									Switch_Init = 7;
-																									break;
-																					case	RB	:	Switch_Init = 0;
-																									break;
-																					case	RF	:	Switch_Program = 3;
-																									Switch_Init = 7;
-																									break;
-																					default		:	Switch_Init = 8;
-																									Red_Led(On);
-																									break;	
-																				}
-																				break;
-																case	RF	:	switch(GETxAPIxVAL(TRAIN2_POS))
-																				{
-																					case	LB	:	Switch_Program = 4;
-																									Switch_Init = 7;
-																									break;
-																					case	LF	:	Switch_Program = 6;
-																									Switch_Init = 7;
-																									break;
-																					case	RB	:	Switch_Program = 3;
-																									Switch_Init = 7;
-																									break;
-																					case	RF	:	Switch_Init = 0;
-																									break;
-																					default		:	Switch_Init = 8;
-																									Red_Led(On);
-																									break;	
-																				}
-																				break;
-																default		:	Switch_Init = 8;
-																				Red_Led(On);
-																				break;	
-															}
-														}
-														break;
-														
-										case	9	:	Switch_Init = 11;
-														break;
-										
-										case	10	:	if(GETxAPIxVAL(BTN_START))	// 1Train Start
-														{
-															Switch_Main = Run1;
-															Switch_Init = 0;
-															Stop_Program = Off;
-														}
-														Green_Led(Blink1);
-														Red_Led(Off);
-														break;
-										
-										case	11	:	if(GETxAPIxVAL(TRAIN1_POS) == Middle)		// 1 Train NEW MODE
-														{
-															Switch_Program = 0;
-															Switch_Init = 10;
-														}
-														else switch(GETxAPIxVAL(TRAIN1_POS))
-														{
-															case	LB	:	Switch_Program = 1;Switch_Init = 10; break;
-															case	LF	:	Switch_Program = 3;Switch_Init = 10; break; 
-															case	RB	:	Switch_Program = 0;Switch_Init = 10; break;
-															case	RF	:	Switch_Program = 2;Switch_Init = 10; break;
-															default		:	Switch_Init = 11;
-																			Red_Led(On);
-																			break;
-														}
-														break;
-										
-										default		:	Switch_Init = 0;
-														Red_Led(On);
-														break;
-									}
+				case	Init	:	
+                                    if (GETxAPIxVAL(SW_JUNCTION_LEFT_BND)){
+                                        if(Junction(Left, Bend) == Finished){
+                                            SETxAPIxVAL(SW_JUNCTION_LEFT_BND, Off);
+                                        }
+                                    }
+                                    else if (GETxAPIxVAL(SW_JUNCTION_LEFT_STR)){
+                                        if(Junction(Left, Straight) == Finished){
+                                            SETxAPIxVAL(SW_JUNCTION_LEFT_STR, Off);
+                                        }
+                                    }
+                                    else if (GETxAPIxVAL(SW_JUNCTION_RIGHT_BND)){
+                                        if(Junction(Right, Bend) == Finished){
+                                            SETxAPIxVAL(SW_JUNCTION_RIGHT_BND, Off);
+                                        }
+                                    }
+                                    else if (GETxAPIxVAL(SW_JUNCTION_RIGHT_STR)){
+                                        if(Junction(Right, Straight) == Finished){
+                                            SETxAPIxVAL(SW_JUNCTION_RIGHT_STR, Off);
+                                        }
+                                    }
+                                    else if (GETxAPIxVAL(SW_PWM_BRAKE_ON)){
+                                        SETxAPIxVAL(PWM_BRAKE, On);
+                                        SETxAPIxVAL(SW_PWM_BRAKE_ON, Off);
+                                    }
+                                    else if (GETxAPIxVAL(SW_PWM_BRAKE_OFF)){
+                                        SETxAPIxVAL(PWM_BRAKE, Off);
+                                        SETxAPIxVAL(SW_PWM_BRAKE_OFF, Off);
+                                    }
+                                    else if (GETxAPIxVAL(ACTUAL_PWM_SPEED) != GETxAPIxVAL(SW_ACTUAL_PWM_SPEED)){
+                                        SETxAPIxVAL(ACTUAL_PWM_SPEED, GETxAPIxVAL(SW_ACTUAL_PWM_SPEED));
+                                    }
+                                    else{
+                                        
+                                        switch(Switch_Init)
+                                        {
+                                            case	0	:	Green_Led(Off);
+                                                            Red_Led(Off);
+                                                            Switch_Init = 1;
+                                                            break;
+
+                                            case	1	:	if(GETxAPIxVAL(BTN_LB))
+                                                            {
+                                                                SETxAPIxVAL(TRAIN1_POS, LB);
+                                                                Switch_Init = 2;
+                                                                break;
+                                                            }
+                                                            if(GETxAPIxVAL(BTN_LF))
+                                                            {
+                                                                SETxAPIxVAL(TRAIN1_POS, LF);
+                                                                Switch_Init = 2;
+                                                                break;
+                                                            }
+                                                            if(GETxAPIxVAL(BTN_RB))
+                                                            {
+                                                                SETxAPIxVAL(TRAIN1_POS, RB);
+                                                                Switch_Init = 2;
+                                                                break;
+                                                            }
+                                                            if(GETxAPIxVAL(BTN_RF))
+                                                            {
+                                                                SETxAPIxVAL(TRAIN1_POS, RF);
+                                                                Switch_Init = 2;
+                                                                break;															
+                                                            }
+                                                            if(GETxAPIxVAL(BTN_MID))
+                                                            {
+                                                                SETxAPIxVAL(TRAIN1_POS, Middle);
+                                                                Switch_Init = 2;
+                                                                break;
+                                                            }
+                                                            if(GETxAPIxVAL(TRAIN1_POS) > 0 && GETxAPIxVAL(TRAIN2_POS) > 0){
+                                                                Switch_Init = 4;
+                                                                break;
+                                                            }
+                                                            Switch_Init = 1;														
+                                                            Green_Led(Blink);
+                                                            break;
+
+                                            case	2	:	if(!GETxAPIxVAL(BTN_LB) && !GETxAPIxVAL(BTN_LF) && !GETxAPIxVAL(BTN_RB) && !GETxAPIxVAL(BTN_RF) && !GETxAPIxVAL(BTN_MID) && !GETxAPIxVAL(BTN_START))
+                                                            {
+                                                                Switch_Init = 3;
+                                                            }
+                                                            Red_Led(Off);
+                                                            Green_Led(Blink);
+                                                            break;
+
+                                            case	3	:	if(GETxAPIxVAL(BTN_LB))
+                                                            {
+                                                                SETxAPIxVAL(TRAIN2_POS, LB);
+                                                                Switch_Init = 4;
+                                                                break;
+                                                            }
+                                                            if(GETxAPIxVAL(BTN_LF))
+                                                            {
+                                                                SETxAPIxVAL(TRAIN2_POS, LF);
+                                                                Switch_Init = 4;
+                                                                break;
+                                                            }
+                                                            if(GETxAPIxVAL(BTN_RB))
+                                                            {
+                                                                SETxAPIxVAL(TRAIN2_POS, RB);
+                                                                Switch_Init = 4;
+                                                                break;
+                                                            }
+                                                            if(GETxAPIxVAL(BTN_RF))
+                                                            {
+                                                                SETxAPIxVAL(TRAIN2_POS, RF);
+                                                                Switch_Init = 4;
+                                                                break;															
+                                                            }
+                                                            if(GETxAPIxVAL(BTN_MID))
+                                                            {
+                                                                SETxAPIxVAL(TRAIN2_POS, Middle);
+                                                                Switch_Init = 4;
+                                                                break;
+                                                            }
+                                                            if(GETxAPIxVAL(BTN_START))
+                                                            {
+                                                                SETxAPIxVAL(TRAIN2_POS, OneTrain);
+                                                                Switch_Init = 4;
+                                                                break;
+                                                            }
+                                                            if(GETxAPIxVAL(TRAIN1_POS) > 0 && GETxAPIxVAL(TRAIN2_POS) > 0){
+                                                                Switch_Init = 4;
+                                                                break;
+                                                            }
+                                                            Green_Led(Blink);
+                                                            Switch_Init = 3;
+                                                            break;
+
+                                            case	4	:	if(!GETxAPIxVAL(BTN_LB) && !GETxAPIxVAL(BTN_LF) && !GETxAPIxVAL(BTN_RB) && !GETxAPIxVAL(BTN_RF) && !GETxAPIxVAL(BTN_MID) && !GETxAPIxVAL(BTN_START))
+                                                            {
+                                                                if(GETxAPIxVAL(TRAIN1_POS) == GETxAPIxVAL(TRAIN2_POS))
+                                                                {
+                                                                    SETxAPIxVAL(TRAIN2_POS, 0);
+                                                                    SETxAPIxVAL(TRAIN1_POS, 0);
+                                                                    Red_Led(On);
+                                                                    Switch_Init = 1;
+
+                                                                }
+                                                                if(GETxAPIxVAL(TRAIN1_POS) != GETxAPIxVAL(TRAIN2_POS))
+                                                                {
+                                                                    Switch_Init = 5;
+                                                                }
+                                                            }
+                                                            Green_Led(Blink);
+                                                            break;
+
+                                            case	5	:	if(GETxAPIxVAL(TRAIN2_POS) != OneTrain)
+                                                            {
+                                                                Switch_Init = 6;	//2Trains
+                                                            }
+                                                            if(GETxAPIxVAL(TRAIN2_POS) == OneTrain)
+                                                            {
+                                                                Switch_Init = 9;	//1Train
+                                                            }
+                                                            break;
+
+                                            case	6	:	Switch_Init = 8;														
+                                                            break;
+
+                                            case	7	:	if(GETxAPIxVAL(BTN_START) || GETxAPIxVAL(SW_START))	// 2Trains Start
+                                                            {
+                                                                Switch_Main = Run2;
+                                                                Switch_Init = 0;
+                                                                Stop_Program = Off;
+                                                                SETxAPIxVAL(SW_START, Off);
+                                                            }
+                                                            Green_Led(Blink1);
+                                                            Red_Led(Off);
+                                                            break;
+
+                                            case	8	:	if(GETxAPIxVAL(TRAIN1_POS) == Middle)		// 2 Trains NEW MODE
+                                                            {
+                                                                switch(GETxAPIxVAL(TRAIN2_POS))
+                                                                {
+                                                                    case	LB	:	Switch_Program = 1;
+                                                                                    Switch_Init = 7;
+                                                                                    break;
+                                                                    case	LF	:	Switch_Program = 5;
+                                                                                    Switch_Init = 7;
+                                                                                    break;
+                                                                    case	RB	:	Switch_Program = 2;
+                                                                                    Switch_Init = 7;
+                                                                                    break;
+                                                                    case	RF	:	Switch_Program = 3;
+                                                                                    Switch_Init = 7;
+                                                                                    break;
+                                                                    default		:	Switch_Init = 8;
+                                                                                    Red_Led(On);
+                                                                                    break;	
+                                                                }
+                                                            }
+                                                            if(GETxAPIxVAL(TRAIN2_POS) == Middle)
+                                                            {
+                                                                switch(GETxAPIxVAL(TRAIN1_POS))
+                                                                {
+                                                                    case	LB	:	Switch_Program = 1;
+                                                                                    Switch_Init = 7;
+                                                                                    break;
+                                                                    case	LF	:	Switch_Program = 5;
+                                                                                    Switch_Init = 7;
+                                                                                    break;
+                                                                    case	RB	:	Switch_Program = 2;
+                                                                                    Switch_Init = 7;
+                                                                                    break;
+                                                                    case	RF	:	Switch_Program = 3;
+                                                                                    Switch_Init = 7;
+                                                                                    break;
+                                                                    default		:	Switch_Init = 8;
+                                                                                    Red_Led(On);
+                                                                                    break;	
+                                                                }
+                                                            }
+                                                            if((GETxAPIxVAL(TRAIN1_POS) != Middle) && (GETxAPIxVAL(TRAIN2_POS) != Middle))
+                                                            {
+                                                                switch(GETxAPIxVAL(TRAIN1_POS))
+                                                                {
+                                                                    case	LB	:	switch(GETxAPIxVAL(TRAIN2_POS))
+                                                                                    {
+                                                                                        case	LB	:	Switch_Init = 0;
+                                                                                                        break;
+                                                                                        case	LF	:	Switch_Program = 1;
+                                                                                                        Switch_Init = 7;
+                                                                                                        break;
+                                                                                        case	RB	:	Switch_Program = 2;
+                                                                                                        Switch_Init = 7;
+                                                                                                        break;
+                                                                                        case	RF	:	Switch_Program = 4;
+                                                                                                        Switch_Init = 7;
+                                                                                                        break;
+                                                                                        default		:	Switch_Init = 8;
+                                                                                                        Red_Led(On);
+                                                                                                        break;	
+                                                                                    }
+                                                                                    break;
+                                                                    case	LF	:	switch(GETxAPIxVAL(TRAIN2_POS))
+                                                                                    {
+                                                                                        case	LB	:	Switch_Program = 1;
+                                                                                                        Switch_Init = 7;
+                                                                                                        break;
+                                                                                        case	LF	:	Switch_Init = 0;
+                                                                                                        break;
+                                                                                        case	RB	:	Switch_Program = 0;
+                                                                                                        Switch_Init = 7;
+                                                                                                        break;
+                                                                                        case	RF	:	Switch_Program = 6;
+                                                                                                        Switch_Init = 7;
+                                                                                                        break;
+                                                                                        default		:	Switch_Init = 8;
+                                                                                                        Red_Led(On);
+                                                                                                        break;	
+                                                                                    }
+                                                                                    break;
+                                                                    case	RB	:	switch(GETxAPIxVAL(TRAIN2_POS))
+                                                                                    {
+                                                                                        case	LB	:	Switch_Program = 2;
+                                                                                                        Switch_Init = 7;
+                                                                                                        break;
+                                                                                        case	LF	:	Switch_Program = 0;
+                                                                                                        Switch_Init = 7;
+                                                                                                        break;
+                                                                                        case	RB	:	Switch_Init = 0;
+                                                                                                        break;
+                                                                                        case	RF	:	Switch_Program = 3;
+                                                                                                        Switch_Init = 7;
+                                                                                                        break;
+                                                                                        default		:	Switch_Init = 8;
+                                                                                                        Red_Led(On);
+                                                                                                        break;	
+                                                                                    }
+                                                                                    break;
+                                                                    case	RF	:	switch(GETxAPIxVAL(TRAIN2_POS))
+                                                                                    {
+                                                                                        case	LB	:	Switch_Program = 4;
+                                                                                                        Switch_Init = 7;
+                                                                                                        break;
+                                                                                        case	LF	:	Switch_Program = 6;
+                                                                                                        Switch_Init = 7;
+                                                                                                        break;
+                                                                                        case	RB	:	Switch_Program = 3;
+                                                                                                        Switch_Init = 7;
+                                                                                                        break;
+                                                                                        case	RF	:	Switch_Init = 0;
+                                                                                                        break;
+                                                                                        default		:	Switch_Init = 8;
+                                                                                                        Red_Led(On);
+                                                                                                        break;	
+                                                                                    }
+                                                                                    break;
+                                                                    default		:	Switch_Init = 8;
+                                                                                    Red_Led(On);
+                                                                                    break;	
+                                                                }
+                                                            }
+                                                            break;
+
+                                            case	9	:	Switch_Init = 11;
+                                                            break;
+
+                                            case	10	:	if(GETxAPIxVAL(BTN_START) || GETxAPIxVAL(SW_START))	// 1Train Start
+                                                            {
+                                                                Switch_Main = Run1;
+                                                                Switch_Init = 0;
+                                                                Stop_Program = Off;
+                                                            }
+                                                            Green_Led(Blink1);
+                                                            Red_Led(Off);
+                                                            break;
+
+                                            case	11	:	if(GETxAPIxVAL(TRAIN1_POS) == Middle)		// 1 Train NEW MODE
+                                                            {
+                                                                Switch_Program = 0;
+                                                                Switch_Init = 10;
+                                                            }
+                                                            else switch(GETxAPIxVAL(TRAIN1_POS))
+                                                            {
+                                                                case	LB	:	Switch_Program = 1;Switch_Init = 10; break;
+                                                                case	LF	:	Switch_Program = 3;Switch_Init = 10; break; 
+                                                                case	RB	:	Switch_Program = 0;Switch_Init = 10; break;
+                                                                case	RF	:	Switch_Program = 2;Switch_Init = 10; break;
+                                                                default		:	Switch_Init = 11;
+                                                                                Red_Led(On);
+                                                                                break;
+                                                            }
+                                                            break;
+
+                                            default		:	Switch_Init = 0;
+                                                            Red_Led(On);
+                                                            break;
+                                        }
+                                    }
 									break;
 				
 				case	Run2	:	switch (Switch_Program)
@@ -433,7 +485,7 @@ void Update_StateMchn(void)
 										
 										default		:	break;
 									}
-									
+									/*
 									switch(Switch_Activate_Controls)
 									{
 										case	0	:	if(GETxAPIxVAL(BTN_LF) && GETxAPIxVAL(BTN_RF))
@@ -614,11 +666,12 @@ void Update_StateMchn(void)
 										default		:	Switch_Activate_Controls = 0;
 														Red_Led(Off);
 														break;
-									}
+									}*/
 							
-									if(GETxAPIxVAL(BTN_STOP))
+									if(GETxAPIxVAL(BTN_STOP) || GETxAPIxVAL(SW_STOP))
 									{
 										Stop_Program = On;
+                                        SETxAPIxVAL(SW_STOP, Off);
 									}
 									
 									if(Stop_Program == On)
@@ -683,7 +736,7 @@ void Update_StateMchn(void)
 																				
 										default		:	break;
 									}
-									
+									/*
 									switch(Switch_Activate_Controls)
 									{
 										case	0	:	if(GETxAPIxVAL(BTN_LF) && GETxAPIxVAL(BTN_RF))
@@ -865,7 +918,21 @@ void Update_StateMchn(void)
 										default		:	Switch_Activate_Controls = 0;
 														Red_Led(Off);
 														break;
+									}*/
+                                    if(GETxAPIxVAL(BTN_STOP) || GETxAPIxVAL(SW_STOP))
+									{
+										Stop_Program = On;
+                                        SETxAPIxVAL(SW_STOP, Off);
 									}
+									
+									if(Stop_Program == On)
+									{
+										Red_Led(Blink);
+									}
+									
+									Green_Led(On);
+                                    
+                                    break;
 				
 				default			:	break;
 			}

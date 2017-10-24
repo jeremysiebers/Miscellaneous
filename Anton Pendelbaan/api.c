@@ -86,13 +86,22 @@ void APIxInitialize(){
 	API_RW[TRAIN_PATH_FROM]     	=	RO;
     API_RW[TRAIN_PATH_TO]       	=	RO;
 	API_RW[MAIN_PROGRAM]			=	RO;
-	API_RW[JUNCTION_LEFT_STR]  		=	RW;
-	API_RW[JUNCTION_LEFT_BND]  		=	RW;
-	API_RW[JUNCTION_RIGHT_STR] 		=	RW;
-	API_RW[JUNCTION_RIGHT_BND] 		=	RW;
-	API_RW[ACTUAL_PWM_SPEED]		=	RW;
-	API_RW[PWM_BRAKE]				=	RW;
-	
+	API_RW[JUNCTION_LEFT_STR]  		=	RO;
+	API_RW[JUNCTION_LEFT_BND]  		=	RO;
+	API_RW[JUNCTION_RIGHT_STR] 		=	RO;
+	API_RW[JUNCTION_RIGHT_BND] 		=	RO;
+	API_RW[ACTUAL_PWM_SPEED]		=	RO;
+	API_RW[PWM_BRAKE]				=	RO;
+    API_RW[SW_START]                =   RW;
+	API_RW[SW_STOP]                 =   RW;
+    API_RW[SW_RESET]                =   RW;
+	API_RW[SW_JUNCTION_LEFT_STR]    =   RW;
+	API_RW[SW_JUNCTION_LEFT_BND]    =   RW;
+	API_RW[SW_JUNCTION_RIGHT_STR]   =   RW;
+	API_RW[SW_JUNCTION_RIGHT_BND]   =   RW;
+	API_RW[SW_PWM_BRAKE_ON]         =   RW;
+	API_RW[SW_PWM_BRAKE_OFF]        =   RW;
+	API_RW[SW_ACTUAL_PWM_SPEED]     =   RW;
 	
 	
 	
@@ -119,8 +128,8 @@ void APIxInitialize(){
 	API[BTN_LF]						=   Off;
 	API[BTN_RB]		                =   Off;
 	API[BTN_RF]		                =   Off;
-	API[TRAIN1_POS]                 =   9;
-    API[TRAIN2_POS]                 =   9;
+	API[TRAIN1_POS]                 =   0;
+    API[TRAIN2_POS]                 =   0;
 	API[RC_LMU]						= 	Off;
 	API[RC_LMD]						= 	Off;
 	API[RC_RMU]						= 	Off;
@@ -150,6 +159,17 @@ void APIxInitialize(){
 	API[JUNCTION_RIGHT_BND]  		=	0;
 	API[ACTUAL_PWM_SPEED]			=	511;
 	API[PWM_BRAKE]					=	On;
+	API[SW_START]                   =   Off;
+    API[SW_STOP]                    =   Off;
+    API[SW_RESET]                   =   Off;
+	API[SW_JUNCTION_LEFT_STR]       =   Off;
+	API[SW_JUNCTION_LEFT_BND]       =   Off;
+	API[SW_JUNCTION_RIGHT_STR]      =   Off;
+	API[SW_JUNCTION_RIGHT_BND]      =   Off;
+	API[SW_PWM_BRAKE_ON]            =   Off;     
+	API[SW_PWM_BRAKE_OFF]           =   Off;     
+	API[SW_ACTUAL_PWM_SPEED]        =   511;  
+	
 	
 }
 
@@ -186,6 +206,7 @@ void INCRxAPIxVAL(unsigned char index){
     value = GETxAPIxVAL(index);
     value++;
     SETxAPIxVAL(index, value);
+    SENDxMESSAGE(index, value);
 }
 
 void DECRxAPIxVAL(unsigned char index){
@@ -193,4 +214,5 @@ void DECRxAPIxVAL(unsigned char index){
     value = GETxAPIxVAL(index);
     value--;
     SETxAPIxVAL(index, value);
+    SENDxMESSAGE(index, value);
 }

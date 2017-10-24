@@ -6262,6 +6262,8 @@ extern void EUSART1_Receive_ISR(void);
 extern void SENDxMESSAGE(unsigned char index, unsigned int value);
 extern void READxRECEIVEDxMESSAGE(void);
 
+void TranslateMessage(void);
+
 # 11 "../api.h"
 extern void APIxInitialize(void);
 extern unsigned int GETxAPIxRW(unsigned char index);
@@ -6271,7 +6273,7 @@ extern void DECRxAPIxVAL(unsigned char index);
 extern unsigned int GETxAPIxVAL(unsigned char index);
 extern unsigned int API[];
 
-# 69 "../io.h"
+# 73 "../io.h"
 unsigned int Train_Move_Pwm_Count;
 
 extern void Debounce_Inputs(void);
@@ -6375,7 +6377,7 @@ T0CON = 0xC3;
 void Init_Pwm(void)
 {
 
-SETxAPIxVAL(0x45, 1);
+SETxAPIxVAL(69, 1);
 PR2=0xFF;
 CCPR1L = 0x7F;
 CCP1CON = 0x0F;

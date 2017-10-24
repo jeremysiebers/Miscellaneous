@@ -4941,6 +4941,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eusart1.h: 398: extern void EUSART1_Receive_ISR(void);
 [; ;terminal.h: 73: extern void SENDxMESSAGE(unsigned char index, unsigned int value);
 [; ;terminal.h: 74: extern void READxRECEIVEDxMESSAGE(void);
+[; ;terminal.h: 76: void TranslateMessage(void);
 [; ;api.h: 11: extern void APIxInitialize(void);
 [; ;api.h: 12: extern unsigned int GETxAPIxRW(unsigned char index);
 [; ;api.h: 13: extern void SETxAPIxVAL(unsigned char index, unsigned int value);
@@ -4948,12 +4949,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;api.h: 15: extern void DECRxAPIxVAL(unsigned char index);
 [; ;api.h: 16: extern unsigned int GETxAPIxVAL(unsigned char index);
 [; ;api.h: 17: extern unsigned int API[];
-"69 ../io.h
+"73 ../io.h
 [v _Train_Move_Pwm_Count `ui ~T0 @X0 1 e ]
-[; ;io.h: 69: unsigned int Train_Move_Pwm_Count;
-[; ;io.h: 71: extern void Debounce_Inputs(void);
-[; ;io.h: 72: extern void Green_Led(unsigned char Operation);
-[; ;io.h: 73: extern void Red_Led(unsigned char Operation);
+[; ;io.h: 73: unsigned int Train_Move_Pwm_Count;
+[; ;io.h: 75: extern void Debounce_Inputs(void);
+[; ;io.h: 76: extern void Green_Led(unsigned char Operation);
+[; ;io.h: 77: extern void Red_Led(unsigned char Operation);
 [; ;Main.c: 97: void Init_Timers(void);
 [; ;Main.c: 98: void Init_Pwm(void);
 "100 ../Main.c
@@ -5088,9 +5089,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "139
 [e :UE 563 ]
 }
-[v F5124 `(v ~T0 @X0 1 tf ]
+[v F5126 `(v ~T0 @X0 1 tf ]
 "146
-[v _tc_low `ILF5124 ~T0 @X0 1 e ]
+[v _tc_low `ILF5126 ~T0 @X0 1 e ]
 {
 [; ;Main.c: 146: void interrupt low_priority tc_low(void) {
 [e :U _tc_low ]
@@ -5099,9 +5100,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "148
 [e :UE 568 ]
 }
-[v F5127 `(v ~T0 @X0 1 tf ]
+[v F5129 `(v ~T0 @X0 1 tf ]
 "150
-[v _tc_high `IHF5127 ~T0 @X0 1 e ]
+[v _tc_high `IHF5129 ~T0 @X0 1 e ]
 {
 [; ;Main.c: 150: void interrupt high_priority tc_high(void) {
 [e :U _tc_high ]
@@ -5228,7 +5229,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Main.c: 195: {
 [e :U _Init_Pwm ]
 [f ]
-[; ;Main.c: 197: SETxAPIxVAL(0x45, 1);
+[; ;Main.c: 197: SETxAPIxVAL(69, 1);
 "197
 [e ( _SETxAPIxVAL (2 , -> -> 69 `i `uc -> -> 1 `i `ui ]
 [; ;Main.c: 198: PR2=0xFF;
