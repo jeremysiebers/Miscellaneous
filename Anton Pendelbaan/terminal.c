@@ -122,9 +122,9 @@ void TranslateMessage(void){
     if(Data[0] == 's'){
       
         pData = &Data[2];
-        Index = atoi (pData);
+        Index = (unsigned int)atoi (pData);
         pData = &Data[5];
-        Value = atoi (pData);
+        Value = (unsigned int)atoi (pData);
         
         if (GETxAPIxRW(Index) == RO){
             printf("\r\nE#11\r\n");
@@ -146,7 +146,7 @@ void TranslateMessage(void){
     else if (Data[0] == 'g'){                                                   // A get from API can only contain up to 0xFF
          
         pData = &Data[2];   
-        Index = atoi (pData);
+        Index = (unsigned int)atoi (pData);
         
         if (Index < 0xF){
             printf("\r\nE#12\r\n");
