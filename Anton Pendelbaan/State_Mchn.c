@@ -937,6 +937,7 @@ void Update_StateMchn(void)
 				default			:	break;
 			}
     SETxAPIxVAL(MAIN_PROGRAM, Switch_Main);
+    SETxAPIxVAL(SWITCH_PROGRAM, Switch_Program);
 }
 
 

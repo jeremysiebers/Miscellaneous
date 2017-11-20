@@ -6673,9 +6673,10 @@ break;
 default : break;
 }
 SETxAPIxVAL(63, Switch_Main);
+SETxAPIxVAL(80, Switch_Program);
 }
 
-# 957
+# 958
 char Train_Path(unsigned char From, unsigned char To)
 {
 static char Return_Val = 1;

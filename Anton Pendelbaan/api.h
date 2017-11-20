@@ -95,6 +95,7 @@ extern unsigned int  API[];
 #define     SW_PWM_BRAKE_ON             77      // SW Brake activation
 #define     SW_PWM_BRAKE_OFF            78      // SW Brake deactivation
 #define     SW_ACTUAL_PWM_SPEED         79      // SW PWM control
+#define     SWITCH_PROGRAM              80      // Status of Train run(path) program
                                         
 #ifdef	__cplusplus
 extern "C" {

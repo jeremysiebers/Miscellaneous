@@ -102,7 +102,7 @@ void APIxInitialize(){
 	API_RW[SW_PWM_BRAKE_ON]         =   RW;
 	API_RW[SW_PWM_BRAKE_OFF]        =   RW;
 	API_RW[SW_ACTUAL_PWM_SPEED]     =   RW;
-	
+	API_RW[SWITCH_PROGRAM]          =   RO;
 	
 	
 	/*  Set the API data */
@@ -168,7 +168,8 @@ void APIxInitialize(){
 	API[SW_JUNCTION_RIGHT_BND]      =   Off;
 	API[SW_PWM_BRAKE_ON]            =   Off;     
 	API[SW_PWM_BRAKE_OFF]           =   Off;     
-	API[SW_ACTUAL_PWM_SPEED]        =   511;  
+	API[SW_ACTUAL_PWM_SPEED]        =   511; 
+    API[SWITCH_PROGRAM]             =   0;
 	
 	
 }
