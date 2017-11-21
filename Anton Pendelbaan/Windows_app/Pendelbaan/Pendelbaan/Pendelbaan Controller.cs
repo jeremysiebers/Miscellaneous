@@ -34,7 +34,8 @@ namespace Pendelbaan
     {
         public SerialPortExample serialPort;
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
-        
+        public int FastIo;
+        public int SlowIo;
 
         #region Variables
         int api_size = 0;
@@ -111,6 +112,9 @@ namespace Pendelbaan
 
             serialPort = new SerialPortExample("COM4", "\r\n", 60000);
 
+            FastIo = 0;
+            SlowIo = 0;
+
 
             string[] ports = SerialPort.GetPortNames();
             foreach (string port in ports) {
@@ -124,7 +128,7 @@ namespace Pendelbaan
             myTimer.Tick += new EventHandler(TimerEventProcessor);
 
             // Sets the timer interval to 1 seconds.
-            myTimer.Interval = 1000;
+            myTimer.Interval = 10;
             myTimer.Start();
         }
 
@@ -160,7 +164,7 @@ namespace Pendelbaan
                     progressBar1.Value = 0;
                 }
 
-                SerialRead.AppendText(Api.ToString() + " " + Value.ToString());
+                //SerialRead.AppendText(Api.ToString() + " " + Value.ToString() + System.Environment.NewLine);
 
                 switch (Api)
                 {
@@ -323,9 +327,7 @@ namespace Pendelbaan
 
         private void maakVerbindingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string port = (string)comPoortToolStripMenuItem.SelectedItem;
-            var cancelToken = new CancellationTokenSource();
-
+            string port = (string)comPoortToolStripMenuItem.SelectedItem; 
             serialPort.PortName = port;
 
             if (maakVerbindingToolStripMenuItem.Text == "Maak Verbinding")
@@ -335,10 +337,7 @@ namespace Pendelbaan
                     serialPort.Open();
                     comPoortToolStripMenuItem.Enabled = false;
                     maakVerbindingToolStripMenuItem.Enabled = false;
-                    //maakVerbindingToolStripMenuItem.Text = "Verbreek Verbinding";
-                    //var response = serialPort.Send("gx30G", true);
-                    Task.Factory.StartNew(() => startread(cancelToken.Token));
-                    ReadAllData();
+                    //ReadAllData();
                 }
                 catch (Exception ex)
                 {
@@ -364,11 +363,11 @@ namespace Pendelbaan
          */
         /*#--------------------------------------------------------------------------#*/
         private void ReadAllData()
-        {
+        {            
             for (int i = 16; i < 81; i++)
             {
-                serialPort.Send("gx"+ i.ToString() + "G", false);
-                Thread.Sleep(50);
+                TranslateReceivedData(serialPort.Send("gx"+ i.ToString() + "G", true));
+                //Thread.Sleep(50);
             }
             
         }
@@ -389,10 +388,46 @@ namespace Pendelbaan
          *  Notes      :
          */
         /*#--------------------------------------------------------------------------#*/
-        private static void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
+        private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
         {
             myTimer.Stop();
 
+            FastIo++;
+            SlowIo++;
+
+            if (serialPort.IsOpen)
+            {
+
+                if (FastIo > 5)
+                {
+                    TranslateReceivedData(serialPort.Send("gx" + API.RC_RB.ToString() + "G", true));
+                    TranslateReceivedData(serialPort.Send("gx" + API.RC_RF.ToString() + "G", true));
+                    TranslateReceivedData(serialPort.Send("gx" + API.RC_LB.ToString() + "G", true));
+                    TranslateReceivedData(serialPort.Send("gx" + API.RC_LF.ToString() + "G", true));
+
+                    TranslateReceivedData(serialPort.Send("gx" + API.RC_LMU.ToString() + "G", true));
+                    TranslateReceivedData(serialPort.Send("gx" + API.RC_LMD.ToString() + "G", true));
+                    TranslateReceivedData(serialPort.Send("gx" + API.RC_RMU.ToString() + "G", true));
+                    TranslateReceivedData(serialPort.Send("gx" + API.RC_RMD.ToString() + "G", true));
+
+                    TranslateReceivedData(serialPort.Send("gx" + API.JUNCTION_LEFT_STR.ToString() + "G", true));
+                    TranslateReceivedData(serialPort.Send("gx" + API.JUNCTION_LEFT_BND.ToString() + "G", true));
+                    TranslateReceivedData(serialPort.Send("gx" + API.JUNCTION_RIGHT_STR.ToString() + "G", true));
+                    TranslateReceivedData(serialPort.Send("gx" + API.JUNCTION_RIGHT_BND.ToString() + "G", true));
+
+                    TranslateReceivedData(serialPort.Send("gx" + API.ACTUAL_PWM_SPEED.ToString() + "G", true));
+
+                    FastIo = 0;
+                }
+                else if(SlowIo > 100)
+                {
+                    for (int i = 16; i < 81; i++)
+                    {
+                        TranslateReceivedData(serialPort.Send("gx" + i.ToString() + "G", true));                        
+                    }
+                    SlowIo = 0;
+                }
+            }
 
             myTimer.Enabled = true;
 
@@ -416,57 +451,47 @@ namespace Pendelbaan
          *  Notes      :
          */
         /*#--------------------------------------------------------------------------#*/
-        private async Task startread(CancellationToken ct)
+        private void TranslateReceivedData(string tString)
         {
-            Action kickoffRead = null;
-            kickoffRead = delegate
-            {
-                string tString = serialPort.Read();
-                if (tString != string.Empty)
-                {
-                    //tString += Encoding.ASCII.GetString(received);
-                    Console.WriteLine(tString);
-                    Console.WriteLine("-------------------------------------------------------------------------");
+           if (tString != string.Empty)
+           {
+               //tString += Encoding.ASCII.GetString(received);
+               //Console.WriteLine(tString);
+               //Console.WriteLine("-------------------------------------------------------------------------");
+               if (tString.IndexOf("M#") > 0)
+               {
+                   int j = 0;
+                   int Api = 0;
+                   int Value = 0;
+                   string[] numbers = Regex.Split(tString, @"\D+");
+                   foreach (string value in numbers)
+                   {
+                       if (!string.IsNullOrEmpty(value))
+                       {
+                           int i = int.Parse(value);
+                           //Console.WriteLine("Number: {0}", i);
+                           if (j == 0)
+                           {
+                               Api = i;
+                               j = 1;
+                           }
+                           else if (j == 1)
+                           {
+                               Value = i;
+                               j = 2;
+                           }
+                       }
+                   }
 
+                   if (Api != 0)
+                   {
+                       ReceivedData(Api, Value);
+                   }
 
-                    if (tString.IndexOf("M#") > 0)
-                    {
-                        int j = 0;
-                        int Api = 0;
-                        int Value = 0;
-                        string[] numbers = Regex.Split(tString, @"\D+");
-                        foreach (string value in numbers)
-                        {
-                            if (!string.IsNullOrEmpty(value))
-                            {
-                                int i = int.Parse(value);
-                                //Console.WriteLine("Number: {0}", i);
-                                if (j == 0)
-                                {
-                                    Api = i;
-                                    j = 1;
-                                }
-                                else if (j == 1)
-                                {
-                                    Value = i;
-                                    j = 2;
-                                }
-                            }
-                        }
+               }
 
-                        if (Api != 0)
-                        {
-                            ReceivedData(Api, Value);
-                        }
-
-                    }
-
-                    tString = "";
-                }
-                kickoffRead();
-            }; kickoffRead();
-
-
+               tString = "";
+           }
         }
 
     }

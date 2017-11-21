@@ -236,7 +236,7 @@
 `uc 1 RB7 1 0 :1:7 
 ]
 "2739
-[s S1354 . 1 `uc 1 INT0 1 0 :1:0 
+[s S1352 . 1 `uc 1 INT0 1 0 :1:0 
 `uc 1 INT1 1 0 :1:1 
 `uc 1 INT2 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
@@ -244,12 +244,12 @@
 `uc 1 PGC 1 0 :1:6 
 `uc 1 PGD 1 0 :1:7 
 ]
-[s S1362 . 1 `uc 1 . 1 0 :3:0 
+[s S1360 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 CCP2_PA2 1 0 :1:3 
 ]
-[u S1365 . 1 `S273 1 . 1 0 `S1354 1 . 1 0 `S1362 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES1365  1 e 1 @3969 ]
-[s S1267 . 1 `uc 1 RC0 1 0 :1:0 
+[u S1363 . 1 `S273 1 . 1 0 `S1352 1 . 1 0 `S1360 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES1363  1 e 1 @3969 ]
+[s S1265 . 1 `uc 1 RC0 1 0 :1:0 
 `uc 1 RC1 1 0 :1:1 
 `uc 1 RC2 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -259,31 +259,31 @@
 `uc 1 RC7 1 0 :1:7 
 ]
 "2863
-[s S1276 . 1 `uc 1 T1OSO 1 0 :1:0 
+[s S1274 . 1 `uc 1 T1OSO 1 0 :1:0 
 `uc 1 T1OSI 1 0 :1:1 
 `uc 1 CCP1 1 0 :1:2 
 `uc 1 . 1 0 :3:3 
 `uc 1 TX 1 0 :1:6 
 `uc 1 RX 1 0 :1:7 
 ]
-[s S1283 . 1 `uc 1 T13CKI 1 0 :1:0 
+[s S1281 . 1 `uc 1 T13CKI 1 0 :1:0 
 `uc 1 . 1 0 :1:1 
 `uc 1 P1A 1 0 :1:2 
 `uc 1 . 1 0 :3:3 
 `uc 1 CK 1 0 :1:6 
 `uc 1 DT 1 0 :1:7 
 ]
-[s S1290 . 1 `uc 1 . 1 0 :1:0 
+[s S1288 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 CCP2 1 0 :1:1 
 ]
-[s S1293 . 1 `uc 1 . 1 0 :2:0 
+[s S1291 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PA1 1 0 :1:2 
 ]
-[s S1296 . 1 `uc 1 . 1 0 :1:0 
+[s S1294 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 PA2 1 0 :1:1 
 ]
-[u S1299 . 1 `S1267 1 . 1 0 `S1276 1 . 1 0 `S1283 1 . 1 0 `S1290 1 . 1 0 `S1293 1 . 1 0 `S1296 1 . 1 0 ]
-[v _PORTCbits PORTCbits `VES1299  1 e 1 @3970 ]
+[u S1297 . 1 `S1265 1 . 1 0 `S1274 1 . 1 0 `S1281 1 . 1 0 `S1288 1 . 1 0 `S1291 1 . 1 0 `S1294 1 . 1 0 ]
+[v _PORTCbits PORTCbits `VES1297  1 e 1 @3970 ]
 [s S73 . 1 `uc 1 RD0 1 0 :1:0 
 `uc 1 RD1 1 0 :1:1 
 `uc 1 RD2 1 0 :1:2 
@@ -308,7 +308,7 @@
 ]
 [u S186 . 1 `S73 1 . 1 0 `S174 1 . 1 0 `S183 1 . 1 0 ]
 [v _PORTDbits PORTDbits `VES186  1 e 1 @3971 ]
-[s S1390 . 1 `uc 1 RE0 1 0 :1:0 
+[s S1388 . 1 `uc 1 RE0 1 0 :1:0 
 `uc 1 RE1 1 0 :1:1 
 `uc 1 RE2 1 0 :1:2 
 `uc 1 RE3 1 0 :1:3 
@@ -316,46 +316,46 @@
 `uc 1 RDPU 1 0 :1:7 
 ]
 "3148
-[s S1397 . 1 `uc 1 CK1SPP 1 0 :1:0 
+[s S1395 . 1 `uc 1 CK1SPP 1 0 :1:0 
 `uc 1 CK2SPP 1 0 :1:1 
 `uc 1 OESPP 1 0 :1:2 
 ]
-[s S1401 . 1 `uc 1 . 1 0 :2:0 
+[s S1399 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 CCP10 1 0 :1:2 
 ]
-[s S1404 . 1 `uc 1 . 1 0 :7:0 
+[s S1402 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 CCP2E 1 0 :1:7 
 ]
-[s S1407 . 1 `uc 1 . 1 0 :3:0 
+[s S1405 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 CCP9E 1 0 :1:3 
 ]
-[s S1410 . 1 `uc 1 . 1 0 :2:0 
+[s S1408 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 CS 1 0 :1:2 
 ]
-[s S1413 . 1 `uc 1 . 1 0 :7:0 
+[s S1411 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 PA2E 1 0 :1:7 
 ]
-[s S1416 . 1 `uc 1 . 1 0 :2:0 
+[s S1414 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PB2 1 0 :1:2 
 ]
-[s S1419 . 1 `uc 1 . 1 0 :1:0 
+[s S1417 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 PC2 1 0 :1:1 
 ]
-[s S1422 . 1 `uc 1 . 1 0 :3:0 
+[s S1420 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 PC3E 1 0 :1:3 
 ]
-[s S1425 . 1 `uc 1 PD2 1 0 :1:0 
+[s S1423 . 1 `uc 1 PD2 1 0 :1:0 
 ]
-[s S1427 . 1 `uc 1 RDE 1 0 :1:0 
+[s S1425 . 1 `uc 1 RDE 1 0 :1:0 
 ]
-[s S1429 . 1 `uc 1 . 1 0 :7:0 
+[s S1427 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 RE7 1 0 :1:7 
 ]
-[s S1432 . 1 `uc 1 . 1 0 :1:0 
+[s S1430 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 WRE 1 0 :1:1 
 ]
-[u S1435 . 1 `S1390 1 . 1 0 `S1397 1 . 1 0 `S1401 1 . 1 0 `S1404 1 . 1 0 `S1407 1 . 1 0 `S1410 1 . 1 0 `S1413 1 . 1 0 `S1416 1 . 1 0 `S1419 1 . 1 0 `S1422 1 . 1 0 `S1425 1 . 1 0 `S1427 1 . 1 0 `S1429 1 . 1 0 `S1432 1 . 1 0 ]
-[v _PORTEbits PORTEbits `VES1435  1 e 1 @3972 ]
+[u S1433 . 1 `S1388 1 . 1 0 `S1395 1 . 1 0 `S1399 1 . 1 0 `S1402 1 . 1 0 `S1405 1 . 1 0 `S1408 1 . 1 0 `S1411 1 . 1 0 `S1414 1 . 1 0 `S1417 1 . 1 0 `S1420 1 . 1 0 `S1423 1 . 1 0 `S1425 1 . 1 0 `S1427 1 . 1 0 `S1430 1 . 1 0 ]
+[v _PORTEbits PORTEbits `VES1433  1 e 1 @3972 ]
 "3778
 [v _TRISA TRISA `VEuc  1 e 1 @3986 ]
 [s S28 . 1 `uc 1 TRISA0 1 0 :1:0 
@@ -471,7 +471,7 @@
 ]
 [u S437 . 1 `S419 1 . 1 0 `S428 1 . 1 0 `S431 1 . 1 0 `S434 1 . 1 0 ]
 [v _PIR1bits PIR1bits `VES437  1 e 1 @3998 ]
-[s S1160 . 1 `uc 1 CCP2IF 1 0 :1:0 
+[s S1158 . 1 `uc 1 CCP2IF 1 0 :1:0 
 `uc 1 TMR3IF 1 0 :1:1 
 `uc 1 HLVDIF 1 0 :1:2 
 `uc 1 BCLIF 1 0 :1:3 
@@ -481,12 +481,12 @@
 `uc 1 OSCFIF 1 0 :1:7 
 ]
 "5084
-[s S1169 . 1 `uc 1 . 1 0 :2:0 
+[s S1167 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LVDIF 1 0 :1:2 
 ]
-[u S1172 . 1 `S1160 1 . 1 0 `S1169 1 . 1 0 ]
-[v _PIR2bits PIR2bits `VES1172  1 e 1 @4001 ]
-[s S1128 . 1 `uc 1 RD 1 0 :1:0 
+[u S1170 . 1 `S1158 1 . 1 0 `S1167 1 . 1 0 ]
+[v _PIR2bits PIR2bits `VES1170  1 e 1 @4001 ]
+[s S1126 . 1 `uc 1 RD 1 0 :1:0 
 `uc 1 WR 1 0 :1:1 
 `uc 1 WREN 1 0 :1:2 
 `uc 1 WRERR 1 0 :1:3 
@@ -496,11 +496,11 @@
 `uc 1 EEPGD 1 0 :1:7 
 ]
 "5224
-[s S1137 . 1 `uc 1 . 1 0 :6:0 
+[s S1135 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 EEFS 1 0 :1:6 
 ]
-[u S1140 . 1 `S1128 1 . 1 0 `S1137 1 . 1 0 ]
-[v _EECON1bits EECON1bits `VES1140  1 e 1 @4006 ]
+[u S1138 . 1 `S1126 1 . 1 0 `S1135 1 . 1 0 ]
+[v _EECON1bits EECON1bits `VES1138  1 e 1 @4006 ]
 "5268
 [v _EECON2 EECON2 `VEuc  1 e 1 @4007 ]
 "5274
@@ -709,11 +709,11 @@
 {
 [v Train_Path@From From `uc  1 a 1 wreg ]
 [v Train_Path@From From `uc  1 a 1 wreg ]
-[v Train_Path@To To `uc  1 p 1 41 ]
+[v Train_Path@To To `uc  1 p 1 16 ]
 "960
 [v Train_Path@Return_Val Return_Val `uc  1 s 1 Return_Val ]
 "962
-[v Train_Path@From From `uc  1 a 1 42 ]
+[v Train_Path@From From `uc  1 a 1 17 ]
 "1243
 } 0
 "27 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_right.c
@@ -760,7 +760,7 @@
 "105
 [v Right_Mountain_From_The_Right@Return_Val Return_Val `uc  1 s 1 Return_Val ]
 "103
-[v Right_Mountain_From_The_Right@rc rc `uc  1 a 1 40 ]
+[v Right_Mountain_From_The_Right@rc rc `uc  1 a 1 15 ]
 "162
 } 0
 "179 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_right.c
@@ -771,7 +771,7 @@
 "181
 [v Right_Mountain_From_The_Left@Return_Val Return_Val `uc  1 s 1 Return_Val ]
 "179
-[v Right_Mountain_From_The_Left@rc rc `uc  1 a 1 40 ]
+[v Right_Mountain_From_The_Left@rc rc `uc  1 a 1 15 ]
 "238
 } 0
 "178 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_left.c
@@ -782,7 +782,7 @@
 "180
 [v Left_Mountain_From_The_Right@Return_Val Return_Val `uc  1 s 1 Return_Val ]
 "178
-[v Left_Mountain_From_The_Right@rc rc `uc  1 a 1 40 ]
+[v Left_Mountain_From_The_Right@rc rc `uc  1 a 1 15 ]
 "237
 } 0
 "104 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_right.c
@@ -793,17 +793,17 @@
 "106
 [v Left_Mountain_From_The_Left@Return_Val Return_Val `uc  1 s 1 Return_Val ]
 "104
-[v Left_Mountain_From_The_Left@rc rc `uc  1 a 1 40 ]
+[v Left_Mountain_From_The_Left@rc rc `uc  1 a 1 15 ]
 "163
 } 0
 "20 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/set_pwm.c
 [v _SETxPWM SETxPWM `(v  1 e 1 0 ]
 {
 "22
-[v SETxPWM@pwm_speed pwm_speed `ui  1 a 2 38 ]
+[v SETxPWM@pwm_speed pwm_speed `ui  1 a 2 13 ]
 "20
-[v SETxPWM@speed speed `ui  1 p 2 33 ]
-[v SETxPWM@direction direction `uc  1 p 1 35 ]
+[v SETxPWM@speed speed `ui  1 p 2 8 ]
+[v SETxPWM@direction direction `uc  1 p 1 10 ]
 "34
 } 0
 "23 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/junction.c
@@ -811,13 +811,13 @@
 {
 [v Junction@Junction_Left_Right Junction_Left_Right `uc  1 a 1 wreg ]
 [v Junction@Junction_Left_Right Junction_Left_Right `uc  1 a 1 wreg ]
-[v Junction@Straight_Bend Straight_Bend `uc  1 p 1 33 ]
+[v Junction@Straight_Bend Straight_Bend `uc  1 p 1 8 ]
 "25
 [v Junction@Return_Val Return_Val `uc  1 s 1 Return_Val ]
 "26
 [v Junction@Junction_Switch_Time Junction_Switch_Time `ui  1 s 2 Junction_Switch_Time ]
 "23
-[v Junction@Junction_Left_Right Junction_Left_Right `uc  1 a 1 34 ]
+[v Junction@Junction_Left_Right Junction_Left_Right `uc  1 a 1 9 ]
 "78
 } 0
 "97 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/io.c
@@ -825,7 +825,7 @@
 {
 [v Red_Led@Operation Operation `uc  1 a 1 wreg ]
 [v Red_Led@Operation Operation `uc  1 a 1 wreg ]
-[v Red_Led@Operation Operation `uc  1 a 1 31 ]
+[v Red_Led@Operation Operation `uc  1 a 1 0 ]
 "131
 } 0
 "47
@@ -833,7 +833,7 @@
 {
 [v Green_Led@Operation Operation `uc  1 a 1 wreg ]
 [v Green_Led@Operation Operation `uc  1 a 1 wreg ]
-[v Green_Led@Operation Operation `uc  1 a 1 31 ]
+[v Green_Led@Operation Operation `uc  1 a 1 0 ]
 "81
 } 0
 "21 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eeprom_settings.c
@@ -849,11 +849,11 @@
 "7 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\pic18\plib\PWM\pw1setdc.c
 [v _SetDCPWM1 SetDCPWM1 `(v  1 e 1 0 ]
 {
-[u S1628 PWMDC 2 `ui 1 lpwm 2 0 `[2]uc 1 bpwm 2 0 ]
+[u S1626 PWMDC 2 `ui 1 lpwm 2 0 `[2]uc 1 bpwm 2 0 ]
 "9
-[v SetDCPWM1@DCycle DCycle `S1628  1 a 2 6 ]
+[v SetDCPWM1@DCycle DCycle `S1626  1 a 2 7 ]
 "7
-[v SetDCPWM1@dutycycle dutycycle `ui  1 p 2 2 ]
+[v SetDCPWM1@dutycycle dutycycle `ui  1 p 2 3 ]
 "19
 } 0
 "32 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/terminal.c
@@ -865,8 +865,8 @@
 [v _TranslateMessage TranslateMessage `(v  1 e 1 0 ]
 {
 "120
-[v TranslateMessage@Index Index `ui  1 a 2 35 ]
-[v TranslateMessage@Value Value `ui  1 a 2 33 ]
+[v TranslateMessage@Index Index `ui  1 a 2 31 ]
+[v TranslateMessage@Value Value `ui  1 a 2 29 ]
 "163
 } 0
 "5 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\atoi.c
@@ -886,7 +886,7 @@
 [v isdigit@c c `uc  1 a 1 wreg ]
 [v isdigit@c c `uc  1 a 1 wreg ]
 "14
-[v isdigit@c c `uc  1 a 1 1 ]
+[v isdigit@c c `uc  1 a 1 2 ]
 "15
 } 0
 "15 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\Umul16.c
@@ -899,12 +899,69 @@
 [v ___wmul@multiplicand multiplicand `ui  1 p 2 2 ]
 "53
 } 0
+"178 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/terminal.c
+[v _SENDxMESSAGE SENDxMESSAGE `(v  1 e 1 0 ]
+{
+[v SENDxMESSAGE@index index `uc  1 a 1 wreg ]
+[v SENDxMESSAGE@index index `uc  1 a 1 wreg ]
+[v SENDxMESSAGE@value value `ui  1 p 2 26 ]
+"184
+[v SENDxMESSAGE@index index `uc  1 a 1 28 ]
+"185
+} 0
+"464 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\doprnt.c
+[v _printf printf `(i  1 e 2 0 ]
+{
+"528
+[v printf@val val `ui  1 a 2 23 ]
+"466
+[v printf@ap ap `[1]*.39v  1 a 2 19 ]
+"499
+[v printf@c c `c  1 a 1 25 ]
+"506
+[v printf@prec prec `c  1 a 1 22 ]
+"508
+[v printf@flag flag `uc  1 a 1 21 ]
+"464
+[v printf@f f `*.25Cuc  1 p 2 12 ]
+"1541
+} 0
+"177 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
+[v _putch putch `(v  1 e 1 0 ]
+{
+[v putch@data data `uc  1 a 1 wreg ]
+[v putch@data data `uc  1 a 1 wreg ]
+[v putch@data data `uc  1 a 1 0 ]
+"181
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\lwmod.c
+[v ___lwmod __lwmod `(ui  1 e 2 0 ]
+{
+"11
+[v ___lwmod@counter counter `uc  1 a 1 11 ]
+"8
+[v ___lwmod@dividend dividend `ui  1 p 2 7 ]
+[v ___lwmod@divisor divisor `ui  1 p 2 9 ]
+"26
+} 0
+"8 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\lwdiv.c
+[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
+{
+"11
+[v ___lwdiv@quotient quotient `ui  1 a 2 5 ]
+"12
+[v ___lwdiv@counter counter `uc  1 a 1 4 ]
+"8
+[v ___lwdiv@dividend dividend `ui  1 p 2 0 ]
+[v ___lwdiv@divisor divisor `ui  1 p 2 2 ]
+"31
+} 0
 "201 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/api.c
 [v _GETxAPIxVAL GETxAPIxVAL `(ui  1 e 2 0 ]
 {
 [v GETxAPIxVAL@index index `uc  1 a 1 wreg ]
 [v GETxAPIxVAL@index index `uc  1 a 1 wreg ]
-[v GETxAPIxVAL@index index `uc  1 a 1 31 ]
+[v GETxAPIxVAL@index index `uc  1 a 1 2 ]
 "203
 } 0
 "191
@@ -912,14 +969,14 @@
 {
 [v GETxAPIxRW@index index `uc  1 a 1 wreg ]
 [v GETxAPIxRW@index index `uc  1 a 1 wreg ]
-[v GETxAPIxRW@index index `uc  1 a 1 31 ]
+[v GETxAPIxRW@index index `uc  1 a 1 2 ]
 "193
 } 0
 "142 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
 [v _EUSART1_Read EUSART1_Read `(uc  1 e 1 0 ]
 {
 "143
-[v EUSART1_Read@readValue readValue `uc  1 a 1 31 ]
+[v EUSART1_Read@readValue readValue `uc  1 a 1 0 ]
 "158
 } 0
 "181 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/Main.c
@@ -937,66 +994,9 @@
 {
 [v SETxAPIxVAL@index index `uc  1 a 1 wreg ]
 [v SETxAPIxVAL@index index `uc  1 a 1 wreg ]
-[v SETxAPIxVAL@value value `ui  1 p 2 28 ]
-[v SETxAPIxVAL@index index `uc  1 a 1 32 ]
+[v SETxAPIxVAL@value value `ui  1 p 2 3 ]
+[v SETxAPIxVAL@index index `uc  1 a 1 7 ]
 "200
-} 0
-"178 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/terminal.c
-[v _SENDxMESSAGE SENDxMESSAGE `(v  1 e 1 0 ]
-{
-[v SENDxMESSAGE@index index `uc  1 a 1 wreg ]
-[v SENDxMESSAGE@index index `uc  1 a 1 wreg ]
-[v SENDxMESSAGE@value value `ui  1 p 2 25 ]
-"184
-[v SENDxMESSAGE@index index `uc  1 a 1 27 ]
-"185
-} 0
-"464 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\doprnt.c
-[v _printf printf `(i  1 e 2 0 ]
-{
-"528
-[v printf@val val `ui  1 a 2 22 ]
-"466
-[v printf@ap ap `[1]*.39v  1 a 2 18 ]
-"499
-[v printf@c c `c  1 a 1 24 ]
-"506
-[v printf@prec prec `c  1 a 1 21 ]
-"508
-[v printf@flag flag `uc  1 a 1 20 ]
-"464
-[v printf@f f `*.25Cuc  1 p 2 11 ]
-"1541
-} 0
-"177 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
-[v _putch putch `(v  1 e 1 0 ]
-{
-[v putch@data data `uc  1 a 1 wreg ]
-[v putch@data data `uc  1 a 1 wreg ]
-[v putch@data data `uc  1 a 1 31 ]
-"181
-} 0
-"8 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\lwmod.c
-[v ___lwmod __lwmod `(ui  1 e 2 0 ]
-{
-"11
-[v ___lwmod@counter counter `uc  1 a 1 31 ]
-"8
-[v ___lwmod@dividend dividend `ui  1 p 2 7 ]
-[v ___lwmod@divisor divisor `ui  1 p 2 9 ]
-"26
-} 0
-"8 C:\Program Files (x86)\Microchip\xc8\v1.37\sources\common\lwdiv.c
-[v ___lwdiv __lwdiv `(ui  1 e 2 0 ]
-{
-"11
-[v ___lwdiv@quotient quotient `ui  1 a 2 5 ]
-"12
-[v ___lwdiv@counter counter `uc  1 a 1 4 ]
-"8
-[v ___lwdiv@dividend dividend `ui  1 p 2 0 ]
-[v ___lwdiv@divisor divisor `ui  1 p 2 2 ]
-"31
 } 0
 "77 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
 [v _EUSART1_Initialize EUSART1_Initialize `(v  1 e 1 0 ]

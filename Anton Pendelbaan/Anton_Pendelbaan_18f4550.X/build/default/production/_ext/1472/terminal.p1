@@ -4936,9 +4936,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $ > _pLen _pData 581  ]
 [e :U 582 ]
 [; ;terminal.c: 71: }
-[; ;terminal.c: 72: printf("\r\nX0\r\n");
-"72
-[e ( _printf :s 1C ]
 [; ;terminal.c: 73: RxSwitch = 3;
 "73
 [e = _RxSwitch -> -> 3 `i `uc ]
@@ -4962,7 +4959,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;terminal.c: 79: printf("\r\nE#10\r\n");
 "79
-[e ( _printf :s 2C ]
+[e ( _printf :s 1C ]
 [; ;terminal.c: 80: RxSwitch = 0;
 "80
 [e = _RxSwitch -> -> 0 `i `uc ]
@@ -5073,7 +5070,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;terminal.c: 130: printf("\r\nE#11\r\n");
 "130
-[e ( _printf :s 3C ]
+[e ( _printf :s 2C ]
 "131
 }
 [; ;terminal.c: 131: }
@@ -5085,7 +5082,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;terminal.c: 133: printf("\r\nE#12\r\n");
 "133
-[e ( _printf :s 4C ]
+[e ( _printf :s 3C ]
 "134
 }
 [; ;terminal.c: 134: }
@@ -5097,7 +5094,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;terminal.c: 136: printf("\r\nE#13\r\n");
 "136
-[e ( _printf :s 5C ]
+[e ( _printf :s 4C ]
 "137
 }
 [; ;terminal.c: 137: }
@@ -5109,7 +5106,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;terminal.c: 139: printf("\r\nE#14\r\n");
 "139
-[e ( _printf :s 6C ]
+[e ( _printf :s 5C ]
 "140
 }
 [; ;terminal.c: 140: }
@@ -5149,7 +5146,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;terminal.c: 152: printf("\r\nE#12\r\n");
 "152
-[e ( _printf :s 7C ]
+[e ( _printf :s 6C ]
 "153
 }
 [; ;terminal.c: 153: }
@@ -5161,7 +5158,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 {
 [; ;terminal.c: 155: printf("\r\nE#13\r\n");
 "155
-[e ( _printf :s 8C ]
+[e ( _printf :s 7C ]
 "156
 }
 [; ;terminal.c: 156: }
@@ -5200,18 +5197,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [f ]
 [; ;terminal.c: 184: printf("\r\nM#%d %d\r\n", index, value);
 "184
-[e ( _printf , , (. :s 9C -> _index `i _value ]
+[e ( _printf , , (. :s 8C -> _index `i _value ]
 [; ;terminal.c: 185: }
 "185
 [e :UE 605 ]
 }
 [p f _printf 8388736 ]
-[a 9C 13 10 77 35 37 100 32 37 100 13 10 0 ]
-[a 6C 13 10 69 35 49 52 13 10 0 ]
-[a 5C 13 10 69 35 49 51 13 10 0 ]
-[a 8C 13 10 69 35 49 51 13 10 0 ]
-[a 4C 13 10 69 35 49 50 13 10 0 ]
-[a 7C 13 10 69 35 49 50 13 10 0 ]
-[a 3C 13 10 69 35 49 49 13 10 0 ]
-[a 1C 13 10 88 48 13 10 0 ]
-[a 2C 13 10 69 35 49 48 13 10 0 ]
+[a 8C 13 10 77 35 37 100 32 37 100 13 10 0 ]
+[a 5C 13 10 69 35 49 52 13 10 0 ]
+[a 4C 13 10 69 35 49 51 13 10 0 ]
+[a 7C 13 10 69 35 49 51 13 10 0 ]
+[a 3C 13 10 69 35 49 50 13 10 0 ]
+[a 6C 13 10 69 35 49 50 13 10 0 ]
+[a 2C 13 10 69 35 49 49 13 10 0 ]
+[a 1C 13 10 69 35 49 48 13 10 0 ]

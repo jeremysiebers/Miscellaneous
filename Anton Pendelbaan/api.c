@@ -195,7 +195,7 @@ unsigned int GETxAPIxRW(unsigned char index){
 void SETxAPIxVAL(unsigned char index, unsigned int value){
     if(API[index] != value){
         API[index] = value;
-        SENDxMESSAGE(index, value);
+        //SENDxMESSAGE(index, value);
     }    
 }
 unsigned int GETxAPIxVAL(unsigned char index){
@@ -207,7 +207,7 @@ void INCRxAPIxVAL(unsigned char index){
     value = GETxAPIxVAL(index);
     value++;
     SETxAPIxVAL(index, value);
-    SENDxMESSAGE(index, value);
+    //SENDxMESSAGE(index, value);
 }
 
 void DECRxAPIxVAL(unsigned char index){
@@ -215,5 +215,5 @@ void DECRxAPIxVAL(unsigned char index){
     value = GETxAPIxVAL(index);
     value--;
     SETxAPIxVAL(index, value);
-    SENDxMESSAGE(index, value);
+    //SENDxMESSAGE(index, value);
 }

@@ -69,7 +69,7 @@ void READxRECEIVEDxMESSAGE(void){
                        *pData = '\0';
                        pData++;
                     }
-                    printf("\r\nX0\r\n");
+                    //printf("\r\nX0\r\n");
                     RxSwitch = 3;
                     Message_To_Translate = 1;
                 }
