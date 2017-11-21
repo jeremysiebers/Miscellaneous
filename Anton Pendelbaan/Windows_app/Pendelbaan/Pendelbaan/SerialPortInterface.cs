@@ -9,163 +9,263 @@ using System.Threading.Tasks;
 
 namespace Pendelbaan
 {
-    /// <summary> 
-    /// Interfaces with a serial port. There should only be one instance 
-    /// of this class for each serial port to be used. 
-    /// </summary> 
-    public class SerialPortInterface
+    public sealed class SerialPortExample : IDisposable
     {
-        public iForm1 m_iForm1;
-        private SerialPort _serialPort = new SerialPort();
-        private int _baudRate = 19200;
-        private int _dataBits = 8;
-        private Handshake _handshake = Handshake.None;
-        private Parity _parity = Parity.None;
-        private string _portName = "COM1";
-        private StopBits _stopBits = StopBits.One;
+        private const int BufferSize = 1024;
+        private readonly object m_syncRoot = new object();
+        private SerialPort m_serialPort;
+        private static readonly AsyncCallback m_endReadCallback = new AsyncCallback(EndRead);
+        private static readonly AsyncCallback m_endWriteCallback = new AsyncCallback(EndWrite);
 
-        private bool ClosePort = false;
-
-        /// <summary> 
-        /// Holds data received until we get a terminator. 
-        /// </summary> 
-        private string tString = string.Empty;
-        /// <summary> 
-        /// End of transmition byte in this case EOT (ASCII 4). 
-        /// </summary> 
-        //private byte _terminator = 0x4;
-
-        public int BaudRate { get { return _baudRate; } set { _baudRate = value; } }
-        public int DataBits { get { return _dataBits; } set { _dataBits = value; } }
-        public Handshake Handshake { get { return _handshake; } set { _handshake = value; } }
-        public Parity Parity { get { return _parity; } set { _parity = value; } }
-        public string PortName { get { return _portName; } set { _portName = value; } }
-
-        public void Open(iForm1 iForm1Ctrl)
+        private class AsyncState
         {
-            m_iForm1 = iForm1Ctrl;
-            _serialPort.BaudRate = _baudRate;
-            _serialPort.DataBits = _dataBits;
-            _serialPort.Handshake = _handshake;
-            _serialPort.Parity = _parity;
-            _serialPort.PortName = _portName;
-            _serialPort.StopBits = _stopBits;
+            public readonly SerialPort SerialPort;
+            public readonly byte[] Buffer;
+            public readonly MemoryStream Stream = new MemoryStream();
 
-            _serialPort.Open();
-
-            /*
-            byte[] buffer = new byte[20];
-            Action kickoffRead = null;            
-                kickoffRead = delegate { _serialPort.BaseStream.BeginRead(buffer, 0, buffer.Length, delegate (IAsyncResult ar)
-                    {
-                        try
-                        {
-                            if (_serialPort.IsOpen == true)
-                            {
-                                int actualLength = _serialPort.BaseStream.EndRead(ar);
-                                byte[] received = new byte[actualLength];
-                                Buffer.BlockCopy(buffer, 0, received, 0, actualLength);
-                                raiseAppSerialDataEvent(received);
-                                Array.Clear(buffer, 0, buffer.Length);
-                            }
-                        }
-                        catch (IOException exc)
-                        {
-                            handleAppSerialError(exc);
-                        }
-                        if (_serialPort.IsOpen == true)
-                        {
-                            kickoffRead();
-                        }
-                    }, null);
-                };
-            if (_serialPort.IsOpen == true)
+            public AsyncState(SerialPort serialPort)
             {
-                kickoffRead();
-            }   */
+                this.SerialPort = serialPort;
+                this.Buffer = new byte[BufferSize];
+            }
 
-            var cancelToken = new CancellationTokenSource();
-            Task.Factory.StartNew(() => ReadSerialBytesAsync(cancelToken.Token)) ;
+            public AsyncState(SerialPort serialPort, byte[] buffer)
+                : this(serialPort)
+            {
+                this.Buffer = buffer;
+            }
+
+            public string Data
+            {
+                get;
+                set;
+            }
         }
 
-        private async Task ReadSerialBytesAsync(CancellationToken ct)
+        public SerialPortExample(string portName, string newLine, int timeout)
         {
-            while ((!ct.IsCancellationRequested) && (_serialPort.IsOpen))
+            if (portName == null)
             {
-                try
+                throw new ArgumentNullException("portName");
+            }
+
+            if (!Regex.IsMatch(portName, @"^COM[0-9]+$", RegexOptions.IgnoreCase | RegexOptions.Singleline))
+            {
+                throw new ArgumentException("Incorrect port name.", "portName");
+            }
+
+            if (newLine == null)
+            {
+                throw new ArgumentNullException("newLine");
+            }
+
+            if (timeout < -1)
+            {
+                throw new ArgumentException("Incorrect timeout.", "timeout");
+            }
+
+            this.PortName = portName;
+            this.NewLine = newLine;
+            this.Timeout = timeout;
+        }
+
+        public string PortName
+        {
+            get;
+            set;
+        }
+
+        public string NewLine
+        {
+            get;
+            private set;
+        }
+
+        public int Timeout
+        {
+            get;
+            private set;
+        }
+
+        public bool IsOpen
+        {
+            get
+            {
+                lock (this.m_syncRoot)
                 {
-                    _serialPort.BaseStream.ReadTimeout = 0;
-                    var bytesToRead = 1024;
-                    var receiveBuffer = new byte[bytesToRead];
-                    var numBytesRead = await _serialPort.BaseStream.ReadAsync(receiveBuffer, 0, bytesToRead, ct);
-
-                    var bytesReceived = new byte[numBytesRead];
-                    Array.Copy(receiveBuffer, bytesReceived, numBytesRead);
-
-                    // Here is where I audit the received data.
-                    // the NewSerialData event handler displays the 
-                    // data received (as hex bytes) and writes it to disk.
-                    raiseAppSerialDataEvent(bytesReceived);                    
+                    return (this.m_serialPort != null &&
+                            this.m_serialPort.IsOpen);
                 }
-                catch (Exception ex)
+            }
+        }
+
+        public void Open()
+        {
+            lock (this.m_syncRoot)
+            {
+                if (this.m_serialPort == null)
                 {
-                    MessageBox.Show("Error in ReadSerialBytesAsync: " + ex.ToString());
-                    throw;
+                    this.m_serialPort = new SerialPort(this.PortName, 19200, Parity.None, 8, StopBits.One)
+                    {
+                        NewLine = this.NewLine,
+                        ReadTimeout = this.Timeout,
+                        ReadBufferSize = BufferSize,
+                        WriteTimeout = this.Timeout,
+                        WriteBufferSize = BufferSize
+                    };
+                    this.m_serialPort.Open();
                 }
             }
         }
 
         public void Close()
-        {            
-            _serialPort.Close();
-            //_serialPort.BaseStream.Dispose();
-        }
-        
-        private void raiseAppSerialDataEvent(byte[] received)
         {
-            tString += Encoding.ASCII.GetString(received);
-            Console.WriteLine(tString);
-            Console.WriteLine("-------------------------------------------------------------------------");
-
-
-            if (tString.IndexOf("M#") > 0)
-            {                
-                int j = 0;
-                int Api = 0;
-                int Value = 0;
-                string[] numbers = Regex.Split(tString, @"\D+");
-                foreach (string value in numbers)
+            lock (this.m_syncRoot)
+            {
+                if (this.m_serialPort != null)
                 {
-                    if (!string.IsNullOrEmpty(value))
+                    try
                     {
-                        int i = int.Parse(value);
-                        //Console.WriteLine("Number: {0}", i);
-                        if (j == 0)
+                        this.m_serialPort.Close();
+                        this.m_serialPort.Dispose();
+                    }
+                    catch
+                    {
+                    }
+                }
+            }
+        }
+
+        public string Read()
+        {
+            if (this.IsOpen)
+            {
+                this.m_serialPort.DiscardOutBuffer();
+                this.m_serialPort.DiscardInBuffer();
+
+                var state = new AsyncState(this.m_serialPort);
+
+                //state = new AsyncState(this.m_serialPort);
+
+                lock (state)
+                {
+                    this.m_serialPort.BaseStream.BeginRead(state.Buffer, 0, state.Buffer.Length, m_endReadCallback, state);
+                    if (Monitor.Wait(state, this.Timeout))
+                    {
+                        return state.Data;
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+                    //throw new TimeoutException();
+                }
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
+
+        public string Send(string command, bool waitForResponse)
+        {
+            if (command == null)
+            {
+                throw new ArgumentNullException("command");
+            }
+
+            if (this.IsOpen)
+            {
+                this.m_serialPort.DiscardOutBuffer();
+                this.m_serialPort.DiscardInBuffer();
+
+                var state = new AsyncState(this.m_serialPort, Encoding.ASCII.GetBytes(string.Concat(command, this.NewLine)));
+                this.m_serialPort.BaseStream.BeginWrite(state.Buffer, 0, state.Buffer.Length, m_endWriteCallback, state);
+
+                if (waitForResponse)
+                {
+                    state = new AsyncState(this.m_serialPort);
+                    lock (state)
+                    {
+                        this.m_serialPort.BaseStream.BeginRead(state.Buffer, 0, state.Buffer.Length, m_endReadCallback, state);
+                        if (Monitor.Wait(state, this.Timeout))
                         {
-                            Api = i;
-                            j = 1;
+                            return state.Data;
                         }
-                        else if (j == 1)
-                        {
-                            Value = i;
-                            j = 2;
-                        }
+
+                        throw new TimeoutException();
                     }
                 }
 
-                if (Api != 0)
-                {
-                    m_iForm1.ReceivedData(Api, Value);
-                }
-
+                return null;
             }
 
-            tString = "";
+            throw new IOException("Serial port is closed.");
         }
 
-        private void handleAppSerialError(IOException exc)
+        public void Dispose()
         {
-            
+            this.Close();
         }
+
+        private static void EndRead(IAsyncResult result)
+        {
+            var state = result.AsyncState as AsyncState;
+
+            lock (state)
+            {
+                try
+                {
+                    if (state.SerialPort.IsOpen)
+                    {
+                        int readed = state.SerialPort.BaseStream.EndRead(result);
+                        state.SerialPort.BaseStream.Flush();
+                        state.Stream.Write(state.Buffer, 0, readed);
+                        state.Stream.Flush();
+                        state.Stream.Seek(0, SeekOrigin.Begin);
+
+                        var buffer = new byte[state.Stream.Length];
+                        state.Stream.Read(buffer, 0, buffer.Length);
+
+                        var data = Encoding.ASCII.GetString(buffer);
+
+                        if (data.EndsWith("\r\n"))
+                        {
+                            state.Data = data;
+                            Monitor.Pulse(state);
+                        }
+                        else
+                        {
+                            state.SerialPort.BaseStream.BeginRead(state.Buffer, 0, state.Buffer.Length, m_endReadCallback, state);
+                        }
+                    }
+                }
+                catch
+                {
+                    Monitor.Pulse(state);
+                }
+            }
+        }
+
+        private static void EndWrite(IAsyncResult result)
+        {
+            var state = result.AsyncState as AsyncState;
+
+            lock (state)
+            {
+                try
+                {
+                    if (state.SerialPort.IsOpen)
+                    {
+                        state.SerialPort.BaseStream.EndWrite(result);
+                        state.SerialPort.BaseStream.Flush();
+                    }
+                }
+                catch
+                {
+                }
+            }
+        }
+        
     }
 }

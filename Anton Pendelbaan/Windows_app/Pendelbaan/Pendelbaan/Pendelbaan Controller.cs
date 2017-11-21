@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Pendelbaan
 {
@@ -29,8 +32,9 @@ namespace Pendelbaan
     /*#--------------------------------------------------------------------------#*/
     public partial class Form1 : Form, iForm1
     {
-        public SerialPortInterface Serial;
+        public SerialPortExample serialPort;
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
+        
 
         #region Variables
         int api_size = 0;
@@ -105,7 +109,8 @@ namespace Pendelbaan
         {
             InitializeComponent();
 
-            Serial = new SerialPortInterface();
+            serialPort = new SerialPortExample("COM4", "\r\n", 60000);
+
 
             string[] ports = SerialPort.GetPortNames();
             foreach (string port in ports) {
@@ -154,6 +159,8 @@ namespace Pendelbaan
                 {
                     progressBar1.Value = 0;
                 }
+
+                SerialRead.AppendText(Api.ToString() + " " + Value.ToString());
 
                 switch (Api)
                 {
@@ -292,7 +299,7 @@ namespace Pendelbaan
         /*#--------------------------------------------------------------------------#*/
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Serial.Close();
+            //Serial.Close();
             this.Close();
         }
 
@@ -316,32 +323,72 @@ namespace Pendelbaan
 
         private void maakVerbindingToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string port = (string)comPoortToolStripMenuItem.SelectedItem;
+            var cancelToken = new CancellationTokenSource();
 
+            serialPort.PortName = port;
 
             if (maakVerbindingToolStripMenuItem.Text == "Maak Verbinding")
-            {
-                string pietje = (string)comPoortToolStripMenuItem.SelectedItem;
-                this.Serial.PortName = pietje;
+            {   
                 try
                 {
-                    Serial.Open(this);
+                    serialPort.Open();
                     comPoortToolStripMenuItem.Enabled = false;
-                    maakVerbindingToolStripMenuItem.Text = "Verbreek Verbinding";
+                    maakVerbindingToolStripMenuItem.Enabled = false;
+                    //maakVerbindingToolStripMenuItem.Text = "Verbreek Verbinding";
+                    //var response = serialPort.Send("gx30G", true);
+                    Task.Factory.StartNew(() => startread(cancelToken.Token));
+                    ReadAllData();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Fout bij openen van " + (string)comPoortToolStripMenuItem.SelectedItem);
                 }
-            }
-            else if (this.maakVerbindingToolStripMenuItem.Text == "Verbreek Verbinding")
-            {
-                Serial.Close();
-                comPoortToolStripMenuItem.Enabled = true;
-                maakVerbindingToolStripMenuItem.Text = "Maak Verbinding";
-            }
+            }            
         }
 
+        /*#--------------------------------------------------------------------------#*/
+        /*  Description: private void ReadAllData()
+         *
+         *  Input(s)   :
+         *
+         *  Output(s)  :
+         *
+         *  Returns    :
+         *
+         *  Pre.Cond.  :
+         *
+         *  Post.Cond. :
+         *
+         *  Notes      :
+         */
+        /*#--------------------------------------------------------------------------#*/
+        private void ReadAllData()
+        {
+            for (int i = 16; i < 81; i++)
+            {
+                serialPort.Send("gx"+ i.ToString() + "G", false);
+                Thread.Sleep(50);
+            }
+            
+        }
 
+        /*#--------------------------------------------------------------------------#*/
+        /*  Description: private static void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
+         *
+         *  Input(s)   :
+         *
+         *  Output(s)  :
+         *
+         *  Returns    :
+         *
+         *  Pre.Cond.  :
+         *
+         *  Post.Cond. :
+         *
+         *  Notes      :
+         */
+        /*#--------------------------------------------------------------------------#*/
         private static void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
         {
             myTimer.Stop();
@@ -353,11 +400,95 @@ namespace Pendelbaan
 
         #endregion Indicator init
 
+        /*#--------------------------------------------------------------------------#*/
+        /*  Description: private async Task startread(CancellationToken ct)
+         *
+         *  Input(s)   :
+         *
+         *  Output(s)  :
+         *
+         *  Returns    :
+         *
+         *  Pre.Cond.  :
+         *
+         *  Post.Cond. :
+         *
+         *  Notes      :
+         */
+        /*#--------------------------------------------------------------------------#*/
+        private async Task startread(CancellationToken ct)
+        {
+            Action kickoffRead = null;
+            kickoffRead = delegate
+            {
+                string tString = serialPort.Read();
+                if (tString != string.Empty)
+                {
+                    //tString += Encoding.ASCII.GetString(received);
+                    Console.WriteLine(tString);
+                    Console.WriteLine("-------------------------------------------------------------------------");
+
+
+                    if (tString.IndexOf("M#") > 0)
+                    {
+                        int j = 0;
+                        int Api = 0;
+                        int Value = 0;
+                        string[] numbers = Regex.Split(tString, @"\D+");
+                        foreach (string value in numbers)
+                        {
+                            if (!string.IsNullOrEmpty(value))
+                            {
+                                int i = int.Parse(value);
+                                //Console.WriteLine("Number: {0}", i);
+                                if (j == 0)
+                                {
+                                    Api = i;
+                                    j = 1;
+                                }
+                                else if (j == 1)
+                                {
+                                    Value = i;
+                                    j = 2;
+                                }
+                            }
+                        }
+
+                        if (Api != 0)
+                        {
+                            ReceivedData(Api, Value);
+                        }
+
+                    }
+
+                    tString = "";
+                }
+                kickoffRead();
+            }; kickoffRead();
+
+
+        }
+
     }
 
 
-        
 
+    /*#--------------------------------------------------------------------------#*/
+    /*  Description: static class API
+     *
+     *  Input(s)   :
+     *
+     *  Output(s)  :
+     *
+     *  Returns    :
+     *
+     *  Pre.Cond.  :
+     *
+     *  Post.Cond. :
+     *
+     *  Notes      :
+     */
+    /*#--------------------------------------------------------------------------#*/
     static class API
     {
         public const int API_SIZE = 16;

@@ -42,7 +42,9 @@
             this.RcRf = new System.Windows.Forms.TextBox();
             this.RcLf = new System.Windows.Forms.TextBox();
             this.RcLb = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -124,31 +126,39 @@
             // 
             // RcRb
             // 
-            this.RcRb.Location = new System.Drawing.Point(819, 201);
+            this.RcRb.Location = new System.Drawing.Point(711, 137);
             this.RcRb.Name = "RcRb";
             this.RcRb.Size = new System.Drawing.Size(20, 20);
             this.RcRb.TabIndex = 4;
             // 
             // RcRf
             // 
-            this.RcRf.Location = new System.Drawing.Point(819, 258);
+            this.RcRf.Location = new System.Drawing.Point(711, 267);
             this.RcRf.Name = "RcRf";
             this.RcRf.Size = new System.Drawing.Size(20, 20);
             this.RcRf.TabIndex = 4;
             // 
             // RcLf
             // 
-            this.RcLf.Location = new System.Drawing.Point(120, 258);
+            this.RcLf.Location = new System.Drawing.Point(158, 267);
             this.RcLf.Name = "RcLf";
             this.RcLf.Size = new System.Drawing.Size(20, 20);
             this.RcLf.TabIndex = 4;
             // 
             // RcLb
             // 
-            this.RcLb.Location = new System.Drawing.Point(120, 201);
+            this.RcLb.Location = new System.Drawing.Point(158, 137);
             this.RcLb.Name = "RcLb";
             this.RcLb.Size = new System.Drawing.Size(20, 20);
             this.RcLb.TabIndex = 4;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(12, 27);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(984, 465);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
             // 
             // Form1
             // 
@@ -163,6 +173,7 @@
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.SerialRead);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.pictureBox1);
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "Form1";
@@ -170,6 +181,7 @@
             this.Text = "Pendelbaan Controller";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,6 +202,7 @@
         private System.Windows.Forms.TextBox RcRf;
         private System.Windows.Forms.TextBox RcLf;
         private System.Windows.Forms.TextBox RcLb;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
