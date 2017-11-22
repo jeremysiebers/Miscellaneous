@@ -7,6 +7,7 @@
 #include "junction.h"
 #include "train_move_left.h"
 #include "train_move_right.h"
+#include "set_pwm.h"
 
 unsigned char   Switch_Main = Init,
                 Switch_Init = 0,
@@ -78,7 +79,8 @@ void Update_StateMchn(void)
                                         SETxAPIxVAL(SW_PWM_BRAKE_OFF, Off);
                                     }
                                     else if (GETxAPIxVAL(ACTUAL_PWM_SPEED) != GETxAPIxVAL(SW_ACTUAL_PWM_SPEED)){
-                                        SETxAPIxVAL(ACTUAL_PWM_SPEED, GETxAPIxVAL(SW_ACTUAL_PWM_SPEED));
+                                        SETxAPIxVALxNoxRET(ACTUAL_PWM_SPEED, GETxAPIxVAL(SW_ACTUAL_PWM_SPEED));
+                                        SETxAPIxVALxNoxRET(GETxAPIxVAL(ACTUAL_PWM_SPEED), GETxAPIxVAL(SW_PWM_DIRECTION));
                                     }
                                     else{
                                         

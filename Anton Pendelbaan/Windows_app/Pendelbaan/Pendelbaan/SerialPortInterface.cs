@@ -150,6 +150,7 @@ namespace Pendelbaan
                 lock (state)
                 {
                     this.m_serialPort.BaseStream.BeginRead(state.Buffer, 0, state.Buffer.Length, m_endReadCallback, state);
+                    
                     if (Monitor.Wait(state, this.Timeout))
                     {
                         return state.Data;
@@ -158,7 +159,8 @@ namespace Pendelbaan
                     {
                         return string.Empty;
                     }
-                    //throw new TimeoutException();
+                    throw new TimeoutException();
+                    
                 }
             }
             else

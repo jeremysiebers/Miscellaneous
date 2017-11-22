@@ -1,9 +1,7 @@
 #ifndef __io_H
 #define __io_H
 
-#define APISIZE 0x90                            // Size of the API array
-#define RO	0
-#define RW	1
+
 
 #define Brake						PORTCbits.RC0
 #define Wl_Left_Str					PORTAbits.RA3
@@ -48,9 +46,9 @@
 #define Right		1
 
 #define AdjustSpeed 20  
-#define Init 0
-#define Run2 1
-#define Run1 2
+#define Init 1
+#define Run2 2
+#define Run1 3
 
 #define RB_LB 0	//drive path presets
 #define RB_LF 1

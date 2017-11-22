@@ -11,6 +11,7 @@
 extern void APIxInitialize(void);
 extern unsigned int GETxAPIxRW(unsigned char index);
 extern void SETxAPIxVAL(unsigned char index, unsigned int value);
+extern void SETxAPIxVALxNoxRET(unsigned char index, unsigned int value);
 extern void INCRxAPIxVAL(unsigned char index);
 extern void DECRxAPIxVAL(unsigned char index);
 extern unsigned int GETxAPIxVAL(unsigned char index);
@@ -31,6 +32,10 @@ extern unsigned int  API[];
  *
  * Overview:        Here all API addresses are declared
  *****************************************************************************/
+#define     APISIZE                     82      // Size of the API array
+#define     RO	                        0
+#define     RW	                        1
+
 #define     API_SIZE                    16	   	// Size of the API stored here in location 0
 #define     WATCHDOG                    17	   	// Variable in API will be written and read by master to verify communication on both sides
 #define     TRAIN_WAIT_TIME             18	   	// Time to wait before departure/lightsoff
@@ -96,6 +101,7 @@ extern unsigned int  API[];
 #define     SW_PWM_BRAKE_OFF            78      // SW Brake deactivation
 #define     SW_ACTUAL_PWM_SPEED         79      // SW PWM control
 #define     SWITCH_PROGRAM              80      // Status of Train run(path) program
+#define     SW_PWM_DIRECTION            81      // SW PWM direction control
                                         
 #ifdef	__cplusplus
 extern "C" {

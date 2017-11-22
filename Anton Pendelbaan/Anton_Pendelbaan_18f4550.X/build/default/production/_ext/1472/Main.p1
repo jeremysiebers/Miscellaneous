@@ -4945,16 +4945,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;api.h: 11: extern void APIxInitialize(void);
 [; ;api.h: 12: extern unsigned int GETxAPIxRW(unsigned char index);
 [; ;api.h: 13: extern void SETxAPIxVAL(unsigned char index, unsigned int value);
-[; ;api.h: 14: extern void INCRxAPIxVAL(unsigned char index);
-[; ;api.h: 15: extern void DECRxAPIxVAL(unsigned char index);
-[; ;api.h: 16: extern unsigned int GETxAPIxVAL(unsigned char index);
-[; ;api.h: 17: extern unsigned int API[];
-"73 ../io.h
+[; ;api.h: 14: extern void SETxAPIxVALxNoxRET(unsigned char index, unsigned int value);
+[; ;api.h: 15: extern void INCRxAPIxVAL(unsigned char index);
+[; ;api.h: 16: extern void DECRxAPIxVAL(unsigned char index);
+[; ;api.h: 17: extern unsigned int GETxAPIxVAL(unsigned char index);
+[; ;api.h: 18: extern unsigned int API[];
+"71 ../io.h
 [v _Train_Move_Pwm_Count `ui ~T0 @X0 1 e ]
-[; ;io.h: 73: unsigned int Train_Move_Pwm_Count;
-[; ;io.h: 75: extern void Debounce_Inputs(void);
-[; ;io.h: 76: extern void Green_Led(unsigned char Operation);
-[; ;io.h: 77: extern void Red_Led(unsigned char Operation);
+[; ;io.h: 71: unsigned int Train_Move_Pwm_Count;
+[; ;io.h: 73: extern void Debounce_Inputs(void);
+[; ;io.h: 74: extern void Green_Led(unsigned char Operation);
+[; ;io.h: 75: extern void Red_Led(unsigned char Operation);
 [; ;Main.c: 97: void Init_Timers(void);
 [; ;Main.c: 98: void Init_Pwm(void);
 "100 ../Main.c
@@ -5089,9 +5090,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "139
 [e :UE 563 ]
 }
-[v F5126 `(v ~T0 @X0 1 tf ]
+[v F5129 `(v ~T0 @X0 1 tf ]
 "146
-[v _tc_low `ILF5126 ~T0 @X0 1 e ]
+[v _tc_low `ILF5129 ~T0 @X0 1 e ]
 {
 [; ;Main.c: 146: void interrupt low_priority tc_low(void) {
 [e :U _tc_low ]
@@ -5100,9 +5101,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "148
 [e :UE 568 ]
 }
-[v F5129 `(v ~T0 @X0 1 tf ]
+[v F5132 `(v ~T0 @X0 1 tf ]
 "150
-[v _tc_high `IHF5129 ~T0 @X0 1 e ]
+[v _tc_high `IHF5132 ~T0 @X0 1 e ]
 {
 [; ;Main.c: 150: void interrupt high_priority tc_high(void) {
 [e :U _tc_high ]

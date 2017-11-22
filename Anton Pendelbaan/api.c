@@ -103,6 +103,7 @@ void APIxInitialize(){
 	API_RW[SW_PWM_BRAKE_OFF]        =   RW;
 	API_RW[SW_ACTUAL_PWM_SPEED]     =   RW;
 	API_RW[SWITCH_PROGRAM]          =   RO;
+    API_RW[SW_PWM_DIRECTION]        =   RW;
 	
 	
 	/*  Set the API data */
@@ -170,7 +171,7 @@ void APIxInitialize(){
 	API[SW_PWM_BRAKE_OFF]           =   Off;     
 	API[SW_ACTUAL_PWM_SPEED]        =   511; 
     API[SWITCH_PROGRAM]             =   0;
-	
+	API[SW_PWM_DIRECTION]           =   0;
 	
 }
 
@@ -195,9 +196,16 @@ unsigned int GETxAPIxRW(unsigned char index){
 void SETxAPIxVAL(unsigned char index, unsigned int value){
     if(API[index] != value){
         API[index] = value;
-        //SENDxMESSAGE(index, value);
+        SENDxMESSAGE(index, value);
     }    
 }
+
+void SETxAPIxVALxNoxRET(unsigned char index, unsigned int value){
+    if(API[index] != value){
+        API[index] = value;        
+    }   
+}
+
 unsigned int GETxAPIxVAL(unsigned char index){
     return API[index];
 }
@@ -207,7 +215,7 @@ void INCRxAPIxVAL(unsigned char index){
     value = GETxAPIxVAL(index);
     value++;
     SETxAPIxVAL(index, value);
-    //SENDxMESSAGE(index, value);
+    SENDxMESSAGE(index, value);
 }
 
 void DECRxAPIxVAL(unsigned char index){
@@ -215,5 +223,5 @@ void DECRxAPIxVAL(unsigned char index){
     value = GETxAPIxVAL(index);
     value--;
     SETxAPIxVAL(index, value);
-    //SENDxMESSAGE(index, value);
+    SENDxMESSAGE(index, value);
 }

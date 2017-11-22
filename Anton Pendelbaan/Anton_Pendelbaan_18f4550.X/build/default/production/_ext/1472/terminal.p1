@@ -11,9 +11,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _atoi `(i ~T0 @X0 0 ef1`*Cuc ]
 "12 ../api.h
 [v _GETxAPIxRW `(ui ~T0 @X0 0 ef1`uc ]
-"13
-[v _SETxAPIxVAL `(v ~T0 @X0 0 ef2`uc`ui ]
-"16
+"14
+[v _SETxAPIxVALxNoxRET `(v ~T0 @X0 0 ef2`uc`ui ]
+"17
 [v _GETxAPIxVAL `(ui ~T0 @X0 0 ef1`uc ]
 "73 ../terminal.h
 [v _SENDxMESSAGE `(v ~T0 @X0 0 ef2`uc`ui ]
@@ -4773,16 +4773,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;api.h: 11: extern void APIxInitialize(void);
 [; ;api.h: 12: extern unsigned int GETxAPIxRW(unsigned char index);
 [; ;api.h: 13: extern void SETxAPIxVAL(unsigned char index, unsigned int value);
-[; ;api.h: 14: extern void INCRxAPIxVAL(unsigned char index);
-[; ;api.h: 15: extern void DECRxAPIxVAL(unsigned char index);
-[; ;api.h: 16: extern unsigned int GETxAPIxVAL(unsigned char index);
-[; ;api.h: 17: extern unsigned int API[];
-"73 ../io.h
+[; ;api.h: 14: extern void SETxAPIxVALxNoxRET(unsigned char index, unsigned int value);
+[; ;api.h: 15: extern void INCRxAPIxVAL(unsigned char index);
+[; ;api.h: 16: extern void DECRxAPIxVAL(unsigned char index);
+[; ;api.h: 17: extern unsigned int GETxAPIxVAL(unsigned char index);
+[; ;api.h: 18: extern unsigned int API[];
+"71 ../io.h
 [v _Train_Move_Pwm_Count `ui ~T0 @X0 1 e ]
-[; ;io.h: 73: unsigned int Train_Move_Pwm_Count;
-[; ;io.h: 75: extern void Debounce_Inputs(void);
-[; ;io.h: 76: extern void Green_Led(unsigned char Operation);
-[; ;io.h: 77: extern void Red_Led(unsigned char Operation);
+[; ;io.h: 71: unsigned int Train_Move_Pwm_Count;
+[; ;io.h: 73: extern void Debounce_Inputs(void);
+[; ;io.h: 74: extern void Green_Led(unsigned char Operation);
+[; ;io.h: 75: extern void Red_Led(unsigned char Operation);
 "10 ../terminal.c
 [v _Received_Data `uc ~T0 @X0 1 e ]
 [i _Received_Data
@@ -5055,13 +5056,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;terminal.c: 124: pData = &Data[2];
 "124
 [e = _pData &U *U + &U _Data * -> -> -> 2 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
-[; ;terminal.c: 125: Index = atoi (pData);
+[; ;terminal.c: 125: Index = (unsigned int)atoi (pData);
 "125
 [e = _Index -> ( _atoi (1 -> _pData `*Cuc `ui ]
 [; ;terminal.c: 126: pData = &Data[5];
 "126
 [e = _pData &U *U + &U _Data * -> -> -> 5 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
-[; ;terminal.c: 127: Value = atoi (pData);
+[; ;terminal.c: 127: Value = (unsigned int)atoi (pData);
 "127
 [e = _Value -> ( _atoi (1 -> _pData `*Cuc `ui ]
 [; ;terminal.c: 129: if (GETxAPIxRW(Index) == 0){
@@ -5089,8 +5090,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 594  ]
 "135
 [e :U 593 ]
-[; ;terminal.c: 135: else if (Index > 0x90){
-[e $ ! > _Index -> -> 144 `i `ui 595  ]
+[; ;terminal.c: 135: else if (Index > 82){
+[e $ ! > _Index -> -> 82 `i `ui 595  ]
 {
 [; ;terminal.c: 136: printf("\r\nE#13\r\n");
 "136
@@ -5115,9 +5116,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 597 ]
 [; ;terminal.c: 141: else{
 {
-[; ;terminal.c: 142: SETxAPIxVAL(Index, Value);
+[; ;terminal.c: 142: SETxAPIxVALxNoxRET(Index, Value);
 "142
-[e ( _SETxAPIxVAL (2 , -> _Index `uc _Value ]
+[e ( _SETxAPIxVALxNoxRET (2 , -> _Index `uc _Value ]
 "143
 }
 [e :U 598 ]
@@ -5137,7 +5138,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;terminal.c: 148: pData = &Data[2];
 "148
 [e = _pData &U *U + &U _Data * -> -> -> 2 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
-[; ;terminal.c: 149: Index = atoi (pData);
+[; ;terminal.c: 149: Index = (unsigned int)atoi (pData);
 "149
 [e = _Index -> ( _atoi (1 -> _pData `*Cuc `ui ]
 [; ;terminal.c: 151: if (Index < 0xF){
@@ -5153,8 +5154,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e $U 602  ]
 "154
 [e :U 601 ]
-[; ;terminal.c: 154: else if (Index > 0x90){
-[e $ ! > _Index -> -> 144 `i `ui 603  ]
+[; ;terminal.c: 154: else if (Index > 82){
+[e $ ! > _Index -> -> 82 `i `ui 603  ]
 {
 [; ;terminal.c: 155: printf("\r\nE#13\r\n");
 "155

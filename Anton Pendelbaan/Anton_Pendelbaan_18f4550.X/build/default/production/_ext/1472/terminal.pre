@@ -6362,12 +6362,13 @@ extern char * ftoa(float f, int * status);
 extern void APIxInitialize(void);
 extern unsigned int GETxAPIxRW(unsigned char index);
 extern void SETxAPIxVAL(unsigned char index, unsigned int value);
+extern void SETxAPIxVALxNoxRET(unsigned char index, unsigned int value);
 extern void INCRxAPIxVAL(unsigned char index);
 extern void DECRxAPIxVAL(unsigned char index);
 extern unsigned int GETxAPIxVAL(unsigned char index);
 extern unsigned int API[];
 
-# 73 "../io.h"
+# 71 "../io.h"
 unsigned int Train_Move_Pwm_Count;
 
 extern void Debounce_Inputs(void);
@@ -6464,9 +6465,9 @@ unsigned int Value, Index;
 if(Data[0] == 's'){
 
 pData = &Data[2];
-Index = atoi (pData);
+Index = (unsigned int)atoi (pData);
 pData = &Data[5];
-Value = atoi (pData);
+Value = (unsigned int)atoi (pData);
 
 if (GETxAPIxRW(Index) == 0){
 printf("\r\nE#11\r\n");
@@ -6474,26 +6475,26 @@ printf("\r\nE#11\r\n");
 else if (Index < 0xF){
 printf("\r\nE#12\r\n");
 }
-else if (Index > 0x90){
+else if (Index > 82){
 printf("\r\nE#13\r\n");
 }
 else if (Value > 0xFFFE){
 printf("\r\nE#14\r\n");
 }
 else{
-SETxAPIxVAL(Index, Value);
+SETxAPIxVALxNoxRET(Index, Value);
 }
 }
 
 else if (Data[0] == 'g'){
 
 pData = &Data[2];
-Index = atoi (pData);
+Index = (unsigned int)atoi (pData);
 
 if (Index < 0xF){
 printf("\r\nE#12\r\n");
 }
-else if (Index > 0x90){
+else if (Index > 82){
 printf("\r\nE#13\r\n");
 }
 else{

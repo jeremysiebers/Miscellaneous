@@ -139,7 +139,7 @@ void TranslateMessage(void){
             printf("\r\nE#14\r\n");
         }
         else{
-            SETxAPIxVAL(Index, Value);
+            SETxAPIxVALxNoxRET(Index, Value);
         }
     }
     

@@ -6089,12 +6089,13 @@ unsigned char Train_Path(unsigned char From, unsigned char To);
 extern void APIxInitialize(void);
 extern unsigned int GETxAPIxRW(unsigned char index);
 extern void SETxAPIxVAL(unsigned char index, unsigned int value);
+extern void SETxAPIxVALxNoxRET(unsigned char index, unsigned int value);
 extern void INCRxAPIxVAL(unsigned char index);
 extern void DECRxAPIxVAL(unsigned char index);
 extern unsigned int GETxAPIxVAL(unsigned char index);
 extern unsigned int API[];
 
-# 73 "../io.h"
+# 71 "../io.h"
 unsigned int Train_Move_Pwm_Count;
 
 extern void Debounce_Inputs(void);
@@ -6119,8 +6120,11 @@ extern char Left_Mountain_From_The_Left(unsigned char rc);
 extern char Right_Mountain_From_The_Left(unsigned char rc);
 extern char Train_Move_Right_Brake(void);
 
-# 11 "../State_Mchn.c"
-unsigned char Switch_Main = 0,
+# 15 "../set_pwm.h"
+extern void SETxPWM(unsigned int speed, unsigned char direction);
+
+# 12 "../State_Mchn.c"
+unsigned char Switch_Main = 1,
 Switch_Init = 0,
 Switch_Program = 0,
 Switch_Activate_Controls = 0,
@@ -6134,7 +6138,7 @@ Stop_Program = 0;
 unsigned int Adjust_Counter = 0,
 Activate_Controls_Counter = 0;
 
-# 40
+# 41
 void Update_StateMchn(void)
 {
 if (GETxAPIxVAL(72)){
@@ -6146,7 +6150,7 @@ Debounce_Inputs();
 
 switch (Switch_Main)
 {
-case 0 :
+case 1 :
 if (GETxAPIxVAL(74)){
 if(Junction(0, 1) == 0){
 SETxAPIxVAL(74, 0);
@@ -6176,7 +6180,8 @@ SETxAPIxVAL(69, 0);
 SETxAPIxVAL(78, 0);
 }
 else if (GETxAPIxVAL(68) != GETxAPIxVAL(79)){
-SETxAPIxVAL(68, GETxAPIxVAL(79));
+SETxAPIxVALxNoxRET(68, GETxAPIxVAL(79));
+SETxAPIxVALxNoxRET(GETxAPIxVAL(68), GETxAPIxVAL(81));
 }
 else{
 
@@ -6310,7 +6315,7 @@ break;
 
 case 7 : if(GETxAPIxVAL(32) || GETxAPIxVAL(70))
 {
-Switch_Main = 1;
+Switch_Main = 2;
 Switch_Init = 0;
 Stop_Program = 0;
 SETxAPIxVAL(70, 0);
@@ -6449,7 +6454,7 @@ break;
 
 case 10 : if(GETxAPIxVAL(32) || GETxAPIxVAL(70))
 {
-Switch_Main = 2;
+Switch_Main = 3;
 Switch_Init = 0;
 Stop_Program = 0;
 }
@@ -6481,7 +6486,7 @@ break;
 }
 break;
 
-case 1 : switch (Switch_Program)
+case 2 : switch (Switch_Program)
 {
 case 0 : if (Train_Path(3,1) == 0)
 {
@@ -6489,7 +6494,7 @@ Switch_Program = 1;
 Eeprom_Store();
 if(Stop_Program == 1)
 {
-Switch_Main = 0;
+Switch_Main = 1;
 
 }
 }
@@ -6501,7 +6506,7 @@ Switch_Program = 2;
 Eeprom_Store();
 if(Stop_Program == 1)
 {
-Switch_Main = 0;
+Switch_Main = 1;
 
 }
 }
@@ -6513,7 +6518,7 @@ Switch_Program = 3;
 Eeprom_Store();
 if(Stop_Program == 1)
 {
-Switch_Main = 0;
+Switch_Main = 1;
 
 }
 }
@@ -6525,7 +6530,7 @@ Switch_Program = 4;
 Eeprom_Store();
 if(Stop_Program == 1)
 {
-Switch_Main = 0;
+Switch_Main = 1;
 
 }
 }
@@ -6537,7 +6542,7 @@ Switch_Program = 5;
 Eeprom_Store();
 if(Stop_Program == 1)
 {
-Switch_Main = 0;
+Switch_Main = 1;
 
 }
 }
@@ -6549,7 +6554,7 @@ Switch_Program = 6;
 Eeprom_Store();
 if(Stop_Program == 1)
 {
-Switch_Main = 0;
+Switch_Main = 1;
 
 }
 }
@@ -6561,7 +6566,7 @@ Switch_Program = 7;
 Eeprom_Store();
 if(Stop_Program == 1)
 {
-Switch_Main = 0;
+Switch_Main = 1;
 
 }
 }
@@ -6573,7 +6578,7 @@ Switch_Program = 0;
 Eeprom_Store();
 if(Stop_Program == 1)
 {
-Switch_Main = 0;
+Switch_Main = 1;
 
 }
 }
@@ -6584,7 +6589,7 @@ break;
 default : break;
 }
 
-# 671
+# 673
 if(GETxAPIxVAL(33) || GETxAPIxVAL(71))
 {
 Stop_Program = 1;
@@ -6601,7 +6606,7 @@ Green_Led(1);
 break;
 
 
-case 2 : switch (Switch_Program)
+case 3 : switch (Switch_Program)
 {
 case 0 : if (Train_Path(3,1) == 0)
 {
@@ -6609,7 +6614,7 @@ Switch_Program = 1;
 Eeprom_Store();
 if(Stop_Program == 1)
 {
-Switch_Main = 0;
+Switch_Main = 1;
 
 }
 }
@@ -6621,7 +6626,7 @@ Switch_Program = 2;
 Eeprom_Store();
 if(Stop_Program == 1)
 {
-Switch_Main = 0;
+Switch_Main = 1;
 
 }
 }
@@ -6633,7 +6638,7 @@ Switch_Program = 3;
 Eeprom_Store();
 if(Stop_Program == 1)
 {
-Switch_Main = 0;
+Switch_Main = 1;
 
 }
 }
@@ -6645,7 +6650,7 @@ Switch_Program = 0;
 Eeprom_Store();
 if(Stop_Program == 1)
 {
-Switch_Main = 0;
+Switch_Main = 1;
 
 }
 }
@@ -6654,7 +6659,7 @@ break;
 default : break;
 }
 
-# 922
+# 924
 if(GETxAPIxVAL(33) || GETxAPIxVAL(71))
 {
 Stop_Program = 1;
@@ -6676,7 +6681,7 @@ SETxAPIxVAL(63, Switch_Main);
 SETxAPIxVAL(80, Switch_Program);
 }
 
-# 958
+# 960
 char Train_Path(unsigned char From, unsigned char To)
 {
 static char Return_Val = 1;

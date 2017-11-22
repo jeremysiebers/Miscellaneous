@@ -4,6 +4,7 @@ using System.IO.Ports;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Drawing;
 
 namespace Pendelbaan
 {
@@ -34,8 +35,8 @@ namespace Pendelbaan
     {
         public SerialPortExample serialPort;
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
-        public int FastIo;
-        public int SlowIo;
+        public Image tandrad = Pendelbaan.Properties.Resources.tandrad;
+        public int SetPwm;
 
         #region Variables
         int api_size = 0;
@@ -110,10 +111,7 @@ namespace Pendelbaan
         {
             InitializeComponent();
 
-            serialPort = new SerialPortExample("COM4", "\r\n", 60000);
-
-            FastIo = 0;
-            SlowIo = 0;
+            serialPort = new SerialPortExample("COM4", "\r\n", 900000);
 
 
             string[] ports = SerialPort.GetPortNames();
@@ -123,13 +121,44 @@ namespace Pendelbaan
             this.comPoortToolStripMenuItem.SelectedItem = this.comPoortToolStripMenuItem.Items[0];
 
 
+            pictureBox1.Image = tandrad;
+
+            ManPwm.Minimum = -255;
+            ManPwm.Maximum = 255;
+            ManPwm.MouseLeave += ManPwm_Moved;
+            SetPwm = ManPwm.Value;
+
+
             /* Adds the event and the event handler for the method that will 
             process the timer event to the timer. */
             myTimer.Tick += new EventHandler(TimerEventProcessor);
 
             // Sets the timer interval to 1 seconds.
-            myTimer.Interval = 10;
+            myTimer.Interval = 1000;
             myTimer.Start();
+        }
+
+        private void ManPwm_Moved(object sender, EventArgs e)
+        {
+            if (main_program == 1)
+            {
+                if(ManPwm.Value > 0 && SetPwm != ManPwm.Value)
+                {
+                    SetPwm = ManPwm.Value;
+                    serialPort.Send("sx81x1G", false);
+                    Thread.Sleep(50);
+                    serialPort.Send("sx79x" + ManPwm.Value.ToString() + "G", false);
+                }
+                else if(ManPwm.Value < 0 && SetPwm != ManPwm.Value)
+                {
+                    SetPwm = ManPwm.Value;
+                    var left = SetPwm * -1;
+                    serialPort.Send("sx81x0G", false);
+                    Thread.Sleep(50);
+                    serialPort.Send("sx79x" + left.ToString() + "G", false);
+                }
+                
+            }
         }
 
         /*#--------------------------------------------------------------------------#*/
@@ -149,8 +178,7 @@ namespace Pendelbaan
          */
         /*#--------------------------------------------------------------------------#*/
         public void ReceivedData(int Api, int Value)
-        {
-
+        {            
             if (SerialRead.InvokeRequired)
             {
                 ReceivedDataCallback d = new ReceivedDataCallback(ReceivedData);
@@ -164,7 +192,7 @@ namespace Pendelbaan
                     progressBar1.Value = 0;
                 }
 
-                //SerialRead.AppendText(Api.ToString() + " " + Value.ToString() + System.Environment.NewLine);
+                SerialRead.AppendText(Api.ToString() + " " + Value.ToString() + Environment.NewLine);
 
                 switch (Api)
                 {
@@ -238,10 +266,52 @@ namespace Pendelbaan
                     case API.BTN_RF: btn_rf = Value; break;
                     case API.TRAIN1_POS: train1_pos = Value; break;
                     case API.TRAIN2_POS: train2_pos = Value; break;
-                    case API.RC_LMU: rc_lmu = Value; break;
-                    case API.RC_LMD: rc_lmd = Value; break;
-                    case API.RC_RMU: rc_rmu = Value; break;
-                    case API.RC_RMD: rc_rmd = Value; break;
+
+                    case API.RC_LMU:
+                        rc_lmu = Value;
+                        if (rc_lmu == 1)
+                        {
+                            RcLmu.BackColor = System.Drawing.Color.LimeGreen;
+                        }
+                        else
+                        {
+                            RcLmu.BackColor = System.Drawing.Color.LightGray;
+                        }
+                        break;
+                    case API.RC_LMD:
+                        rc_lmd = Value;
+                        if (rc_lmd == 1)
+                        {
+                            RcLmd.BackColor = System.Drawing.Color.LimeGreen;
+                        }
+                        else
+                        {
+                            RcLmd.BackColor = System.Drawing.Color.LightGray;
+                        }
+                        break;
+                    case API.RC_RMU:
+                        rc_rmu = Value;
+                        if (rc_rmu == 1)
+                        {
+                            RcRmu.BackColor = System.Drawing.Color.LimeGreen;
+                        }
+                        else
+                        {
+                            RcRmu.BackColor = System.Drawing.Color.LightGray;
+                        }
+                        break;
+                    case API.RC_RMD:
+                        rc_rmd = Value;
+                        if (rc_rmd == 1)
+                        {
+                            RcRmd.BackColor = System.Drawing.Color.LimeGreen;
+                        }
+                        else
+                        {
+                            RcRmd.BackColor = System.Drawing.Color.LightGray;
+                        }
+                        break;
+
                     case API.MAX_PWM_RMU_RIGHT: max_pwm_rmu_right = Value; break;
                     case API.MAX_PWM_RMU_LEFT: max_pwm_rmu_left = Value; break;
                     case API.MAX_PWM_RMD_RIGHT: max_pwm_rmd_right = Value; break;
@@ -260,11 +330,50 @@ namespace Pendelbaan
                     case API.DELAY_LMU_UP: delay_lmu_up = Value; break;
                     case API.TRAIN_PATH_FROM: train_path_from = Value; break;
                     case API.TRAIN_PATH_TO: train_path_to = Value; break;
-                    case API.MAIN_PROGRAM: main_program = Value; break;
-                    case API.JUNCTION_LEFT_STR: junction_left_str = Value; break;
-                    case API.JUNCTION_LEFT_BND: junction_left_bnd = Value; break;
-                    case API.JUNCTION_RIGHT_STR: junction_right_str = Value; break;
-                    case API.JUNCTION_RIGHT_BND: junction_right_bnd = Value; break;
+
+                    case API.MAIN_PROGRAM:
+                        main_program = Value;
+                        if (main_program == 1)
+                        {
+                            JunctionLeftBtn.Enabled = true;
+                            JunctionRightBtn.Enabled = true;
+                        }
+                        else if (main_program == 2 || main_program == 3)
+                        {
+                            JunctionLeftBtn.Enabled = false;
+                            JunctionRightBtn.Enabled = false;
+                        }
+                        break;
+
+                    case API.JUNCTION_LEFT_STR:
+                        junction_left_str = Value;
+                        if (junction_left_str == 1)
+                        {
+                            JunctionLeftBtn.Text = "Rechtdoor";
+                        }
+                        break;
+                    case API.JUNCTION_LEFT_BND:
+                        junction_left_bnd = Value;
+                        if (junction_left_bnd == 1)
+                        {
+                            JunctionLeftBtn.Text = "Afbuigen";
+                        }
+                        break;
+                    case API.JUNCTION_RIGHT_STR:
+                        junction_right_str = Value;
+                        if (junction_right_str == 1)
+                        {
+                            JunctionRightBtn.Text = "Rechtdoor";
+                        }
+                        break;
+                    case API.JUNCTION_RIGHT_BND:
+                        junction_right_bnd = Value;
+                        if (junction_right_bnd == 1)
+                        {
+                            JunctionRightBtn.Text = "Afbuigen";
+                        }
+                        break;
+
                     case API.ACTUAL_PWM_SPEED: actual_pwm_speed = Value; break;
                     case API.PWM_BRAKE: pwm_brake = Value; break;
                     case API.SW_START: sw_start = Value; break;
@@ -327,7 +436,8 @@ namespace Pendelbaan
 
         private void maakVerbindingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string port = (string)comPoortToolStripMenuItem.SelectedItem; 
+            string port = (string)comPoortToolStripMenuItem.SelectedItem;
+            
             serialPort.PortName = port;
 
             if (maakVerbindingToolStripMenuItem.Text == "Maak Verbinding")
@@ -337,13 +447,46 @@ namespace Pendelbaan
                     serialPort.Open();
                     comPoortToolStripMenuItem.Enabled = false;
                     maakVerbindingToolStripMenuItem.Enabled = false;
-                    //ReadAllData();
+                    ReadAllData();
+                    Task.Factory.StartNew(HardwareReadout);                    
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Fout bij openen van " + (string)comPoortToolStripMenuItem.SelectedItem);
                 }
             }            
+        }
+
+        /*#--------------------------------------------------------------------------#*/
+        /*  Description: private void HardwareReadout()
+         *
+         *  Input(s)   :
+         *
+         *  Output(s)  :
+         *
+         *  Returns    :
+         *
+         *  Pre.Cond.  :
+         *
+         *  Post.Cond. :
+         *
+         *  Notes      :
+         */
+        /*#--------------------------------------------------------------------------#*/
+        private void HardwareReadout()
+        {
+            try
+            {
+                while (true)
+                {
+                    RawData(serialPort.Read());
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Receiver error");
+            }
         }
 
         /*#--------------------------------------------------------------------------#*/
@@ -363,11 +506,11 @@ namespace Pendelbaan
          */
         /*#--------------------------------------------------------------------------#*/
         private void ReadAllData()
-        {            
+        {
             for (int i = 16; i < 81; i++)
             {
-                TranslateReceivedData(serialPort.Send("gx"+ i.ToString() + "G", true));
-                //Thread.Sleep(50);
+                RawData(serialPort.Send("gx"+ i.ToString() + "G", true));
+                Thread.Sleep(50);
             }
             
         }
@@ -388,46 +531,10 @@ namespace Pendelbaan
          *  Notes      :
          */
         /*#--------------------------------------------------------------------------#*/
-        private void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
+        private static void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
         {
             myTimer.Stop();
 
-            FastIo++;
-            SlowIo++;
-
-            if (serialPort.IsOpen)
-            {
-
-                if (FastIo > 5)
-                {
-                    TranslateReceivedData(serialPort.Send("gx" + API.RC_RB.ToString() + "G", true));
-                    TranslateReceivedData(serialPort.Send("gx" + API.RC_RF.ToString() + "G", true));
-                    TranslateReceivedData(serialPort.Send("gx" + API.RC_LB.ToString() + "G", true));
-                    TranslateReceivedData(serialPort.Send("gx" + API.RC_LF.ToString() + "G", true));
-
-                    TranslateReceivedData(serialPort.Send("gx" + API.RC_LMU.ToString() + "G", true));
-                    TranslateReceivedData(serialPort.Send("gx" + API.RC_LMD.ToString() + "G", true));
-                    TranslateReceivedData(serialPort.Send("gx" + API.RC_RMU.ToString() + "G", true));
-                    TranslateReceivedData(serialPort.Send("gx" + API.RC_RMD.ToString() + "G", true));
-
-                    TranslateReceivedData(serialPort.Send("gx" + API.JUNCTION_LEFT_STR.ToString() + "G", true));
-                    TranslateReceivedData(serialPort.Send("gx" + API.JUNCTION_LEFT_BND.ToString() + "G", true));
-                    TranslateReceivedData(serialPort.Send("gx" + API.JUNCTION_RIGHT_STR.ToString() + "G", true));
-                    TranslateReceivedData(serialPort.Send("gx" + API.JUNCTION_RIGHT_BND.ToString() + "G", true));
-
-                    TranslateReceivedData(serialPort.Send("gx" + API.ACTUAL_PWM_SPEED.ToString() + "G", true));
-
-                    FastIo = 0;
-                }
-                else if(SlowIo > 100)
-                {
-                    for (int i = 16; i < 81; i++)
-                    {
-                        TranslateReceivedData(serialPort.Send("gx" + i.ToString() + "G", true));                        
-                    }
-                    SlowIo = 0;
-                }
-            }
 
             myTimer.Enabled = true;
 
@@ -451,49 +558,106 @@ namespace Pendelbaan
          *  Notes      :
          */
         /*#--------------------------------------------------------------------------#*/
-        private void TranslateReceivedData(string tString)
+        public void RawData(string tString)
         {
-           if (tString != string.Empty)
-           {
-               //tString += Encoding.ASCII.GetString(received);
-               //Console.WriteLine(tString);
-               //Console.WriteLine("-------------------------------------------------------------------------");
-               if (tString.IndexOf("M#") > 0)
-               {
-                   int j = 0;
-                   int Api = 0;
-                   int Value = 0;
-                   string[] numbers = Regex.Split(tString, @"\D+");
-                   foreach (string value in numbers)
-                   {
-                       if (!string.IsNullOrEmpty(value))
-                       {
-                           int i = int.Parse(value);
-                           //Console.WriteLine("Number: {0}", i);
-                           if (j == 0)
-                           {
-                               Api = i;
-                               j = 1;
-                           }
-                           else if (j == 1)
-                           {
-                               Value = i;
-                               j = 2;
-                           }
-                       }
-                   }
 
-                   if (Api != 0)
-                   {
-                       ReceivedData(Api, Value);
-                   }
+            if (tString != string.Empty && tString != null)
+            {
+                //tString += Encoding.ASCII.GetString(received);
+                //Console.WriteLine(tString);
+                //Console.WriteLine("-------------------------------------------------------------------------");
 
-               }
 
-               tString = "";
-           }
+                if (tString.IndexOf("M#") > 0)
+                {
+                    int j = 0;
+                    int Api = 0;
+                    int Value = 0;
+                    string[] numbers = Regex.Split(tString, @"\D+");
+                    foreach (string value in numbers)
+                    {
+                        if (!string.IsNullOrEmpty(value))
+                        {
+                            int i = int.Parse(value);
+                            //Console.WriteLine("Number: {0}", i);
+                            if (j == 0)
+                            {
+                                Api = i;
+                                j = 1;
+                            }
+                            else if (j == 1)
+                            {
+                                Value = i;
+                                j = 2;
+                            }
+                        }
+                    }
+
+                    if (Api != 0)
+                    {
+                        ReceivedData(Api, Value);
+                    }
+
+                }
+
+                tString = "";
+            }
+
         }
 
+        /*#--------------------------------------------------------------------------#*/
+        /*  Description: Buttons
+         *
+         *  Input(s)   :
+         *
+         *  Output(s)  :
+         *
+         *  Returns    :
+         *
+         *  Pre.Cond.  :
+         *
+         *  Post.Cond. :
+         *
+         *  Notes      :
+         */
+        /*#--------------------------------------------------------------------------#*/
+        private void JunctionLeftBtn_Click(object sender, EventArgs e)
+        {
+            if (serialPort.IsOpen)
+            {
+                if (JunctionLeftBtn.Text == "Rechtdoor")
+                {
+                    serialPort.Send("sx74x1G", false);
+                    //serialPort.Send("sx74x0G", false);
+                    JunctionLeftBtn.Text = "Afbuigen";
+                }
+                else
+                {
+                    serialPort.Send("sx73x1G", false);
+                    //serialPort.Send("sx73x0G", false);
+                    JunctionLeftBtn.Text = "Rechtdoor";
+                }
+            }          
+        }
+
+        private void JunctionRightBtn_Click(object sender, EventArgs e)
+        {
+            if (serialPort.IsOpen)
+            {
+                if (JunctionRightBtn.Text == "Rechtdoor")
+                {
+                    serialPort.Send("sx76x1G", false);
+                    //serialPort.Send("sx76x0G", false);
+                    JunctionRightBtn.Text = "Afbuigen";
+                }
+                else
+                {
+                    serialPort.Send("sx75x1G", false);
+                    //serialPort.Send("sx75x0G", false);
+                    JunctionRightBtn.Text = "Rechtdoor";
+                }
+            }
+        }
     }
 
 
