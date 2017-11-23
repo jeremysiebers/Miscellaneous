@@ -6182,6 +6182,10 @@ SETxAPIxVAL(78, 0);
 else if (GETxAPIxVAL(68) != GETxAPIxVAL(79)){
 SETxAPIxVALxNoxRET(68, GETxAPIxVAL(79));
 SETxAPIxVALxNoxRET(GETxAPIxVAL(68), GETxAPIxVAL(81));
+SETxPWM(GETxAPIxVAL(68),GETxAPIxVAL(86));
+}
+else if (GETxAPIxVAL(86) != GETxAPIxVAL(81)){
+SETxAPIxVALxNoxRET(86, GETxAPIxVAL(81));
 }
 else{
 
@@ -6589,7 +6593,7 @@ break;
 default : break;
 }
 
-# 673
+# 677
 if(GETxAPIxVAL(33) || GETxAPIxVAL(71))
 {
 Stop_Program = 1;
@@ -6659,7 +6663,7 @@ break;
 default : break;
 }
 
-# 924
+# 928
 if(GETxAPIxVAL(33) || GETxAPIxVAL(71))
 {
 Stop_Program = 1;
@@ -6681,7 +6685,7 @@ SETxAPIxVAL(63, Switch_Main);
 SETxAPIxVAL(80, Switch_Program);
 }
 
-# 960
+# 964
 char Train_Path(unsigned char From, unsigned char To)
 {
 static char Return_Val = 1;

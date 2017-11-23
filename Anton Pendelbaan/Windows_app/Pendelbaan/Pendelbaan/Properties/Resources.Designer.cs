@@ -63,9 +63,39 @@ namespace Pendelbaan.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap tandrad {
+        internal static System.Drawing.Bitmap tandrad_bnd_bnd {
             get {
-                object obj = ResourceManager.GetObject("tandrad", resourceCulture);
+                object obj = ResourceManager.GetObject("tandrad_bnd_bnd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tandrad_bnd_str {
+            get {
+                object obj = ResourceManager.GetObject("tandrad_bnd_str", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tandrad_str_bnd {
+            get {
+                object obj = ResourceManager.GetObject("tandrad_str_bnd", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tandrad_str_str {
+            get {
+                object obj = ResourceManager.GetObject("tandrad_str_str", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

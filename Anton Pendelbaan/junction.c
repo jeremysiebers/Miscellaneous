@@ -20,6 +20,9 @@ unsigned char 	Switch_Junction = 0;
  *
  * Overview:        None
  *****************************************************************************/
+
+
+
 char Junction(unsigned char Junction_Left_Right, unsigned char Straight_Bend)
 {
 	static char Return_Val = Busy;
@@ -32,16 +35,28 @@ char Junction(unsigned char Junction_Left_Right, unsigned char Straight_Bend)
 								{
 									case	Left	:	switch (Straight_Bend)
 														{
-															case	Straight	:	SETxAPIxVAL(JUNCTION_LEFT_STR, On);	break;
-															case	Bend		:	SETxAPIxVAL(JUNCTION_LEFT_BND, On);	break;
+															case	Straight	:	SETxAPIxVAL(JUNCTION_LEFT_STR, On);
+                                                                                    SETxAPIxVAL(JUNCTION_LEFT_STR_PREV, On);
+                                                                                    SETxAPIxVAL(JUNCTION_LEFT_BND_PREV, Off);
+                                                                                    break;
+															case	Bend		:	SETxAPIxVAL(JUNCTION_LEFT_BND, On);
+                                                                                    SETxAPIxVAL(JUNCTION_LEFT_STR_PREV, Off);
+                                                                                    SETxAPIxVAL(JUNCTION_LEFT_BND_PREV, On);	
+                                                                                    break;
 															default				:	break;
 														}
 														break;
 														
 									case	Right	:	switch (Straight_Bend)
 														{
-															case	Straight	:	SETxAPIxVAL(JUNCTION_RIGHT_STR,On);	break;
-															case	Bend		:	SETxAPIxVAL(JUNCTION_RIGHT_BND,On);	break;
+															case	Straight	:	SETxAPIxVAL(JUNCTION_RIGHT_STR,On);
+                                                                                    SETxAPIxVAL(JUNCTION_RIGHT_STR_PREV, On);
+                                                                                    SETxAPIxVAL(JUNCTION_RIGHT_BND_PREV, Off);
+                                                                                    break;
+															case	Bend		:	SETxAPIxVAL(JUNCTION_RIGHT_BND,On);
+                                                                                    SETxAPIxVAL(JUNCTION_RIGHT_STR_PREV, Off);
+                                                                                    SETxAPIxVAL(JUNCTION_RIGHT_BND_PREV, On);
+                                                                                    break;
 															default				:	break;
 														}
 														break;

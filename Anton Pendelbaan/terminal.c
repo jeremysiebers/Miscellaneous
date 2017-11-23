@@ -15,6 +15,13 @@ unsigned char       *pData, *pLen;
 unsigned char       Message_To_Translate    = 0;
 unsigned char       TrSwitch                = 0;
 
+unsigned int   		Diag_Comm=0,				// Switch for read in to be sended command
+					Comm_List[8][2],			//	Command buffer array
+					*Pcomm_List,				//	Pointer to array command buffer
+					*Pcomm_List2,				//	Pointer 2 to array command buffer to write out 
+					Diag_Comm2=0,				// Switch for write command
+                    DelayCounter = 0;           // Determines sent speed
+
 
 /******************************************************************************
  * Function:        void READxRECEIVEDxMESSAGE(void)
@@ -69,14 +76,14 @@ void READxRECEIVEDxMESSAGE(void){
                        *pData = '\0';
                        pData++;
                     }
-                    //printf("\r\nX0\r\n");
+                    //printf("X0\r\n");
                     RxSwitch = 3;
                     Message_To_Translate = 1;
                 }
                 else{
                     *pData = Received_Data;
                     if (pData > pLen){
-                        printf("\r\nE#10\r\n");
+                        printf("E#10\r\n");
                         RxSwitch = 0;
                     }
                     else{
@@ -127,16 +134,16 @@ void TranslateMessage(void){
         Value = (unsigned int)atoi (pData);
         
         if (GETxAPIxRW(Index) == RO){
-            printf("\r\nE#11\r\n");
+            printf("E#11\r\n");
         }
         else if (Index < 0xF){
-            printf("\r\nE#12\r\n");
+            printf("E#12\r\n");
         }
         else if (Index > APISIZE){
-            printf("\r\nE#13\r\n");
+            printf("E#13\r\n");
         }
         else if (Value > 0xFFFE){
-            printf("\r\nE#14\r\n");
+            printf("E#14\r\n");
         }
         else{
             SETxAPIxVALxNoxRET(Index, Value);
@@ -149,10 +156,10 @@ void TranslateMessage(void){
         Index = (unsigned int)atoi (pData);
         
         if (Index < 0xF){
-            printf("\r\nE#12\r\n");
+            printf("E#12\r\n");
         }
         else if (Index > APISIZE){
-            printf("\r\nE#13\r\n");
+            printf("E#13\r\n");
         }
         else{
             Value = GETxAPIxVAL(Index);        
@@ -175,11 +182,165 @@ void TranslateMessage(void){
  *
  * Overview:        None
  *****************************************************************************/
-void SENDxMESSAGE(unsigned char index, unsigned int value){
+void SendMessage(unsigned char index, unsigned int value){
         
     //unsigned char high = value >> 8;
     //unsigned char low = value;
     
-    //printf("\r\nM#%d %d%d\r\n", index, high, low);
-    printf("\r\nM#%d %d\r\n", index, value);
+    //printf("M#%d %d%d\r\n", index, high, low);
+    printf("M#%d %d\r\n", index, value);
+}
+
+void DIAGNOSTICxTOxPC(void)
+{
+    if (DelayCounter > 10000){
+		DelayCounter = 0;
+        
+		switch (Diag_Comm2)
+		{
+			case	0	:	Pcomm_List = &Comm_List[0][0];			//Init pointers 1 time
+							Pcomm_List2 = &Comm_List[0][0];
+							Diag_Comm2 = 1;
+							break;
+							
+			case	1	:	Pcomm_List2 = &Comm_List[0][0];
+							if (Pcomm_List2 != Pcomm_List)
+							{
+								SendMessage(Comm_List[0][0], Comm_List[0][1]);	
+								Pcomm_List2+=2;
+								Diag_Comm2 = 2;
+							}
+							break;
+							
+			case	2	:	if (Pcomm_List2 != Pcomm_List)
+							{
+								SendMessage(Comm_List[1][0], Comm_List[1][1]);	
+								Pcomm_List2+=2;
+								Diag_Comm2 = 3;
+							}
+							break;
+							
+			case	3	:	if (Pcomm_List2 != Pcomm_List)
+							{
+								SendMessage(Comm_List[2][0], Comm_List[2][1]);	
+								Pcomm_List2+=2;
+								Diag_Comm2 = 4;							
+							}
+							break;
+			
+			case	4	:	if (Pcomm_List2 != Pcomm_List)
+							{
+								SendMessage(Comm_List[3][0], Comm_List[3][1]);
+								Pcomm_List2+=2;
+								Diag_Comm2 = 5;
+							}
+							break;
+							
+			case	5	:	if (Pcomm_List2 != Pcomm_List)
+							{
+								SendMessage(Comm_List[4][0], Comm_List[4][1]);	
+								Pcomm_List2+=2;
+								Diag_Comm2 = 6;
+							}
+							break;
+							
+			case	6	:	if (Pcomm_List2 != Pcomm_List)
+							{
+								SendMessage(Comm_List[5][0], Comm_List[5][1]);
+								Pcomm_List2+=2;							
+								Diag_Comm2 = 7;
+							}
+							break;
+							
+			case	7	:	if (Pcomm_List2 != Pcomm_List)
+							{
+								SendMessage(Comm_List[6][0], Comm_List[6][1]);	
+								Pcomm_List2+=2;
+								Diag_Comm2 = 8;
+							}
+							break;
+							
+							
+			case	8	:	if (Pcomm_List2 != Pcomm_List)
+							{
+								SendMessage(Comm_List[7][0], Comm_List[7][1]);
+								Pcomm_List2 = &Comm_List[0][0];	// point to Comm_List[0]
+								Diag_Comm2 = 1;
+							}
+							break; 
+							
+			default		:	break;
+		}
+    }
+	else{
+		DelayCounter++;
+	}
+}
+
+void SENDxMESSAGE(unsigned char index, unsigned int value)
+{
+	switch (Diag_Comm)
+	{
+		case	0	:	Pcomm_List = &Comm_List[0][0];	// point to Comm_List[0]
+						*Pcomm_List = index;
+						Pcomm_List++;
+						*Pcomm_List = value;
+						Pcomm_List++;						
+						Diag_Comm = 1;
+						break;
+						
+		case	1	:	*Pcomm_List = index;
+						Pcomm_List++;
+						*Pcomm_List = value;
+						Pcomm_List++;	
+						Diag_Comm = 2;
+						break;
+						
+		case	2	:	*Pcomm_List = index;
+						Pcomm_List++;
+						*Pcomm_List = value;
+						Pcomm_List++;	
+						Diag_Comm = 3;
+						break;
+						
+		case	3	:	*Pcomm_List = index;
+						Pcomm_List++;
+						*Pcomm_List = value;
+						Pcomm_List++;	
+						Diag_Comm = 4;
+						break;
+		
+		case	4	:	*Pcomm_List = index;
+						Pcomm_List++;
+						*Pcomm_List = value;
+						Pcomm_List++;	
+						Diag_Comm = 5;
+						break;
+		
+		case	5	:	*Pcomm_List = index;
+						Pcomm_List++;
+						*Pcomm_List = value;
+						Pcomm_List++;	
+						Diag_Comm = 6;
+						break;
+		
+		case	6	:	*Pcomm_List = index;
+						Pcomm_List++;
+						*Pcomm_List = value;
+						Pcomm_List++;	
+						Diag_Comm = 7;
+						break;
+		
+		case	7	:	*Pcomm_List = index;
+						Pcomm_List++;
+						*Pcomm_List = value;
+						Pcomm_List++;												
+						Pcomm_List = &Comm_List[0][0];	// point to Comm_List[0]
+						Diag_Comm = 0;
+						break;
+		
+						
+		default		:	break;
+	}
+				
 }

@@ -32,7 +32,7 @@ extern unsigned int  API[];
  *
  * Overview:        Here all API addresses are declared
  *****************************************************************************/
-#define     APISIZE                     82      // Size of the API array
+#define     APISIZE                     87      // Size of the API array
 #define     RO	                        0
 #define     RW	                        1
 
@@ -102,6 +102,11 @@ extern unsigned int  API[];
 #define     SW_ACTUAL_PWM_SPEED         79      // SW PWM control
 #define     SWITCH_PROGRAM              80      // Status of Train run(path) program
 #define     SW_PWM_DIRECTION            81      // SW PWM direction control
+#define		JUNCTION_LEFT_STR_PREV   	82		// Left junction Straight Coil
+#define		JUNCTION_LEFT_BND_PREV		83		// Left junction Bend Coil
+#define		JUNCTION_RIGHT_STR_PREV		84		// Right junction Straight Coil
+#define		JUNCTION_RIGHT_BND_PREV		85		// Right junction Bend Coil
+#define     PWM_DIRECTION               86      // PWM direction control
                                         
 #ifdef	__cplusplus
 extern "C" {

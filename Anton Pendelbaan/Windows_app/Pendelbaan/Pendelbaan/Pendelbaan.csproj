@@ -82,7 +82,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Anton tandrad-2.png" />
+    <None Include="Resources\tandrad_str_str.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tandrad_str_bnd.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tandrad_bnd_str.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tandrad_bnd_bnd.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

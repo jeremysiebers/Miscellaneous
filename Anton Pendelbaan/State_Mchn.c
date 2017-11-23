@@ -81,6 +81,10 @@ void Update_StateMchn(void)
                                     else if (GETxAPIxVAL(ACTUAL_PWM_SPEED) != GETxAPIxVAL(SW_ACTUAL_PWM_SPEED)){
                                         SETxAPIxVALxNoxRET(ACTUAL_PWM_SPEED, GETxAPIxVAL(SW_ACTUAL_PWM_SPEED));
                                         SETxAPIxVALxNoxRET(GETxAPIxVAL(ACTUAL_PWM_SPEED), GETxAPIxVAL(SW_PWM_DIRECTION));
+                                        SETxPWM(GETxAPIxVAL(ACTUAL_PWM_SPEED),GETxAPIxVAL(PWM_DIRECTION));
+                                    }
+                                    else if (GETxAPIxVAL(PWM_DIRECTION) != GETxAPIxVAL(SW_PWM_DIRECTION)){
+                                        SETxAPIxVALxNoxRET(PWM_DIRECTION, GETxAPIxVAL(SW_PWM_DIRECTION));                                        
                                     }
                                     else{
                                         

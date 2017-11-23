@@ -130,11 +130,11 @@ void main (void)
 		if (True == Update_State_Machine)
 		{
 			Update_State_Machine = False;
-			Update_StateMchn();
+			Update_StateMchn();            
 		}
         
         READxRECEIVEDxMESSAGE();
-        
+        DIAGNOSTICxTOxPC();
 	}
 }
 
@@ -153,7 +153,7 @@ void interrupt high_priority tc_high(void) {
 	{
 		if(Led1_Counter <= Led1_Blink)
 		{
-			Led1 = 1;
+			Led1 = 1;            
 		}
 		else
 		{

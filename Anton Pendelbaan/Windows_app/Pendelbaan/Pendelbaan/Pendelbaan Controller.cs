@@ -35,7 +35,7 @@ namespace Pendelbaan
     {
         public SerialPortExample serialPort;
         static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
-        public Image tandrad = Pendelbaan.Properties.Resources.tandrad;
+        public Image tandrad = Pendelbaan.Properties.Resources.tandrad_str_str;
         public int SetPwm;
 
         #region Variables
@@ -87,9 +87,9 @@ namespace Pendelbaan
         int train_path_from = 0;
         int train_path_to = 0;
         int main_program = 0;
-        int junction_left_str = 0;
+        int junction_left_str = 1;
         int junction_left_bnd = 0;
-        int junction_right_str = 0;
+        int junction_right_str = 1;
         int junction_right_bnd = 0;
         int actual_pwm_speed = 0;
         int pwm_brake = 0;
@@ -104,6 +104,11 @@ namespace Pendelbaan
         int sw_pwm_brake_off = 0;
         int sw_actual_pwm_speed = 0;
         int switch_program = 0;
+        int junction_left_str_prev = 1;
+        int junction_left_bnd_prev = 0;
+        int junction_right_str_prev = 1;
+        int junction_right_bnd_prev = 0;
+        int pwm_direction = 0;
         #endregion Variables
 
         #region Indicator init
@@ -121,7 +126,7 @@ namespace Pendelbaan
             this.comPoortToolStripMenuItem.SelectedItem = this.comPoortToolStripMenuItem.Items[0];
 
 
-            pictureBox1.Image = tandrad;
+            pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
 
             ManPwm.Minimum = -255;
             ManPwm.Maximum = 255;
@@ -146,7 +151,7 @@ namespace Pendelbaan
                 {
                     SetPwm = ManPwm.Value;
                     serialPort.Send("sx81x1G", false);
-                    Thread.Sleep(50);
+                    //Thread.Sleep(50);
                     serialPort.Send("sx79x" + ManPwm.Value.ToString() + "G", false);
                 }
                 else if(ManPwm.Value < 0 && SetPwm != ManPwm.Value)
@@ -154,7 +159,7 @@ namespace Pendelbaan
                     SetPwm = ManPwm.Value;
                     var left = SetPwm * -1;
                     serialPort.Send("sx81x0G", false);
-                    Thread.Sleep(50);
+                    //Thread.Sleep(50);
                     serialPort.Send("sx79x" + left.ToString() + "G", false);
                 }
                 
@@ -349,28 +354,28 @@ namespace Pendelbaan
                         junction_left_str = Value;
                         if (junction_left_str == 1)
                         {
-                            JunctionLeftBtn.Text = "Rechtdoor";
+                            JunctionLeftBtn.Text = "Rechtdoor";                            
                         }
                         break;
                     case API.JUNCTION_LEFT_BND:
                         junction_left_bnd = Value;
                         if (junction_left_bnd == 1)
                         {
-                            JunctionLeftBtn.Text = "Afbuigen";
+                            JunctionLeftBtn.Text = "Afbuigen";                            
                         }
                         break;
                     case API.JUNCTION_RIGHT_STR:
                         junction_right_str = Value;
                         if (junction_right_str == 1)
                         {
-                            JunctionRightBtn.Text = "Rechtdoor";
+                            JunctionRightBtn.Text = "Rechtdoor";                            
                         }
                         break;
                     case API.JUNCTION_RIGHT_BND:
                         junction_right_bnd = Value;
                         if (junction_right_bnd == 1)
                         {
-                            JunctionRightBtn.Text = "Afbuigen";
+                            JunctionRightBtn.Text = "Afbuigen";                            
                         }
                         break;
 
@@ -387,11 +392,71 @@ namespace Pendelbaan
                     case API.SW_PWM_BRAKE_OFF: sw_pwm_brake_off = Value; break;
                     case API.SW_ACTUAL_PWM_SPEED: sw_actual_pwm_speed = Value; break;
                     case API.SWITCH_PROGRAM: switch_program = Value; break;
+
+                    case API.JUNCTION_LEFT_STR_PREV:
+                        junction_left_str_prev = Value;
+                        if (junction_left_str_prev == 1)
+                        {
+                            junction_left_bnd_prev = 0;
+                        }
+                        UpdatePicture();
+                        break;
+                    case API.JUNCTION_LEFT_BND_PREV:
+                        junction_left_bnd_prev = Value;
+                        if (junction_left_bnd_prev == 1)
+                        {
+                            junction_left_str_prev = 0;
+                        }
+                        UpdatePicture();
+                        break;
+                    case API.JUNCTION_RIGHT_STR_PREV:
+                        junction_right_str_prev = Value;
+                        if (junction_right_str_prev == 1)
+                        {
+                            junction_right_bnd_prev = 0;
+                        }
+                        UpdatePicture();
+                        break;
+                    case API.JUNCTION_RIGHT_BND_PREV:
+                        junction_right_bnd_prev = Value;
+                        if (junction_right_bnd_prev == 1)
+                        {
+                            junction_right_str_prev = 0;
+                        }
+                        UpdatePicture();
+                        break;
+
+                    case API.PWM_DIRECTION: pwm_direction = Value; break;
+
                     default:
                         break;
                 }
+
+                
+
+
             }
 
+        }
+
+        private void UpdatePicture()
+        {
+            if (junction_left_str_prev == 1 && junction_right_str_prev == 1)
+            {
+                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
+            }
+            else if (junction_left_bnd_prev == 1 && junction_right_bnd_prev == 1)
+            {
+                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_bnd_bnd;
+            }
+            else if (junction_left_str_prev == 1 && junction_right_bnd_prev == 1)
+            {
+                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_bnd;
+            }
+            else if (junction_left_bnd_prev == 1 && junction_right_str_prev == 1)
+            {
+                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_bnd_str;
+            }
         }
 
         /*#--------------------------------------------------------------------------#*/
@@ -507,7 +572,7 @@ namespace Pendelbaan
         /*#--------------------------------------------------------------------------#*/
         private void ReadAllData()
         {
-            for (int i = 16; i < 81; i++)
+            for (int i = 16; i < 87; i++)
             {
                 RawData(serialPort.Send("gx"+ i.ToString() + "G", true));
                 Thread.Sleep(50);
@@ -568,7 +633,7 @@ namespace Pendelbaan
                 //Console.WriteLine("-------------------------------------------------------------------------");
 
 
-                if (tString.IndexOf("M#") > 0)
+                if (tString.IndexOf("M#") == 0)
                 {
                     int j = 0;
                     int Api = 0;
@@ -745,5 +810,10 @@ namespace Pendelbaan
         public const int SW_PWM_BRAKE_OFF = 78;
         public const int SW_ACTUAL_PWM_SPEED = 79;
         public const int SWITCH_PROGRAM = 80;
+        public const int JUNCTION_LEFT_STR_PREV = 82;
+        public const int JUNCTION_LEFT_BND_PREV = 83;
+        public const int JUNCTION_RIGHT_STR_PREV = 84;
+        public const int JUNCTION_RIGHT_BND_PREV = 85;
+        public const int PWM_DIRECTION = 86;	
     }
 }

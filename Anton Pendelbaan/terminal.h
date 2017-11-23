@@ -72,8 +72,10 @@ extern "C" {
     
     extern void SENDxMESSAGE(unsigned char index, unsigned int value);
     extern void READxRECEIVEDxMESSAGE(void);
+    extern void DIAGNOSTICxTOxPC(void);
     
     void TranslateMessage(void);
+    void SendMessage(unsigned char index, unsigned int value);
 
 #ifdef	__cplusplus
 }

@@ -153,7 +153,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Pendelbaan.Properties.Resources.tandrad;
+            this.pictureBox1.Image = global::Pendelbaan.Properties.Resources.tandrad_str_str;
             this.pictureBox1.InitialImage = null;
             this.pictureBox1.Location = new System.Drawing.Point(12, 27);
             this.pictureBox1.Name = "pictureBox1";

@@ -6261,8 +6261,10 @@ extern void EUSART1_Receive_ISR(void);
 # 73 "../terminal.h"
 extern void SENDxMESSAGE(unsigned char index, unsigned int value);
 extern void READxRECEIVEDxMESSAGE(void);
+extern void DIAGNOSTICxTOxPC(void);
 
 void TranslateMessage(void);
+void SendMessage(unsigned char index, unsigned int value);
 
 # 11 "../api.h"
 extern void APIxInitialize(void);
@@ -6322,7 +6324,7 @@ Update_StateMchn();
 }
 
 READxRECEIVEDxMESSAGE();
-
+DIAGNOSTICxTOxPC();
 }
 }
 

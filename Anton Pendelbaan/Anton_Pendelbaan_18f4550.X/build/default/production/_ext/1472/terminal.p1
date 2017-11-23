@@ -5,7 +5,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _EUSART1_Read `(uc ~T0 @X0 0 ef ]
 "195 C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
-"76 ../terminal.h
+"77 ../terminal.h
 [v _TranslateMessage `(v ~T0 @X0 0 ef ]
 "55 C:\Program Files (x86)\Microchip\xc8\v1.37\include\stdlib.h
 [v _atoi `(i ~T0 @X0 0 ef1`*Cuc ]
@@ -4628,7 +4628,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic18.h: 161: extern __nonreentrant void _delay3(unsigned char);
 [; ;terminal.h: 73: extern void SENDxMESSAGE(unsigned char index, unsigned int value);
 [; ;terminal.h: 74: extern void READxRECEIVEDxMESSAGE(void);
-[; ;terminal.h: 76: void TranslateMessage(void);
+[; ;terminal.h: 75: extern void DIAGNOSTICxTOxPC(void);
+[; ;terminal.h: 77: void TranslateMessage(void);
+[; ;terminal.h: 78: void SendMessage(unsigned char index, unsigned int value);
 [; ;eusart1.h: 22: typedef signed char int8_t;
 [; ;eusart1.h: 29: typedef signed int int16_t;
 [; ;eusart1.h: 37: typedef signed short long int int24_t;
@@ -4821,394 +4823,885 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ]
 [; ;terminal.c: 16: unsigned char TrSwitch = 0;
-"32
+"18
+[v _Diag_Comm `ui ~T0 @X0 1 e ]
+[i _Diag_Comm
+-> -> 0 `i `ui
+]
+[v F5392 `ui ~T0 @X0 -> 2 `i t ]
+"19
+[v _Comm_List `F5392 ~T0 @X0 -> 8 `i e ]
+"20
+[v _Pcomm_List `*ui ~T0 @X0 1 e ]
+"21
+[v _Pcomm_List2 `*ui ~T0 @X0 1 e ]
+"22
+[v _Diag_Comm2 `ui ~T0 @X0 1 e ]
+[i _Diag_Comm2
+-> -> 0 `i `ui
+]
+"23
+[v _DelayCounter `ui ~T0 @X0 1 e ]
+[i _DelayCounter
+-> -> 0 `i `ui
+]
+[; ;terminal.c: 18: unsigned int Diag_Comm=0,
+[; ;terminal.c: 19: Comm_List[8][2],
+[; ;terminal.c: 20: *Pcomm_List,
+[; ;terminal.c: 21: *Pcomm_List2,
+[; ;terminal.c: 22: Diag_Comm2=0,
+[; ;terminal.c: 23: DelayCounter = 0;
+"39
 [v _READxRECEIVEDxMESSAGE `(v ~T0 @X0 1 ef ]
 {
-[; ;terminal.c: 32: void READxRECEIVEDxMESSAGE(void){
+[; ;terminal.c: 39: void READxRECEIVEDxMESSAGE(void){
 [e :U _READxRECEIVEDxMESSAGE ]
 [f ]
-[; ;terminal.c: 34: if ((eusart1RxCount) > 0){
-"34
+[; ;terminal.c: 41: if ((eusart1RxCount) > 0){
+"41
 [e $ ! > -> _eusart1RxCount `i -> 0 `i 569  ]
 {
-[; ;terminal.c: 37: Received_Data = EUSART1_Read();
-"37
+[; ;terminal.c: 44: Received_Data = EUSART1_Read();
+"44
 [e = _Received_Data ( _EUSART1_Read ..  ]
-[; ;terminal.c: 39: switch (RxSwitch){
-"39
+[; ;terminal.c: 46: switch (RxSwitch){
+"46
 [e $U 571  ]
 {
-[; ;terminal.c: 40: case 0 :
-"40
+[; ;terminal.c: 47: case 0 :
+"47
 [e :U 572 ]
-[; ;terminal.c: 41: pData = &Data[0];
-"41
+[; ;terminal.c: 48: pData = &Data[0];
+"48
 [e = _pData &U *U + &U _Data * -> -> -> 0 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
-[; ;terminal.c: 42: pLen = &Data[DataLen - 1];
-"42
+[; ;terminal.c: 49: pLen = &Data[DataLen - 1];
+"49
 [e = _pLen &U *U + &U _Data * -> -> - -> _DataLen `i -> 1 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
-[; ;terminal.c: 43: if (Received_Data == 's' || Received_Data == 'g'){
-"43
+[; ;terminal.c: 50: if (Received_Data == 's' || Received_Data == 'g'){
+"50
 [e $ ! || == -> _Received_Data `ui -> 115 `ui == -> _Received_Data `ui -> 103 `ui 573  ]
 {
-[; ;terminal.c: 44: *pData = Received_Data;
-"44
+[; ;terminal.c: 51: *pData = Received_Data;
+"51
 [e = *U _pData _Received_Data ]
-[; ;terminal.c: 45: *pData++;
-"45
+[; ;terminal.c: 52: *pData++;
+"52
 [e *U ++ _pData * -> -> 1 `i `x -> -> # *U _pData `i `x ]
-[; ;terminal.c: 46: RxSwitch = 1;
-"46
+[; ;terminal.c: 53: RxSwitch = 1;
+"53
 [e = _RxSwitch -> -> 1 `i `uc ]
-"47
+"54
 }
-[; ;terminal.c: 47: }
+[; ;terminal.c: 54: }
 [e $U 574  ]
-"48
+"55
 [e :U 573 ]
-[; ;terminal.c: 48: else{
+[; ;terminal.c: 55: else{
 {
-[; ;terminal.c: 49: RxSwitch = 0;
-"49
+[; ;terminal.c: 56: RxSwitch = 0;
+"56
 [e = _RxSwitch -> -> 0 `i `uc ]
-"50
+"57
 }
 [e :U 574 ]
-[; ;terminal.c: 50: }
-[; ;terminal.c: 51: break;
-"51
+[; ;terminal.c: 57: }
+[; ;terminal.c: 58: break;
+"58
 [e $U 570  ]
-[; ;terminal.c: 53: case 1 :
-"53
+[; ;terminal.c: 60: case 1 :
+"60
 [e :U 575 ]
-[; ;terminal.c: 54: if (Received_Data == 'x'){
-"54
+[; ;terminal.c: 61: if (Received_Data == 'x'){
+"61
 [e $ ! == -> _Received_Data `ui -> 120 `ui 576  ]
 {
-[; ;terminal.c: 55: *pData = Received_Data;
-"55
+[; ;terminal.c: 62: *pData = Received_Data;
+"62
 [e = *U _pData _Received_Data ]
-[; ;terminal.c: 56: *pData++;
-"56
+[; ;terminal.c: 63: *pData++;
+"63
 [e *U ++ _pData * -> -> 1 `i `x -> -> # *U _pData `i `x ]
-[; ;terminal.c: 57: RxSwitch = 2;
-"57
+[; ;terminal.c: 64: RxSwitch = 2;
+"64
 [e = _RxSwitch -> -> 2 `i `uc ]
-"58
+"65
 }
-[; ;terminal.c: 58: }
+[; ;terminal.c: 65: }
 [e $U 577  ]
-"59
+"66
 [e :U 576 ]
-[; ;terminal.c: 59: else{
+[; ;terminal.c: 66: else{
 {
-[; ;terminal.c: 60: RxSwitch = 0;
-"60
+[; ;terminal.c: 67: RxSwitch = 0;
+"67
 [e = _RxSwitch -> -> 0 `i `uc ]
-"61
+"68
 }
 [e :U 577 ]
-[; ;terminal.c: 61: }
-[; ;terminal.c: 62: break;
-"62
+[; ;terminal.c: 68: }
+[; ;terminal.c: 69: break;
+"69
 [e $U 570  ]
-[; ;terminal.c: 64: case 2 :
-"64
+[; ;terminal.c: 71: case 2 :
+"71
 [e :U 578 ]
-[; ;terminal.c: 65: if (Received_Data == 'G'){
-"65
+[; ;terminal.c: 72: if (Received_Data == 'G'){
+"72
 [e $ ! == -> _Received_Data `ui -> 71 `ui 579  ]
 {
-[; ;terminal.c: 68: while(pLen > pData){
-"68
+[; ;terminal.c: 75: while(pLen > pData){
+"75
 [e $U 580  ]
 [e :U 581 ]
 {
-[; ;terminal.c: 69: *pData = '\0';
-"69
+[; ;terminal.c: 76: *pData = '\0';
+"76
 [e = *U _pData -> -> 0 `ui `uc ]
-[; ;terminal.c: 70: pData++;
-"70
+[; ;terminal.c: 77: pData++;
+"77
 [e ++ _pData * -> -> 1 `i `x -> -> # *U _pData `i `x ]
-"71
+"78
 }
 [e :U 580 ]
-"68
+"75
 [e $ > _pLen _pData 581  ]
 [e :U 582 ]
-[; ;terminal.c: 71: }
-[; ;terminal.c: 73: RxSwitch = 3;
-"73
+[; ;terminal.c: 78: }
+[; ;terminal.c: 80: RxSwitch = 3;
+"80
 [e = _RxSwitch -> -> 3 `i `uc ]
-[; ;terminal.c: 74: Message_To_Translate = 1;
-"74
+[; ;terminal.c: 81: Message_To_Translate = 1;
+"81
 [e = _Message_To_Translate -> -> 1 `i `uc ]
-"75
+"82
 }
-[; ;terminal.c: 75: }
+[; ;terminal.c: 82: }
 [e $U 583  ]
-"76
+"83
 [e :U 579 ]
-[; ;terminal.c: 76: else{
+[; ;terminal.c: 83: else{
 {
-[; ;terminal.c: 77: *pData = Received_Data;
-"77
+[; ;terminal.c: 84: *pData = Received_Data;
+"84
 [e = *U _pData _Received_Data ]
-[; ;terminal.c: 78: if (pData > pLen){
-"78
+[; ;terminal.c: 85: if (pData > pLen){
+"85
 [e $ ! > _pData _pLen 584  ]
 {
-[; ;terminal.c: 79: printf("\r\nE#10\r\n");
-"79
+[; ;terminal.c: 86: printf("E#10\r\n");
+"86
 [e ( _printf :s 1C ]
-[; ;terminal.c: 80: RxSwitch = 0;
-"80
+[; ;terminal.c: 87: RxSwitch = 0;
+"87
 [e = _RxSwitch -> -> 0 `i `uc ]
-"81
+"88
 }
-[; ;terminal.c: 81: }
+[; ;terminal.c: 88: }
 [e $U 585  ]
-"82
+"89
 [e :U 584 ]
-[; ;terminal.c: 82: else{
+[; ;terminal.c: 89: else{
 {
-[; ;terminal.c: 83: pData++;
-"83
+[; ;terminal.c: 90: pData++;
+"90
 [e ++ _pData * -> -> 1 `i `x -> -> # *U _pData `i `x ]
-[; ;terminal.c: 84: RxSwitch = 2;
-"84
+[; ;terminal.c: 91: RxSwitch = 2;
+"91
 [e = _RxSwitch -> -> 2 `i `uc ]
-"85
+"92
 }
 [e :U 585 ]
-"86
+"93
 }
 [e :U 583 ]
-[; ;terminal.c: 85: }
-[; ;terminal.c: 86: }
-[; ;terminal.c: 87: break;
-"87
-[e $U 570  ]
-[; ;terminal.c: 89: case 3 :
-"89
-[e :U 586 ]
-[; ;terminal.c: 90: break;
-"90
-[e $U 570  ]
-[; ;terminal.c: 92: default :
-"92
-[e :U 587 ]
-[; ;terminal.c: 93: break;
-"93
-[e $U 570  ]
+[; ;terminal.c: 92: }
+[; ;terminal.c: 93: }
+[; ;terminal.c: 94: break;
 "94
-}
-[; ;terminal.c: 94: }
 [e $U 570  ]
-"39
+[; ;terminal.c: 96: case 3 :
+"96
+[e :U 586 ]
+[; ;terminal.c: 97: break;
+"97
+[e $U 570  ]
+[; ;terminal.c: 99: default :
+"99
+[e :U 587 ]
+[; ;terminal.c: 100: break;
+"100
+[e $U 570  ]
+"101
+}
+[; ;terminal.c: 101: }
+[e $U 570  ]
+"46
 [e :U 571 ]
 [e [\ _RxSwitch , $ -> -> 0 `i `uc 572
  , $ -> -> 1 `i `uc 575
  , $ -> -> 2 `i `uc 578
  , $ -> -> 3 `i `uc 586
  587 ]
-"94
+"101
 [e :U 570 ]
-"95
+"102
 }
 [e :U 569 ]
-[; ;terminal.c: 95: }
-[; ;terminal.c: 97: if (Message_To_Translate == 1){
-"97
+[; ;terminal.c: 102: }
+[; ;terminal.c: 104: if (Message_To_Translate == 1){
+"104
 [e $ ! == -> _Message_To_Translate `i -> 1 `i 588  ]
 {
-[; ;terminal.c: 98: TranslateMessage();
-"98
+[; ;terminal.c: 105: TranslateMessage();
+"105
 [e ( _TranslateMessage ..  ]
-[; ;terminal.c: 99: Message_To_Translate = 0;
-"99
+[; ;terminal.c: 106: Message_To_Translate = 0;
+"106
 [e = _Message_To_Translate -> -> 0 `i `uc ]
-[; ;terminal.c: 100: RxSwitch = 0;
-"100
+[; ;terminal.c: 107: RxSwitch = 0;
+"107
 [e = _RxSwitch -> -> 0 `i `uc ]
-"101
+"108
 }
 [e :U 588 ]
-[; ;terminal.c: 101: }
-[; ;terminal.c: 102: }
-"102
+[; ;terminal.c: 108: }
+[; ;terminal.c: 109: }
+"109
 [e :UE 568 ]
 }
-"118
+"125
 [v _TranslateMessage `(v ~T0 @X0 1 ef ]
 {
-[; ;terminal.c: 118: void TranslateMessage(void){
+[; ;terminal.c: 125: void TranslateMessage(void){
 [e :U _TranslateMessage ]
 [f ]
-"120
+"127
 [v _Value `ui ~T0 @X0 1 a ]
 [v _Index `ui ~T0 @X0 1 a ]
-[; ;terminal.c: 120: unsigned int Value, Index;
-[; ;terminal.c: 122: if(Data[0] == 's'){
-"122
+[; ;terminal.c: 127: unsigned int Value, Index;
+[; ;terminal.c: 129: if(Data[0] == 's'){
+"129
 [e $ ! == -> *U + &U _Data * -> -> -> 0 `i `ui `ux -> -> # *U &U _Data `ui `ux `ui -> 115 `ui 590  ]
 {
-[; ;terminal.c: 124: pData = &Data[2];
-"124
+[; ;terminal.c: 131: pData = &Data[2];
+"131
 [e = _pData &U *U + &U _Data * -> -> -> 2 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
-[; ;terminal.c: 125: Index = (unsigned int)atoi (pData);
-"125
+[; ;terminal.c: 132: Index = (unsigned int)atoi (pData);
+"132
 [e = _Index -> ( _atoi (1 -> _pData `*Cuc `ui ]
-[; ;terminal.c: 126: pData = &Data[5];
-"126
+[; ;terminal.c: 133: pData = &Data[5];
+"133
 [e = _pData &U *U + &U _Data * -> -> -> 5 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
-[; ;terminal.c: 127: Value = (unsigned int)atoi (pData);
-"127
+[; ;terminal.c: 134: Value = (unsigned int)atoi (pData);
+"134
 [e = _Value -> ( _atoi (1 -> _pData `*Cuc `ui ]
-[; ;terminal.c: 129: if (GETxAPIxRW(Index) == 0){
-"129
+[; ;terminal.c: 136: if (GETxAPIxRW(Index) == 0){
+"136
 [e $ ! == ( _GETxAPIxRW (1 -> _Index `uc -> -> 0 `i `ui 591  ]
 {
-[; ;terminal.c: 130: printf("\r\nE#11\r\n");
-"130
+[; ;terminal.c: 137: printf("E#11\r\n");
+"137
 [e ( _printf :s 2C ]
-"131
+"138
 }
-[; ;terminal.c: 131: }
+[; ;terminal.c: 138: }
 [e $U 592  ]
-"132
+"139
 [e :U 591 ]
-[; ;terminal.c: 132: else if (Index < 0xF){
+[; ;terminal.c: 139: else if (Index < 0xF){
 [e $ ! < _Index -> -> 15 `i `ui 593  ]
 {
-[; ;terminal.c: 133: printf("\r\nE#12\r\n");
-"133
+[; ;terminal.c: 140: printf("E#12\r\n");
+"140
 [e ( _printf :s 3C ]
-"134
+"141
 }
-[; ;terminal.c: 134: }
+[; ;terminal.c: 141: }
 [e $U 594  ]
-"135
+"142
 [e :U 593 ]
-[; ;terminal.c: 135: else if (Index > 82){
-[e $ ! > _Index -> -> 82 `i `ui 595  ]
+[; ;terminal.c: 142: else if (Index > 87){
+[e $ ! > _Index -> -> 87 `i `ui 595  ]
 {
-[; ;terminal.c: 136: printf("\r\nE#13\r\n");
-"136
+[; ;terminal.c: 143: printf("E#13\r\n");
+"143
 [e ( _printf :s 4C ]
-"137
+"144
 }
-[; ;terminal.c: 137: }
+[; ;terminal.c: 144: }
 [e $U 596  ]
-"138
+"145
 [e :U 595 ]
-[; ;terminal.c: 138: else if (Value > 0xFFFE){
+[; ;terminal.c: 145: else if (Value > 0xFFFE){
 [e $ ! > _Value -> 65534 `ui 597  ]
 {
-[; ;terminal.c: 139: printf("\r\nE#14\r\n");
-"139
+[; ;terminal.c: 146: printf("E#14\r\n");
+"146
 [e ( _printf :s 5C ]
-"140
+"147
 }
-[; ;terminal.c: 140: }
+[; ;terminal.c: 147: }
 [e $U 598  ]
-"141
+"148
 [e :U 597 ]
-[; ;terminal.c: 141: else{
+[; ;terminal.c: 148: else{
 {
-[; ;terminal.c: 142: SETxAPIxVALxNoxRET(Index, Value);
-"142
+[; ;terminal.c: 149: SETxAPIxVALxNoxRET(Index, Value);
+"149
 [e ( _SETxAPIxVALxNoxRET (2 , -> _Index `uc _Value ]
-"143
+"150
 }
 [e :U 598 ]
 [e :U 596 ]
 [e :U 594 ]
 [e :U 592 ]
-"144
+"151
 }
-[; ;terminal.c: 143: }
-[; ;terminal.c: 144: }
+[; ;terminal.c: 150: }
+[; ;terminal.c: 151: }
 [e $U 599  ]
-"146
+"153
 [e :U 590 ]
-[; ;terminal.c: 146: else if (Data[0] == 'g'){
+[; ;terminal.c: 153: else if (Data[0] == 'g'){
 [e $ ! == -> *U + &U _Data * -> -> -> 0 `i `ui `ux -> -> # *U &U _Data `ui `ux `ui -> 103 `ui 600  ]
 {
-[; ;terminal.c: 148: pData = &Data[2];
-"148
+[; ;terminal.c: 155: pData = &Data[2];
+"155
 [e = _pData &U *U + &U _Data * -> -> -> 2 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
-[; ;terminal.c: 149: Index = (unsigned int)atoi (pData);
-"149
+[; ;terminal.c: 156: Index = (unsigned int)atoi (pData);
+"156
 [e = _Index -> ( _atoi (1 -> _pData `*Cuc `ui ]
-[; ;terminal.c: 151: if (Index < 0xF){
-"151
+[; ;terminal.c: 158: if (Index < 0xF){
+"158
 [e $ ! < _Index -> -> 15 `i `ui 601  ]
 {
-[; ;terminal.c: 152: printf("\r\nE#12\r\n");
-"152
-[e ( _printf :s 6C ]
-"153
-}
-[; ;terminal.c: 153: }
-[e $U 602  ]
-"154
-[e :U 601 ]
-[; ;terminal.c: 154: else if (Index > 82){
-[e $ ! > _Index -> -> 82 `i `ui 603  ]
-{
-[; ;terminal.c: 155: printf("\r\nE#13\r\n");
-"155
-[e ( _printf :s 7C ]
-"156
-}
-[; ;terminal.c: 156: }
-[e $U 604  ]
-"157
-[e :U 603 ]
-[; ;terminal.c: 157: else{
-{
-[; ;terminal.c: 158: Value = GETxAPIxVAL(Index);
-"158
-[e = _Value ( _GETxAPIxVAL (1 -> _Index `uc ]
-[; ;terminal.c: 159: SENDxMESSAGE(Index, Value);
+[; ;terminal.c: 159: printf("E#12\r\n");
 "159
-[e ( _SENDxMESSAGE (2 , -> _Index `uc _Value ]
+[e ( _printf :s 6C ]
 "160
+}
+[; ;terminal.c: 160: }
+[e $U 602  ]
+"161
+[e :U 601 ]
+[; ;terminal.c: 161: else if (Index > 87){
+[e $ ! > _Index -> -> 87 `i `ui 603  ]
+{
+[; ;terminal.c: 162: printf("E#13\r\n");
+"162
+[e ( _printf :s 7C ]
+"163
+}
+[; ;terminal.c: 163: }
+[e $U 604  ]
+"164
+[e :U 603 ]
+[; ;terminal.c: 164: else{
+{
+[; ;terminal.c: 165: Value = GETxAPIxVAL(Index);
+"165
+[e = _Value ( _GETxAPIxVAL (1 -> _Index `uc ]
+[; ;terminal.c: 166: SENDxMESSAGE(Index, Value);
+"166
+[e ( _SENDxMESSAGE (2 , -> _Index `uc _Value ]
+"167
 }
 [e :U 604 ]
 [e :U 602 ]
-"162
+"169
 }
 [e :U 600 ]
-"163
+"170
 [e :U 599 ]
-[; ;terminal.c: 160: }
-[; ;terminal.c: 162: }
-[; ;terminal.c: 163: }
+[; ;terminal.c: 167: }
+[; ;terminal.c: 169: }
+[; ;terminal.c: 170: }
 [e :UE 589 ]
 }
-"178
-[v _SENDxMESSAGE `(v ~T0 @X0 1 ef2`uc`ui ]
+"185
+[v _SendMessage `(v ~T0 @X0 1 ef2`uc`ui ]
 {
-[; ;terminal.c: 178: void SENDxMESSAGE(unsigned char index, unsigned int value){
-[e :U _SENDxMESSAGE ]
+[; ;terminal.c: 185: void SendMessage(unsigned char index, unsigned int value){
+[e :U _SendMessage ]
 [v _index `uc ~T0 @X0 1 r1 ]
 [v _value `ui ~T0 @X0 1 r2 ]
 [f ]
-[; ;terminal.c: 184: printf("\r\nM#%d %d\r\n", index, value);
-"184
+[; ;terminal.c: 191: printf("M#%d %d\r\n", index, value);
+"191
 [e ( _printf , , (. :s 8C -> _index `i _value ]
-[; ;terminal.c: 185: }
-"185
+[; ;terminal.c: 192: }
+"192
 [e :UE 605 ]
 }
+"194
+[v _DIAGNOSTICxTOxPC `(v ~T0 @X0 1 ef ]
+"195
+{
+[; ;terminal.c: 194: void DIAGNOSTICxTOxPC(void)
+[; ;terminal.c: 195: {
+[e :U _DIAGNOSTICxTOxPC ]
+[f ]
+[; ;terminal.c: 196: if (DelayCounter > 10000){
+"196
+[e $ ! > _DelayCounter -> -> 10000 `i `ui 607  ]
+{
+[; ;terminal.c: 197: DelayCounter = 0;
+"197
+[e = _DelayCounter -> -> 0 `i `ui ]
+[; ;terminal.c: 199: switch (Diag_Comm2)
+"199
+[e $U 609  ]
+[; ;terminal.c: 200: {
+"200
+{
+[; ;terminal.c: 201: case 0 : Pcomm_List = &Comm_List[0][0];
+"201
+[e :U 610 ]
+[e = _Pcomm_List &U *U + &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 202: Pcomm_List2 = &Comm_List[0][0];
+"202
+[e = _Pcomm_List2 &U *U + &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 203: Diag_Comm2 = 1;
+"203
+[e = _Diag_Comm2 -> -> 1 `i `ui ]
+[; ;terminal.c: 204: break;
+"204
+[e $U 608  ]
+[; ;terminal.c: 206: case 1 : Pcomm_List2 = &Comm_List[0][0];
+"206
+[e :U 611 ]
+[e = _Pcomm_List2 &U *U + &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 207: if (Pcomm_List2 != Pcomm_List)
+"207
+[e $ ! != _Pcomm_List2 _Pcomm_List 612  ]
+[; ;terminal.c: 208: {
+"208
+{
+[; ;terminal.c: 209: SendMessage(Comm_List[0][0], Comm_List[0][1]);
+"209
+[e ( _SendMessage (2 , -> *U + &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux `uc *U + &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 210: Pcomm_List2+=2;
+"210
+[e =+ _Pcomm_List2 * -> -> 2 `i `x -> -> # *U _Pcomm_List2 `i `x ]
+[; ;terminal.c: 211: Diag_Comm2 = 2;
+"211
+[e = _Diag_Comm2 -> -> 2 `i `ui ]
+"212
+}
+[e :U 612 ]
+[; ;terminal.c: 212: }
+[; ;terminal.c: 213: break;
+"213
+[e $U 608  ]
+[; ;terminal.c: 215: case 2 : if (Pcomm_List2 != Pcomm_List)
+"215
+[e :U 613 ]
+[e $ ! != _Pcomm_List2 _Pcomm_List 614  ]
+[; ;terminal.c: 216: {
+"216
+{
+[; ;terminal.c: 217: SendMessage(Comm_List[1][0], Comm_List[1][1]);
+"217
+[e ( _SendMessage (2 , -> *U + &U *U + &U _Comm_List * -> -> -> 1 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 1 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux `uc *U + &U *U + &U _Comm_List * -> -> -> 1 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 1 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 218: Pcomm_List2+=2;
+"218
+[e =+ _Pcomm_List2 * -> -> 2 `i `x -> -> # *U _Pcomm_List2 `i `x ]
+[; ;terminal.c: 219: Diag_Comm2 = 3;
+"219
+[e = _Diag_Comm2 -> -> 3 `i `ui ]
+"220
+}
+[e :U 614 ]
+[; ;terminal.c: 220: }
+[; ;terminal.c: 221: break;
+"221
+[e $U 608  ]
+[; ;terminal.c: 223: case 3 : if (Pcomm_List2 != Pcomm_List)
+"223
+[e :U 615 ]
+[e $ ! != _Pcomm_List2 _Pcomm_List 616  ]
+[; ;terminal.c: 224: {
+"224
+{
+[; ;terminal.c: 225: SendMessage(Comm_List[2][0], Comm_List[2][1]);
+"225
+[e ( _SendMessage (2 , -> *U + &U *U + &U _Comm_List * -> -> -> 2 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 2 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux `uc *U + &U *U + &U _Comm_List * -> -> -> 2 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 2 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 226: Pcomm_List2+=2;
+"226
+[e =+ _Pcomm_List2 * -> -> 2 `i `x -> -> # *U _Pcomm_List2 `i `x ]
+[; ;terminal.c: 227: Diag_Comm2 = 4;
+"227
+[e = _Diag_Comm2 -> -> 4 `i `ui ]
+"228
+}
+[e :U 616 ]
+[; ;terminal.c: 228: }
+[; ;terminal.c: 229: break;
+"229
+[e $U 608  ]
+[; ;terminal.c: 231: case 4 : if (Pcomm_List2 != Pcomm_List)
+"231
+[e :U 617 ]
+[e $ ! != _Pcomm_List2 _Pcomm_List 618  ]
+[; ;terminal.c: 232: {
+"232
+{
+[; ;terminal.c: 233: SendMessage(Comm_List[3][0], Comm_List[3][1]);
+"233
+[e ( _SendMessage (2 , -> *U + &U *U + &U _Comm_List * -> -> -> 3 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 3 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux `uc *U + &U *U + &U _Comm_List * -> -> -> 3 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 3 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 234: Pcomm_List2+=2;
+"234
+[e =+ _Pcomm_List2 * -> -> 2 `i `x -> -> # *U _Pcomm_List2 `i `x ]
+[; ;terminal.c: 235: Diag_Comm2 = 5;
+"235
+[e = _Diag_Comm2 -> -> 5 `i `ui ]
+"236
+}
+[e :U 618 ]
+[; ;terminal.c: 236: }
+[; ;terminal.c: 237: break;
+"237
+[e $U 608  ]
+[; ;terminal.c: 239: case 5 : if (Pcomm_List2 != Pcomm_List)
+"239
+[e :U 619 ]
+[e $ ! != _Pcomm_List2 _Pcomm_List 620  ]
+[; ;terminal.c: 240: {
+"240
+{
+[; ;terminal.c: 241: SendMessage(Comm_List[4][0], Comm_List[4][1]);
+"241
+[e ( _SendMessage (2 , -> *U + &U *U + &U _Comm_List * -> -> -> 4 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 4 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux `uc *U + &U *U + &U _Comm_List * -> -> -> 4 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 4 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 242: Pcomm_List2+=2;
+"242
+[e =+ _Pcomm_List2 * -> -> 2 `i `x -> -> # *U _Pcomm_List2 `i `x ]
+[; ;terminal.c: 243: Diag_Comm2 = 6;
+"243
+[e = _Diag_Comm2 -> -> 6 `i `ui ]
+"244
+}
+[e :U 620 ]
+[; ;terminal.c: 244: }
+[; ;terminal.c: 245: break;
+"245
+[e $U 608  ]
+[; ;terminal.c: 247: case 6 : if (Pcomm_List2 != Pcomm_List)
+"247
+[e :U 621 ]
+[e $ ! != _Pcomm_List2 _Pcomm_List 622  ]
+[; ;terminal.c: 248: {
+"248
+{
+[; ;terminal.c: 249: SendMessage(Comm_List[5][0], Comm_List[5][1]);
+"249
+[e ( _SendMessage (2 , -> *U + &U *U + &U _Comm_List * -> -> -> 5 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 5 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux `uc *U + &U *U + &U _Comm_List * -> -> -> 5 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 5 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 250: Pcomm_List2+=2;
+"250
+[e =+ _Pcomm_List2 * -> -> 2 `i `x -> -> # *U _Pcomm_List2 `i `x ]
+[; ;terminal.c: 251: Diag_Comm2 = 7;
+"251
+[e = _Diag_Comm2 -> -> 7 `i `ui ]
+"252
+}
+[e :U 622 ]
+[; ;terminal.c: 252: }
+[; ;terminal.c: 253: break;
+"253
+[e $U 608  ]
+[; ;terminal.c: 255: case 7 : if (Pcomm_List2 != Pcomm_List)
+"255
+[e :U 623 ]
+[e $ ! != _Pcomm_List2 _Pcomm_List 624  ]
+[; ;terminal.c: 256: {
+"256
+{
+[; ;terminal.c: 257: SendMessage(Comm_List[6][0], Comm_List[6][1]);
+"257
+[e ( _SendMessage (2 , -> *U + &U *U + &U _Comm_List * -> -> -> 6 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 6 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux `uc *U + &U *U + &U _Comm_List * -> -> -> 6 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 6 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 258: Pcomm_List2+=2;
+"258
+[e =+ _Pcomm_List2 * -> -> 2 `i `x -> -> # *U _Pcomm_List2 `i `x ]
+[; ;terminal.c: 259: Diag_Comm2 = 8;
+"259
+[e = _Diag_Comm2 -> -> 8 `i `ui ]
+"260
+}
+[e :U 624 ]
+[; ;terminal.c: 260: }
+[; ;terminal.c: 261: break;
+"261
+[e $U 608  ]
+[; ;terminal.c: 264: case 8 : if (Pcomm_List2 != Pcomm_List)
+"264
+[e :U 625 ]
+[e $ ! != _Pcomm_List2 _Pcomm_List 626  ]
+[; ;terminal.c: 265: {
+"265
+{
+[; ;terminal.c: 266: SendMessage(Comm_List[7][0], Comm_List[7][1]);
+"266
+[e ( _SendMessage (2 , -> *U + &U *U + &U _Comm_List * -> -> -> 7 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 7 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux `uc *U + &U *U + &U _Comm_List * -> -> -> 7 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 7 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 267: Pcomm_List2 = &Comm_List[0][0];
+"267
+[e = _Pcomm_List2 &U *U + &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 268: Diag_Comm2 = 1;
+"268
+[e = _Diag_Comm2 -> -> 1 `i `ui ]
+"269
+}
+[e :U 626 ]
+[; ;terminal.c: 269: }
+[; ;terminal.c: 270: break;
+"270
+[e $U 608  ]
+[; ;terminal.c: 272: default : break;
+"272
+[e :U 627 ]
+[e $U 608  ]
+"273
+}
+[; ;terminal.c: 273: }
+[e $U 608  ]
+"199
+[e :U 609 ]
+[e [\ _Diag_Comm2 , $ -> -> 0 `i `ui 610
+ , $ -> -> 1 `i `ui 611
+ , $ -> -> 2 `i `ui 613
+ , $ -> -> 3 `i `ui 615
+ , $ -> -> 4 `i `ui 617
+ , $ -> -> 5 `i `ui 619
+ , $ -> -> 6 `i `ui 621
+ , $ -> -> 7 `i `ui 623
+ , $ -> -> 8 `i `ui 625
+ 627 ]
+"273
+[e :U 608 ]
+"274
+}
+[; ;terminal.c: 274: }
+[e $U 628  ]
+"275
+[e :U 607 ]
+[; ;terminal.c: 275: else{
+{
+[; ;terminal.c: 276: DelayCounter++;
+"276
+[e ++ _DelayCounter -> -> 1 `i `ui ]
+"277
+}
+[e :U 628 ]
+[; ;terminal.c: 277: }
+[; ;terminal.c: 278: }
+"278
+[e :UE 606 ]
+}
+"280
+[v _SENDxMESSAGE `(v ~T0 @X0 1 ef2`uc`ui ]
+"281
+{
+[; ;terminal.c: 280: void SENDxMESSAGE(unsigned char index, unsigned int value)
+[; ;terminal.c: 281: {
+[e :U _SENDxMESSAGE ]
+"280
+[v _index `uc ~T0 @X0 1 r1 ]
+[v _value `ui ~T0 @X0 1 r2 ]
+"281
+[f ]
+[; ;terminal.c: 282: switch (Diag_Comm)
+"282
+[e $U 631  ]
+[; ;terminal.c: 283: {
+"283
+{
+[; ;terminal.c: 284: case 0 : Pcomm_List = &Comm_List[0][0];
+"284
+[e :U 632 ]
+[e = _Pcomm_List &U *U + &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 285: *Pcomm_List = index;
+"285
+[e = *U _Pcomm_List -> _index `ui ]
+[; ;terminal.c: 286: Pcomm_List++;
+"286
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 287: *Pcomm_List = value;
+"287
+[e = *U _Pcomm_List _value ]
+[; ;terminal.c: 288: Pcomm_List++;
+"288
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 289: Diag_Comm = 1;
+"289
+[e = _Diag_Comm -> -> 1 `i `ui ]
+[; ;terminal.c: 290: break;
+"290
+[e $U 630  ]
+[; ;terminal.c: 292: case 1 : *Pcomm_List = index;
+"292
+[e :U 633 ]
+[e = *U _Pcomm_List -> _index `ui ]
+[; ;terminal.c: 293: Pcomm_List++;
+"293
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 294: *Pcomm_List = value;
+"294
+[e = *U _Pcomm_List _value ]
+[; ;terminal.c: 295: Pcomm_List++;
+"295
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 296: Diag_Comm = 2;
+"296
+[e = _Diag_Comm -> -> 2 `i `ui ]
+[; ;terminal.c: 297: break;
+"297
+[e $U 630  ]
+[; ;terminal.c: 299: case 2 : *Pcomm_List = index;
+"299
+[e :U 634 ]
+[e = *U _Pcomm_List -> _index `ui ]
+[; ;terminal.c: 300: Pcomm_List++;
+"300
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 301: *Pcomm_List = value;
+"301
+[e = *U _Pcomm_List _value ]
+[; ;terminal.c: 302: Pcomm_List++;
+"302
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 303: Diag_Comm = 3;
+"303
+[e = _Diag_Comm -> -> 3 `i `ui ]
+[; ;terminal.c: 304: break;
+"304
+[e $U 630  ]
+[; ;terminal.c: 306: case 3 : *Pcomm_List = index;
+"306
+[e :U 635 ]
+[e = *U _Pcomm_List -> _index `ui ]
+[; ;terminal.c: 307: Pcomm_List++;
+"307
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 308: *Pcomm_List = value;
+"308
+[e = *U _Pcomm_List _value ]
+[; ;terminal.c: 309: Pcomm_List++;
+"309
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 310: Diag_Comm = 4;
+"310
+[e = _Diag_Comm -> -> 4 `i `ui ]
+[; ;terminal.c: 311: break;
+"311
+[e $U 630  ]
+[; ;terminal.c: 313: case 4 : *Pcomm_List = index;
+"313
+[e :U 636 ]
+[e = *U _Pcomm_List -> _index `ui ]
+[; ;terminal.c: 314: Pcomm_List++;
+"314
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 315: *Pcomm_List = value;
+"315
+[e = *U _Pcomm_List _value ]
+[; ;terminal.c: 316: Pcomm_List++;
+"316
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 317: Diag_Comm = 5;
+"317
+[e = _Diag_Comm -> -> 5 `i `ui ]
+[; ;terminal.c: 318: break;
+"318
+[e $U 630  ]
+[; ;terminal.c: 320: case 5 : *Pcomm_List = index;
+"320
+[e :U 637 ]
+[e = *U _Pcomm_List -> _index `ui ]
+[; ;terminal.c: 321: Pcomm_List++;
+"321
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 322: *Pcomm_List = value;
+"322
+[e = *U _Pcomm_List _value ]
+[; ;terminal.c: 323: Pcomm_List++;
+"323
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 324: Diag_Comm = 6;
+"324
+[e = _Diag_Comm -> -> 6 `i `ui ]
+[; ;terminal.c: 325: break;
+"325
+[e $U 630  ]
+[; ;terminal.c: 327: case 6 : *Pcomm_List = index;
+"327
+[e :U 638 ]
+[e = *U _Pcomm_List -> _index `ui ]
+[; ;terminal.c: 328: Pcomm_List++;
+"328
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 329: *Pcomm_List = value;
+"329
+[e = *U _Pcomm_List _value ]
+[; ;terminal.c: 330: Pcomm_List++;
+"330
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 331: Diag_Comm = 7;
+"331
+[e = _Diag_Comm -> -> 7 `i `ui ]
+[; ;terminal.c: 332: break;
+"332
+[e $U 630  ]
+[; ;terminal.c: 334: case 7 : *Pcomm_List = index;
+"334
+[e :U 639 ]
+[e = *U _Pcomm_List -> _index `ui ]
+[; ;terminal.c: 335: Pcomm_List++;
+"335
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 336: *Pcomm_List = value;
+"336
+[e = *U _Pcomm_List _value ]
+[; ;terminal.c: 337: Pcomm_List++;
+"337
+[e ++ _Pcomm_List * -> -> 1 `i `x -> -> # *U _Pcomm_List `i `x ]
+[; ;terminal.c: 338: Pcomm_List = &Comm_List[0][0];
+"338
+[e = _Pcomm_List &U *U + &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> -> -> 0 `i `ui `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
+[; ;terminal.c: 339: Diag_Comm = 0;
+"339
+[e = _Diag_Comm -> -> 0 `i `ui ]
+[; ;terminal.c: 340: break;
+"340
+[e $U 630  ]
+[; ;terminal.c: 343: default : break;
+"343
+[e :U 640 ]
+[e $U 630  ]
+"344
+}
+[; ;terminal.c: 344: }
+[e $U 630  ]
+"282
+[e :U 631 ]
+[e [\ _Diag_Comm , $ -> -> 0 `i `ui 632
+ , $ -> -> 1 `i `ui 633
+ , $ -> -> 2 `i `ui 634
+ , $ -> -> 3 `i `ui 635
+ , $ -> -> 4 `i `ui 636
+ , $ -> -> 5 `i `ui 637
+ , $ -> -> 6 `i `ui 638
+ , $ -> -> 7 `i `ui 639
+ 640 ]
+"344
+[e :U 630 ]
+[; ;terminal.c: 346: }
+"346
+[e :UE 629 ]
+}
 [p f _printf 8388736 ]
-[a 8C 13 10 77 35 37 100 32 37 100 13 10 0 ]
-[a 5C 13 10 69 35 49 52 13 10 0 ]
-[a 4C 13 10 69 35 49 51 13 10 0 ]
-[a 7C 13 10 69 35 49 51 13 10 0 ]
-[a 3C 13 10 69 35 49 50 13 10 0 ]
-[a 6C 13 10 69 35 49 50 13 10 0 ]
-[a 2C 13 10 69 35 49 49 13 10 0 ]
-[a 1C 13 10 69 35 49 48 13 10 0 ]
+[a 8C 77 35 37 100 32 37 100 13 10 0 ]
+[a 5C 69 35 49 52 13 10 0 ]
+[a 4C 69 35 49 51 13 10 0 ]
+[a 7C 69 35 49 51 13 10 0 ]
+[a 3C 69 35 49 50 13 10 0 ]
+[a 6C 69 35 49 50 13 10 0 ]
+[a 2C 69 35 49 49 13 10 0 ]
+[a 1C 69 35 49 48 13 10 0 ]

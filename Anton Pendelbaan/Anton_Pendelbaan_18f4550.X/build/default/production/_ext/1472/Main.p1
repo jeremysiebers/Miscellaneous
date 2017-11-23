@@ -115,6 +115,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Update_StateMchn `(v ~T0 @X0 0 ef ]
 "74 ../terminal.h
 [v _READxRECEIVEDxMESSAGE `(v ~T0 @X0 0 ef ]
+"75
+[v _DIAGNOSTICxTOxPC `(v ~T0 @X0 0 ef ]
 "8937 C:\Program Files (x86)\Microchip\xc8\v1.37\include\pic18f4550.h
 [s S521 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 :1 `uc 1 ]
 [n S521 . RBIF INT0IF TMR0IF RBIE INT0IE TMR0IE PEIE_GIEL GIE_GIEH ]
@@ -4941,7 +4943,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;eusart1.h: 398: extern void EUSART1_Receive_ISR(void);
 [; ;terminal.h: 73: extern void SENDxMESSAGE(unsigned char index, unsigned int value);
 [; ;terminal.h: 74: extern void READxRECEIVEDxMESSAGE(void);
-[; ;terminal.h: 76: void TranslateMessage(void);
+[; ;terminal.h: 75: extern void DIAGNOSTICxTOxPC(void);
+[; ;terminal.h: 77: void TranslateMessage(void);
+[; ;terminal.h: 78: void SendMessage(unsigned char index, unsigned int value);
 [; ;api.h: 11: extern void APIxInitialize(void);
 [; ;api.h: 12: extern unsigned int GETxAPIxRW(unsigned char index);
 [; ;api.h: 13: extern void SETxAPIxVAL(unsigned char index, unsigned int value);
@@ -5079,6 +5083,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Main.c: 136: READxRECEIVEDxMESSAGE();
 "136
 [e ( _READxRECEIVEDxMESSAGE ..  ]
+[; ;Main.c: 137: DIAGNOSTICxTOxPC();
+"137
+[e ( _DIAGNOSTICxTOxPC ..  ]
 "138
 }
 [e :U 564 ]
@@ -5090,9 +5097,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "139
 [e :UE 563 ]
 }
-[v F5129 `(v ~T0 @X0 1 tf ]
+[v F5134 `(v ~T0 @X0 1 tf ]
 "146
-[v _tc_low `ILF5129 ~T0 @X0 1 e ]
+[v _tc_low `ILF5134 ~T0 @X0 1 e ]
 {
 [; ;Main.c: 146: void interrupt low_priority tc_low(void) {
 [e :U _tc_low ]
@@ -5101,9 +5108,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 "148
 [e :UE 568 ]
 }
-[v F5132 `(v ~T0 @X0 1 tf ]
+[v F5137 `(v ~T0 @X0 1 tf ]
 "150
-[v _tc_high `IHF5132 ~T0 @X0 1 e ]
+[v _tc_high `IHF5137 ~T0 @X0 1 e ]
 {
 [; ;Main.c: 150: void interrupt high_priority tc_high(void) {
 [e :U _tc_high ]

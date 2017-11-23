@@ -104,6 +104,11 @@ void APIxInitialize(){
 	API_RW[SW_ACTUAL_PWM_SPEED]     =   RW;
 	API_RW[SWITCH_PROGRAM]          =   RO;
     API_RW[SW_PWM_DIRECTION]        =   RW;
+	API_RW[JUNCTION_LEFT_STR_PREV] 	=   RO;
+	API_RW[JUNCTION_LEFT_BND_PREV]	=   RO;
+	API_RW[JUNCTION_RIGHT_STR_PREV]	=   RO;
+	API_RW[JUNCTION_RIGHT_BND_PREV]	=   RO;
+	API_RW[PWM_DIRECTION]			= 	RO;
 	
 	
 	/*  Set the API data */
@@ -172,7 +177,11 @@ void APIxInitialize(){
 	API[SW_ACTUAL_PWM_SPEED]        =   511; 
     API[SWITCH_PROGRAM]             =   0;
 	API[SW_PWM_DIRECTION]           =   0;
-	
+	API[JUNCTION_LEFT_STR_PREV] 	=   1;
+	API[JUNCTION_LEFT_BND_PREV]		=   0;
+	API[JUNCTION_RIGHT_STR_PREV]	=   1;
+	API[JUNCTION_RIGHT_BND_PREV]	=   0;
+	API[PWM_DIRECTION]				= 	0;
 }
 
 /******************************************************************************
