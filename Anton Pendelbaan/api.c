@@ -12,6 +12,7 @@
 #include "io.h"
 
 unsigned int API[APISIZE];                                                      // API RAM space
+unsigned int API_EEPROM[APISIZE];                                               // EEPROM_API RAM space
 unsigned int API_RW[APISIZE];                                                   // API Read/Write register, defines whether a location is writable and not read only (0 = read only)
 
 /******************************************************************************
@@ -32,10 +33,11 @@ unsigned int API_RW[APISIZE];                                                   
 void APIxInitialize(){
     
     unsigned int i;
-    for(i = 0; i < (APISIZE + 1); i++ )
+    for(i = 0; i < (APISIZE); i++ )
     {
         API_RW[i] = 0;                                                          // Initialize RW_API with 0 to make sure all locations are Read Only at first
         API[i]    = 0;                                                          // Initialize API with 0 to make sure all locations are 0 at first
+		API_EEPROM[i] = 0;                                                      // Initialize API_EEPROM with 0 to make sure all locations are 0 at first
     }
     
     /*  Set the RW directions */
@@ -109,6 +111,7 @@ void APIxInitialize(){
 	API_RW[JUNCTION_RIGHT_STR_PREV]	=   RO;
 	API_RW[JUNCTION_RIGHT_BND_PREV]	=   RO;
 	API_RW[PWM_DIRECTION]			= 	RO;
+	API_RW[SW_EEPROM_STORE]			=	RW;
 	
 	
 	/*  Set the API data */
@@ -182,10 +185,11 @@ void APIxInitialize(){
 	API[JUNCTION_RIGHT_STR_PREV]	=   1;
 	API[JUNCTION_RIGHT_BND_PREV]	=   0;
 	API[PWM_DIRECTION]				= 	0;
+	API[SW_EEPROM_STORE]			=	0;
 }
 
 /******************************************************************************
- * Function:        unsigned char API_RW(unsigned char index)
+ * Function:        unsigned char API_RW(unsigned int index)
  *
  * PreCondition:    None
  *
@@ -198,28 +202,28 @@ void APIxInitialize(){
  * Overview:        None
  *****************************************************************************/
 
-unsigned int GETxAPIxRW(unsigned char index){
+unsigned int GETxAPIxRW(unsigned int index){
 	return API_RW[index];
 }
 
-void SETxAPIxVAL(unsigned char index, unsigned int value){
+void SETxAPIxVAL(unsigned int index, unsigned int value){
     if(API[index] != value){
         API[index] = value;
         SENDxMESSAGE(index, value);
     }    
 }
 
-void SETxAPIxVALxNoxRET(unsigned char index, unsigned int value){
+void SETxAPIxVALxNoxRET(unsigned int index, unsigned int value){
     if(API[index] != value){
         API[index] = value;        
     }   
 }
 
-unsigned int GETxAPIxVAL(unsigned char index){
+unsigned int GETxAPIxVAL(unsigned int index){
     return API[index];
 }
 
-void INCRxAPIxVAL(unsigned char index){
+void INCRxAPIxVAL(unsigned int index){
     unsigned int value;
     value = GETxAPIxVAL(index);
     value++;
@@ -227,7 +231,7 @@ void INCRxAPIxVAL(unsigned char index){
     SENDxMESSAGE(index, value);
 }
 
-void DECRxAPIxVAL(unsigned char index){
+void DECRxAPIxVAL(unsigned int index){
     unsigned int value;
     value = GETxAPIxVAL(index);
     value--;

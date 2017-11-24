@@ -170,7 +170,7 @@ void TranslateMessage(void){
 }
 
 /******************************************************************************
- * Function:        SENDxMESSAGE(unsigned char index, unsigned int value)
+ * Function:        SENDxMESSAGE(unsigned int index, unsigned int value)
  *
  * PreCondition:    None
  *
@@ -182,7 +182,7 @@ void TranslateMessage(void){
  *
  * Overview:        None
  *****************************************************************************/
-void SendMessage(unsigned char index, unsigned int value){
+void SendMessage(unsigned int index, unsigned int value){
         
     //unsigned char high = value >> 8;
     //unsigned char low = value;
@@ -277,7 +277,7 @@ void DIAGNOSTICxTOxPC(void)
 	}
 }
 
-void SENDxMESSAGE(unsigned char index, unsigned int value)
+void SENDxMESSAGE(unsigned int index, unsigned int value)
 {
 	switch (Diag_Comm)
 	{

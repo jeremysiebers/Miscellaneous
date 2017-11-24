@@ -34,9 +34,15 @@ namespace Pendelbaan
     public partial class Form1 : Form, iForm1
     {
         public SerialPortExample serialPort;
-        static System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
+        static System.Windows.Forms.Timer ManPwmTmr = new System.Windows.Forms.Timer();
         public Image tandrad = Pendelbaan.Properties.Resources.tandrad_str_str;
         public int SetPwm;
+		public const int Left = 0;
+		public const int Right = 1;
+		public const int On = 1;
+		public const int Off = 0;
+		public const int Get = false;
+		public const int Set = true;
 
         #region Variables
         int api_size = 0;
@@ -104,6 +110,7 @@ namespace Pendelbaan
         int sw_pwm_brake_off = 0;
         int sw_actual_pwm_speed = 0;
         int switch_program = 0;
+		int sw_pwm_direction = 0;
         int junction_left_str_prev = 1;
         int junction_left_bnd_prev = 0;
         int junction_right_str_prev = 1;
@@ -129,42 +136,137 @@ namespace Pendelbaan
             pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
 
             ManPwm.Minimum = -255;
-            ManPwm.Maximum = 255;
-            ManPwm.MouseLeave += ManPwm_Moved;
+            ManPwm.Maximum = 255;            
+			ManPwm.MouseLeave += ManPwm_Stop;
             SetPwm = ManPwm.Value;
 
 
             /* Adds the event and the event handler for the method that will 
             process the timer event to the timer. */
-            myTimer.Tick += new EventHandler(TimerEventProcessor);
-
-            // Sets the timer interval to 1 seconds.
-            myTimer.Interval = 1000;
-            myTimer.Start();
+            ManPwmTmr.Tick += new EventHandler(ManPwmTmrEventProcessor);
+            // Sets the timer interval to 0.1 seconds.
+            ManPwmTmr.Interval = 100;
+            ManPwmTmr.Start();
         }
-
-        private void ManPwm_Moved(object sender, EventArgs e)
+		
+		/*#--------------------------------------------------------------------------#*/
+        /*  Description: private void ManPwm_Stop(object sender, EventArgs e)
+         *
+         *  Input(s)   :
+         *
+         *  Output(s)  :
+         *
+         *  Returns    :
+         *
+         *  Pre.Cond.  :
+         *
+         *  Post.Cond. :
+         *
+         *  Notes      :
+         */
+        /*#--------------------------------------------------------------------------#*/
+        private void ManPwm_Stop(object sender, EventArgs e)
         {
             if (main_program == 1)
             {
-                if(ManPwm.Value > 0 && SetPwm != ManPwm.Value)
+				if(SetPwm != ManPwm.Value)
+                {
+					ManPwm.Value = 0;
+					SetPwm  = 0;
+					Transceive_Data(Set, API.SW_PWM_BRAKE_ON, On);				
+					Thread.Sleep(50);
+					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, 0); 
+					Thread.Sleep(50);
+				}
+            }
+        }
+		
+		/*#--------------------------------------------------------------------------#*/
+        /*  Description: private static void ManPwmTmrEventProcessor(Object myObject, EventArgs myEventArgs)
+         *
+         *  Input(s)   :
+         *
+         *  Output(s)  :
+         *
+         *  Returns    :
+         *
+         *  Pre.Cond.  :
+         *
+         *  Post.Cond. :
+         *
+         *  Notes      :
+         */
+        /*#--------------------------------------------------------------------------#*/
+        private static void ManPwmTmrEventProcessor(Object myObject, EventArgs myEventArgs)
+        {
+            ManPwmTmr.Stop();
+			
+			if (main_program == 1)
+            {
+                if(ManPwm.Value > 20 && SetPwm != ManPwm.Value)
                 {
                     SetPwm = ManPwm.Value;
-                    serialPort.Send("sx81x1G", false);
-                    //Thread.Sleep(50);
-                    serialPort.Send("sx79x" + ManPwm.Value.ToString() + "G", false);
+					Transceive_Data(Set, API.SW_PWM_BRAKE_OFF, On);
+					Thread.Sleep(50);
+					Transceive_Data(Set, API.SW_PWM_DIRECTION, Right);
+					Thread.Sleep(50);
+					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, ManPwm.Value.ToString()); 
+					Thread.Sleep(50);					
                 }
-                else if(ManPwm.Value < 0 && SetPwm != ManPwm.Value)
+                else if(ManPwm.Value < -20 && SetPwm != ManPwm.Value)
                 {
                     SetPwm = ManPwm.Value;
                     var left = SetPwm * -1;
-                    serialPort.Send("sx81x0G", false);
-                    //Thread.Sleep(50);
-                    serialPort.Send("sx79x" + left.ToString() + "G", false);
-                }
-                
+					
+					Transceive_Data(Set, API.SW_PWM_BRAKE_OFF, On);
+					Thread.Sleep(50);
+					Transceive_Data(Set, API.SW_PWM_DIRECTION, Left);
+					Thread.Sleep(50);
+					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, left.ToString()); 
+					Thread.Sleep(50);			                    
+                }  
+				else if(ManPwm.Value > -20 && ManPwm.Value < 20 && SetPwm != ManPwm.Value)
+				{
+					SetPwm = ManPwm.Value;
+					Transceive_Data(Set, API.SW_PWM_BRAKE_ON, On);
+					Thread.Sleep(50);					
+					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, 0); 
+					Thread.Sleep(50);
+				}
             }
+            ManPwmTmr.Enabled = true;
         }
+		
+		/*#--------------------------------------------------------------------------#*/
+        /*  Description: private void Transceive_Data(bool Set, int API, int Value)
+         *
+         *  Input(s)   :
+         *
+         *  Output(s)  :
+         *
+         *  Returns    : empty strings for set, received data for get
+         *
+         *  Pre.Cond.  :
+         *
+         *  Post.Cond. :
+         *
+         *  Notes      :
+         */
+        /*#--------------------------------------------------------------------------#*/
+		private string Transceive_Data(bool Set, int API, int Value)
+		{
+			string DataDir = string.Empty;
+			
+			if(Set)
+			{
+				serialPort.Send("s" + "x" + API.ToString() + "x" + Value.ToString() + "G", false);
+				return string.Empty;
+			}
+			else
+			{
+				return serialPort.Send("g" + "x" + API.ToString() + "G", true);
+			}
+		}
 
         /*#--------------------------------------------------------------------------#*/
         /*  Description: Show received character from uController
@@ -192,7 +294,7 @@ namespace Pendelbaan
             else
             {
                 progressBar1.Value += 1;
-                if (progressBar1.Value > 99)
+                if (progressBar1.Value > 9)
                 {
                     progressBar1.Value = 0;
                 }
@@ -342,11 +444,13 @@ namespace Pendelbaan
                         {
                             JunctionLeftBtn.Enabled = true;
                             JunctionRightBtn.Enabled = true;
+							ManPwm.Enabled = true;
                         }
                         else if (main_program == 2 || main_program == 3)
                         {
                             JunctionLeftBtn.Enabled = false;
                             JunctionRightBtn.Enabled = false;
+							ManPwm.Enabled = false;
                         }
                         break;
 
@@ -392,6 +496,7 @@ namespace Pendelbaan
                     case API.SW_PWM_BRAKE_OFF: sw_pwm_brake_off = Value; break;
                     case API.SW_ACTUAL_PWM_SPEED: sw_actual_pwm_speed = Value; break;
                     case API.SWITCH_PROGRAM: switch_program = Value; break;
+					case API.SW_PWM_DIRECTION: sw_pwm_direction = Value; break;
 
                     case API.JUNCTION_LEFT_STR_PREV:
                         junction_left_str_prev = Value;
@@ -431,14 +536,26 @@ namespace Pendelbaan
                     default:
                         break;
                 }
-
-                
-
-
             }
 
         }
-
+		
+		/*#--------------------------------------------------------------------------#*/
+        /*  Description: private void UpdatePicture()
+         *
+         *  Input(s)   :
+         *
+         *  Output(s)  :
+         *
+         *  Returns    :
+         *
+         *  Pre.Cond.  :
+         *
+         *  Post.Cond. :
+         *
+         *  Notes      :
+         */
+        /*#--------------------------------------------------------------------------#*/
         private void UpdatePicture()
         {
             if (junction_left_str_prev == 1 && junction_right_str_prev == 1)
@@ -572,39 +689,15 @@ namespace Pendelbaan
         /*#--------------------------------------------------------------------------#*/
         private void ReadAllData()
         {
-            for (int i = 16; i < 87; i++)
+			RawData(Transceive_Data(Get, API.API_SIZE, 0));
+			
+            for (int i = API.API_SIZE + 1; i < api_size; i++)
             {
-                RawData(serialPort.Send("gx"+ i.ToString() + "G", true));
+                RawData(Transceive_Data(Get, i.ToString(), 0));
                 Thread.Sleep(50);
             }
             
         }
-
-        /*#--------------------------------------------------------------------------#*/
-        /*  Description: private static void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
-         *
-         *  Input(s)   :
-         *
-         *  Output(s)  :
-         *
-         *  Returns    :
-         *
-         *  Pre.Cond.  :
-         *
-         *  Post.Cond. :
-         *
-         *  Notes      :
-         */
-        /*#--------------------------------------------------------------------------#*/
-        private static void TimerEventProcessor(Object myObject, EventArgs myEventArgs)
-        {
-            myTimer.Stop();
-
-
-            myTimer.Enabled = true;
-
-        }
-
         #endregion Indicator init
 
         /*#--------------------------------------------------------------------------#*/
@@ -692,14 +785,12 @@ namespace Pendelbaan
             {
                 if (JunctionLeftBtn.Text == "Rechtdoor")
                 {
-                    serialPort.Send("sx74x1G", false);
-                    //serialPort.Send("sx74x0G", false);
+					Transceive_Data(Set, API.SW_JUNCTION_LEFT_BND, On);                    
                     JunctionLeftBtn.Text = "Afbuigen";
                 }
                 else
                 {
-                    serialPort.Send("sx73x1G", false);
-                    //serialPort.Send("sx73x0G", false);
+					Transceive_Data(Set, API.SW_JUNCTION_LEFT_STR, On);
                     JunctionLeftBtn.Text = "Rechtdoor";
                 }
             }          
@@ -711,14 +802,12 @@ namespace Pendelbaan
             {
                 if (JunctionRightBtn.Text == "Rechtdoor")
                 {
-                    serialPort.Send("sx76x1G", false);
-                    //serialPort.Send("sx76x0G", false);
+					Transceive_Data(Set, API.SW_JUNCTION_RIGHT_BND, On);
                     JunctionRightBtn.Text = "Afbuigen";
                 }
                 else
                 {
-                    serialPort.Send("sx75x1G", false);
-                    //serialPort.Send("sx75x0G", false);
+					Transceive_Data(Set, API.SW_JUNCTION_RIGHT_STR, On);
                     JunctionRightBtn.Text = "Rechtdoor";
                 }
             }
@@ -810,10 +899,12 @@ namespace Pendelbaan
         public const int SW_PWM_BRAKE_OFF = 78;
         public const int SW_ACTUAL_PWM_SPEED = 79;
         public const int SWITCH_PROGRAM = 80;
+		public const int SW_PWM_DIRECTION = 81;
         public const int JUNCTION_LEFT_STR_PREV = 82;
         public const int JUNCTION_LEFT_BND_PREV = 83;
         public const int JUNCTION_RIGHT_STR_PREV = 84;
         public const int JUNCTION_RIGHT_BND_PREV = 85;
         public const int PWM_DIRECTION = 86;	
+		public const int SW_EEPROM_STORE = 87;
     }
 }

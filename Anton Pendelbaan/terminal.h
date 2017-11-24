@@ -70,12 +70,12 @@ extern "C" {
     // TODO If C++ is being used, regular C code needs function names to have C 
     // linkage so the functions can be used by the c code. 
     
-    extern void SENDxMESSAGE(unsigned char index, unsigned int value);
+    extern void SENDxMESSAGE(unsigned int index, unsigned int value);
     extern void READxRECEIVEDxMESSAGE(void);
     extern void DIAGNOSTICxTOxPC(void);
     
     void TranslateMessage(void);
-    void SendMessage(unsigned char index, unsigned int value);
+    void SendMessage(unsigned int index, unsigned int value);
 
 #ifdef	__cplusplus
 }

@@ -12,8 +12,11 @@
 extern "C" {
 #endif
 
-extern void Eeprom_Store(void);
+extern void EEPROMxSTORE(void);
+extern void EEPROMxREAD(void);
 
+void Eeprom_Store(unsigned int Location, unsigned int Value);
+unsigned int Eeprom_Read(unsigned int Location);
 
 #ifdef	__cplusplus
 }

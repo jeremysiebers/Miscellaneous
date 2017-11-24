@@ -9,12 +9,12 @@
 #define	XC_HEADER_TEMPLATE_H
 
 extern void APIxInitialize(void);
-extern unsigned int GETxAPIxRW(unsigned char index);
-extern void SETxAPIxVAL(unsigned char index, unsigned int value);
-extern void SETxAPIxVALxNoxRET(unsigned char index, unsigned int value);
-extern void INCRxAPIxVAL(unsigned char index);
-extern void DECRxAPIxVAL(unsigned char index);
-extern unsigned int GETxAPIxVAL(unsigned char index);
+extern unsigned int GETxAPIxRW(unsigned int index);
+extern void SETxAPIxVAL(unsigned int index, unsigned int value);
+extern void SETxAPIxVALxNoxRET(unsigned int index, unsigned int value);
+extern void INCRxAPIxVAL(unsigned int index);
+extern void DECRxAPIxVAL(unsigned int index);
+extern unsigned int GETxAPIxVAL(unsigned int index);
 extern unsigned int  API[];
 
 
@@ -32,7 +32,7 @@ extern unsigned int  API[];
  *
  * Overview:        Here all API addresses are declared
  *****************************************************************************/
-#define     APISIZE                     87      // Size of the API array
+#define     APISIZE                     88      // Size of the API array
 #define     RO	                        0
 #define     RW	                        1
 
@@ -107,6 +107,7 @@ extern unsigned int  API[];
 #define		JUNCTION_RIGHT_STR_PREV		84		// Right junction Straight Coil
 #define		JUNCTION_RIGHT_BND_PREV		85		// Right junction Bend Coil
 #define     PWM_DIRECTION               86      // PWM direction control
+#define 	SW_EEPROM_STORE				87		// SW controlled EEPROM store command
                                         
 #ifdef	__cplusplus
 extern "C" {

@@ -52,40 +52,43 @@ void Update_StateMchn(void)
 				case	Init	:	
                                     if (GETxAPIxVAL(SW_JUNCTION_LEFT_BND)){
                                         if(Junction(Left, Bend) == Finished){
-                                            SETxAPIxVAL(SW_JUNCTION_LEFT_BND, Off);
+                                            SETxAPIxVALxNoxRET(SW_JUNCTION_LEFT_BND, Off);
                                         }
                                     }
                                     else if (GETxAPIxVAL(SW_JUNCTION_LEFT_STR)){
                                         if(Junction(Left, Straight) == Finished){
-                                            SETxAPIxVAL(SW_JUNCTION_LEFT_STR, Off);
+                                            SETxAPIxVALxNoxRET(SW_JUNCTION_LEFT_STR, Off);
                                         }
                                     }
                                     else if (GETxAPIxVAL(SW_JUNCTION_RIGHT_BND)){
                                         if(Junction(Right, Bend) == Finished){
-                                            SETxAPIxVAL(SW_JUNCTION_RIGHT_BND, Off);
+                                            SETxAPIxVALxNoxRET(SW_JUNCTION_RIGHT_BND, Off);
                                         }
                                     }
                                     else if (GETxAPIxVAL(SW_JUNCTION_RIGHT_STR)){
                                         if(Junction(Right, Straight) == Finished){
-                                            SETxAPIxVAL(SW_JUNCTION_RIGHT_STR, Off);
+                                            SETxAPIxVALxNoxRET(SW_JUNCTION_RIGHT_STR, Off);
                                         }
                                     }
                                     else if (GETxAPIxVAL(SW_PWM_BRAKE_ON)){
                                         SETxAPIxVAL(PWM_BRAKE, On);
-                                        SETxAPIxVAL(SW_PWM_BRAKE_ON, Off);
+                                        SETxAPIxVALxNoxRET(SW_PWM_BRAKE_ON, Off);
                                     }
                                     else if (GETxAPIxVAL(SW_PWM_BRAKE_OFF)){
                                         SETxAPIxVAL(PWM_BRAKE, Off);
-                                        SETxAPIxVAL(SW_PWM_BRAKE_OFF, Off);
+                                        SETxAPIxVALxNoxRET(SW_PWM_BRAKE_OFF, Off);
                                     }
                                     else if (GETxAPIxVAL(ACTUAL_PWM_SPEED) != GETxAPIxVAL(SW_ACTUAL_PWM_SPEED)){
-                                        SETxAPIxVALxNoxRET(ACTUAL_PWM_SPEED, GETxAPIxVAL(SW_ACTUAL_PWM_SPEED));
-                                        SETxAPIxVALxNoxRET(GETxAPIxVAL(ACTUAL_PWM_SPEED), GETxAPIxVAL(SW_PWM_DIRECTION));
+                                        SETxAPIxVALxNoxRET(ACTUAL_PWM_SPEED, GETxAPIxVAL(SW_ACTUAL_PWM_SPEED));                                        
                                         SETxPWM(GETxAPIxVAL(ACTUAL_PWM_SPEED),GETxAPIxVAL(PWM_DIRECTION));
                                     }
                                     else if (GETxAPIxVAL(PWM_DIRECTION) != GETxAPIxVAL(SW_PWM_DIRECTION)){
                                         SETxAPIxVALxNoxRET(PWM_DIRECTION, GETxAPIxVAL(SW_PWM_DIRECTION));                                        
                                     }
+									else if (GETxAPIxVAL(SW_EEPROM_STORE)){
+										EEPROMxSTORE();
+										SETxAPIxVALxNoxRET(SW_EEPROM_STORE, Off);
+									}
                                     else{
                                         
                                         switch(Switch_Init)
@@ -394,7 +397,7 @@ void Update_StateMchn(void)
 										case	0	: 	if (Train_Path(RB,LB) == Finished)
 														{
 															Switch_Program = 1;
-															Eeprom_Store();
+															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
@@ -406,7 +409,7 @@ void Update_StateMchn(void)
 										case	1	: 	if (Train_Path(LF,RB) == Finished)
 														{
 															Switch_Program = 2;
-															Eeprom_Store();
+															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
@@ -418,7 +421,7 @@ void Update_StateMchn(void)
 										case	2	: 	if (Train_Path(LB,RF) == Finished)
 														{
 															Switch_Program = 3;
-															Eeprom_Store();
+															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
@@ -430,7 +433,7 @@ void Update_StateMchn(void)
 										case	3	: 	if (Train_Path(RB,LB) == Finished)
 														{
 															Switch_Program = 4;
-															Eeprom_Store();
+															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
@@ -442,7 +445,7 @@ void Update_StateMchn(void)
 										case	4	: 	if (Train_Path(RF,LF) == Finished)
 														{
 															Switch_Program = 5;
-															Eeprom_Store();
+															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
@@ -454,7 +457,7 @@ void Update_StateMchn(void)
 										case	5	: 	if (Train_Path(LB,RF) == Finished)
 														{
 															Switch_Program = 6;
-															Eeprom_Store();
+															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
@@ -466,7 +469,7 @@ void Update_StateMchn(void)
 										case	6	: 	if (Train_Path(LF,RB) == Finished)
 														{
 															Switch_Program = 7;
-															Eeprom_Store();
+															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
@@ -478,7 +481,7 @@ void Update_StateMchn(void)
 										case	7	: 	if (Train_Path(RF,LF) == Finished)
 														{
 															Switch_Program = 0;
-															Eeprom_Store();
+															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
@@ -695,7 +698,7 @@ void Update_StateMchn(void)
 										case	0	: 	if (Train_Path(RB,LB) == Finished)
 														{
 															Switch_Program = 1;
-															Eeprom_Store();
+															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
@@ -707,7 +710,7 @@ void Update_StateMchn(void)
 										case	1	: 	if (Train_Path(LB,RF) == Finished)
 														{
 															Switch_Program = 2;
-															Eeprom_Store();
+															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
@@ -719,7 +722,7 @@ void Update_StateMchn(void)
 										case	2	: 	if (Train_Path(RF,LF) == Finished)
 														{
 															Switch_Program = 3;
-															Eeprom_Store();
+															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
@@ -731,7 +734,7 @@ void Update_StateMchn(void)
 										case	3	: 	if (Train_Path(LF,RB) == Finished)
 														{
 															Switch_Program = 0;
-															Eeprom_Store();
+															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
