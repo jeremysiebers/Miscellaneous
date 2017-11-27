@@ -152,7 +152,7 @@ void Debounce_Inputs(void)
     Wl_Right_Str    = GETxAPIxVAL(JUNCTION_RIGHT_STR);
     Wl_Right_Bnd    = GETxAPIxVAL(JUNCTION_RIGHT_BND);
     Brake           = GETxAPIxVAL(PWM_BRAKE);
-    SetDCPWM1(GETxAPIxVAL(ACTUAL_PWM_SPEED));
+    SetDCPWM1(GETxAPIxVAL(HW_PWM_SPEED));
     
     switch(Reed_Contact_LF)
 	{

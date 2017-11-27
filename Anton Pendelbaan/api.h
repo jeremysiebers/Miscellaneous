@@ -16,6 +16,7 @@ extern void INCRxAPIxVAL(unsigned int index);
 extern void DECRxAPIxVAL(unsigned int index);
 extern unsigned int GETxAPIxVAL(unsigned int index);
 extern unsigned int  API[];
+extern unsigned int API_EEPROM[];
 
 
 
@@ -32,7 +33,7 @@ extern unsigned int  API[];
  *
  * Overview:        Here all API addresses are declared
  *****************************************************************************/
-#define     APISIZE                     88      // Size of the API array
+#define     APISIZE                     89      // Size of the API array
 #define     RO	                        0
 #define     RW	                        1
 
@@ -108,6 +109,7 @@ extern unsigned int  API[];
 #define		JUNCTION_RIGHT_BND_PREV		85		// Right junction Bend Coil
 #define     PWM_DIRECTION               86      // PWM direction control
 #define 	SW_EEPROM_STORE				87		// SW controlled EEPROM store command
+#define     HW_PWM_SPEED                88      // Hardware PWM setpoint 10bit PWM
                                         
 #ifdef	__cplusplus
 extern "C" {

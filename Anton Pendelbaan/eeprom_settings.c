@@ -2,10 +2,12 @@
 #include "io.h"
 #include <xc.h>
 #include "api.h"
+#include "eeprom_settings.h"
+#include "api.h"
 
-#define LIST_SIZE = 28;						// Amount of variables specified in ApiList[], must be kept < 128 EEPROM == 256 bytes (integer = 2 bytes 0xFFFF)
+#define LIST_SIZE  28						// Amount of variables specified in ApiList[], must be kept < 128 EEPROM == 256 bytes (integer = 2 bytes 0xFFFF)
 
-unsigned int ApiList[LIST_SIZE] = {			// List containing the writable variables that require storage in EEPROM
+const unsigned int ApiList[28] = {			// List containing the writable variables that require storage in EEPROM
 	TRAIN_WAIT_TIME,       
 	JUNCTION_WAIT_TIME,    
 	LIGHTS_ON_WAIT_TIME,   
@@ -52,10 +54,10 @@ unsigned int ApiList[LIST_SIZE] = {			// List containing the writable variables 
  *****************************************************************************/
 void EEPROMxREAD(void)
 {
-	unsigned int i;
-	unsigned int Data;
+	unsigned int i = 0;
+	unsigned int Data = 0;
 	
-	for(i = 0; i < (LIST_SIZE); i++ )
+	for(i = 0; i < 28; i++ )
     {
 		Data = Eeprom_Read(i);							// read the data on the location according to the variables numbered in the ApiList		
 		//API[ApiList[i]] = Data;							// Store the data in API to be used by the program	
@@ -85,13 +87,13 @@ unsigned int Eeprom_Read(unsigned int Location)
 	unsigned int Return_Data = 0;
 	
 	EECON1bits.EEPGD = 0; 
-	EEADR = char(Location_High_Byte);           
+	EEADR = Location_High_Byte;           
 	EECON1bits.RD = 1;    
 	Return_Data = EEDATA;  
 	Return_Data = Return_Data << 8;
 	
 	EECON1bits.EEPGD = 0; 
-	EEADR = char(Location_Low_Byte);           
+	EEADR = Location_Low_Byte;           
 	EECON1bits.RD = 1;   
 	Return_Data = Return_Data | EEDATA;
 	
@@ -114,14 +116,14 @@ unsigned int Eeprom_Read(unsigned int Location)
  *****************************************************************************/
 void EEPROMxSTORE(void)
 {
-	unsinged int i;
+	unsigned int i;
 	
-	for(i = 0; i < (LIST_SIZE); i++ )
+	for(i = 0; i < LIST_SIZE; i++ )
     {
 		if (API[ApiList[i]] != API_EEPROM[ApiList[i]])	// compare the data on the location according to the variables numbered in the ApiList
 		{
 			Eeprom_Store(i, API[ApiList[i]]); 			// Send list index number as Location and the API[address].value to be stored.
-			API_EEPROM[ApiList[i]] = API[ApiList[i]]    // Store the new value also in te API_EEPROM for next comparisson
+			API_EEPROM[ApiList[i]] = API[ApiList[i]];    // Store the new value also in te API_EEPROM for next comparisson
 		}
     }
 }
@@ -149,7 +151,7 @@ void Eeprom_Store(unsigned int Location, unsigned int Value)
 	
 	EECON1bits.EEPGD = 0;
 	EECON1bits.WREN = 1; 
-	EEADR = char(Location_Low_Byte);
+	EEADR = Location_Low_Byte;
 	EEDATA = Value;
 	EECON2 = 0x55;
 	EECON2 = 0xaa;
@@ -159,7 +161,7 @@ void Eeprom_Store(unsigned int Location, unsigned int Value)
 															
 	EECON1bits.EEPGD = 0;
 	EECON1bits.WREN = 1; 
-	EEADR = char(Location_High_Byte);
+	EEADR = Location_High_Byte;
 	EEDATA = Value >> 8;
 	EECON2 = 0x55;
 	EECON2 = 0xaa;

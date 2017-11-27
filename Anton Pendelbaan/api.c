@@ -112,6 +112,7 @@ void APIxInitialize(){
 	API_RW[JUNCTION_RIGHT_BND_PREV]	=   RO;
 	API_RW[PWM_DIRECTION]			= 	RO;
 	API_RW[SW_EEPROM_STORE]			=	RW;
+    API_RW[HW_PWM_SPEED]            =   RO;
 	
 	
 	/*  Set the API data */
@@ -166,7 +167,7 @@ void APIxInitialize(){
 	API[JUNCTION_LEFT_BND]  		=	0;
 	API[JUNCTION_RIGHT_STR]  		=	0;
 	API[JUNCTION_RIGHT_BND]  		=	0;
-	API[ACTUAL_PWM_SPEED]			=	511;
+	API[ACTUAL_PWM_SPEED]			=	0;
 	API[PWM_BRAKE]					=	On;
 	API[SW_START]                   =   Off;
     API[SW_STOP]                    =   Off;
@@ -177,7 +178,7 @@ void APIxInitialize(){
 	API[SW_JUNCTION_RIGHT_BND]      =   Off;
 	API[SW_PWM_BRAKE_ON]            =   Off;     
 	API[SW_PWM_BRAKE_OFF]           =   Off;     
-	API[SW_ACTUAL_PWM_SPEED]        =   511; 
+	API[SW_ACTUAL_PWM_SPEED]        =   0; 
     API[SWITCH_PROGRAM]             =   0;
 	API[SW_PWM_DIRECTION]           =   0;
 	API[JUNCTION_LEFT_STR_PREV] 	=   1;
@@ -186,6 +187,7 @@ void APIxInitialize(){
 	API[JUNCTION_RIGHT_BND_PREV]	=   0;
 	API[PWM_DIRECTION]				= 	0;
 	API[SW_EEPROM_STORE]			=	0;
+    API[HW_PWM_SPEED]               =   511;
 }
 
 /******************************************************************************

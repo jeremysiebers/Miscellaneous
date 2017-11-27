@@ -27,10 +27,10 @@ void SETxPWM(unsigned int speed, unsigned char direction){
 	
     if (direction == Left){
         pwm_speed = 511 - (speed * 2);		
-        SETxAPIxVAL(ACTUAL_PWM_SPEED, pwm_speed);
+        SETxAPIxVAL(HW_PWM_SPEED, pwm_speed);
     }
     else if (direction == Right){
         pwm_speed = 511 + (speed * 2);
-		SETxAPIxVAL(ACTUAL_PWM_SPEED, pwm_speed);
+		SETxAPIxVAL(HW_PWM_SPEED, pwm_speed);
     }
 }

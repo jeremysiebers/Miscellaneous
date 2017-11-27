@@ -37,12 +37,12 @@ namespace Pendelbaan
         static System.Windows.Forms.Timer ManPwmTmr = new System.Windows.Forms.Timer();
         public Image tandrad = Pendelbaan.Properties.Resources.tandrad_str_str;
         public int SetPwm;
-		public const int Left = 0;
-		public const int Right = 1;
+		public const int TrainGoLeft = 0;
+		public const int TrainGoRight = 1;
 		public const int On = 1;
 		public const int Off = 0;
-		public const int Get = false;
-		public const int Set = true;
+		public const bool Get = false;
+		public const bool Set = true;
 
         #region Variables
         int api_size = 0;
@@ -169,15 +169,14 @@ namespace Pendelbaan
         {
             if (main_program == 1)
             {
-				if(SetPwm != ManPwm.Value)
-                {
-					ManPwm.Value = 0;
-					SetPwm  = 0;
-					Transceive_Data(Set, API.SW_PWM_BRAKE_ON, On);				
-					Thread.Sleep(50);
-					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, 0); 
-					Thread.Sleep(50);
-				}
+				
+				ManPwm.Value = 0;
+				SetPwm  = 0;
+				Transceive_Data(Set, API.SW_PWM_BRAKE_ON, On);				
+				Thread.Sleep(50);
+				Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, 0); 
+				Thread.Sleep(50);
+				
             }
         }
 		
@@ -197,7 +196,7 @@ namespace Pendelbaan
          *  Notes      :
          */
         /*#--------------------------------------------------------------------------#*/
-        private static void ManPwmTmrEventProcessor(Object myObject, EventArgs myEventArgs)
+        private void ManPwmTmrEventProcessor(Object myObject, EventArgs myEventArgs)
         {
             ManPwmTmr.Stop();
 			
@@ -208,26 +207,26 @@ namespace Pendelbaan
                     SetPwm = ManPwm.Value;
 					Transceive_Data(Set, API.SW_PWM_BRAKE_OFF, On);
 					Thread.Sleep(50);
-					Transceive_Data(Set, API.SW_PWM_DIRECTION, Right);
+					Transceive_Data(Set, API.SW_PWM_DIRECTION, TrainGoRight);
 					Thread.Sleep(50);
-					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, ManPwm.Value.ToString()); 
+					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, ManPwm.Value); 
 					Thread.Sleep(50);					
                 }
                 else if(ManPwm.Value < -20 && SetPwm != ManPwm.Value)
                 {
                     SetPwm = ManPwm.Value;
-                    var left = SetPwm * -1;
+                    int drive_left = SetPwm * -1;
 					
 					Transceive_Data(Set, API.SW_PWM_BRAKE_OFF, On);
 					Thread.Sleep(50);
-					Transceive_Data(Set, API.SW_PWM_DIRECTION, Left);
+					Transceive_Data(Set, API.SW_PWM_DIRECTION, TrainGoLeft);
 					Thread.Sleep(50);
-					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, left.ToString()); 
+					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, drive_left); 
 					Thread.Sleep(50);			                    
                 }  
 				else if(ManPwm.Value > -20 && ManPwm.Value < 20 && SetPwm != ManPwm.Value)
 				{
-					SetPwm = ManPwm.Value;
+					SetPwm = ManPwm.Value = 0;
 					Transceive_Data(Set, API.SW_PWM_BRAKE_ON, On);
 					Thread.Sleep(50);					
 					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, 0); 
@@ -294,7 +293,7 @@ namespace Pendelbaan
             else
             {
                 progressBar1.Value += 1;
-                if (progressBar1.Value > 9)
+                if (progressBar1.Value > 99)
                 {
                     progressBar1.Value = 0;
                 }
@@ -693,7 +692,7 @@ namespace Pendelbaan
 			
             for (int i = API.API_SIZE + 1; i < api_size; i++)
             {
-                RawData(Transceive_Data(Get, i.ToString(), 0));
+                RawData(Transceive_Data(Get, i, 0));
                 Thread.Sleep(50);
             }
             
