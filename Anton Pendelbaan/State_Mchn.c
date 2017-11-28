@@ -87,7 +87,7 @@ void Update_StateMchn(void)
                                     }
 									else if (GETxAPIxVAL(SW_EEPROM_STORE)){
 										EEPROMxSTORE();
-										SETxAPIxVALxNoxRET(SW_EEPROM_STORE, Off);
+										SETxAPIxVAL(SW_EEPROM_STORE, Off);
 									}
                                     else{
                                         

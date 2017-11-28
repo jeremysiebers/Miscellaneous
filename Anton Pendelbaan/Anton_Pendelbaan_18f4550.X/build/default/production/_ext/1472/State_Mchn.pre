@@ -5774,7 +5774,7 @@ SETxAPIxVALxNoxRET(86, GETxAPIxVAL(81));
 }
 else if (GETxAPIxVAL(87)){
 EEPROMxSTORE();
-SETxAPIxVALxNoxRET(87, 0);
+SETxAPIxVAL(87, 0);
 }
 else{
 

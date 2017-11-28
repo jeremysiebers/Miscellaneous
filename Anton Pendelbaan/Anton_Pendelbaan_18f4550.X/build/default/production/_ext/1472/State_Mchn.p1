@@ -4440,9 +4440,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;State_Mchn.c: 89: EEPROMxSTORE();
 "89
 [e ( _EEPROMxSTORE ..  ]
-[; ;State_Mchn.c: 90: SETxAPIxVALxNoxRET(87, 0);
+[; ;State_Mchn.c: 90: SETxAPIxVAL(87, 0);
 "90
-[e ( _SETxAPIxVALxNoxRET (2 , -> -> 87 `i `ui -> -> 0 `i `ui ]
+[e ( _SETxAPIxVAL (2 , -> -> 87 `i `ui -> -> 0 `i `ui ]
 "91
 }
 [; ;State_Mchn.c: 91: }

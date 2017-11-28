@@ -5876,8 +5876,8 @@ unsigned int Eeprom_Read(unsigned int Location);
 void Init_Timers(void);
 void Init_Pwm(void);
 
-unsigned char Update_State_Machine = 0;
-unsigned int Led1_Counter = 0;
+volatile unsigned char Update_State_Machine = 0;
+volatile unsigned int Led1_Counter = 0;
 
 
 

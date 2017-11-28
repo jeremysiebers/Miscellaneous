@@ -37,7 +37,7 @@ void APIxInitialize(){
     {
         API_RW[i] = 0;                                                          // Initialize RW_API with 0 to make sure all locations are Read Only at first
         API[i]    = 0;                                                          // Initialize API with 0 to make sure all locations are 0 at first
-		API_EEPROM[i] = 0;                                                      // Initialize API_EEPROM with 0 to make sure all locations are 0 at first
+		API_EEPROM[i] = 0xFFFF;                                                 // Initialize API_EEPROM with 0xFFFF to make sure all locations are too high, in order to get values from eeprom
     }
     
     /*  Set the RW directions */

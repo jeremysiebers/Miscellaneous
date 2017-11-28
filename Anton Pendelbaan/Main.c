@@ -98,8 +98,8 @@
 void Init_Timers(void);
 void Init_Pwm(void);
 
-unsigned char 	Update_State_Machine = False;
-unsigned int	Led1_Counter = 0;
+volatile unsigned char 	Update_State_Machine = False;                           // volatile because it can get set in interrupt
+volatile unsigned int	Led1_Counter = 0;                                       // volatile because it can get set in interrupt
 
 //MAIN ROUTINE/////////////////////////////////////////////////////////////////////////////////////////
 

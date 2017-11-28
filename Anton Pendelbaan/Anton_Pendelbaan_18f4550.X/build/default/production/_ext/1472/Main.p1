@@ -4473,17 +4473,17 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;Main.c: 98: void Init_Timers(void);
 [; ;Main.c: 99: void Init_Pwm(void);
 "101 ../Main.c
-[v _Update_State_Machine `uc ~T0 @X0 1 e ]
+[v _Update_State_Machine `Vuc ~T0 @X0 1 e ]
 [i _Update_State_Machine
 -> -> 0 `i `uc
 ]
-[; ;Main.c: 101: unsigned char Update_State_Machine = 0;
+[; ;Main.c: 101: volatile unsigned char Update_State_Machine = 0;
 "102
-[v _Led1_Counter `ui ~T0 @X0 1 e ]
+[v _Led1_Counter `Vui ~T0 @X0 1 e ]
 [i _Led1_Counter
 -> -> 0 `i `ui
 ]
-[; ;Main.c: 102: unsigned int Led1_Counter = 0;
+[; ;Main.c: 102: volatile unsigned int Led1_Counter = 0;
 [v $root$_main `(v ~T0 @X0 0 e ]
 "106
 [v _main `(v ~T0 @X0 1 ef ]

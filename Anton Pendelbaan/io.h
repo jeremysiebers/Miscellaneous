@@ -1,7 +1,7 @@
 #ifndef __io_H
 #define __io_H
 
-
+//#define DEBUG
 
 #define Brake						PORTCbits.RC0
 #define Wl_Left_Str					PORTAbits.RA3
