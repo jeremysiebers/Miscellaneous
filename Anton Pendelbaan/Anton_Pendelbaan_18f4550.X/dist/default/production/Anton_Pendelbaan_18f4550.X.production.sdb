@@ -13,23 +13,23 @@
 [v _SETxAPIxVALxNoxRET SETxAPIxVALxNoxRET `(v  1 e 1 0 ]
 "224
 [v _GETxAPIxVAL GETxAPIxVAL `(ui  1 e 2 0 ]
-"57 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eeprom_settings.c
+"56 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eeprom_settings.c
 [v _EEPROMxREAD EEPROMxREAD `(v  1 e 1 0 ]
-"92
+"91
 [v _Eeprom_Read Eeprom_Read `(ui  1 e 2 0 ]
-"140
+"139
 [v _EEPROMxSTORE EEPROMxSTORE `(v  1 e 1 0 ]
-"178
-[v _Eeprom_Store Eeprom_Store `(v  1 e 1 0 ]
-"77 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
-[v _EUSART1_Initialize EUSART1_Initialize `(v  1 e 1 0 ]
-"142
-[v _EUSART1_Read EUSART1_Read `(uc  1 e 1 0 ]
 "177
+[v _Eeprom_Store Eeprom_Store `(v  1 e 1 0 ]
+"78 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
+[v _EUSART1_Initialize EUSART1_Initialize `(v  1 e 1 0 ]
+"143
+[v _EUSART1_Read EUSART1_Read `(uc  1 e 1 0 ]
+"178
 [v _putch putch `(v  1 e 1 0 ]
-"183
+"184
 [v _EUSART1_Transmit_ISR EUSART1_Transmit_ISR `(v  1 e 1 0 ]
-"197
+"198
 [v _EUSART1_Receive_ISR EUSART1_Receive_ISR `(v  1 e 1 0 ]
 "47 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/io.c
 [v _Green_Led Green_Led `(v  1 e 1 0 ]
@@ -69,9 +69,9 @@
 [v _Train_Move_Left_Start Train_Move_Left_Start `(uc  1 e 1 0 ]
 "103
 [v _Right_Mountain_From_The_Right Right_Mountain_From_The_Right `(uc  1 e 1 0 ]
-"178
+"180
 [v _Left_Mountain_From_The_Right Left_Mountain_From_The_Right `(uc  1 e 1 0 ]
-"254
+"256
 [v _Train_Move_Left_Brake Train_Move_Left_Brake `(uc  1 e 1 0 ]
 "27 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_right.c
 [v _Train_Move_Right_Start Train_Move_Right_Start `(uc  1 e 1 0 ]
@@ -121,23 +121,23 @@
 [v _API_EEPROM API_EEPROM `[89]ui  1 e 178 0 ]
 "16
 [v _API_RW API_RW `[89]ui  1 e 178 0 ]
-"12 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eeprom_settings.c
+"11 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eeprom_settings.c
 [v _ApiList ApiList `C[28]ui  1 e 56 0 ]
-"63 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
+"64 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
 [v _eusart1TxHead eusart1TxHead `uc  1 s 1 eusart1TxHead ]
-"64
-[v _eusart1TxTail eusart1TxTail `uc  1 s 1 eusart1TxTail ]
 "65
-[v _eusart1TxBuffer eusart1TxBuffer `[126]uc  1 s 126 eusart1TxBuffer ]
+[v _eusart1TxTail eusart1TxTail `uc  1 s 1 eusart1TxTail ]
 "66
+[v _eusart1TxBuffer eusart1TxBuffer `[126]uc  1 s 126 eusart1TxBuffer ]
+"67
 [v _eusart1TxBufferRemaining eusart1TxBufferRemaining `VEuc  1 e 1 0 ]
-"68
-[v _eusart1RxHead eusart1RxHead `uc  1 s 1 eusart1RxHead ]
 "69
-[v _eusart1RxTail eusart1RxTail `uc  1 s 1 eusart1RxTail ]
+[v _eusart1RxHead eusart1RxHead `uc  1 s 1 eusart1RxHead ]
 "70
-[v _eusart1RxBuffer eusart1RxBuffer `[126]uc  1 s 126 eusart1RxBuffer ]
+[v _eusart1RxTail eusart1RxTail `uc  1 s 1 eusart1RxTail ]
 "71
+[v _eusart1RxBuffer eusart1RxBuffer `[126]uc  1 s 126 eusart1RxBuffer ]
+"72
 [v _eusart1RxCount eusart1RxCount `VEuc  1 e 1 0 ]
 "9 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/io.c
 [v _Reed_Contact_LF_Counter Reed_Contact_LF_Counter `uc  1 e 1 0 ]
@@ -734,14 +734,14 @@
 [v Train_Move_Left_Start@Train_Move_Wait_Time Train_Move_Wait_Time `ui  1 s 2 Train_Move_Wait_Time ]
 "87
 } 0
-"254
+"256
 [v _Train_Move_Left_Brake Train_Move_Left_Brake `(uc  1 e 1 0 ]
 {
-"256
+"258
 [v Train_Move_Left_Brake@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-"257
+"259
 [v Train_Move_Left_Brake@Train_Move_Wait_Time Train_Move_Wait_Time `ui  1 s 2 Train_Move_Wait_Time ]
-"313
+"315
 } 0
 "103
 [v _Right_Mountain_From_The_Right Right_Mountain_From_The_Right `(uc  1 e 1 0 ]
@@ -752,7 +752,7 @@
 [v Right_Mountain_From_The_Right@Return_Val Return_Val `uc  1 s 1 Return_Val ]
 "103
 [v Right_Mountain_From_The_Right@rc rc `uc  1 a 1 21 ]
-"162
+"164
 } 0
 "179 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_right.c
 [v _Right_Mountain_From_The_Left Right_Mountain_From_The_Left `(uc  1 e 1 0 ]
@@ -765,16 +765,16 @@
 [v Right_Mountain_From_The_Left@rc rc `uc  1 a 1 21 ]
 "238
 } 0
-"178 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_left.c
+"180 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_left.c
 [v _Left_Mountain_From_The_Right Left_Mountain_From_The_Right `(uc  1 e 1 0 ]
 {
 [v Left_Mountain_From_The_Right@rc rc `uc  1 a 1 wreg ]
 [v Left_Mountain_From_The_Right@rc rc `uc  1 a 1 wreg ]
-"180
+"182
 [v Left_Mountain_From_The_Right@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-"178
+"180
 [v Left_Mountain_From_The_Right@rc rc `uc  1 a 1 21 ]
-"237
+"239
 } 0
 "104 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/train_move_right.c
 [v _Left_Mountain_From_The_Left Left_Mountain_From_The_Left `(uc  1 e 1 0 ]
@@ -827,25 +827,25 @@
 [v Green_Led@Operation Operation `uc  1 a 1 18 ]
 "81
 } 0
-"140 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eeprom_settings.c
+"139 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eeprom_settings.c
 [v _EEPROMxSTORE EEPROMxSTORE `(v  1 e 1 0 ]
 {
-"142
+"141
 [v EEPROMxSTORE@i i `uc  1 a 1 35 ]
 [v EEPROMxSTORE@api_list api_list `uc  1 a 1 34 ]
-"162
+"161
 } 0
-"178
+"177
 [v _Eeprom_Store Eeprom_Store `(v  1 e 1 0 ]
 {
-"180
+"179
 [v Eeprom_Store@Location_High_Byte Location_High_Byte `ui  1 a 2 24 ]
-"181
+"180
 [v Eeprom_Store@Location_Low_Byte Location_Low_Byte `ui  1 a 2 22 ]
-"178
+"177
 [v Eeprom_Store@Location Location `ui  1 p 2 18 ]
 [v Eeprom_Store@Value Value `ui  1 p 2 20 ]
-"232
+"231
 } 0
 "148 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/io.c
 [v _Debounce_Inputs Debounce_Inputs `(v  1 e 1 0 ]
@@ -924,12 +924,12 @@
 [v GETxAPIxRW@index index `ui  1 p 2 18 ]
 "209
 } 0
-"142 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
+"143 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
 [v _EUSART1_Read EUSART1_Read `(uc  1 e 1 0 ]
 {
-"143
+"144
 [v EUSART1_Read@readValue readValue `uc  1 a 1 18 ]
-"158
+"159
 } 0
 "183 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/Main.c
 [v _Init_Timers Init_Timers `(v  1 e 1 0 ]
@@ -955,34 +955,34 @@
 [v SENDxMESSAGE@value value `ui  1 p 2 20 ]
 "346
 } 0
-"77 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
+"78 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
 [v _EUSART1_Initialize EUSART1_Initialize `(v  1 e 1 0 ]
 {
-"99
+"100
 [v EUSART1_Initialize@baud_rate baud_rate `ui  1 a 2 18 ]
-"118
+"119
 } 0
-"57 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eeprom_settings.c
+"56 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eeprom_settings.c
 [v _EEPROMxREAD EEPROMxREAD `(v  1 e 1 0 ]
 {
-"60
-[v EEPROMxREAD@Data Data `ui  1 a 2 26 ]
 "59
+[v EEPROMxREAD@Data Data `ui  1 a 2 26 ]
+"58
 [v EEPROMxREAD@i i `uc  1 a 1 28 ]
-"76
+"75
 } 0
-"92
+"91
 [v _Eeprom_Read Eeprom_Read `(ui  1 e 2 0 ]
 {
-"96
-[v Eeprom_Read@Return_Data Return_Data `ui  1 a 2 24 ]
-"94
-[v Eeprom_Read@Location_High_Byte Location_High_Byte `ui  1 a 2 22 ]
 "95
+[v Eeprom_Read@Return_Data Return_Data `ui  1 a 2 24 ]
+"93
+[v Eeprom_Read@Location_High_Byte Location_High_Byte `ui  1 a 2 22 ]
+"94
 [v Eeprom_Read@Location_Low_Byte Location_Low_Byte `ui  1 a 2 20 ]
-"92
+"91
 [v Eeprom_Read@Location Location `ui  1 p 2 18 ]
-"124
+"123
 } 0
 "194 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/terminal.c
 [v _DIAGNOSTICxTOxPC DIAGNOSTICxTOxPC `(v  1 e 1 0 ]
@@ -1013,13 +1013,13 @@
 [v printf@f f `*.25Cuc  1 p 2 21 ]
 "1541
 } 0
-"177 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
+"178 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
 [v _putch putch `(v  1 e 1 0 ]
 {
 [v putch@data data `uc  1 a 1 wreg ]
 [v putch@data data `uc  1 a 1 wreg ]
 [v putch@data data `uc  1 a 1 18 ]
-"181
+"182
 } 0
 "8 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\lwmod.c
 [v ___lwmod __lwmod `(ui  1 e 2 0 ]
@@ -1060,13 +1060,13 @@
 {
 "179
 } 0
-"183 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
+"184 C:\Users\Jeremy Siebers\Desktop\Miscellaneous-Source\trunk\Anton Pendelbaan/eusart1.c
 [v _EUSART1_Transmit_ISR EUSART1_Transmit_ISR `(v  1 e 1 0 ]
 {
-"195
+"196
 } 0
-"197
+"198
 [v _EUSART1_Receive_ISR EUSART1_Receive_ISR `(v  1 e 1 0 ]
 {
-"211
+"212
 } 0

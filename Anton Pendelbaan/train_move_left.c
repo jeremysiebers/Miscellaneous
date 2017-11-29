@@ -110,11 +110,13 @@ char Right_Mountain_From_The_Right(unsigned char rc)
                     Mountain_Delay_Counter = 0;
                 }
                 else if(Mountain_Delay_Counter >= GETxAPIxVAL(DELAY_RMU_DOWN)){
+                    //Led1 = Off;
                     Switch_Moutain = 1;
                     Mountain_Delay_Counter = 0;
                 }
                 else{
                     Mountain_Delay_Counter++;
+                    //Led1 = On;
                 }
                 Return_Val = Busy;
                 break;

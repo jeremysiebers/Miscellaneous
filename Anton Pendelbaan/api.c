@@ -152,7 +152,7 @@ void APIxInitialize(){
 	API[MAX_PWM_LMU_LEFT]			= 	0;
     API[MAX_PWM_LMD_RIGHT]			= 	0;
     API[MAX_PWM_LMD_LEFT]			= 	120;	
-	API[DELAY_RMU_DOWN]				= 	100;
+	API[DELAY_RMU_DOWN]				= 	100;                                    // 100  = 53.76 ms
 	API[DELAY_RMU_UP]				= 	100;
 	API[DELAY_RMD_DOWN]				= 	100;
 	API[DELAY_RMD_UP]				= 	100;

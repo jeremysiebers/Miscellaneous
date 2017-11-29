@@ -5670,79 +5670,79 @@ extern void DIAGNOSTICxTOxPC(void);
 void TranslateMessage(void);
 void SendMessage(unsigned int index, unsigned int value);
 
-# 22 "../eusart1.h"
+# 13 "C:\Program Files (x86)\Microchip\xc8\v1.44\include\stdint.h"
 typedef signed char int8_t;
 
-# 29
+# 20
 typedef signed int int16_t;
 
-# 37
+# 28
 typedef signed short long int int24_t;
 
-# 45
+# 36
 typedef signed long int int32_t;
 
-# 52
+# 43
 typedef unsigned char uint8_t;
 
-# 58
+# 49
 typedef unsigned int uint16_t;
 
-# 65
+# 56
 typedef unsigned short long int uint24_t;
 
-# 72
+# 63
 typedef unsigned long int uint32_t;
 
-# 80
+# 71
 typedef signed char int_least8_t;
 
-# 87
+# 78
 typedef signed int int_least16_t;
 
-# 99
+# 90
 typedef signed short long int int_least24_t;
 
-# 107
+# 98
 typedef signed long int int_least32_t;
 
-# 114
+# 105
 typedef unsigned char uint_least8_t;
 
-# 120
+# 111
 typedef unsigned int uint_least16_t;
 
-# 130
+# 121
 typedef unsigned short long int uint_least24_t;
 
-# 137
+# 128
 typedef unsigned long int uint_least32_t;
 
-# 146
+# 137
 typedef signed char int_fast8_t;
 
-# 153
+# 144
 typedef signed int int_fast16_t;
 
-# 165
+# 156
 typedef signed short long int int_fast24_t;
 
-# 173
+# 164
 typedef signed long int int_fast32_t;
 
-# 180
+# 171
 typedef unsigned char uint_fast8_t;
 
-# 186
+# 177
 typedef unsigned int uint_fast16_t;
 
-# 196
+# 187
 typedef unsigned short long int uint_fast24_t;
 
-# 203
+# 194
 typedef unsigned long int uint_fast32_t;
 
-# 209
+# 200
 typedef int32_t intmax_t;
 
 
@@ -5760,24 +5760,24 @@ typedef int16_t intptr_t;
 
 typedef uint16_t uintptr_t;
 
-# 252
+# 35 "../eusart1.h"
 extern volatile uint8_t eusart1TxBufferRemaining;
 extern volatile uint8_t eusart1RxCount;
 
-# 281
+# 64
 extern void EUSART1_Initialize(void);
 
-# 330
+# 113
 extern uint8_t EUSART1_Read(void);
 
-# 355
+# 138
 extern void EUSART1_Write(uint8_t txData);
 extern void putch(char data);
 
-# 377
+# 160
 extern void EUSART1_Transmit_ISR(void);
 
-# 398
+# 181
 extern void EUSART1_Receive_ISR(void);
 
 # 14 "C:\Program Files (x86)\Microchip\xc8\v1.44\include\string.h"

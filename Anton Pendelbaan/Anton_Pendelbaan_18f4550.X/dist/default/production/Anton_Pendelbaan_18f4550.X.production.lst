@@ -1,7 +1,7 @@
 
 
 Microchip Technology PIC18 LITE Macro Assembler V1.44 build -154322312 
-                                                                                               Tue Nov 28 23:08:37 2017
+                                                                                               Wed Nov 29 20:17:43 2017
 
 Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140600
      1                           	processor	18F4550
@@ -5457,7 +5457,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5432                           
   5433 ;; *************** function _Train_Move_Left_Brake *****************
   5434 ;; Defined at:
-  5435 ;;		line 254 in file "../train_move_left.c"
+  5435 ;;		line 256 in file "../train_move_left.c"
   5436 ;; Parameters:    Size  Location     Type
   5437 ;;		None
   5438 ;; Auto vars:     Size  Location     Type
@@ -5493,9 +5493,9 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5468  002DC2                     _Train_Move_Left_Brake:
   5469                           	opt stack 22
   5470                           
-  5471                           ;train_move_left.c: 256: static char Return_Val = 1;
-  5472                           ;train_move_left.c: 257: static unsigned int Train_Move_Wait_Time = 0;
-  5473                           ;train_move_left.c: 259: switch(Switch_Train_Move)
+  5471                           ;train_move_left.c: 258: static char Return_Val = 1;
+  5472                           ;train_move_left.c: 259: static unsigned int Train_Move_Wait_Time = 0;
+  5473                           ;train_move_left.c: 261: switch(Switch_Train_Move)
   5474                           
   5475                           ; BSR set to: 0
   5476                           ;incstack = 0
@@ -5506,13 +5506,13 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5481  002DCE  6E21               	movwf	SETxPWM@direction,c
   5482  002DD0  EC10  F01E         	call	_SETxPWM	;wreg free
   5483                           
-  5484                           ;train_move_left.c: 262: Return_Val = 1;
+  5484                           ;train_move_left.c: 264: Return_Val = 1;
   5485  002DD4  0E01               	movlw	1
   5486  002DD6  0100               	movlb	0	; () banked
   5487  002DD8  6FDE               	movwf	Train_Move_Left_Brake@Return_Val& (0+255),b
   5488                           
   5489                           ; BSR set to: 0
-  5490                           ;train_move_left.c: 263: if (Train_Move_Pwm_Count <= GETxAPIxVAL(21))
+  5490                           ;train_move_left.c: 265: if (Train_Move_Pwm_Count <= GETxAPIxVAL(21))
   5491  002DDA  0E00               	movlw	0
   5492  002DDC  6E14               	movwf	GETxAPIxVAL@index+1,c
   5493  002DDE  0E15               	movlw	21
@@ -5527,15 +5527,15 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5502  002DF2  D002               	goto	l1121
   5503                           
   5504                           ; BSR set to: 0
-  5505                           ;train_move_left.c: 264: {
-  5506                           ;train_move_left.c: 265: Switch_Train_Move = 1;
+  5505                           ;train_move_left.c: 266: {
+  5506                           ;train_move_left.c: 267: Switch_Train_Move = 1;
   5507  002DF4  0E01               	movlw	1
   5508  002DF6  D074               	goto	L97
   5509  002DF8                     l1121:
   5510                           
   5511                           ; BSR set to: 0
-  5512                           ;train_move_left.c: 268: }
-  5513                           ;train_move_left.c: 269: if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(25))
+  5512                           ;train_move_left.c: 270: }
+  5513                           ;train_move_left.c: 271: if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(25))
   5514                           
   5515                           ; BSR set to: 0
   5516  002DF8  0E00               	movlw	0
@@ -5552,32 +5552,32 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5527  002E10  D008               	goto	l1123
   5528                           
   5529                           ; BSR set to: 0
-  5530                           ;train_move_left.c: 270: {
-  5531                           ;train_move_left.c: 271: Train_Move_Pwm_Count--;
+  5530                           ;train_move_left.c: 272: {
+  5531                           ;train_move_left.c: 273: Train_Move_Pwm_Count--;
   5532  002E12  077E               	decf	_Train_Move_Pwm_Count& (0+255),f,b
   5533  002E14  A0D8               	btfss	status,0,c
   5534  002E16  077F               	decf	(_Train_Move_Pwm_Count+1)& (0+255),f,b
   5535                           
   5536                           ; BSR set to: 0
-  5537                           ;train_move_left.c: 272: Train_Move_Pwm_Fast_Count = 0;
+  5537                           ;train_move_left.c: 274: Train_Move_Pwm_Fast_Count = 0;
   5538  002E18  0E00               	movlw	0
   5539  002E1A  6F69               	movwf	(_Train_Move_Pwm_Fast_Count+1)& (0+255),b
   5540  002E1C  0E00               	movlw	0
   5541  002E1E  6F68               	movwf	_Train_Move_Pwm_Fast_Count& (0+255),b
   5542                           
-  5543                           ;train_move_left.c: 273: }
+  5543                           ;train_move_left.c: 275: }
   5544  002E20  D071               	goto	l1122
   5545  002E22                     l1123:
   5546                           
   5547                           ; BSR set to: 0
-  5548                           ;train_move_left.c: 274: else{Train_Move_Pwm_Fast_Count++;}
+  5548                           ;train_move_left.c: 276: else{Train_Move_Pwm_Fast_Count++;}
   5549                           
   5550                           ; BSR set to: 0
   5551  002E22  4B68               	infsnz	_Train_Move_Pwm_Fast_Count& (0+255),f,b
   5552  002E24  2B69               	incf	(_Train_Move_Pwm_Fast_Count+1)& (0+255),f,b
   5553                           
   5554                           ; BSR set to: 0
-  5555                           ;train_move_left.c: 275: break;
+  5555                           ;train_move_left.c: 277: break;
   5556  002E26  D06E               	goto	l1122
   5557  002E28                     
   5558                           ; BSR set to: 0
@@ -5597,12 +5597,12 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5572  002E40  D007               	goto	l1126
   5573                           
   5574                           ; BSR set to: 0
-  5575                           ;train_move_left.c: 278: {
-  5576                           ;train_move_left.c: 279: Switch_Train_Move = 2;
+  5575                           ;train_move_left.c: 280: {
+  5576                           ;train_move_left.c: 281: Switch_Train_Move = 2;
   5577  002E42  0E02               	movlw	2
   5578  002E44  6F80               	movwf	_Switch_Train_Move& (0+255),b
   5579                           
-  5580                           ;train_move_left.c: 280: Train_Move_Wait_Time = 0;
+  5580                           ;train_move_left.c: 282: Train_Move_Wait_Time = 0;
   5581  002E46  0E00               	movlw	0
   5582  002E48  6F65               	movwf	(Train_Move_Left_Brake@Train_Move_Wait_Time+1)& (0+255),b
   5583  002E4A  0E00               	movlw	0
@@ -5611,24 +5611,24 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5586  002E50                     l1126:
   5587                           
   5588                           ; BSR set to: 0
-  5589                           ;train_move_left.c: 283: }
-  5590                           ;train_move_left.c: 284: Return_Val = 1;
+  5589                           ;train_move_left.c: 285: }
+  5590                           ;train_move_left.c: 286: Return_Val = 1;
   5591                           
   5592                           ; BSR set to: 0
   5593  002E50  0E01               	movlw	1
   5594  002E52  6FDE               	movwf	Train_Move_Left_Brake@Return_Val& (0+255),b
   5595                           
   5596                           ; BSR set to: 0
-  5597                           ;train_move_left.c: 285: Train_Move_Wait_Time++;
+  5597                           ;train_move_left.c: 287: Train_Move_Wait_Time++;
   5598  002E54  4B64               	infsnz	Train_Move_Left_Brake@Train_Move_Wait_Time& (0+255),f,b
   5599  002E56  2B65               	incf	(Train_Move_Left_Brake@Train_Move_Wait_Time+1)& (0+255),f,b
   5600                           
   5601                           ; BSR set to: 0
-  5602                           ;train_move_left.c: 286: Switch_Train_Move = 1;
+  5602                           ;train_move_left.c: 288: Switch_Train_Move = 1;
   5603  002E58  0E01               	movlw	1
   5604  002E5A  6F80               	movwf	_Switch_Train_Move& (0+255),b
   5605                           
-  5606                           ;train_move_left.c: 287: break;
+  5606                           ;train_move_left.c: 289: break;
   5607  002E5C  D053               	goto	l1122
   5608  002E5E                     
   5609                           ; BSR set to: 0
@@ -5647,7 +5647,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5622  002E7C  6E21               	movwf	SETxPWM@direction,c
   5623  002E7E  EC10  F01E         	call	_SETxPWM	;wreg free
   5624                           
-  5625                           ;train_move_left.c: 290: SETxAPIxVAL(69, 1);;
+  5625                           ;train_move_left.c: 292: SETxAPIxVAL(69, 1);;
   5626  002E82  0E00               	movlw	0
   5627  002E84  6E1A               	movwf	SETxAPIxVAL@index+1,c
   5628  002E86  0E45               	movlw	69
@@ -5658,7 +5658,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5633  002E90  6E1B               	movwf	SETxAPIxVAL@value,c
   5634  002E92  ECFB  F01F         	call	_SETxAPIxVAL	;wreg free
   5635                           
-  5636                           ;train_move_left.c: 291: Train_Move_Pwm_Count = GETxAPIxVAL(21);
+  5636                           ;train_move_left.c: 293: Train_Move_Pwm_Count = GETxAPIxVAL(21);
   5637  002E96  0E00               	movlw	0
   5638  002E98  6E14               	movwf	GETxAPIxVAL@index+1,c
   5639  002E9A  0E15               	movlw	21
@@ -5667,7 +5667,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5642  002EA2  C013  F07E         	movff	?_GETxAPIxVAL,_Train_Move_Pwm_Count
   5643  002EA6  C014  F07F         	movff	?_GETxAPIxVAL+1,_Train_Move_Pwm_Count+1
   5644                           
-  5645                           ;train_move_left.c: 292: Switch_Train_Move = 3;
+  5645                           ;train_move_left.c: 294: Switch_Train_Move = 3;
   5646  002EAA  0E03               	movlw	3
   5647  002EAC  0100               	movlb	0	; () banked
   5648  002EAE  D018               	goto	L97
@@ -5689,51 +5689,51 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5664  002EC8  D008               	goto	l1129
   5665                           
   5666                           ; BSR set to: 0
-  5667                           ;train_move_left.c: 297: {
-  5668                           ;train_move_left.c: 298: Switch_Train_Move = 0;
+  5667                           ;train_move_left.c: 299: {
+  5668                           ;train_move_left.c: 300: Switch_Train_Move = 0;
   5669  002ECA  0E00               	movlw	0
   5670  002ECC  6F80               	movwf	_Switch_Train_Move& (0+255),b
   5671                           
-  5672                           ;train_move_left.c: 299: Train_Move_Wait_Time = 0;
+  5672                           ;train_move_left.c: 301: Train_Move_Wait_Time = 0;
   5673  002ECE  0E00               	movlw	0
   5674  002ED0  6F65               	movwf	(Train_Move_Left_Brake@Train_Move_Wait_Time+1)& (0+255),b
   5675  002ED2  0E00               	movlw	0
   5676  002ED4  6F64               	movwf	Train_Move_Left_Brake@Train_Move_Wait_Time& (0+255),b
   5677                           
-  5678                           ;train_move_left.c: 300: Return_Val = 0;
+  5678                           ;train_move_left.c: 302: Return_Val = 0;
   5679  002ED6  0E00               	movlw	0
   5680  002ED8  D005               	goto	L74
   5681  002EDA                     l1129:
   5682                           
   5683                           ; BSR set to: 0
-  5684                           ;train_move_left.c: 302: }
-  5685                           ;train_move_left.c: 303: Train_Move_Wait_Time++;
+  5684                           ;train_move_left.c: 304: }
+  5685                           ;train_move_left.c: 305: Train_Move_Wait_Time++;
   5686                           
   5687                           ; BSR set to: 0
   5688  002EDA  4B64               	infsnz	Train_Move_Left_Brake@Train_Move_Wait_Time& (0+255),f,b
   5689  002EDC  2B65               	incf	(Train_Move_Left_Brake@Train_Move_Wait_Time+1)& (0+255),f,b
   5690                           
   5691                           ; BSR set to: 0
-  5692                           ;train_move_left.c: 304: Switch_Train_Move = 3;
+  5692                           ;train_move_left.c: 306: Switch_Train_Move = 3;
   5693  002EDE  0E03               	movlw	3
   5694  002EE0                     L97:
   5695  002EE0  6F80               	movwf	_Switch_Train_Move& (0+255),b
   5696  002EE2                     l7804:
   5697                           
   5698                           ; BSR set to: 0
-  5699                           ;train_move_left.c: 305: Return_Val = 1;
+  5699                           ;train_move_left.c: 307: Return_Val = 1;
   5700  002EE2  0E01               	movlw	1
   5701  002EE4                     L74:
   5702  002EE4  6FDE               	movwf	Train_Move_Left_Brake@Return_Val& (0+255),b
   5703                           
   5704                           ; BSR set to: 0
-  5705                           ;train_move_left.c: 309: }
+  5705                           ;train_move_left.c: 311: }
   5706                           
   5707                           ; BSR set to: 0
   5708                           
-  5709                           ;train_move_left.c: 308: default : break;
+  5709                           ;train_move_left.c: 310: default : break;
   5710                           
-  5711                           ;train_move_left.c: 306: break;
+  5711                           ;train_move_left.c: 308: break;
   5712  002EE6  D00E               	goto	l1122
   5713  002EE8                     l1119:
   5714                           
@@ -5762,7 +5762,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5737  002F04                     l1122:
   5738                           
   5739                           ; BSR set to: 0
-  5740                           ;train_move_left.c: 311: return(Return_Val);
+  5740                           ;train_move_left.c: 313: return(Return_Val);
   5741                           
   5742                           ; BSR set to: 0
   5743  002F04  51DE               	movf	Train_Move_Left_Brake@Return_Val& (0+255),w,b
@@ -5855,22 +5855,22 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5830  00353A  D007               	goto	l1071
   5831  00353C                     u6870:
   5832                           
-  5833                           ;train_move_left.c: 113: Switch_Moutain = 1;
+  5833                           ;train_move_left.c: 114: Switch_Moutain = 1;
   5834  00353C  0E01               	movlw	1
   5835  00353E  6E2E               	movwf	_Switch_Moutain,c
   5836                           
-  5837                           ;train_move_left.c: 114: Mountain_Delay_Counter = 0;
+  5837                           ;train_move_left.c: 115: Mountain_Delay_Counter = 0;
   5838  003540  0E00               	movlw	0
   5839  003542  6E27               	movwf	_Mountain_Delay_Counter+1,c
   5840  003544  0E00               	movlw	0
   5841  003546  6E26               	movwf	_Mountain_Delay_Counter,c
   5842                           
-  5843                           ;train_move_left.c: 115: }
+  5843                           ;train_move_left.c: 116: }
   5844  003548  D063               	goto	l1085
   5845  00354A                     l1071:
   5846                           
-  5847                           ;train_move_left.c: 116: else{
-  5848                           ;train_move_left.c: 117: Mountain_Delay_Counter++;
+  5847                           ;train_move_left.c: 117: else{
+  5848                           ;train_move_left.c: 118: Mountain_Delay_Counter++;
   5849  00354A  4A26               	infsnz	_Mountain_Delay_Counter,f,c
   5850  00354C  2A27               	incf	_Mountain_Delay_Counter+1,f,c
   5851  00354E  D060               	goto	l1085
@@ -5881,14 +5881,14 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5856  003558  D026               	goto	l1075
   5857                           
   5858                           ; BSR set to: 0
-  5859                           ;train_move_left.c: 123: SETxPWM(Train_Move_Pwm_Count, 0);
+  5859                           ;train_move_left.c: 125: SETxPWM(Train_Move_Pwm_Count, 0);
   5860  00355A  C07E  F01F         	movff	_Train_Move_Pwm_Count,SETxPWM@speed
   5861  00355E  C07F  F020         	movff	_Train_Move_Pwm_Count+1,SETxPWM@speed+1
   5862  003562  0E00               	movlw	0
   5863  003564  6E21               	movwf	SETxPWM@direction,c
   5864  003566  EC10  F01E         	call	_SETxPWM	;wreg free
   5865                           
-  5866                           ;train_move_left.c: 124: if (Train_Move_Pwm_Count <= GETxAPIxVAL(46))
+  5866                           ;train_move_left.c: 126: if (Train_Move_Pwm_Count <= GETxAPIxVAL(46))
   5867  00356A  0E00               	movlw	0
   5868  00356C  6E14               	movwf	GETxAPIxVAL@index+1,c
   5869  00356E  0E2E               	movlw	46
@@ -5903,22 +5903,22 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5878  003582  D02A               	goto	u6920
   5879                           
   5880                           ; BSR set to: 0
-  5881                           ;train_move_left.c: 131: else if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(26))
+  5881                           ;train_move_left.c: 133: else if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(26))
   5882                           
   5883                           ; BSR set to: 0
   5884                           
   5885                           ; BSR set to: 0
-  5886                           ;train_move_left.c: 130: }
+  5886                           ;train_move_left.c: 132: }
   5887                           
-  5888                           ;train_move_left.c: 129: break;
+  5888                           ;train_move_left.c: 131: break;
   5889                           
-  5890                           ;train_move_left.c: 128: Return_Val = 0;
+  5890                           ;train_move_left.c: 130: Return_Val = 0;
   5891                           
-  5892                           ;train_move_left.c: 127: Switch_Moutain = 0;
+  5892                           ;train_move_left.c: 129: Switch_Moutain = 0;
   5893                           
   5894                           ; BSR set to: 0
-  5895                           ;train_move_left.c: 125: {
-  5896                           ;train_move_left.c: 126: Switch_Train_Move = 0;
+  5895                           ;train_move_left.c: 127: {
+  5896                           ;train_move_left.c: 128: Switch_Train_Move = 0;
   5897  003584  0E00               	movlw	0
   5898  003586  6E14               	movwf	GETxAPIxVAL@index+1,c
   5899  003588  0E1A               	movlw	26
@@ -5933,8 +5933,8 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5908  00359C  D037               	goto	l1084
   5909                           
   5910                           ; BSR set to: 0
-  5911                           ;train_move_left.c: 132: {
-  5912                           ;train_move_left.c: 133: Train_Move_Pwm_Count--;
+  5911                           ;train_move_left.c: 134: {
+  5912                           ;train_move_left.c: 135: Train_Move_Pwm_Count--;
   5913  00359E  077E               	decf	_Train_Move_Pwm_Count& (0+255),f,b
   5914  0035A0  A0D8               	btfss	status,0,c
   5915  0035A2  077F               	decf	(_Train_Move_Pwm_Count+1)& (0+255),f,b
@@ -5942,7 +5942,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5917  0035A6                     l1075:
   5918                           
   5919                           ; BSR set to: 0
-  5920                           ;train_move_left.c: 138: else if (rc == 3){
+  5920                           ;train_move_left.c: 140: else if (rc == 3){
   5921                           
   5922                           ; BSR set to: 0
   5923  0035A6  0E03               	movlw	3
@@ -5951,14 +5951,14 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5926  0035AC  D031               	goto	l1085
   5927                           
   5928                           ; BSR set to: 0
-  5929                           ;train_move_left.c: 139: SETxPWM(Train_Move_Pwm_Count, 0);
+  5929                           ;train_move_left.c: 141: SETxPWM(Train_Move_Pwm_Count, 0);
   5930  0035AE  C07E  F01F         	movff	_Train_Move_Pwm_Count,SETxPWM@speed
   5931  0035B2  C07F  F020         	movff	_Train_Move_Pwm_Count+1,SETxPWM@speed+1
   5932  0035B6  0E00               	movlw	0
   5933  0035B8  6E21               	movwf	SETxPWM@direction,c
   5934  0035BA  EC10  F01E         	call	_SETxPWM	;wreg free
   5935                           
-  5936                           ;train_move_left.c: 140: if (Train_Move_Pwm_Count >= GETxAPIxVAL(24))
+  5936                           ;train_move_left.c: 142: if (Train_Move_Pwm_Count >= GETxAPIxVAL(24))
   5937  0035BE  0E00               	movlw	0
   5938  0035C0  6E14               	movwf	GETxAPIxVAL@index+1,c
   5939  0035C2  0E18               	movlw	24
@@ -5974,22 +5974,22 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5949  0035D8                     u6920:
   5950                           
   5951                           ; BSR set to: 0
-  5952                           ;train_move_left.c: 141: {
-  5953                           ;train_move_left.c: 142: Switch_Train_Move = 0;
+  5952                           ;train_move_left.c: 143: {
+  5953                           ;train_move_left.c: 144: Switch_Train_Move = 0;
   5954  0035D8  0E00               	movlw	0
   5955  0035DA  6F80               	movwf	_Switch_Train_Move& (0+255),b
   5956                           
-  5957                           ;train_move_left.c: 143: Switch_Moutain = 0;
+  5957                           ;train_move_left.c: 145: Switch_Moutain = 0;
   5958  0035DC  0E00               	movlw	0
   5959  0035DE  6E2E               	movwf	_Switch_Moutain,c
   5960                           
-  5961                           ;train_move_left.c: 144: Return_Val = 0;
+  5961                           ;train_move_left.c: 146: Return_Val = 0;
   5962  0035E0  0E00               	movlw	0
   5963  0035E2  D017               	goto	L78
   5964  0035E4                     l1082:
   5965                           
   5966                           ; BSR set to: 0
-  5967                           ;train_move_left.c: 147: else if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(26))
+  5967                           ;train_move_left.c: 149: else if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(26))
   5968                           
   5969                           ; BSR set to: 0
   5970  0035E4  0E00               	movlw	0
@@ -6006,25 +6006,25 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   5981  0035FC  D007               	goto	l1084
   5982                           
   5983                           ; BSR set to: 0
-  5984                           ;train_move_left.c: 148: {
-  5985                           ;train_move_left.c: 149: Train_Move_Pwm_Count++;
+  5984                           ;train_move_left.c: 150: {
+  5985                           ;train_move_left.c: 151: Train_Move_Pwm_Count++;
   5986  0035FE  4B7E               	infsnz	_Train_Move_Pwm_Count& (0+255),f,b
   5987  003600  2B7F               	incf	(_Train_Move_Pwm_Count+1)& (0+255),f,b
   5988  003602                     l7968:
   5989                           
   5990                           ; BSR set to: 0
-  5991                           ;train_move_left.c: 150: Train_Move_Pwm_Fast_Count = 0;
+  5991                           ;train_move_left.c: 152: Train_Move_Pwm_Fast_Count = 0;
   5992  003602  0E00               	movlw	0
   5993  003604  6F69               	movwf	(_Train_Move_Pwm_Fast_Count+1)& (0+255),b
   5994  003606  0E00               	movlw	0
   5995  003608  6F68               	movwf	_Train_Move_Pwm_Fast_Count& (0+255),b
   5996                           
-  5997                           ;train_move_left.c: 151: }
+  5997                           ;train_move_left.c: 153: }
   5998  00360A  D002               	goto	l1085
   5999  00360C                     l1084:
   6000                           
   6001                           ; BSR set to: 0
-  6002                           ;train_move_left.c: 152: else{Train_Move_Pwm_Fast_Count++;}
+  6002                           ;train_move_left.c: 154: else{Train_Move_Pwm_Fast_Count++;}
   6003                           
   6004                           ; BSR set to: 0
   6005  00360C  4B68               	infsnz	_Train_Move_Pwm_Fast_Count& (0+255),f,b
@@ -6032,8 +6032,8 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6007  003610                     l1085:
   6008                           
   6009                           ; BSR set to: 0
-  6010                           ;train_move_left.c: 153: }
-  6011                           ;train_move_left.c: 154: Return_Val = 1;
+  6010                           ;train_move_left.c: 155: }
+  6011                           ;train_move_left.c: 156: Return_Val = 1;
   6012                           
   6013                           ; BSR set to: 0
   6014                           
@@ -6047,14 +6047,14 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6022  003612  6E4B               	movwf	Right_Mountain_From_The_Right@Return_Val,c
   6023                           
   6024                           ; BSR set to: 0
-  6025                           ;train_move_left.c: 159: }
+  6025                           ;train_move_left.c: 161: }
   6026                           
   6027                           ; BSR set to: 0
-  6028                           ;train_move_left.c: 158: break;
+  6028                           ;train_move_left.c: 160: break;
   6029                           
-  6030                           ;train_move_left.c: 157: default:
+  6030                           ;train_move_left.c: 159: default:
   6031                           
-  6032                           ;train_move_left.c: 155: break;
+  6032                           ;train_move_left.c: 157: break;
   6033  003614  D007               	goto	l1073
   6034  003616                     l1067:
   6035                           
@@ -6075,7 +6075,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6050  003622  D796               	goto	l1074
   6051  003624                     l1073:
   6052                           
-  6053                           ;train_move_left.c: 161: return(Return_Val);
+  6053                           ;train_move_left.c: 163: return(Return_Val);
   6054  003624  504B               	movf	Right_Mountain_From_The_Right@Return_Val,w,c
   6055  003626  0012               	return	
   6056  003628                     __end_of_Right_Mountain_From_The_Right:
@@ -6402,7 +6402,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6377                           
   6378 ;; *************** function _Left_Mountain_From_The_Right *****************
   6379 ;; Defined at:
-  6380 ;;		line 178 in file "../train_move_left.c"
+  6380 ;;		line 180 in file "../train_move_left.c"
   6381 ;; Parameters:    Size  Location     Type
   6382 ;;  rc              1    wreg     unsigned char 
   6383 ;; Auto vars:     Size  Location     Type
@@ -6442,8 +6442,8 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6417  003962  0100               	movlb	0	; () banked
   6418  003964  6FCB               	movwf	Left_Mountain_From_The_Right@rc& (0+255),b
   6419                           
-  6420                           ;train_move_left.c: 180: static char Return_Val = 1;
-  6421                           ;train_move_left.c: 182: switch (Switch_Moutain){
+  6420                           ;train_move_left.c: 182: static char Return_Val = 1;
+  6421                           ;train_move_left.c: 184: switch (Switch_Moutain){
   6422  003966  D07C               	goto	l1092
   6423  003968  0100               	movlb	0	; () banked
   6424  00396A  05CB               	decf	Left_Mountain_From_The_Right@rc& (0+255),w,b
@@ -6451,16 +6451,16 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6426  00396E  D00C               	goto	u6950
   6427                           
   6428                           ; BSR set to: 0
-  6429                           ;train_move_left.c: 187: else if(Mountain_Delay_Counter >= GETxAPIxVAL(58)){
+  6429                           ;train_move_left.c: 189: else if(Mountain_Delay_Counter >= GETxAPIxVAL(58)){
   6430                           
   6431                           ; BSR set to: 0
   6432                           
-  6433                           ;train_move_left.c: 186: }
+  6433                           ;train_move_left.c: 188: }
   6434                           
-  6435                           ;train_move_left.c: 185: Mountain_Delay_Counter = 0;
+  6435                           ;train_move_left.c: 187: Mountain_Delay_Counter = 0;
   6436                           
   6437                           ; BSR set to: 0
-  6438                           ;train_move_left.c: 184: Switch_Moutain = 1;
+  6438                           ;train_move_left.c: 186: Switch_Moutain = 1;
   6439  003970  0E00               	movlw	0
   6440  003972  6E14               	movwf	GETxAPIxVAL@index+1,c
   6441  003974  0E3A               	movlw	58
@@ -6474,22 +6474,22 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6449  003986  D007               	goto	l1096
   6450  003988                     u6950:
   6451                           
-  6452                           ;train_move_left.c: 188: Switch_Moutain = 1;
+  6452                           ;train_move_left.c: 190: Switch_Moutain = 1;
   6453  003988  0E01               	movlw	1
   6454  00398A  6E2E               	movwf	_Switch_Moutain,c
   6455                           
-  6456                           ;train_move_left.c: 189: Mountain_Delay_Counter = 0;
+  6456                           ;train_move_left.c: 191: Mountain_Delay_Counter = 0;
   6457  00398C  0E00               	movlw	0
   6458  00398E  6E27               	movwf	_Mountain_Delay_Counter+1,c
   6459  003990  0E00               	movlw	0
   6460  003992  6E26               	movwf	_Mountain_Delay_Counter,c
   6461                           
-  6462                           ;train_move_left.c: 190: }
+  6462                           ;train_move_left.c: 192: }
   6463  003994  D062               	goto	l1110
   6464  003996                     l1096:
   6465                           
-  6466                           ;train_move_left.c: 191: else{
-  6467                           ;train_move_left.c: 192: Mountain_Delay_Counter++;
+  6466                           ;train_move_left.c: 193: else{
+  6467                           ;train_move_left.c: 194: Mountain_Delay_Counter++;
   6468  003996  4A26               	infsnz	_Mountain_Delay_Counter,f,c
   6469  003998  2A27               	incf	_Mountain_Delay_Counter+1,f,c
   6470  00399A  D05F               	goto	l1110
@@ -6500,14 +6500,14 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6475  0039A4  D025               	goto	l1100
   6476                           
   6477                           ; BSR set to: 0
-  6478                           ;train_move_left.c: 198: SETxPWM(Train_Move_Pwm_Count, 0);
+  6478                           ;train_move_left.c: 200: SETxPWM(Train_Move_Pwm_Count, 0);
   6479  0039A6  C07E  F01F         	movff	_Train_Move_Pwm_Count,SETxPWM@speed
   6480  0039AA  C07F  F020         	movff	_Train_Move_Pwm_Count+1,SETxPWM@speed+1
   6481  0039AE  0E00               	movlw	0
   6482  0039B0  6E21               	movwf	SETxPWM@direction,c
   6483  0039B2  EC10  F01E         	call	_SETxPWM	;wreg free
   6484                           
-  6485                           ;train_move_left.c: 199: if (Train_Move_Pwm_Count >= GETxAPIxVAL(52))
+  6485                           ;train_move_left.c: 201: if (Train_Move_Pwm_Count >= GETxAPIxVAL(52))
   6486  0039B6  0E00               	movlw	0
   6487  0039B8  6E14               	movwf	GETxAPIxVAL@index+1,c
   6488  0039BA  0E34               	movlw	52
@@ -6522,22 +6522,22 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6497  0039CE  D028               	goto	u7000
   6498                           
   6499                           ; BSR set to: 0
-  6500                           ;train_move_left.c: 206: else if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(26))
+  6500                           ;train_move_left.c: 208: else if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(26))
   6501                           
   6502                           ; BSR set to: 0
   6503                           
   6504                           ; BSR set to: 0
-  6505                           ;train_move_left.c: 205: }
+  6505                           ;train_move_left.c: 207: }
   6506                           
-  6507                           ;train_move_left.c: 204: break;
+  6507                           ;train_move_left.c: 206: break;
   6508                           
-  6509                           ;train_move_left.c: 203: Return_Val = 0;
+  6509                           ;train_move_left.c: 205: Return_Val = 0;
   6510                           
-  6511                           ;train_move_left.c: 202: Switch_Moutain = 0;
+  6511                           ;train_move_left.c: 204: Switch_Moutain = 0;
   6512                           
   6513                           ; BSR set to: 0
-  6514                           ;train_move_left.c: 200: {
-  6515                           ;train_move_left.c: 201: Switch_Train_Move = 0;
+  6514                           ;train_move_left.c: 202: {
+  6515                           ;train_move_left.c: 203: Switch_Train_Move = 0;
   6516  0039D0  0E00               	movlw	0
   6517  0039D2  6E14               	movwf	GETxAPIxVAL@index+1,c
   6518  0039D4  0E1A               	movlw	26
@@ -6552,15 +6552,15 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6527  0039E8  D036               	goto	l1109
   6528                           
   6529                           ; BSR set to: 0
-  6530                           ;train_move_left.c: 207: {
-  6531                           ;train_move_left.c: 208: Train_Move_Pwm_Count++;
+  6530                           ;train_move_left.c: 209: {
+  6531                           ;train_move_left.c: 210: Train_Move_Pwm_Count++;
   6532  0039EA  4B7E               	infsnz	_Train_Move_Pwm_Count& (0+255),f,b
   6533  0039EC  2B7F               	incf	(_Train_Move_Pwm_Count+1)& (0+255),f,b
   6534  0039EE  D02E               	goto	l8024
   6535  0039F0                     l1100:
   6536                           
   6537                           ; BSR set to: 0
-  6538                           ;train_move_left.c: 213: else if (rc == 1){
+  6538                           ;train_move_left.c: 215: else if (rc == 1){
   6539                           
   6540                           ; BSR set to: 0
   6541  0039F0  05CB               	decf	Left_Mountain_From_The_Right@rc& (0+255),w,b
@@ -6568,14 +6568,14 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6543  0039F4  D032               	goto	l1110
   6544                           
   6545                           ; BSR set to: 0
-  6546                           ;train_move_left.c: 214: SETxPWM(Train_Move_Pwm_Count, 0);
+  6546                           ;train_move_left.c: 216: SETxPWM(Train_Move_Pwm_Count, 0);
   6547  0039F6  C07E  F01F         	movff	_Train_Move_Pwm_Count,SETxPWM@speed
   6548  0039FA  C07F  F020         	movff	_Train_Move_Pwm_Count+1,SETxPWM@speed+1
   6549  0039FE  0E00               	movlw	0
   6550  003A00  6E21               	movwf	SETxPWM@direction,c
   6551  003A02  EC10  F01E         	call	_SETxPWM	;wreg free
   6552                           
-  6553                           ;train_move_left.c: 215: if (Train_Move_Pwm_Count <= GETxAPIxVAL(24))
+  6553                           ;train_move_left.c: 217: if (Train_Move_Pwm_Count <= GETxAPIxVAL(24))
   6554  003A06  0E00               	movlw	0
   6555  003A08  6E14               	movwf	GETxAPIxVAL@index+1,c
   6556  003A0A  0E18               	movlw	24
@@ -6591,22 +6591,22 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6566  003A20                     u7000:
   6567                           
   6568                           ; BSR set to: 0
-  6569                           ;train_move_left.c: 216: {
-  6570                           ;train_move_left.c: 217: Switch_Train_Move = 0;
+  6569                           ;train_move_left.c: 218: {
+  6570                           ;train_move_left.c: 219: Switch_Train_Move = 0;
   6571  003A20  0E00               	movlw	0
   6572  003A22  6F80               	movwf	_Switch_Train_Move& (0+255),b
   6573                           
-  6574                           ;train_move_left.c: 218: Switch_Moutain = 0;
+  6574                           ;train_move_left.c: 220: Switch_Moutain = 0;
   6575  003A24  0E00               	movlw	0
   6576  003A26  6E2E               	movwf	_Switch_Moutain,c
   6577                           
-  6578                           ;train_move_left.c: 219: Return_Val = 0;
+  6578                           ;train_move_left.c: 221: Return_Val = 0;
   6579  003A28  0E00               	movlw	0
   6580  003A2A  D018               	goto	L84
   6581  003A2C                     l1107:
   6582                           
   6583                           ; BSR set to: 0
-  6584                           ;train_move_left.c: 222: else if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(26))
+  6584                           ;train_move_left.c: 224: else if (Train_Move_Pwm_Fast_Count >= GETxAPIxVAL(26))
   6585                           
   6586                           ; BSR set to: 0
   6587  003A2C  0E00               	movlw	0
@@ -6623,26 +6623,26 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6598  003A44  D008               	goto	l1109
   6599                           
   6600                           ; BSR set to: 0
-  6601                           ;train_move_left.c: 223: {
-  6602                           ;train_move_left.c: 224: Train_Move_Pwm_Count--;
+  6601                           ;train_move_left.c: 225: {
+  6602                           ;train_move_left.c: 226: Train_Move_Pwm_Count--;
   6603  003A46  077E               	decf	_Train_Move_Pwm_Count& (0+255),f,b
   6604  003A48  A0D8               	btfss	status,0,c
   6605  003A4A  077F               	decf	(_Train_Move_Pwm_Count+1)& (0+255),f,b
   6606  003A4C                     l8024:
   6607                           
   6608                           ; BSR set to: 0
-  6609                           ;train_move_left.c: 225: Train_Move_Pwm_Fast_Count = 0;
+  6609                           ;train_move_left.c: 227: Train_Move_Pwm_Fast_Count = 0;
   6610  003A4C  0E00               	movlw	0
   6611  003A4E  6F69               	movwf	(_Train_Move_Pwm_Fast_Count+1)& (0+255),b
   6612  003A50  0E00               	movlw	0
   6613  003A52  6F68               	movwf	_Train_Move_Pwm_Fast_Count& (0+255),b
   6614                           
-  6615                           ;train_move_left.c: 226: }
+  6615                           ;train_move_left.c: 228: }
   6616  003A54  D002               	goto	l1110
   6617  003A56                     l1109:
   6618                           
   6619                           ; BSR set to: 0
-  6620                           ;train_move_left.c: 227: else{Train_Move_Pwm_Fast_Count++;}
+  6620                           ;train_move_left.c: 229: else{Train_Move_Pwm_Fast_Count++;}
   6621                           
   6622                           ; BSR set to: 0
   6623  003A56  4B68               	infsnz	_Train_Move_Pwm_Fast_Count& (0+255),f,b
@@ -6650,8 +6650,8 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6625  003A5A                     l1110:
   6626                           
   6627                           ; BSR set to: 0
-  6628                           ;train_move_left.c: 228: }
-  6629                           ;train_move_left.c: 229: Return_Val = 1;
+  6628                           ;train_move_left.c: 230: }
+  6629                           ;train_move_left.c: 231: Return_Val = 1;
   6630                           
   6631                           ; BSR set to: 0
   6632                           
@@ -6665,14 +6665,14 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6640  003A5C  6E4A               	movwf	Left_Mountain_From_The_Right@Return_Val,c
   6641                           
   6642                           ; BSR set to: 0
-  6643                           ;train_move_left.c: 234: }
+  6643                           ;train_move_left.c: 236: }
   6644                           
   6645                           ; BSR set to: 0
-  6646                           ;train_move_left.c: 233: break;
+  6646                           ;train_move_left.c: 235: break;
   6647                           
-  6648                           ;train_move_left.c: 232: default:
+  6648                           ;train_move_left.c: 234: default:
   6649                           
-  6650                           ;train_move_left.c: 230: break;
+  6650                           ;train_move_left.c: 232: break;
   6651  003A5E  D007               	goto	l1098
   6652  003A60                     l1092:
   6653                           
@@ -6693,7 +6693,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   6668  003A6C  D797               	goto	l1099
   6669  003A6E                     l1098:
   6670                           
-  6671                           ;train_move_left.c: 236: return(Return_Val);
+  6671                           ;train_move_left.c: 238: return(Return_Val);
   6672  003A6E  504A               	movf	Left_Mountain_From_The_Right@Return_Val,w,c
   6673  003A70  0012               	return	
   6674  003A72                     __end_of_Left_Mountain_From_The_Right:
@@ -7912,7 +7912,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   7887                           
   7888 ;; *************** function _EEPROMxSTORE *****************
   7889 ;; Defined at:
-  7890 ;;		line 140 in file "../eeprom_settings.c"
+  7890 ;;		line 139 in file "../eeprom_settings.c"
   7891 ;; Parameters:    Size  Location     Type
   7892 ;;		None
   7893 ;; Auto vars:     Size  Location     Type
@@ -7947,21 +7947,21 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   7922  0032B6                     _EEPROMxSTORE:
   7923                           	opt stack 25
   7924                           
-  7925                           ;eeprom_settings.c: 142: unsigned char i, api_list;
-  7926                           ;eeprom_settings.c: 144: for(i = 0; i < 28; i++ )
+  7925                           ;eeprom_settings.c: 141: unsigned char i, api_list;
+  7926                           ;eeprom_settings.c: 143: for(i = 0; i < sizeof(ApiList); i++ )
   7927                           
   7928                           ;incstack = 0
   7929  0032B6  0E00               	movlw	0
   7930  0032B8  6E24               	movwf	EEPROMxSTORE@i,c
   7931  0032BA                     l8480:
-  7932  0032BA  0E1B               	movlw	27
+  7932  0032BA  0E37               	movlw	55
   7933  0032BC  6424               	cpfsgt	EEPROMxSTORE@i,c
   7934  0032BE  D001               	goto	l755
   7935  0032C0  0012               	return	
   7936  0032C2                     l755:
   7937                           
-  7938                           ;eeprom_settings.c: 145: {
-  7939                           ;eeprom_settings.c: 146: api_list = ApiList[i];
+  7938                           ;eeprom_settings.c: 144: {
+  7939                           ;eeprom_settings.c: 145: api_list = ApiList[i];
   7940  0032C2  5024               	movf	EEPROMxSTORE@i,w,c
   7941  0032C4  0D02               	mullw	2
   7942  0032C6  0E01               	movlw	low _ApiList
@@ -7975,7 +7975,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   7950  0032D2  0008               	tblrd		*
   7951  0032D4  CFF5 F023          	movff	tablat,EEPROMxSTORE@api_list
   7952                           
-  7953                           ;eeprom_settings.c: 152: if (API[ApiList[i]] != API_EEPROM[ApiList[i]])
+  7953                           ;eeprom_settings.c: 151: if (API[ApiList[i]] != API_EEPROM[ApiList[i]])
   7954  0032D8  5024               	movf	EEPROMxSTORE@i,w,c
   7955  0032DA  0D02               	mullw	2
   7956  0032DC  0E01               	movlw	low _ApiList
@@ -8031,8 +8031,8 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   8006  003340  D052               	goto	l757
   8007  003342                     u7710:
   8008                           
-  8009                           ;eeprom_settings.c: 153: {
-  8010                           ;eeprom_settings.c: 158: Eeprom_Store(i, API[ApiList[i]]);
+  8009                           ;eeprom_settings.c: 152: {
+  8010                           ;eeprom_settings.c: 157: Eeprom_Store(i, API[ApiList[i]]);
   8011  003342  C024  F013         	movff	EEPROMxSTORE@i,Eeprom_Store@Location
   8012  003346  6A14               	clrf	Eeprom_Store@Location+1,c
   8013  003348  5024               	movf	EEPROMxSTORE@i,w,c
@@ -8062,7 +8062,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   8037  00337A  CFDD F016          	movff	postdec2,Eeprom_Store@Value+1
   8038  00337E  EC6E  F01F         	call	_Eeprom_Store	;wreg free
   8039                           
-  8040                           ;eeprom_settings.c: 159: API_EEPROM[ApiList[i]] = API[ApiList[i]];
+  8040                           ;eeprom_settings.c: 158: API_EEPROM[ApiList[i]] = API[ApiList[i]];
   8041  003382  5024               	movf	EEPROMxSTORE@i,w,c
   8042  003384  0D02               	mullw	2
   8043  003386  0E01               	movlw	low _ApiList
@@ -8136,7 +8136,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   8111                           
   8112 ;; *************** function _Eeprom_Store *****************
   8113 ;; Defined at:
-  8114 ;;		line 178 in file "../eeprom_settings.c"
+  8114 ;;		line 177 in file "../eeprom_settings.c"
   8115 ;; Parameters:    Size  Location     Type
   8116 ;;  Location        2   18[COMRAM] unsigned int 
   8117 ;;  Value           2   20[COMRAM] unsigned int 
@@ -8172,7 +8172,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   8147  003EDC                     _Eeprom_Store:
   8148                           	opt stack 25
   8149                           
-  8150                           ;eeprom_settings.c: 180: unsigned int Location_High_Byte = Location * 2;
+  8150                           ;eeprom_settings.c: 179: unsigned int Location_High_Byte = Location * 2;
   8151                           
   8152                           ;incstack = 0
   8153  003EDC  90D8               	bcf	status,0,c
@@ -8181,7 +8181,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   8156  003EE2  3414               	rlcf	Eeprom_Store@Location+1,w,c
   8157  003EE4  6E1A               	movwf	Eeprom_Store@Location_High_Byte+1,c
   8158                           
-  8159                           ;eeprom_settings.c: 181: unsigned int Location_Low_Byte = Location_High_Byte + 1;
+  8159                           ;eeprom_settings.c: 180: unsigned int Location_Low_Byte = Location_High_Byte + 1;
   8160  003EE6  0E01               	movlw	1
   8161  003EE8  2419               	addwf	Eeprom_Store@Location_High_Byte,w,c
   8162  003EEA  6E17               	movwf	Eeprom_Store@Location_Low_Byte,c
@@ -8189,93 +8189,93 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
   8164  003EEE  201A               	addwfc	Eeprom_Store@Location_High_Byte+1,w,c
   8165  003EF0  6E18               	movwf	Eeprom_Store@Location_Low_Byte+1,c
   8166                           
-  8167                           ;eeprom_settings.c: 183: INTCON = 0x00;
+  8167                           ;eeprom_settings.c: 182: INTCON = 0x00;
   8168  003EF2  0E00               	movlw	0
   8169  003EF4  6EF2               	movwf	intcon,c	;volatile
   8170                           
-  8171                           ;eeprom_settings.c: 185: EECON1bits.WRERR = 0;
+  8171                           ;eeprom_settings.c: 184: EECON1bits.WRERR = 0;
   8172  003EF6  96A6               	bcf	4006,3,c	;volsfr
   8173                           
-  8174                           ;eeprom_settings.c: 186: EEADR = Location_High_Byte;
+  8174                           ;eeprom_settings.c: 185: EEADR = (unsigned char)Location_High_Byte;
   8175  003EF8  C019  FFA9         	movff	Eeprom_Store@Location_High_Byte,4009	;volatile
   8176                           
-  8177                           ;eeprom_settings.c: 187: EEDATA = (unsigned char)(Value >> 8);
+  8177                           ;eeprom_settings.c: 186: EEDATA = (unsigned char)(Value >> 8);
   8178  003EFC  5016               	movf	Eeprom_Store@Value+1,w,c
   8179  003EFE  6EA8               	movwf	4008,c	;volatile
   8180                           
-  8181                           ;eeprom_settings.c: 188: EECON1bits.EEPGD = 0;
+  8181                           ;eeprom_settings.c: 187: EECON1bits.EEPGD = 0;
   8182  003F00  9EA6               	bcf	4006,7,c	;volsfr
   8183                           
-  8184                           ;eeprom_settings.c: 189: EECON1bits.CFGS = 0;
+  8184                           ;eeprom_settings.c: 188: EECON1bits.CFGS = 0;
   8185  003F02  9CA6               	bcf	4006,6,c	;volsfr
   8186                           
-  8187                           ;eeprom_settings.c: 190: EECON1bits.WREN = 1;
+  8187                           ;eeprom_settings.c: 189: EECON1bits.WREN = 1;
   8188  003F04  84A6               	bsf	4006,2,c	;volsfr
   8189                           
-  8190                           ;eeprom_settings.c: 191: EECON2 = 0x55;
+  8190                           ;eeprom_settings.c: 190: EECON2 = 0x55;
   8191  003F06  0E55               	movlw	85
   8192  003F08  6EA7               	movwf	4007,c	;volsfr
   8193                           
-  8194                           ;eeprom_settings.c: 192: EECON2 = 0xaa;
+  8194                           ;eeprom_settings.c: 191: EECON2 = 0xaa;
   8195  003F0A  0EAA               	movlw	170
   8196  003F0C  6EA7               	movwf	4007,c	;volsfr
   8197                           
-  8198                           ;eeprom_settings.c: 193: EECON1bits.WR = 1;
+  8198                           ;eeprom_settings.c: 192: EECON1bits.WR = 1;
   8199  003F0E  82A6               	bsf	4006,1,c	;volsfr
   8200  003F10                     
-  8201                           ;eeprom_settings.c: 195: continue;
+  8201                           ;eeprom_settings.c: 194: continue;
   8202  003F10  B2A6               	btfsc	4006,1,c	;volsfr
   8203  003F12  D7FE               	goto	l762
   8204                           
-  8205                           ;eeprom_settings.c: 196: }
-  8206                           ;eeprom_settings.c: 197: PIR2bits.EEIF = 0;
+  8205                           ;eeprom_settings.c: 195: }
+  8206                           ;eeprom_settings.c: 196: PIR2bits.EEIF = 0;
   8207  003F14  98A1               	bcf	4001,4,c	;volatile
   8208                           
-  8209                           ;eeprom_settings.c: 207: EECON1bits.WRERR = 0;
+  8209                           ;eeprom_settings.c: 206: EECON1bits.WRERR = 0;
   8210  003F16  96A6               	bcf	4006,3,c	;volsfr
   8211                           
-  8212                           ;eeprom_settings.c: 208: EEADR = Location_Low_Byte;
+  8212                           ;eeprom_settings.c: 207: EEADR = (unsigned char)Location_Low_Byte;
   8213  003F18  C017  FFA9         	movff	Eeprom_Store@Location_Low_Byte,4009	;volatile
   8214                           
-  8215                           ;eeprom_settings.c: 209: EEDATA = (unsigned char)Value;
+  8215                           ;eeprom_settings.c: 208: EEDATA = (unsigned char)Value;
   8216  003F1C  C015  FFA8         	movff	Eeprom_Store@Value,4008	;volatile
   8217                           
-  8218                           ;eeprom_settings.c: 210: EECON1bits.EEPGD = 0;
+  8218                           ;eeprom_settings.c: 209: EECON1bits.EEPGD = 0;
   8219  003F20  9EA6               	bcf	4006,7,c	;volsfr
   8220                           
-  8221                           ;eeprom_settings.c: 211: EECON1bits.CFGS = 0;
+  8221                           ;eeprom_settings.c: 210: EECON1bits.CFGS = 0;
   8222  003F22  9CA6               	bcf	4006,6,c	;volsfr
   8223                           
-  8224                           ;eeprom_settings.c: 212: EECON1bits.WREN = 1;
+  8224                           ;eeprom_settings.c: 211: EECON1bits.WREN = 1;
   8225  003F24  84A6               	bsf	4006,2,c	;volsfr
   8226                           
-  8227                           ;eeprom_settings.c: 213: INTCON = 0x00;
+  8227                           ;eeprom_settings.c: 212: INTCON = 0x00;
   8228  003F26  0E00               	movlw	0
   8229  003F28  6EF2               	movwf	intcon,c	;volatile
   8230                           
-  8231                           ;eeprom_settings.c: 214: EECON2 = 0x55;
+  8231                           ;eeprom_settings.c: 213: EECON2 = 0x55;
   8232  003F2A  0E55               	movlw	85
   8233  003F2C  6EA7               	movwf	4007,c	;volsfr
   8234                           
-  8235                           ;eeprom_settings.c: 215: EECON2 = 0xaa;
+  8235                           ;eeprom_settings.c: 214: EECON2 = 0xaa;
   8236  003F2E  0EAA               	movlw	170
   8237  003F30  6EA7               	movwf	4007,c	;volsfr
   8238                           
-  8239                           ;eeprom_settings.c: 216: EECON1bits.WR = 1;
+  8239                           ;eeprom_settings.c: 215: EECON1bits.WR = 1;
   8240  003F32  82A6               	bsf	4006,1,c	;volsfr
   8241  003F34                     
-  8242                           ;eeprom_settings.c: 218: continue;
+  8242                           ;eeprom_settings.c: 217: continue;
   8243  003F34  B2A6               	btfsc	4006,1,c	;volsfr
   8244  003F36  D7FE               	goto	l765
   8245                           
-  8246                           ;eeprom_settings.c: 219: }
-  8247                           ;eeprom_settings.c: 220: PIR2bits.EEIF = 0;
+  8246                           ;eeprom_settings.c: 218: }
+  8247                           ;eeprom_settings.c: 219: PIR2bits.EEIF = 0;
   8248  003F38  98A1               	bcf	4001,4,c	;volatile
   8249                           
-  8250                           ;eeprom_settings.c: 230: EECON1bits.WREN = 0;
+  8250                           ;eeprom_settings.c: 229: EECON1bits.WREN = 0;
   8251  003F3A  94A6               	bcf	4006,2,c	;volsfr
   8252                           
-  8253                           ;eeprom_settings.c: 231: INTCON = 0xA0;
+  8253                           ;eeprom_settings.c: 230: INTCON = 0xA0;
   8254  003F3C  0EA0               	movlw	160
   8255  003F3E  6EF2               	movwf	intcon,c	;volatile
   8256  003F40  0012               	return		;funcret
@@ -11197,7 +11197,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  11165                           
  11166 ;; *************** function _EUSART1_Read *****************
  11167 ;; Defined at:
- 11168 ;;		line 142 in file "../eusart1.c"
+ 11168 ;;		line 143 in file "../eusart1.c"
  11169 ;; Parameters:    Size  Location     Type
  11170 ;;		None
  11171 ;; Auto vars:     Size  Location     Type
@@ -11231,7 +11231,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  11199  004146                     _EUSART1_Read:
  11200                           	opt stack 26
  11201                           
- 11202                           ;eusart1.c: 143: uint8_t readValue = 0;
+ 11202                           ;eusart1.c: 144: uint8_t readValue = 0;
  11203                           
  11204                           ;incstack = 0
  11205  004146  0E00               	movlw	0
@@ -11240,11 +11240,11 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  11208  00414C  B4D8               	btfsc	status,2,c
  11209  00414E  D7FD               	goto	l517
  11210                           
- 11211                           ;eusart1.c: 146: }
- 11212                           ;eusart1.c: 148: PIE1bits.RC1IE = 0;
+ 11211                           ;eusart1.c: 147: }
+ 11212                           ;eusart1.c: 149: PIE1bits.RC1IE = 0;
  11213  004150  9A9D               	bcf	3997,5,c	;volatile
  11214                           
- 11215                           ;eusart1.c: 150: readValue = eusart1RxBuffer[eusart1RxTail++];
+ 11215                           ;eusart1.c: 151: readValue = eusart1RxBuffer[eusart1RxTail++];
  11216  004152  5040               	movf	_eusart1RxTail,w,c
  11217  004154  0D01               	mullw	1
  11218  004156  0E00               	movlw	low _eusart1RxBuffer
@@ -11257,24 +11257,24 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  11225  004164  6E13               	movwf	EUSART1_Read@readValue,c
  11226  004166  2A40               	incf	_eusart1RxTail,f,c
  11227                           
- 11228                           ;eusart1.c: 151: if (sizeof (eusart1RxBuffer) <= eusart1RxTail) {
+ 11228                           ;eusart1.c: 152: if (sizeof (eusart1RxBuffer) <= eusart1RxTail) {
  11229  004168  0E7D               	movlw	125
  11230  00416A  6440               	cpfsgt	_eusart1RxTail,c
  11231  00416C  D002               	goto	l519
  11232                           
- 11233                           ;eusart1.c: 152: eusart1RxTail = 0;
+ 11233                           ;eusart1.c: 153: eusart1RxTail = 0;
  11234  00416E  0E00               	movlw	0
  11235  004170  6E40               	movwf	_eusart1RxTail,c
  11236  004172                     l519:
  11237                           
- 11238                           ;eusart1.c: 153: }
- 11239                           ;eusart1.c: 154: eusart1RxCount--;
+ 11238                           ;eusart1.c: 154: }
+ 11239                           ;eusart1.c: 155: eusart1RxCount--;
  11240  004172  063F               	decf	_eusart1RxCount,f,c	;volatile
  11241                           
- 11242                           ;eusart1.c: 155: PIE1bits.RC1IE = 1;
+ 11242                           ;eusart1.c: 156: PIE1bits.RC1IE = 1;
  11243  004174  8A9D               	bsf	3997,5,c	;volatile
  11244                           
- 11245                           ;eusart1.c: 157: return readValue;
+ 11245                           ;eusart1.c: 158: return readValue;
  11246  004176  5013               	movf	EUSART1_Read@readValue,w,c
  11247  004178  0012               	return	
  11248  00417A                     __end_of_EUSART1_Read:
@@ -12013,7 +12013,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  11980                           
  11981 ;; *************** function _EUSART1_Initialize *****************
  11982 ;; Defined at:
- 11983 ;;		line 77 in file "../eusart1.c"
+ 11983 ;;		line 78 in file "../eusart1.c"
  11984 ;; Parameters:    Size  Location     Type
  11985 ;;		None
  11986 ;; Auto vars:     Size  Location     Type
@@ -12047,89 +12047,89 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  12014  004046                     _EUSART1_Initialize:
  12015                           	opt stack 27
  12016                           
- 12017                           ;eusart1.c: 79: PIE1bits.RC1IE = 0;
+ 12017                           ;eusart1.c: 80: PIE1bits.RC1IE = 0;
  12018                           
  12019                           ;incstack = 0
  12020  004046  9A9D               	bcf	3997,5,c	;volatile
  12021                           
- 12022                           ;eusart1.c: 80: PIE1bits.TX1IE = 0;
+ 12022                           ;eusart1.c: 81: PIE1bits.TX1IE = 0;
  12023  004048  989D               	bcf	3997,4,c	;volatile
  12024                           
- 12025                           ;eusart1.c: 84: BAUDCONbits.BRG16 = 1;
+ 12025                           ;eusart1.c: 85: BAUDCONbits.BRG16 = 1;
  12026  00404A  86B8               	bsf	4024,3,c	;volatile
  12027                           
- 12028                           ;eusart1.c: 86: RCSTAbits.SPEN = 1;
+ 12028                           ;eusart1.c: 87: RCSTAbits.SPEN = 1;
  12029  00404C  8EAB               	bsf	4011,7,c	;volatile
  12030                           
- 12031                           ;eusart1.c: 87: RCSTAbits.RX9 = 0;
+ 12031                           ;eusart1.c: 88: RCSTAbits.RX9 = 0;
  12032  00404E  9CAB               	bcf	4011,6,c	;volatile
  12033                           
- 12034                           ;eusart1.c: 88: RCSTAbits.CREN = 1;
+ 12034                           ;eusart1.c: 89: RCSTAbits.CREN = 1;
  12035  004050  88AB               	bsf	4011,4,c	;volatile
  12036                           
- 12037                           ;eusart1.c: 89: RCSTAbits.ADDEN = 0;
+ 12037                           ;eusart1.c: 90: RCSTAbits.ADDEN = 0;
  12038  004052  96AB               	bcf	4011,3,c	;volatile
  12039                           
- 12040                           ;eusart1.c: 91: TXSTAbits.TX9 = 0;
+ 12040                           ;eusart1.c: 92: TXSTAbits.TX9 = 0;
  12041  004054  9CAC               	bcf	4012,6,c	;volatile
  12042                           
- 12043                           ;eusart1.c: 92: TXSTAbits.TXEN = 1;
+ 12043                           ;eusart1.c: 93: TXSTAbits.TXEN = 1;
  12044  004056  8AAC               	bsf	4012,5,c	;volatile
  12045                           
- 12046                           ;eusart1.c: 93: TXSTAbits.SYNC = 0;
+ 12046                           ;eusart1.c: 94: TXSTAbits.SYNC = 0;
  12047  004058  98AC               	bcf	4012,4,c	;volatile
  12048                           
- 12049                           ;eusart1.c: 94: TXSTAbits.SENDB = 0;
+ 12049                           ;eusart1.c: 95: TXSTAbits.SENDB = 0;
  12050  00405A  96AC               	bcf	4012,3,c	;volatile
  12051                           
- 12052                           ;eusart1.c: 95: TXSTAbits.BRGH = 1;
+ 12052                           ;eusart1.c: 96: TXSTAbits.BRGH = 1;
  12053  00405C  84AC               	bsf	4012,2,c	;volatile
  12054                           
- 12055                           ;eusart1.c: 96: TXSTAbits.TRMT = 1;
+ 12055                           ;eusart1.c: 97: TXSTAbits.TRMT = 1;
  12056  00405E  82AC               	bsf	4012,1,c	;volatile
  12057                           
- 12058                           ;eusart1.c: 97: TXSTAbits.TX9D = 0;
+ 12058                           ;eusart1.c: 98: TXSTAbits.TX9D = 0;
  12059  004060  90AC               	bcf	4012,0,c	;volatile
  12060                           
- 12061                           ;eusart1.c: 99: unsigned int baud_rate;
- 12062                           ;eusart1.c: 101: baud_rate = 417;
+ 12061                           ;eusart1.c: 100: unsigned int baud_rate;
+ 12062                           ;eusart1.c: 102: baud_rate = 417;
  12063  004062  0E01               	movlw	1
  12064  004064  6E14               	movwf	EUSART1_Initialize@baud_rate+1,c
  12065  004066  0EA1               	movlw	161
  12066  004068  6E13               	movwf	EUSART1_Initialize@baud_rate,c
  12067                           
- 12068                           ;eusart1.c: 103: SPBRGH = baud_rate >> 8;
+ 12068                           ;eusart1.c: 104: SPBRGH = baud_rate >> 8;
  12069  00406A  5014               	movf	EUSART1_Initialize@baud_rate+1,w,c
  12070  00406C  6EB0               	movwf	4016,c	;volatile
  12071                           
- 12072                           ;eusart1.c: 104: SPBRG = baud_rate;
+ 12072                           ;eusart1.c: 105: SPBRG = baud_rate;
  12073  00406E  C013  FFAF         	movff	EUSART1_Initialize@baud_rate,4015	;volatile
  12074                           
- 12075                           ;eusart1.c: 108: eusart1TxHead = 0;
+ 12075                           ;eusart1.c: 109: eusart1TxHead = 0;
  12076  004072  0E00               	movlw	0
  12077  004074  6E44               	movwf	_eusart1TxHead,c
  12078                           
- 12079                           ;eusart1.c: 109: eusart1TxTail = 0;
+ 12079                           ;eusart1.c: 110: eusart1TxTail = 0;
  12080  004076  0E00               	movlw	0
  12081  004078  6E43               	movwf	_eusart1TxTail,c
  12082                           
- 12083                           ;eusart1.c: 110: eusart1TxBufferRemaining = sizeof (eusart1TxBuffer);
+ 12083                           ;eusart1.c: 111: eusart1TxBufferRemaining = sizeof (eusart1TxBuffer);
  12084  00407A  0E7E               	movlw	126
  12085  00407C  6E42               	movwf	_eusart1TxBufferRemaining,c	;volatile
  12086                           
- 12087                           ;eusart1.c: 112: eusart1RxHead = 0;
+ 12087                           ;eusart1.c: 113: eusart1RxHead = 0;
  12088  00407E  0E00               	movlw	0
  12089  004080  6E41               	movwf	_eusart1RxHead,c
  12090                           
- 12091                           ;eusart1.c: 113: eusart1RxTail = 0;
+ 12091                           ;eusart1.c: 114: eusart1RxTail = 0;
  12092  004082  0E00               	movlw	0
  12093  004084  6E40               	movwf	_eusart1RxTail,c
  12094                           
- 12095                           ;eusart1.c: 114: eusart1RxCount = 0;
+ 12095                           ;eusart1.c: 115: eusart1RxCount = 0;
  12096  004086  0E00               	movlw	0
  12097  004088  6E3F               	movwf	_eusart1RxCount,c	;volatile
  12098                           
- 12099                           ;eusart1.c: 117: PIE1bits.RC1IE = 1;
+ 12099                           ;eusart1.c: 118: PIE1bits.RC1IE = 1;
  12100  00408A  8A9D               	bsf	3997,5,c	;volatile
  12101  00408C  0012               	return		;funcret
  12102  00408E                     __end_of_EUSART1_Initialize:
@@ -12157,7 +12157,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  12124                           
  12125 ;; *************** function _EEPROMxREAD *****************
  12126 ;; Defined at:
- 12127 ;;		line 57 in file "../eeprom_settings.c"
+ 12127 ;;		line 56 in file "../eeprom_settings.c"
  12128 ;; Parameters:    Size  Location     Type
  12129 ;;		None
  12130 ;; Auto vars:     Size  Location     Type
@@ -12192,30 +12192,30 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  12159  00417A                     _EEPROMxREAD:
  12160                           	opt stack 26
  12161                           
- 12162                           ;eeprom_settings.c: 59: unsigned char i = 0;
+ 12162                           ;eeprom_settings.c: 58: unsigned char i = 0;
  12163                           
  12164                           ;incstack = 0
  12165  00417A  0E00               	movlw	0
  12166  00417C  6E1D               	movwf	EEPROMxREAD@i,c
  12167                           
- 12168                           ;eeprom_settings.c: 60: unsigned int Data = 0;
+ 12168                           ;eeprom_settings.c: 59: unsigned int Data = 0;
  12169  00417E  0E00               	movlw	0
  12170  004180  6E1C               	movwf	EEPROMxREAD@Data+1,c
  12171  004182  0E00               	movlw	0
  12172  004184  6E1B               	movwf	EEPROMxREAD@Data,c
  12173                           
- 12174                           ;eeprom_settings.c: 65: for(i = 0; i < 28; i++ )
+ 12174                           ;eeprom_settings.c: 64: for(i = 0; i < sizeof(ApiList); i++ )
  12175  004186  0E00               	movlw	0
  12176  004188  6E1D               	movwf	EEPROMxREAD@i,c
  12177  00418A                     l6172:
- 12178  00418A  0E1B               	movlw	27
+ 12178  00418A  0E37               	movlw	55
  12179  00418C  641D               	cpfsgt	EEPROMxREAD@i,c
  12180  00418E  D001               	goto	l741
  12181  004190  0012               	return	
  12182  004192                     l741:
  12183                           
- 12184                           ;eeprom_settings.c: 66: {
- 12185                           ;eeprom_settings.c: 67: Data = Eeprom_Read(i);
+ 12184                           ;eeprom_settings.c: 65: {
+ 12185                           ;eeprom_settings.c: 66: Data = Eeprom_Read(i);
  12186  004192  C01D  F013         	movff	EEPROMxREAD@i,Eeprom_Read@Location
  12187  004196  6A14               	clrf	Eeprom_Read@Location+1,c
  12188  004198  ECA1  F01F         	call	_Eeprom_Read	;wreg free
@@ -12248,7 +12248,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  12215                           
  12216 ;; *************** function _Eeprom_Read *****************
  12217 ;; Defined at:
- 12218 ;;		line 92 in file "../eeprom_settings.c"
+ 12218 ;;		line 91 in file "../eeprom_settings.c"
  12219 ;; Parameters:    Size  Location     Type
  12220 ;;  Location        2   18[COMRAM] unsigned int 
  12221 ;; Auto vars:     Size  Location     Type
@@ -12284,7 +12284,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  12251  003F42                     _Eeprom_Read:
  12252                           	opt stack 26
  12253                           
- 12254                           ;eeprom_settings.c: 94: unsigned int Location_High_Byte = Location * 2;
+ 12254                           ;eeprom_settings.c: 93: unsigned int Location_High_Byte = Location * 2;
  12255                           
  12256                           ;incstack = 0
  12257  003F42  90D8               	bcf	status,0,c
@@ -12293,7 +12293,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  12260  003F48  3414               	rlcf	Eeprom_Read@Location+1,w,c
  12261  003F4A  6E18               	movwf	Eeprom_Read@Location_High_Byte+1,c
  12262                           
- 12263                           ;eeprom_settings.c: 95: unsigned int Location_Low_Byte = Location_High_Byte + 1;
+ 12263                           ;eeprom_settings.c: 94: unsigned int Location_Low_Byte = Location_High_Byte + 1;
  12264  003F4C  0E01               	movlw	1
  12265  003F4E  2417               	addwf	Eeprom_Read@Location_High_Byte,w,c
  12266  003F50  6E15               	movwf	Eeprom_Read@Location_Low_Byte,c
@@ -12301,65 +12301,65 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  12268  003F54  2018               	addwfc	Eeprom_Read@Location_High_Byte+1,w,c
  12269  003F56  6E16               	movwf	Eeprom_Read@Location_Low_Byte+1,c
  12270                           
- 12271                           ;eeprom_settings.c: 96: unsigned int Return_Data = 0;
+ 12271                           ;eeprom_settings.c: 95: unsigned int Return_Data = 0;
  12272  003F58  0E00               	movlw	0
  12273  003F5A  6E1A               	movwf	Eeprom_Read@Return_Data+1,c
  12274  003F5C  0E00               	movlw	0
  12275  003F5E  6E19               	movwf	Eeprom_Read@Return_Data,c
  12276                           
- 12277                           ;eeprom_settings.c: 98: INTCON = 0x00;
+ 12277                           ;eeprom_settings.c: 97: INTCON = 0x00;
  12278  003F60  0E00               	movlw	0
  12279  003F62  6EF2               	movwf	intcon,c	;volatile
  12280                           
- 12281                           ;eeprom_settings.c: 100: EECON1bits.EEPGD = 0;
+ 12281                           ;eeprom_settings.c: 99: EECON1bits.EEPGD = 0;
  12282  003F64  9EA6               	bcf	4006,7,c	;volsfr
  12283                           
- 12284                           ;eeprom_settings.c: 101: EECON1bits.CFGS = 0;
+ 12284                           ;eeprom_settings.c: 100: EECON1bits.CFGS = 0;
  12285  003F66  9CA6               	bcf	4006,6,c	;volsfr
  12286                           
- 12287                           ;eeprom_settings.c: 102: EEADR = Location_High_Byte;
+ 12287                           ;eeprom_settings.c: 101: EEADR = Location_High_Byte;
  12288  003F68  C017  FFA9         	movff	Eeprom_Read@Location_High_Byte,4009	;volatile
  12289                           
- 12290                           ;eeprom_settings.c: 103: EECON1bits.RD = 1;
+ 12290                           ;eeprom_settings.c: 102: EECON1bits.RD = 1;
  12291  003F6C  80A6               	bsf	4006,0,c	;volsfr
  12292  003F6E  B0A6               	btfsc	4006,0,c	;volsfr
  12293  003F70  D7FE               	goto	l747
  12294                           
- 12295                           ;eeprom_settings.c: 105: Return_Data = EEDATA;
+ 12295                           ;eeprom_settings.c: 104: Return_Data = EEDATA;
  12296  003F72  CFA8 F019          	movff	4008,Eeprom_Read@Return_Data	;volatile
  12297  003F76  6A1A               	clrf	Eeprom_Read@Return_Data+1,c
  12298                           
- 12299                           ;eeprom_settings.c: 106: Return_Data = Return_Data << 8;
+ 12299                           ;eeprom_settings.c: 105: Return_Data = Return_Data << 8;
  12300  003F78  5019               	movf	Eeprom_Read@Return_Data,w,c
  12301  003F7A  6E1A               	movwf	Eeprom_Read@Return_Data+1,c
  12302  003F7C  6A19               	clrf	Eeprom_Read@Return_Data,c
  12303                           
- 12304                           ;eeprom_settings.c: 111: EECON1bits.EEPGD = 0;
+ 12304                           ;eeprom_settings.c: 110: EECON1bits.EEPGD = 0;
  12305  003F7E  9EA6               	bcf	4006,7,c	;volsfr
  12306                           
- 12307                           ;eeprom_settings.c: 112: EECON1bits.CFGS = 0;
+ 12307                           ;eeprom_settings.c: 111: EECON1bits.CFGS = 0;
  12308  003F80  9CA6               	bcf	4006,6,c	;volsfr
  12309                           
- 12310                           ;eeprom_settings.c: 113: EEADR = Location_Low_Byte;
+ 12310                           ;eeprom_settings.c: 112: EEADR = Location_Low_Byte;
  12311  003F82  C015  FFA9         	movff	Eeprom_Read@Location_Low_Byte,4009	;volatile
  12312                           
- 12313                           ;eeprom_settings.c: 114: EECON1bits.RD = 1;
+ 12313                           ;eeprom_settings.c: 113: EECON1bits.RD = 1;
  12314  003F86  80A6               	bsf	4006,0,c	;volsfr
  12315  003F88  B0A6               	btfsc	4006,0,c	;volsfr
  12316  003F8A  D7FE               	goto	l750
  12317                           
- 12318                           ;eeprom_settings.c: 116: Return_Data = Return_Data | EEDATA;
+ 12318                           ;eeprom_settings.c: 115: Return_Data = Return_Data | EEDATA;
  12319  003F8C  5019               	movf	Eeprom_Read@Return_Data,w,c
  12320  003F8E  10A8               	iorwf	4008,w,c	;volatile
  12321  003F90  6E19               	movwf	Eeprom_Read@Return_Data,c
  12322  003F92  501A               	movf	Eeprom_Read@Return_Data+1,w,c
  12323  003F94  6E1A               	movwf	Eeprom_Read@Return_Data+1,c
  12324                           
- 12325                           ;eeprom_settings.c: 121: INTCON = 0xA0;
+ 12325                           ;eeprom_settings.c: 120: INTCON = 0xA0;
  12326  003F96  0EA0               	movlw	160
  12327  003F98  6EF2               	movwf	intcon,c	;volatile
  12328                           
- 12329                           ;eeprom_settings.c: 123: return (Return_Data);
+ 12329                           ;eeprom_settings.c: 122: return (Return_Data);
  12330  003F9A  C019  F013         	movff	Eeprom_Read@Return_Data,?_Eeprom_Read
  12331  003F9E  C01A  F014         	movff	Eeprom_Read@Return_Data+1,?_Eeprom_Read+1
  12332  003FA2  0012               	return	
@@ -13317,7 +13317,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  13283                           
  13284 ;; *************** function _putch *****************
  13285 ;; Defined at:
- 13286 ;;		line 177 in file "../eusart1.c"
+ 13286 ;;		line 178 in file "../eusart1.c"
  13287 ;; Parameters:    Size  Location     Type
  13288 ;;  data            1    wreg     unsigned char 
  13289 ;; Auto vars:     Size  Location     Type
@@ -13356,13 +13356,13 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  13322                           ;putch@data stored from wreg
  13323  0042DE  6E13               	movwf	putch@data,c
  13324  0042E0                     
- 13325                           ;eusart1.c: 179: continue;
+ 13325                           ;eusart1.c: 180: continue;
  13326                           
- 13327                           ;eusart1.c: 178: while(! TXIF)
+ 13327                           ;eusart1.c: 179: while(! TXIF)
  13328  0042E0  A89E               	btfss	3998,4,c	;volatile
  13329  0042E2  D7FE               	goto	l7498
  13330                           
- 13331                           ;eusart1.c: 180: TXREG1 = data;
+ 13331                           ;eusart1.c: 181: TXREG1 = data;
  13332  0042E4  C013  FFAD         	movff	putch@data,4013	;volatile
  13333  0042E8  0012               	return		;funcret
  13334  0042EA                     __end_of_putch:
@@ -14915,7 +14915,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  14881                           
  14882 ;; *************** function _EUSART1_Transmit_ISR *****************
  14883 ;; Defined at:
- 14884 ;;		line 183 in file "../eusart1.c"
+ 14884 ;;		line 184 in file "../eusart1.c"
  14885 ;; Parameters:    Size  Location     Type
  14886 ;;		None
  14887 ;; Auto vars:     Size  Location     Type
@@ -14948,14 +14948,14 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  14914  0041A8                     _EUSART1_Transmit_ISR:
  14915                           	opt stack 22
  14916                           
- 14917                           ;eusart1.c: 186: if (sizeof (eusart1TxBuffer) > eusart1TxBufferRemaining) {
+ 14917                           ;eusart1.c: 187: if (sizeof (eusart1TxBuffer) > eusart1TxBufferRemaining) {
  14918                           
  14919                           ;incstack = 0
  14920  0041A8  0E7E               	movlw	126
  14921  0041AA  6042               	cpfslt	_eusart1TxBufferRemaining,c	;volatile
  14922  0041AC  D012               	goto	i2l538
  14923                           
- 14924                           ;eusart1.c: 187: TXREG1 = eusart1TxBuffer[eusart1TxTail++];
+ 14924                           ;eusart1.c: 188: TXREG1 = eusart1TxBuffer[eusart1TxTail++];
  14925  0041AE  5043               	movf	_eusart1TxTail,w,c
  14926  0041B0  0D01               	mullw	1
  14927  0041B2  0E7E               	movlw	low _eusart1TxBuffer
@@ -14968,25 +14968,25 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  14934  0041C0  6EAD               	movwf	4013,c	;volatile
  14935  0041C2  2A43               	incf	_eusart1TxTail,f,c
  14936                           
- 14937                           ;eusart1.c: 188: if (sizeof (eusart1TxBuffer) <= eusart1TxTail) {
+ 14937                           ;eusart1.c: 189: if (sizeof (eusart1TxBuffer) <= eusart1TxTail) {
  14938  0041C4  0E7D               	movlw	125
  14939  0041C6  6443               	cpfsgt	_eusart1TxTail,c
  14940  0041C8  D002               	goto	i2l539
  14941                           
- 14942                           ;eusart1.c: 189: eusart1TxTail = 0;
+ 14942                           ;eusart1.c: 190: eusart1TxTail = 0;
  14943  0041CA  0E00               	movlw	0
  14944  0041CC  6E43               	movwf	_eusart1TxTail,c
  14945  0041CE                     i2l539:
  14946                           
- 14947                           ;eusart1.c: 190: }
- 14948                           ;eusart1.c: 191: eusart1TxBufferRemaining++;
+ 14947                           ;eusart1.c: 191: }
+ 14948                           ;eusart1.c: 192: eusart1TxBufferRemaining++;
  14949  0041CE  2A42               	incf	_eusart1TxBufferRemaining,f,c	;volatile
  14950                           
- 14951                           ;eusart1.c: 192: } else {
+ 14951                           ;eusart1.c: 193: } else {
  14952  0041D0  0012               	return	
  14953  0041D2                     i2l538:
  14954                           
- 14955                           ;eusart1.c: 193: PIE1bits.TX1IE = 0;
+ 14955                           ;eusart1.c: 194: PIE1bits.TX1IE = 0;
  14956  0041D2  989D               	bcf	3997,4,c	;volatile
  14957  0041D4  0012               	return	
  14958  0041D6                     __end_of_EUSART1_Transmit_ISR:
@@ -15019,7 +15019,7 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  14985                           
  14986 ;; *************** function _EUSART1_Receive_ISR *****************
  14987 ;; Defined at:
- 14988 ;;		line 197 in file "../eusart1.c"
+ 14988 ;;		line 198 in file "../eusart1.c"
  14989 ;; Parameters:    Size  Location     Type
  14990 ;;		None
  14991 ;; Auto vars:     Size  Location     Type
@@ -15052,21 +15052,21 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  15018  0041D6                     _EUSART1_Receive_ISR:
  15019                           	opt stack 22
  15020                           
- 15021                           ;eusart1.c: 198: if (1 == RCSTA1bits.OERR) {
+ 15021                           ;eusart1.c: 199: if (1 == RCSTA1bits.OERR) {
  15022                           
  15023                           ;incstack = 0
  15024  0041D6  A2AB               	btfss	4011,1,c	;volatile
  15025  0041D8  D002               	goto	i2l544
  15026                           
- 15027                           ;eusart1.c: 201: RCSTA1bits.CREN = 0;
+ 15027                           ;eusart1.c: 202: RCSTA1bits.CREN = 0;
  15028  0041DA  98AB               	bcf	4011,4,c	;volatile
  15029                           
- 15030                           ;eusart1.c: 202: RCSTA1bits.CREN = 1;
+ 15030                           ;eusart1.c: 203: RCSTA1bits.CREN = 1;
  15031  0041DC  88AB               	bsf	4011,4,c	;volatile
  15032  0041DE                     i2l544:
  15033                           
- 15034                           ;eusart1.c: 203: }
- 15035                           ;eusart1.c: 206: eusart1RxBuffer[eusart1RxHead++] = RCREG1;
+ 15034                           ;eusart1.c: 204: }
+ 15035                           ;eusart1.c: 207: eusart1RxBuffer[eusart1RxHead++] = RCREG1;
  15036  0041DE  5041               	movf	_eusart1RxHead,w,c
  15037  0041E0  0D01               	mullw	1
  15038  0041E2  0E00               	movlw	low _eusart1RxBuffer
@@ -15078,18 +15078,18 @@ Microchip Technology Omniscient Code Generator v1.44 (Free mode) build 201709140
  15044  0041EE  CFAE FFDF          	movff	4014,indf2	;volatile
  15045  0041F2  2A41               	incf	_eusart1RxHead,f,c
  15046                           
- 15047                           ;eusart1.c: 207: if (sizeof (eusart1RxBuffer) <= eusart1RxHead) {
+ 15047                           ;eusart1.c: 208: if (sizeof (eusart1RxBuffer) <= eusart1RxHead) {
  15048  0041F4  0E7D               	movlw	125
  15049  0041F6  6441               	cpfsgt	_eusart1RxHead,c
  15050  0041F8  D002               	goto	i2l545
  15051                           
- 15052                           ;eusart1.c: 208: eusart1RxHead = 0;
+ 15052                           ;eusart1.c: 209: eusart1RxHead = 0;
  15053  0041FA  0E00               	movlw	0
  15054  0041FC  6E41               	movwf	_eusart1RxHead,c
  15055  0041FE                     i2l545:
  15056                           
- 15057                           ;eusart1.c: 209: }
- 15058                           ;eusart1.c: 210: eusart1RxCount++;
+ 15057                           ;eusart1.c: 210: }
+ 15058                           ;eusart1.c: 211: eusart1RxCount++;
  15059  0041FE  2A3F               	incf	_eusart1RxCount,f,c	;volatile
  15060  004200  0012               	return		;funcret
  15061  004202                     __end_of_EUSART1_Receive_ISR:
@@ -15788,7 +15788,7 @@ CODE                 0      0       0       0        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V1.44 build -154322312 
-Symbol Table                                                                                   Tue Nov 28 23:08:37 2017
+Symbol Table                                                                                   Wed Nov 29 20:17:43 2017
 
                   _eusart1TxBufferRemaining 0042                           ?_DIAGNOSTICxTOxPC 0001  
                                         l87 3EC2                                          l88 3ED2  

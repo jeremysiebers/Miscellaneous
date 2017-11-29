@@ -109,7 +109,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _Init_Pwm `(v ~T0 @X0 0 ef ]
 "98
 [v _Init_Timers `(v ~T0 @X0 0 ef ]
-"281 ../eusart1.h
+"64 ../eusart1.h
 [v _EUSART1_Initialize `(v ~T0 @X0 0 ef ]
 "16 ../eeprom_settings.h
 [v _EEPROMxREAD `(v ~T0 @X0 0 ef ]
@@ -155,9 +155,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [n S172 . . . ]
 "4490
 [v _PIR1bits `VS172 ~T0 @X0 0 e@3998 ]
-"398 ../eusart1.h
+"181 ../eusart1.h
 [v _EUSART1_Receive_ISR `(v ~T0 @X0 0 ef ]
-"377
+"160
 [v _EUSART1_Transmit_ISR `(v ~T0 @X0 0 ef ]
 "7543 C:\Program Files (x86)\Microchip\xc8\v1.44\include\pic18f4550.h
 [s S317 :1 `uc 1 ]
@@ -4410,42 +4410,42 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p x EBTRB=OFF ]
 [; ;State_Mchn.h: 4: extern void Update_StateMchn(void);
 [; ;State_Mchn.h: 5: unsigned char Train_Path(unsigned char From, unsigned char To);
-[; ;eusart1.h: 22: typedef signed char int8_t;
-[; ;eusart1.h: 29: typedef signed int int16_t;
-[; ;eusart1.h: 37: typedef signed short long int int24_t;
-[; ;eusart1.h: 45: typedef signed long int int32_t;
-[; ;eusart1.h: 52: typedef unsigned char uint8_t;
-[; ;eusart1.h: 58: typedef unsigned int uint16_t;
-[; ;eusart1.h: 65: typedef unsigned short long int uint24_t;
-[; ;eusart1.h: 72: typedef unsigned long int uint32_t;
-[; ;eusart1.h: 80: typedef signed char int_least8_t;
-[; ;eusart1.h: 87: typedef signed int int_least16_t;
-[; ;eusart1.h: 99: typedef signed short long int int_least24_t;
-[; ;eusart1.h: 107: typedef signed long int int_least32_t;
-[; ;eusart1.h: 114: typedef unsigned char uint_least8_t;
-[; ;eusart1.h: 120: typedef unsigned int uint_least16_t;
-[; ;eusart1.h: 130: typedef unsigned short long int uint_least24_t;
-[; ;eusart1.h: 137: typedef unsigned long int uint_least32_t;
-[; ;eusart1.h: 146: typedef signed char int_fast8_t;
-[; ;eusart1.h: 153: typedef signed int int_fast16_t;
-[; ;eusart1.h: 165: typedef signed short long int int_fast24_t;
-[; ;eusart1.h: 173: typedef signed long int int_fast32_t;
-[; ;eusart1.h: 180: typedef unsigned char uint_fast8_t;
-[; ;eusart1.h: 186: typedef unsigned int uint_fast16_t;
-[; ;eusart1.h: 196: typedef unsigned short long int uint_fast24_t;
-[; ;eusart1.h: 203: typedef unsigned long int uint_fast32_t;
-[; ;eusart1.h: 209: typedef int32_t intmax_t;
-[; ;eusart1.h: 214: typedef uint32_t uintmax_t;
-[; ;eusart1.h: 219: typedef int16_t intptr_t;
-[; ;eusart1.h: 224: typedef uint16_t uintptr_t;
-[; ;eusart1.h: 252: extern volatile uint8_t eusart1TxBufferRemaining;
-[; ;eusart1.h: 253: extern volatile uint8_t eusart1RxCount;
-[; ;eusart1.h: 281: extern void EUSART1_Initialize(void);
-[; ;eusart1.h: 330: extern uint8_t EUSART1_Read(void);
-[; ;eusart1.h: 355: extern void EUSART1_Write(uint8_t txData);
-[; ;eusart1.h: 356: extern void putch(char data);
-[; ;eusart1.h: 377: extern void EUSART1_Transmit_ISR(void);
-[; ;eusart1.h: 398: extern void EUSART1_Receive_ISR(void);
+[; ;stdint.h: 13: typedef signed char int8_t;
+[; ;stdint.h: 20: typedef signed int int16_t;
+[; ;stdint.h: 28: typedef signed short long int int24_t;
+[; ;stdint.h: 36: typedef signed long int int32_t;
+[; ;stdint.h: 43: typedef unsigned char uint8_t;
+[; ;stdint.h: 49: typedef unsigned int uint16_t;
+[; ;stdint.h: 56: typedef unsigned short long int uint24_t;
+[; ;stdint.h: 63: typedef unsigned long int uint32_t;
+[; ;stdint.h: 71: typedef signed char int_least8_t;
+[; ;stdint.h: 78: typedef signed int int_least16_t;
+[; ;stdint.h: 90: typedef signed short long int int_least24_t;
+[; ;stdint.h: 98: typedef signed long int int_least32_t;
+[; ;stdint.h: 105: typedef unsigned char uint_least8_t;
+[; ;stdint.h: 111: typedef unsigned int uint_least16_t;
+[; ;stdint.h: 121: typedef unsigned short long int uint_least24_t;
+[; ;stdint.h: 128: typedef unsigned long int uint_least32_t;
+[; ;stdint.h: 137: typedef signed char int_fast8_t;
+[; ;stdint.h: 144: typedef signed int int_fast16_t;
+[; ;stdint.h: 156: typedef signed short long int int_fast24_t;
+[; ;stdint.h: 164: typedef signed long int int_fast32_t;
+[; ;stdint.h: 171: typedef unsigned char uint_fast8_t;
+[; ;stdint.h: 177: typedef unsigned int uint_fast16_t;
+[; ;stdint.h: 187: typedef unsigned short long int uint_fast24_t;
+[; ;stdint.h: 194: typedef unsigned long int uint_fast32_t;
+[; ;stdint.h: 200: typedef int32_t intmax_t;
+[; ;stdint.h: 205: typedef uint32_t uintmax_t;
+[; ;stdint.h: 210: typedef int16_t intptr_t;
+[; ;stdint.h: 215: typedef uint16_t uintptr_t;
+[; ;eusart1.h: 35: extern volatile uint8_t eusart1TxBufferRemaining;
+[; ;eusart1.h: 36: extern volatile uint8_t eusart1RxCount;
+[; ;eusart1.h: 64: extern void EUSART1_Initialize(void);
+[; ;eusart1.h: 113: extern uint8_t EUSART1_Read(void);
+[; ;eusart1.h: 138: extern void EUSART1_Write(uint8_t txData);
+[; ;eusart1.h: 139: extern void putch(char data);
+[; ;eusart1.h: 160: extern void EUSART1_Transmit_ISR(void);
+[; ;eusart1.h: 181: extern void EUSART1_Receive_ISR(void);
 [; ;terminal.h: 73: extern void SENDxMESSAGE(unsigned int index, unsigned int value);
 [; ;terminal.h: 74: extern void READxRECEIVEDxMESSAGE(void);
 [; ;terminal.h: 75: extern void DIAGNOSTICxTOxPC(void);
