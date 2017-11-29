@@ -8,12 +8,12 @@
     eusart1.c
 
   @Summary
-    This is the generated driver implementation file for the EUSART1 driver using MPLAB� Code Configurator
+    This is the generated driver implementation file for the EUSART1 driver using MPLAB? Code Configurator
 
   @Description
     This header file provides implementations for driver APIs for EUSART1.
     Generation Information :
-        Product Revision  :  MPLAB� Code Configurator - v2.25.2
+        Product Revision  :  MPLAB? Code Configurator - v2.25.2
         Device            :  PIC18F46K22
         Driver Version    :  2.00
     The generated drivers are tested against the following:
@@ -49,6 +49,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
  */
 #include "eusart1.h"
 #include <xc.h>
+#include <stdint.h>				// for all the uint8_t etc stuff
 
 /**
   Section: Macro Declarations

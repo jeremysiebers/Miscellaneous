@@ -7,9 +7,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define LIST_SIZE  28						// Amount of variables specified in ApiList[], must be kept < 128 EEPROM == 256 bytes (integer = 2 bytes 0xFFFF)
 
-const unsigned int ApiList[28] = {			// List containing the writable variables that require storage in EEPROM
+const unsigned int ApiList[] = {			// List containing the writable variables that require storage in EEPROM, should be smaller then 255
 	TRAIN_WAIT_TIME,       					// 00         
 	JUNCTION_WAIT_TIME,    					// 01
 	LIGHTS_ON_WAIT_TIME,                    // 02
@@ -62,7 +61,7 @@ void EEPROMxREAD(void)
     printf("\r\n-----------------------------------------------------------------\r\n");
 #endif
 
-	for(i = 0; i < LIST_SIZE; i++ )
+	for(i = 0; i < sizeof(ApiList); i++ )
     {        
 		Data = Eeprom_Read(i);							// read the data on the location according to the variables numbered in the ApiList
 #ifdef DEBUG  
@@ -141,7 +140,7 @@ void EEPROMxSTORE(void)
 {
 	unsigned char i, api_list;
 	
-	for(i = 0; i < LIST_SIZE; i++ )
+	for(i = 0; i < sizeof(ApiList); i++ )
     {
         api_list = ApiList[i];
         
@@ -183,7 +182,7 @@ void Eeprom_Store(unsigned int Location, unsigned int Value)
     INTCON = 0x00;                  // disable interrupts
     
     EECON1bits.WRERR = 0;
-	EEADR = Location_High_Byte;
+	EEADR = (unsigned char)Location_High_Byte;
 	EEDATA = (unsigned char)(Value >> 8);
     EECON1bits.EEPGD = 0;           //access eeprom
     EECON1bits.CFGS = 0;            //access eeprom
@@ -205,7 +204,7 @@ void Eeprom_Store(unsigned int Location, unsigned int Value)
 #endif
     
     EECON1bits.WRERR = 0;
-	EEADR = Location_Low_Byte;
+	EEADR = (unsigned char)Location_Low_Byte;
 	EEDATA = (unsigned char)Value;
     EECON1bits.EEPGD = 0;           //access eeprom
     EECON1bits.CFGS = 0;            //access eeprom
