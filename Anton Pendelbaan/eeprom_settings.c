@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define LIST_SIZE 28
 
 const unsigned int ApiList[] = {			// List containing the writable variables that require storage in EEPROM, should be smaller then 255
 	TRAIN_WAIT_TIME,       					// 00         
@@ -61,14 +62,14 @@ void EEPROMxREAD(void)
     printf("\r\n-----------------------------------------------------------------\r\n");
 #endif
 
-	for(i = 0; i < sizeof(ApiList); i++ )
+	for(i = 0; i < LIST_SIZE; i++ )
     {        
 		Data = Eeprom_Read(i);							// read the data on the location according to the variables numbered in the ApiList
 #ifdef DEBUG  
         printf("index: %d Data: 0x%X\r\n", i, Data);
 #endif
-		//API[ApiList[i]] = Data;							// Store the data in API to be used by the program	
-		//API_EEPROM[ApiList[i]] = Data;					// Store the data in API_EEPROM to be used for determining update of EEPROM val in EEPROMxSTORE()
+		API[ApiList[i]] = Data;							// Store the data in API to be used by the program	
+		API_EEPROM[ApiList[i]] = Data;					// Store the data in API_EEPROM to be used for determining update of EEPROM val in EEPROMxSTORE()
 		// temporary rule as long as EEPROM is not configured yet --> to be deleted and above 2 lines uncommented
     }
     
@@ -140,7 +141,7 @@ void EEPROMxSTORE(void)
 {
 	unsigned char i, api_list;
 	
-	for(i = 0; i < sizeof(ApiList); i++ )
+	for(i = 0; i < LIST_SIZE; i++ )
     {
         api_list = ApiList[i];
         

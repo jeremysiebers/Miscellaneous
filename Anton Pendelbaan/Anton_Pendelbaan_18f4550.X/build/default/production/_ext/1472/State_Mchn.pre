@@ -5731,6 +5731,10 @@ if (GETxAPIxVAL(72)){
 SETxAPIxVAL(72, 0);
 asm("reset");
 }
+else if (GETxAPIxVAL(87)){
+EEPROMxSTORE();
+SETxAPIxVAL(87, 0);
+}
 
 Debounce_Inputs();
 
@@ -5771,10 +5775,6 @@ SETxPWM(GETxAPIxVAL(68),GETxAPIxVAL(86));
 }
 else if (GETxAPIxVAL(86) != GETxAPIxVAL(81)){
 SETxAPIxVALxNoxRET(86, GETxAPIxVAL(81));
-}
-else if (GETxAPIxVAL(87)){
-EEPROMxSTORE();
-SETxAPIxVAL(87, 0);
 }
 else{
 

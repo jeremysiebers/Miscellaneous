@@ -3,6 +3,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _GETxAPIxVAL `(ui ~T0 @X0 0 ef1`ui ]
 "13
 [v _SETxAPIxVAL `(v ~T0 @X0 0 ef2`ui`ui ]
+"15 ../eeprom_settings.h
+[v _EEPROMxSTORE `(v ~T0 @X0 0 ef ]
 "73 ../io.h
 [v _Debounce_Inputs `(v ~T0 @X0 0 ef ]
 "15 ../junction.h
@@ -11,8 +13,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _SETxAPIxVALxNoxRET `(v ~T0 @X0 0 ef2`ui`ui ]
 "15 ../set_pwm.h
 [v _SETxPWM `(v ~T0 @X0 0 ef2`ui`uc ]
-"15 ../eeprom_settings.h
-[v _EEPROMxSTORE `(v ~T0 @X0 0 ef ]
 "74 ../io.h
 [v _Green_Led `(v ~T0 @X0 0 ef1`uc ]
 "75
@@ -4282,167 +4282,168 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; <" reset ;# ">
 "46
 }
-[e :U 398 ]
 [; ;State_Mchn.c: 46: }
-[; ;State_Mchn.c: 48: Debounce_Inputs();
+[e $U 399  ]
+"47
+[e :U 398 ]
+[; ;State_Mchn.c: 47: else if (GETxAPIxVAL(87)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 87 `i `ui -> -> 0 `i `ui 400  ]
+{
+[; ;State_Mchn.c: 48: EEPROMxSTORE();
 "48
-[e ( _Debounce_Inputs ..  ]
-[; ;State_Mchn.c: 50: switch (Switch_Main)
+[e ( _EEPROMxSTORE ..  ]
+[; ;State_Mchn.c: 49: SETxAPIxVAL(87, 0);
+"49
+[e ( _SETxAPIxVAL (2 , -> -> 87 `i `ui -> -> 0 `i `ui ]
 "50
-[e $U 400  ]
-[; ;State_Mchn.c: 51: {
-"51
-{
-[; ;State_Mchn.c: 52: case 1 :
+}
+[e :U 400 ]
 "52
-[e :U 401 ]
-[; ;State_Mchn.c: 53: if (GETxAPIxVAL(74)){
-"53
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 74 `i `ui -> -> 0 `i `ui 402  ]
-{
-[; ;State_Mchn.c: 54: if(Junction(0, 1) == 0){
+[e :U 399 ]
+[; ;State_Mchn.c: 50: }
+[; ;State_Mchn.c: 52: Debounce_Inputs();
+[e ( _Debounce_Inputs ..  ]
+[; ;State_Mchn.c: 54: switch (Switch_Main)
 "54
-[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 1 `i `uc `i -> 0 `i 403  ]
-{
-[; ;State_Mchn.c: 55: SETxAPIxVALxNoxRET(74, 0);
+[e $U 402  ]
+[; ;State_Mchn.c: 55: {
 "55
-[e ( _SETxAPIxVALxNoxRET (2 , -> -> 74 `i `ui -> -> 0 `i `ui ]
+{
+[; ;State_Mchn.c: 56: case 1 :
 "56
-}
 [e :U 403 ]
+[; ;State_Mchn.c: 57: if (GETxAPIxVAL(74)){
 "57
-}
-[; ;State_Mchn.c: 56: }
-[; ;State_Mchn.c: 57: }
-[e $U 404  ]
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 74 `i `ui -> -> 0 `i `ui 404  ]
+{
+[; ;State_Mchn.c: 58: if(Junction(0, 1) == 0){
 "58
-[e :U 402 ]
-[; ;State_Mchn.c: 58: else if (GETxAPIxVAL(73)){
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 73 `i `ui -> -> 0 `i `ui 405  ]
+[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 1 `i `uc `i -> 0 `i 405  ]
 {
-[; ;State_Mchn.c: 59: if(Junction(0, 0) == 0){
+[; ;State_Mchn.c: 59: SETxAPIxVALxNoxRET(74, 0);
 "59
-[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 0 `i `uc `i -> 0 `i 406  ]
-{
-[; ;State_Mchn.c: 60: SETxAPIxVALxNoxRET(73, 0);
+[e ( _SETxAPIxVALxNoxRET (2 , -> -> 74 `i `ui -> -> 0 `i `ui ]
 "60
-[e ( _SETxAPIxVALxNoxRET (2 , -> -> 73 `i `ui -> -> 0 `i `ui ]
+}
+[e :U 405 ]
 "61
 }
-[e :U 406 ]
-"62
-}
+[; ;State_Mchn.c: 60: }
 [; ;State_Mchn.c: 61: }
-[; ;State_Mchn.c: 62: }
-[e $U 407  ]
+[e $U 406  ]
+"62
+[e :U 404 ]
+[; ;State_Mchn.c: 62: else if (GETxAPIxVAL(73)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 73 `i `ui -> -> 0 `i `ui 407  ]
+{
+[; ;State_Mchn.c: 63: if(Junction(0, 0) == 0){
 "63
-[e :U 405 ]
-[; ;State_Mchn.c: 63: else if (GETxAPIxVAL(76)){
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 76 `i `ui -> -> 0 `i `ui 408  ]
+[e $ ! == -> ( _Junction (2 , -> -> 0 `i `uc -> -> 0 `i `uc `i -> 0 `i 408  ]
 {
-[; ;State_Mchn.c: 64: if(Junction(1, 1) == 0){
+[; ;State_Mchn.c: 64: SETxAPIxVALxNoxRET(73, 0);
 "64
-[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 1 `i `uc `i -> 0 `i 409  ]
-{
-[; ;State_Mchn.c: 65: SETxAPIxVALxNoxRET(76, 0);
+[e ( _SETxAPIxVALxNoxRET (2 , -> -> 73 `i `ui -> -> 0 `i `ui ]
 "65
-[e ( _SETxAPIxVALxNoxRET (2 , -> -> 76 `i `ui -> -> 0 `i `ui ]
+}
+[e :U 408 ]
 "66
 }
-[e :U 409 ]
-"67
-}
+[; ;State_Mchn.c: 65: }
 [; ;State_Mchn.c: 66: }
-[; ;State_Mchn.c: 67: }
-[e $U 410  ]
+[e $U 409  ]
+"67
+[e :U 407 ]
+[; ;State_Mchn.c: 67: else if (GETxAPIxVAL(76)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 76 `i `ui -> -> 0 `i `ui 410  ]
+{
+[; ;State_Mchn.c: 68: if(Junction(1, 1) == 0){
 "68
-[e :U 408 ]
-[; ;State_Mchn.c: 68: else if (GETxAPIxVAL(75)){
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 75 `i `ui -> -> 0 `i `ui 411  ]
+[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 1 `i `uc `i -> 0 `i 411  ]
 {
-[; ;State_Mchn.c: 69: if(Junction(1, 0) == 0){
+[; ;State_Mchn.c: 69: SETxAPIxVALxNoxRET(76, 0);
 "69
-[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 0 `i `uc `i -> 0 `i 412  ]
-{
-[; ;State_Mchn.c: 70: SETxAPIxVALxNoxRET(75, 0);
+[e ( _SETxAPIxVALxNoxRET (2 , -> -> 76 `i `ui -> -> 0 `i `ui ]
 "70
-[e ( _SETxAPIxVALxNoxRET (2 , -> -> 75 `i `ui -> -> 0 `i `ui ]
+}
+[e :U 411 ]
 "71
 }
-[e :U 412 ]
-"72
-}
+[; ;State_Mchn.c: 70: }
 [; ;State_Mchn.c: 71: }
-[; ;State_Mchn.c: 72: }
-[e $U 413  ]
-"73
-[e :U 411 ]
-[; ;State_Mchn.c: 73: else if (GETxAPIxVAL(77)){
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 77 `i `ui -> -> 0 `i `ui 414  ]
+[e $U 412  ]
+"72
+[e :U 410 ]
+[; ;State_Mchn.c: 72: else if (GETxAPIxVAL(75)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 75 `i `ui -> -> 0 `i `ui 413  ]
 {
-[; ;State_Mchn.c: 74: SETxAPIxVAL(69, 1);
+[; ;State_Mchn.c: 73: if(Junction(1, 0) == 0){
+"73
+[e $ ! == -> ( _Junction (2 , -> -> 1 `i `uc -> -> 0 `i `uc `i -> 0 `i 414  ]
+{
+[; ;State_Mchn.c: 74: SETxAPIxVALxNoxRET(75, 0);
 "74
-[e ( _SETxAPIxVAL (2 , -> -> 69 `i `ui -> -> 1 `i `ui ]
-[; ;State_Mchn.c: 75: SETxAPIxVALxNoxRET(77, 0);
+[e ( _SETxAPIxVALxNoxRET (2 , -> -> 75 `i `ui -> -> 0 `i `ui ]
 "75
-[e ( _SETxAPIxVALxNoxRET (2 , -> -> 77 `i `ui -> -> 0 `i `ui ]
+}
+[e :U 414 ]
 "76
 }
+[; ;State_Mchn.c: 75: }
 [; ;State_Mchn.c: 76: }
 [e $U 415  ]
 "77
-[e :U 414 ]
-[; ;State_Mchn.c: 77: else if (GETxAPIxVAL(78)){
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 78 `i `ui -> -> 0 `i `ui 416  ]
+[e :U 413 ]
+[; ;State_Mchn.c: 77: else if (GETxAPIxVAL(77)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 77 `i `ui -> -> 0 `i `ui 416  ]
 {
-[; ;State_Mchn.c: 78: SETxAPIxVAL(69, 0);
+[; ;State_Mchn.c: 78: SETxAPIxVAL(69, 1);
 "78
-[e ( _SETxAPIxVAL (2 , -> -> 69 `i `ui -> -> 0 `i `ui ]
-[; ;State_Mchn.c: 79: SETxAPIxVALxNoxRET(78, 0);
+[e ( _SETxAPIxVAL (2 , -> -> 69 `i `ui -> -> 1 `i `ui ]
+[; ;State_Mchn.c: 79: SETxAPIxVALxNoxRET(77, 0);
 "79
-[e ( _SETxAPIxVALxNoxRET (2 , -> -> 78 `i `ui -> -> 0 `i `ui ]
+[e ( _SETxAPIxVALxNoxRET (2 , -> -> 77 `i `ui -> -> 0 `i `ui ]
 "80
 }
 [; ;State_Mchn.c: 80: }
 [e $U 417  ]
 "81
 [e :U 416 ]
-[; ;State_Mchn.c: 81: else if (GETxAPIxVAL(68) != GETxAPIxVAL(79)){
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 68 `i `ui ( _GETxAPIxVAL (1 -> -> 79 `i `ui 418  ]
+[; ;State_Mchn.c: 81: else if (GETxAPIxVAL(78)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 78 `i `ui -> -> 0 `i `ui 418  ]
 {
-[; ;State_Mchn.c: 82: SETxAPIxVALxNoxRET(68, GETxAPIxVAL(79));
+[; ;State_Mchn.c: 82: SETxAPIxVAL(69, 0);
 "82
-[e ( _SETxAPIxVALxNoxRET (2 , -> -> 68 `i `ui ( _GETxAPIxVAL (1 -> -> 79 `i `ui ]
-[; ;State_Mchn.c: 83: SETxPWM(GETxAPIxVAL(68),GETxAPIxVAL(86));
+[e ( _SETxAPIxVAL (2 , -> -> 69 `i `ui -> -> 0 `i `ui ]
+[; ;State_Mchn.c: 83: SETxAPIxVALxNoxRET(78, 0);
 "83
-[e ( _SETxPWM (2 , ( _GETxAPIxVAL (1 -> -> 68 `i `ui -> ( _GETxAPIxVAL (1 -> -> 86 `i `ui `uc ]
+[e ( _SETxAPIxVALxNoxRET (2 , -> -> 78 `i `ui -> -> 0 `i `ui ]
 "84
 }
 [; ;State_Mchn.c: 84: }
 [e $U 419  ]
 "85
 [e :U 418 ]
-[; ;State_Mchn.c: 85: else if (GETxAPIxVAL(86) != GETxAPIxVAL(81)){
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 86 `i `ui ( _GETxAPIxVAL (1 -> -> 81 `i `ui 420  ]
+[; ;State_Mchn.c: 85: else if (GETxAPIxVAL(68) != GETxAPIxVAL(79)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 68 `i `ui ( _GETxAPIxVAL (1 -> -> 79 `i `ui 420  ]
 {
-[; ;State_Mchn.c: 86: SETxAPIxVALxNoxRET(86, GETxAPIxVAL(81));
+[; ;State_Mchn.c: 86: SETxAPIxVALxNoxRET(68, GETxAPIxVAL(79));
 "86
-[e ( _SETxAPIxVALxNoxRET (2 , -> -> 86 `i `ui ( _GETxAPIxVAL (1 -> -> 81 `i `ui ]
+[e ( _SETxAPIxVALxNoxRET (2 , -> -> 68 `i `ui ( _GETxAPIxVAL (1 -> -> 79 `i `ui ]
+[; ;State_Mchn.c: 87: SETxPWM(GETxAPIxVAL(68),GETxAPIxVAL(86));
 "87
-}
-[; ;State_Mchn.c: 87: }
-[e $U 421  ]
+[e ( _SETxPWM (2 , ( _GETxAPIxVAL (1 -> -> 68 `i `ui -> ( _GETxAPIxVAL (1 -> -> 86 `i `ui `uc ]
 "88
-[e :U 420 ]
-[; ;State_Mchn.c: 88: else if (GETxAPIxVAL(87)){
-[e $ ! != ( _GETxAPIxVAL (1 -> -> 87 `i `ui -> -> 0 `i `ui 422  ]
-{
-[; ;State_Mchn.c: 89: EEPROMxSTORE();
+}
+[; ;State_Mchn.c: 88: }
+[e $U 421  ]
 "89
-[e ( _EEPROMxSTORE ..  ]
-[; ;State_Mchn.c: 90: SETxAPIxVAL(87, 0);
+[e :U 420 ]
+[; ;State_Mchn.c: 89: else if (GETxAPIxVAL(86) != GETxAPIxVAL(81)){
+[e $ ! != ( _GETxAPIxVAL (1 -> -> 86 `i `ui ( _GETxAPIxVAL (1 -> -> 81 `i `ui 422  ]
+{
+[; ;State_Mchn.c: 90: SETxAPIxVALxNoxRET(86, GETxAPIxVAL(81));
 "90
-[e ( _SETxAPIxVAL (2 , -> -> 87 `i `ui -> -> 0 `i `ui ]
+[e ( _SETxAPIxVALxNoxRET (2 , -> -> 86 `i `ui ( _GETxAPIxVAL (1 -> -> 81 `i `ui ]
 "91
 }
 [; ;State_Mchn.c: 91: }
@@ -5501,14 +5502,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 419 ]
 [e :U 417 ]
 [e :U 415 ]
-[e :U 413 ]
-[e :U 410 ]
-[e :U 407 ]
-[e :U 404 ]
+[e :U 412 ]
+[e :U 409 ]
+[e :U 406 ]
 [; ;State_Mchn.c: 392: }
 [; ;State_Mchn.c: 393: break;
 "393
-[e $U 399  ]
+[e $U 401  ]
 [; ;State_Mchn.c: 395: case 2 : switch (Switch_Program)
 "395
 [e :U 521 ]
@@ -5835,7 +5835,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Green_Led (1 -> -> 1 `i `uc ]
 [; ;State_Mchn.c: 693: break;
 "693
-[e $U 399  ]
+[e $U 401  ]
 [; ;State_Mchn.c: 696: case 3 : switch (Switch_Program)
 "696
 [e :U 551 ]
@@ -6026,23 +6026,23 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Green_Led (1 -> -> 1 `i `uc ]
 [; ;State_Mchn.c: 944: break;
 "944
-[e $U 399  ]
+[e $U 401  ]
 [; ;State_Mchn.c: 946: default : break;
 "946
 [e :U 569 ]
-[e $U 399  ]
+[e $U 401  ]
 "947
 }
 [; ;State_Mchn.c: 947: }
-[e $U 399  ]
-"50
-[e :U 400 ]
-[e [\ _Switch_Main , $ -> -> 1 `i `uc 401
+[e $U 401  ]
+"54
+[e :U 402 ]
+[e [\ _Switch_Main , $ -> -> 1 `i `uc 403
  , $ -> -> 2 `i `uc 521
  , $ -> -> 3 `i `uc 551
  569 ]
 "947
-[e :U 399 ]
+[e :U 401 ]
 [; ;State_Mchn.c: 948: SETxAPIxVAL(63, Switch_Main);
 "948
 [e ( _SETxAPIxVAL (2 , -> -> 63 `i `ui -> _Switch_Main `ui ]

@@ -63,8 +63,51 @@
             this.JunctionRightBtn = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.ManPwm = new System.Windows.Forms.HScrollBar();
+            this.DelayLmdUp = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
+            this.MaxPwmLmdLeft = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.DelayLmuDown = new System.Windows.Forms.NumericUpDown();
+            this.MaxPwmLmuRight = new System.Windows.Forms.NumericUpDown();
+            this.MaxPwmRmdRight = new System.Windows.Forms.NumericUpDown();
+            this.DelayRmdUp = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.MaxPwmRmuLeft = new System.Windows.Forms.NumericUpDown();
+            this.DelayRmuDown = new System.Windows.Forms.NumericUpDown();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.MaxPwmRight = new System.Windows.Forms.NumericUpDown();
+            this.label24 = new System.Windows.Forms.Label();
+            this.MaxPwmLeft = new System.Windows.Forms.NumericUpDown();
+            this.MaxJerkPwm = new System.Windows.Forms.NumericUpDown();
+            this.label25 = new System.Windows.Forms.Label();
+            this.MaxJerkPwmBrake = new System.Windows.Forms.NumericUpDown();
+            this.label26 = new System.Windows.Forms.Label();
+            this.LightsOnWaitTime = new System.Windows.Forms.NumericUpDown();
+            this.label27 = new System.Windows.Forms.Label();
+            this.TrainWaitTime = new System.Windows.Forms.NumericUpDown();
+            this.label28 = new System.Windows.Forms.Label();
+            this.NotConnectedBanner = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DelayLmdUp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxPwmLmdLeft)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DelayLmuDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxPwmLmuRight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxPwmRmdRight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DelayRmdUp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxPwmRmuLeft)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DelayRmuDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxPwmRight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxPwmLeft)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxJerkPwm)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxJerkPwmBrake)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LightsOnWaitTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrainWaitTime)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -188,7 +231,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(41, 417);
+            this.label1.Location = new System.Drawing.Point(103, 456);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(71, 24);
             this.label1.TabIndex = 6;
@@ -197,7 +240,7 @@
             // label2
             // 
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(153, 163);
+            this.label2.Location = new System.Drawing.Point(222, 93);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(101, 24);
             this.label2.TabIndex = 6;
@@ -206,7 +249,7 @@
             // label3
             // 
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(850, 188);
+            this.label3.Location = new System.Drawing.Point(650, 93);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(98, 24);
             this.label3.TabIndex = 6;
@@ -215,7 +258,7 @@
             // label4
             // 
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(850, 460);
+            this.label4.Location = new System.Drawing.Point(801, 456);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 24);
             this.label4.TabIndex = 6;
@@ -248,7 +291,7 @@
             // RcRmu
             // 
             this.RcRmu.Enabled = false;
-            this.RcRmu.Location = new System.Drawing.Point(968, 422);
+            this.RcRmu.Location = new System.Drawing.Point(968, 431);
             this.RcRmu.Name = "RcRmu";
             this.RcRmu.Size = new System.Drawing.Size(9, 20);
             this.RcRmu.TabIndex = 4;
@@ -303,7 +346,7 @@
             // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(890, 425);
+            this.label12.Location = new System.Drawing.Point(897, 435);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(70, 13);
             this.label12.TabIndex = 6;
@@ -356,9 +399,390 @@
             // ManPwm
             // 
             this.ManPwm.Location = new System.Drawing.Point(380, 535);
+            this.ManPwm.Maximum = 255;
+            this.ManPwm.Minimum = -255;
             this.ManPwm.Name = "ManPwm";
             this.ManPwm.Size = new System.Drawing.Size(206, 17);
             this.ManPwm.TabIndex = 9;
+            // 
+            // DelayLmdUp
+            // 
+            this.DelayLmdUp.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.DelayLmdUp.Location = new System.Drawing.Point(153, 180);
+            this.DelayLmdUp.Maximum = new decimal(new int[] {
+            35000,
+            0,
+            0,
+            0});
+            this.DelayLmdUp.Name = "DelayLmdUp";
+            this.DelayLmdUp.Size = new System.Drawing.Size(52, 20);
+            this.DelayLmdUp.TabIndex = 10;
+            this.DelayLmdUp.Value = new decimal(new int[] {
+            35000,
+            0,
+            0,
+            0});
+            // 
+            // label15
+            // 
+            this.label15.Location = new System.Drawing.Point(206, 184);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(124, 18);
+            this.label15.TabIndex = 6;
+            this.label15.Text = "Vertraging berg op (ms)";
+            // 
+            // MaxPwmLmdLeft
+            // 
+            this.MaxPwmLmdLeft.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.MaxPwmLmdLeft.Location = new System.Drawing.Point(153, 206);
+            this.MaxPwmLmdLeft.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.MaxPwmLmdLeft.Name = "MaxPwmLmdLeft";
+            this.MaxPwmLmdLeft.Size = new System.Drawing.Size(52, 20);
+            this.MaxPwmLmdLeft.TabIndex = 10;
+            this.MaxPwmLmdLeft.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // label16
+            // 
+            this.label16.Location = new System.Drawing.Point(206, 209);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(124, 18);
+            this.label16.TabIndex = 6;
+            this.label16.Text = "Snelheid berg op (km/h)";
+            // 
+            // label17
+            // 
+            this.label17.Location = new System.Drawing.Point(98, 345);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(124, 18);
+            this.label17.TabIndex = 6;
+            this.label17.Text = "Vertraging berg af (ms)";
+            // 
+            // label18
+            // 
+            this.label18.Location = new System.Drawing.Point(98, 370);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(124, 18);
+            this.label18.TabIndex = 6;
+            this.label18.Text = "Snelheid berg af (km/h)";
+            // 
+            // DelayLmuDown
+            // 
+            this.DelayLmuDown.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.DelayLmuDown.Location = new System.Drawing.Point(45, 341);
+            this.DelayLmuDown.Maximum = new decimal(new int[] {
+            35000,
+            0,
+            0,
+            0});
+            this.DelayLmuDown.Name = "DelayLmuDown";
+            this.DelayLmuDown.Size = new System.Drawing.Size(52, 20);
+            this.DelayLmuDown.TabIndex = 10;
+            this.DelayLmuDown.Value = new decimal(new int[] {
+            35000,
+            0,
+            0,
+            0});
+            // 
+            // MaxPwmLmuRight
+            // 
+            this.MaxPwmLmuRight.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.MaxPwmLmuRight.Location = new System.Drawing.Point(45, 367);
+            this.MaxPwmLmuRight.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.MaxPwmLmuRight.Name = "MaxPwmLmuRight";
+            this.MaxPwmLmuRight.Size = new System.Drawing.Size(52, 20);
+            this.MaxPwmLmuRight.TabIndex = 10;
+            this.MaxPwmLmuRight.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // MaxPwmRmdRight
+            // 
+            this.MaxPwmRmdRight.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.MaxPwmRmdRight.Location = new System.Drawing.Point(748, 206);
+            this.MaxPwmRmdRight.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.MaxPwmRmdRight.Name = "MaxPwmRmdRight";
+            this.MaxPwmRmdRight.Size = new System.Drawing.Size(52, 20);
+            this.MaxPwmRmdRight.TabIndex = 13;
+            this.MaxPwmRmdRight.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.MaxPwmRmdRight.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // DelayRmdUp
+            // 
+            this.DelayRmdUp.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.DelayRmdUp.Location = new System.Drawing.Point(748, 180);
+            this.DelayRmdUp.Maximum = new decimal(new int[] {
+            35000,
+            0,
+            0,
+            0});
+            this.DelayRmdUp.Name = "DelayRmdUp";
+            this.DelayRmdUp.Size = new System.Drawing.Size(52, 20);
+            this.DelayRmdUp.TabIndex = 14;
+            this.DelayRmdUp.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.DelayRmdUp.Value = new decimal(new int[] {
+            35000,
+            0,
+            0,
+            0});
+            // 
+            // label19
+            // 
+            this.label19.Location = new System.Drawing.Point(629, 208);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(124, 18);
+            this.label19.TabIndex = 11;
+            this.label19.Text = "Snelheid berg op (km/h)";
+            // 
+            // label20
+            // 
+            this.label20.Location = new System.Drawing.Point(634, 182);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(124, 18);
+            this.label20.TabIndex = 12;
+            this.label20.Text = "Vertraging berg op (ms)";
+            // 
+            // MaxPwmRmuLeft
+            // 
+            this.MaxPwmRmuLeft.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.MaxPwmRmuLeft.Location = new System.Drawing.Point(890, 410);
+            this.MaxPwmRmuLeft.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.MaxPwmRmuLeft.Name = "MaxPwmRmuLeft";
+            this.MaxPwmRmuLeft.Size = new System.Drawing.Size(52, 20);
+            this.MaxPwmRmuLeft.TabIndex = 17;
+            this.MaxPwmRmuLeft.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.MaxPwmRmuLeft.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // DelayRmuDown
+            // 
+            this.DelayRmuDown.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.DelayRmuDown.Location = new System.Drawing.Point(890, 384);
+            this.DelayRmuDown.Maximum = new decimal(new int[] {
+            35000,
+            0,
+            0,
+            0});
+            this.DelayRmuDown.Name = "DelayRmuDown";
+            this.DelayRmuDown.Size = new System.Drawing.Size(52, 20);
+            this.DelayRmuDown.TabIndex = 18;
+            this.DelayRmuDown.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.DelayRmuDown.Value = new decimal(new int[] {
+            35000,
+            0,
+            0,
+            0});
+            // 
+            // label21
+            // 
+            this.label21.Location = new System.Drawing.Point(773, 412);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(124, 18);
+            this.label21.TabIndex = 15;
+            this.label21.Text = "Snelheid berg af (km/h)";
+            // 
+            // label22
+            // 
+            this.label22.Location = new System.Drawing.Point(779, 386);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(124, 18);
+            this.label22.TabIndex = 16;
+            this.label22.Text = "Vertraging berg af (ms)";
+            // 
+            // label23
+            // 
+            this.label23.Location = new System.Drawing.Point(65, 613);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(124, 18);
+            this.label23.TabIndex = 6;
+            this.label23.Text = "Snelheid rechtsom rijden";
+            // 
+            // MaxPwmRight
+            // 
+            this.MaxPwmRight.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.MaxPwmRight.Location = new System.Drawing.Point(12, 610);
+            this.MaxPwmRight.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.MaxPwmRight.Name = "MaxPwmRight";
+            this.MaxPwmRight.Size = new System.Drawing.Size(52, 20);
+            this.MaxPwmRight.TabIndex = 10;
+            this.MaxPwmRight.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // label24
+            // 
+            this.label24.Location = new System.Drawing.Point(65, 634);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(124, 18);
+            this.label24.TabIndex = 6;
+            this.label24.Text = "Snelheid linksom rijden";
+            // 
+            // MaxPwmLeft
+            // 
+            this.MaxPwmLeft.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.MaxPwmLeft.Location = new System.Drawing.Point(12, 631);
+            this.MaxPwmLeft.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.MaxPwmLeft.Name = "MaxPwmLeft";
+            this.MaxPwmLeft.Size = new System.Drawing.Size(52, 20);
+            this.MaxPwmLeft.TabIndex = 10;
+            this.MaxPwmLeft.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // MaxJerkPwm
+            // 
+            this.MaxJerkPwm.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.MaxJerkPwm.Location = new System.Drawing.Point(12, 656);
+            this.MaxJerkPwm.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.MaxJerkPwm.Name = "MaxJerkPwm";
+            this.MaxJerkPwm.Size = new System.Drawing.Size(52, 20);
+            this.MaxJerkPwm.TabIndex = 20;
+            this.MaxJerkPwm.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // label25
+            // 
+            this.label25.Location = new System.Drawing.Point(65, 659);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(124, 18);
+            this.label25.TabIndex = 19;
+            this.label25.Text = "Optrek snelheid";
+            // 
+            // MaxJerkPwmBrake
+            // 
+            this.MaxJerkPwmBrake.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.MaxJerkPwmBrake.Location = new System.Drawing.Point(12, 677);
+            this.MaxJerkPwmBrake.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.MaxJerkPwmBrake.Name = "MaxJerkPwmBrake";
+            this.MaxJerkPwmBrake.Size = new System.Drawing.Size(52, 20);
+            this.MaxJerkPwmBrake.TabIndex = 22;
+            this.MaxJerkPwmBrake.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // label26
+            // 
+            this.label26.Location = new System.Drawing.Point(65, 680);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(124, 18);
+            this.label26.TabIndex = 21;
+            this.label26.Text = "Afrem snelheid";
+            // 
+            // LightsOnWaitTime
+            // 
+            this.LightsOnWaitTime.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.LightsOnWaitTime.Location = new System.Drawing.Point(226, 611);
+            this.LightsOnWaitTime.Maximum = new decimal(new int[] {
+            35000,
+            0,
+            0,
+            0});
+            this.LightsOnWaitTime.Name = "LightsOnWaitTime";
+            this.LightsOnWaitTime.Size = new System.Drawing.Size(52, 20);
+            this.LightsOnWaitTime.TabIndex = 24;
+            this.LightsOnWaitTime.Value = new decimal(new int[] {
+            35000,
+            0,
+            0,
+            0});
+            // 
+            // label27
+            // 
+            this.label27.Location = new System.Drawing.Point(279, 615);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(124, 18);
+            this.label27.TabIndex = 23;
+            this.label27.Text = "Licht aan wachttijd (ms)";
+            // 
+            // TrainWaitTime
+            // 
+            this.TrainWaitTime.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.TrainWaitTime.Location = new System.Drawing.Point(226, 632);
+            this.TrainWaitTime.Maximum = new decimal(new int[] {
+            35000,
+            0,
+            0,
+            0});
+            this.TrainWaitTime.Name = "TrainWaitTime";
+            this.TrainWaitTime.Size = new System.Drawing.Size(52, 20);
+            this.TrainWaitTime.TabIndex = 26;
+            this.TrainWaitTime.Value = new decimal(new int[] {
+            35000,
+            0,
+            0,
+            0});
+            // 
+            // label28
+            // 
+            this.label28.Location = new System.Drawing.Point(279, 636);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(124, 18);
+            this.label28.TabIndex = 25;
+            this.label28.Text = "Trein station wachttijd (ms)";
+            // 
+            // NotConnectedBanner
+            // 
+            this.NotConnectedBanner.AutoSize = true;
+            this.NotConnectedBanner.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NotConnectedBanner.ForeColor = System.Drawing.Color.Red;
+            this.NotConnectedBanner.Location = new System.Drawing.Point(135, 229);
+            this.NotConnectedBanner.Name = "NotConnectedBanner";
+            this.NotConnectedBanner.Size = new System.Drawing.Size(708, 108);
+            this.NotConnectedBanner.TabIndex = 27;
+            this.NotConnectedBanner.Text = "Niet Verbonden";
             // 
             // Form1
             // 
@@ -366,6 +790,29 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.NotConnectedBanner);
+            this.Controls.Add(this.TrainWaitTime);
+            this.Controls.Add(this.label28);
+            this.Controls.Add(this.LightsOnWaitTime);
+            this.Controls.Add(this.label27);
+            this.Controls.Add(this.MaxJerkPwmBrake);
+            this.Controls.Add(this.label26);
+            this.Controls.Add(this.MaxJerkPwm);
+            this.Controls.Add(this.label25);
+            this.Controls.Add(this.MaxPwmRmuLeft);
+            this.Controls.Add(this.DelayRmuDown);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.label22);
+            this.Controls.Add(this.MaxPwmRmdRight);
+            this.Controls.Add(this.DelayRmdUp);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.MaxPwmLeft);
+            this.Controls.Add(this.MaxPwmRight);
+            this.Controls.Add(this.MaxPwmLmuRight);
+            this.Controls.Add(this.MaxPwmLmdLeft);
+            this.Controls.Add(this.DelayLmuDown);
+            this.Controls.Add(this.DelayLmdUp);
             this.Controls.Add(this.ManPwm);
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label5);
@@ -375,8 +822,14 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
+            this.Controls.Add(this.label24);
+            this.Controls.Add(this.label23);
             this.Controls.Add(this.label10);
+            this.Controls.Add(this.label18);
             this.Controls.Add(this.label9);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.label16);
+            this.Controls.Add(this.label15);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -405,6 +858,20 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DelayLmdUp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxPwmLmdLeft)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DelayLmuDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxPwmLmuRight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxPwmRmdRight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DelayRmdUp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxPwmRmuLeft)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DelayRmuDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxPwmRight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxPwmLeft)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxJerkPwm)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.MaxJerkPwmBrake)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LightsOnWaitTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TrainWaitTime)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -446,6 +913,35 @@
         private System.Windows.Forms.Button JunctionRightBtn;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.HScrollBar ManPwm;
+        private System.Windows.Forms.NumericUpDown DelayLmdUp;
+        private System.Windows.Forms.NumericUpDown MaxPwmLmdLeft;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.NumericUpDown DelayLmuDown;
+        private System.Windows.Forms.NumericUpDown MaxPwmLmuRight;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.NumericUpDown MaxPwmRmdRight;
+        private System.Windows.Forms.NumericUpDown DelayRmdUp;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.NumericUpDown MaxPwmRmuLeft;
+        private System.Windows.Forms.NumericUpDown DelayRmuDown;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.NumericUpDown MaxPwmRight;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.NumericUpDown MaxPwmLeft;
+        private System.Windows.Forms.NumericUpDown MaxJerkPwm;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.NumericUpDown MaxJerkPwmBrake;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.NumericUpDown LightsOnWaitTime;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.NumericUpDown TrainWaitTime;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label NotConnectedBanner;
     }
 }
 

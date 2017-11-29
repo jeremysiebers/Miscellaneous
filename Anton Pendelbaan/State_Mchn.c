@@ -44,6 +44,10 @@ void Update_StateMchn(void)
         SETxAPIxVAL(SW_RESET, Off);
         RESET();
     }
+    else if (GETxAPIxVAL(SW_EEPROM_STORE)){
+		EEPROMxSTORE();
+		SETxAPIxVAL(SW_EEPROM_STORE, Off);
+    }
     
 	Debounce_Inputs();
 	
@@ -85,11 +89,7 @@ void Update_StateMchn(void)
                                     else if (GETxAPIxVAL(PWM_DIRECTION) != GETxAPIxVAL(SW_PWM_DIRECTION)){
                                         SETxAPIxVALxNoxRET(PWM_DIRECTION, GETxAPIxVAL(SW_PWM_DIRECTION));                                        
                                     }
-									else if (GETxAPIxVAL(SW_EEPROM_STORE)){
-										EEPROMxSTORE();
-										SETxAPIxVAL(SW_EEPROM_STORE, Off);
-									}
-                                    else{
+									else{
                                         
                                         switch(Switch_Init)
                                         {

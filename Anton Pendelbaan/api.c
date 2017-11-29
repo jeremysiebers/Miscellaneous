@@ -41,7 +41,8 @@ void APIxInitialize(){
     }
     
     /*  Set the RW directions */
-    API_RW[API_SIZE]                =   RO;	      
+    API_RW[API_SIZE]                =   RO;	
+    API_RW[WATCHDOG]                =   RO; 
 	API_RW[TRAIN_WAIT_TIME]         =   RW;   
 	API_RW[JUNCTION_WAIT_TIME]      =   RW;   
 	API_RW[LIGHTS_ON_WAIT_TIME]     =   RW;   
@@ -116,7 +117,8 @@ void APIxInitialize(){
 	
 	
 	/*  Set the API data */
-    API[API_SIZE] = APISIZE;                                                    // Set the APISIZE on the API_SIZE location within API
+    API[API_SIZE]                   =   APISIZE;                                // Set the APISIZE on the API_SIZE location within API
+    API[WATCHDOG]                   =   0; 
 	API[TRAIN_WAIT_TIME]            =   10000; 								
 	API[JUNCTION_WAIT_TIME]         =   800;
 	API[LIGHTS_ON_WAIT_TIME]        =   5000;
@@ -144,22 +146,22 @@ void APIxInitialize(){
 	API[RC_LMD]						= 	Off;
 	API[RC_RMU]						= 	Off;
 	API[RC_RMD]			  			= 	Off;
-	API[MAX_PWM_RMU_RIGHT]			= 	0;
+	API[MAX_PWM_RMU_RIGHT]			= 	0;                                      // not used
 	API[MAX_PWM_RMU_LEFT]			= 	80;
 	API[MAX_PWM_RMD_RIGHT]			= 	120;
-	API[MAX_PWM_RMD_LEFT]			= 	0;
+	API[MAX_PWM_RMD_LEFT]			= 	0;                                      // not used
 	API[MAX_PWM_LMU_RIGHT]			= 	80;
-	API[MAX_PWM_LMU_LEFT]			= 	0;
-    API[MAX_PWM_LMD_RIGHT]			= 	0;
+	API[MAX_PWM_LMU_LEFT]			= 	0;                                      // not used
+    API[MAX_PWM_LMD_RIGHT]			= 	0;                                      // not used
     API[MAX_PWM_LMD_LEFT]			= 	120;	
 	API[DELAY_RMU_DOWN]				= 	100;                                    // 100  = 53.76 ms
-	API[DELAY_RMU_UP]				= 	100;
-	API[DELAY_RMD_DOWN]				= 	100;
-	API[DELAY_RMD_UP]				= 	100;
-	API[DELAY_LMD_DOWN]				= 	100;
-	API[DELAY_LMD_UP]				= 	100;
-	API[DELAY_LMU_DOWN]				= 	100;
-	API[DELAY_LMU_UP]				= 	100;	
+	API[DELAY_RMU_UP]				= 	100;                                    // not used
+	API[DELAY_RMD_DOWN]				= 	100;                                    // not used
+	API[DELAY_RMD_UP]				= 	100;                
+	API[DELAY_LMD_DOWN]				= 	100;                                    // not used
+	API[DELAY_LMD_UP]				= 	100;                                    
+	API[DELAY_LMU_DOWN]				= 	100;                    
+	API[DELAY_LMU_UP]				= 	100;                                    // not used
 	API[TRAIN_PATH_FROM]     		=	0;
 	API[TRAIN_PATH_TO]       		=	0;
 	API[MAIN_PROGRAM]				=	Init;
