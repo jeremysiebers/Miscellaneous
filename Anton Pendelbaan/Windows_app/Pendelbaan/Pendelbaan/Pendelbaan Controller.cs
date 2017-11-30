@@ -130,7 +130,10 @@ namespace Pendelbaan
             foreach (string port in ports) {
                 this.comPoortToolStripMenuItem.Items.Add(port);
             }
-            this.comPoortToolStripMenuItem.SelectedItem = this.comPoortToolStripMenuItem.Items[0];
+            if (this.comPoortToolStripMenuItem.Items.Count != 0)
+            {
+                this.comPoortToolStripMenuItem.SelectedItem = this.comPoortToolStripMenuItem.Items[0];
+            }
 
 
             pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
@@ -153,22 +156,34 @@ namespace Pendelbaan
             MaxPwmLmdLeft.Maximum = 255;            
 
             DelayLmuDown.Minimum = 0;
-            DelayLmuDown.Maximum = 35000;            
+            DelayLmuDown.Maximum = 35;
+            DelayLmuDown.DecimalPlaces = 1;
+            DelayLmuDown.Increment = 0.1M;
 
             DelayLmdUp.Minimum = 0;
-            DelayLmdUp.Maximum = 35000;            
-
+            DelayLmdUp.Maximum = 35;
+            DelayLmdUp.DecimalPlaces = 1;
+            DelayLmdUp.Increment = 0.1M;
+            
             DelayRmuDown.Minimum = 0;
-            DelayRmuDown.Maximum = 35000;            
+            DelayRmuDown.Maximum = 35;
+            DelayRmuDown.DecimalPlaces = 1;
+            DelayRmuDown.Increment = 0.1M;
 
             DelayRmdUp.Minimum = 0;
-            DelayRmdUp.Maximum = 35000;
+            DelayRmdUp.Maximum = 35;
+            DelayRmdUp.DecimalPlaces = 1;
+            DelayRmdUp.Increment = 0.1M;
 
             TrainWaitTime.Minimum = 0;
-            TrainWaitTime.Maximum = 35000;
+            TrainWaitTime.Maximum = 35;
+            TrainWaitTime.DecimalPlaces = 1;
+            TrainWaitTime.Increment = 0.1M;
 
             LightsOnWaitTime.Minimum = 0;
-            LightsOnWaitTime.Maximum = 35000;
+            LightsOnWaitTime.Maximum = 35;
+            LightsOnWaitTime.DecimalPlaces = 1;
+            LightsOnWaitTime.Increment = 0.1M;
 
             MaxPwmRight.Minimum = 0;
             MaxPwmRight.Maximum = 255;
@@ -209,7 +224,7 @@ namespace Pendelbaan
 
         private void DelayRmdUpValueChanged(object sender, EventArgs e)
         {
-            delay_rmd_up = Convert.ToUInt16(DelayRmdUp.Value);
+            delay_rmd_up = Convert.ToUInt16(DelayRmdUp.Value * 1000);
             Transceive_Data(Set, API.DELAY_RMD_UP, Convert.ToUInt16(delay_rmd_up / 0.538));
             Thread.Sleep(50);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
@@ -218,7 +233,7 @@ namespace Pendelbaan
 
         private void DelayRmuDownValueChanged(object sender, EventArgs e)
         {
-            delay_rmu_down = Convert.ToUInt16(DelayRmuDown.Value);
+            delay_rmu_down = Convert.ToUInt16(DelayRmuDown.Value * 1000);
             Transceive_Data(Set, API.DELAY_RMU_DOWN, Convert.ToUInt16(delay_rmu_down / 0.538));
             Thread.Sleep(50);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
@@ -227,7 +242,7 @@ namespace Pendelbaan
 
         private void DelayLmdUpValueChanged(object sender, EventArgs e)
         {
-            delay_lmd_up = Convert.ToUInt16(DelayLmdUp.Value);
+            delay_lmd_up = Convert.ToUInt16(DelayLmdUp.Value * 1000);
             Transceive_Data(Set, API.DELAY_LMD_UP, Convert.ToUInt16(delay_lmd_up / 0.538));
             Thread.Sleep(50);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
@@ -236,7 +251,7 @@ namespace Pendelbaan
 
         private void DelayLmuDownValueChanged(object sender, EventArgs e)
         {
-            delay_lmu_down = Convert.ToUInt16(DelayLmuDown.Value);
+            delay_lmu_down = Convert.ToUInt16(DelayLmuDown.Value * 1000);
             Transceive_Data(Set, API.DELAY_LMU_DOWN, Convert.ToUInt16(delay_lmu_down / 0.538));
             Thread.Sleep(50);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
@@ -281,7 +296,7 @@ namespace Pendelbaan
 
         private void TrainWaitTimeValueChanged(object sender, EventArgs e)
         {
-            train_wait_time = Convert.ToUInt16(TrainWaitTime.Value);
+            train_wait_time = Convert.ToUInt16(TrainWaitTime.Value * 1000);
             Transceive_Data(Set, API.TRAIN_WAIT_TIME, Convert.ToUInt16(train_wait_time / 0.538));
             Thread.Sleep(50);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
@@ -290,7 +305,7 @@ namespace Pendelbaan
 
         private void LightsOnWaitTimeValueChanged(object sender, EventArgs e)
         {
-            lights_on_wait_time = Convert.ToUInt16(LightsOnWaitTime.Value);
+            lights_on_wait_time = Convert.ToUInt16(LightsOnWaitTime.Value * 1000);
             Transceive_Data(Set, API.LIGHTS_ON_WAIT_TIME, Convert.ToUInt16(lights_on_wait_time / 0.538));
             Thread.Sleep(50);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
@@ -491,14 +506,14 @@ namespace Pendelbaan
 
                     case API.TRAIN_WAIT_TIME:
                         train_wait_time = Convert.ToUInt16(Value * 0.538);
-                        TrainWaitTime.Value = Convert.ToDecimal(train_wait_time);
+                        TrainWaitTime.Value = Convert.ToDecimal(Convert.ToDouble(train_wait_time) / Convert.ToDouble(1000));
                         break;
 
                     case API.JUNCTION_WAIT_TIME: junction_wait_time = Value; break;
 
                     case API.LIGHTS_ON_WAIT_TIME:
                         lights_on_wait_time = Convert.ToUInt16(Value * 0.538);
-                        LightsOnWaitTime.Value = Convert.ToDecimal(lights_on_wait_time);
+                        LightsOnWaitTime.Value = Convert.ToDecimal(Convert.ToDouble(lights_on_wait_time) / Convert.ToDouble(1000));
                         break;
 
                     case API.STATIONARY_LEFT: stationary_left = Value; break;
@@ -658,7 +673,8 @@ namespace Pendelbaan
 
                     case API.DELAY_RMU_DOWN:
                         delay_rmu_down = Convert.ToUInt16(Value * 0.538);
-                        DelayRmuDown.Value = Convert.ToDecimal(delay_rmu_down);
+                        DelayRmuDown.Value = Convert.ToDecimal(Convert.ToDouble(delay_rmu_down) / Convert.ToDouble(1000));
+
                         break;
 
                     case API.DELAY_RMU_UP: delay_rmu_up = Value; break; // Not Used
@@ -666,19 +682,19 @@ namespace Pendelbaan
 
                     case API.DELAY_RMD_UP:
                         delay_rmd_up = Convert.ToUInt16(Value * 0.538); ;
-                        DelayRmdUp.Value = Convert.ToDecimal(delay_rmd_up);
+                        DelayRmdUp.Value = Convert.ToDecimal(Convert.ToDouble(delay_rmd_up) / Convert.ToDouble(1000));
                         break;
 
                     case API.DELAY_LMD_DOWN: delay_lmd_down = Value; break; // Not Used
 
                     case API.DELAY_LMD_UP:
                         delay_lmd_up = Convert.ToUInt16(Value * 0.538); ;
-                        DelayLmdUp.Value = Convert.ToDecimal(delay_lmd_up);
+                        DelayLmdUp.Value = Convert.ToDecimal(Convert.ToDouble(delay_lmd_up) / Convert.ToDouble(1000));
                         break;
 
                     case API.DELAY_LMU_DOWN:
                         delay_lmu_down = Convert.ToUInt16(Value * 0.538); ;
-                        DelayLmuDown.Value = Convert.ToDecimal(delay_lmu_down);
+                        DelayLmuDown.Value = Convert.ToDecimal(Convert.ToDouble(delay_lmu_down) / Convert.ToDouble(1000));
                         break;
 
                     case API.DELAY_LMU_UP: delay_lmu_up = Value; break; // Not Used
@@ -878,7 +894,7 @@ namespace Pendelbaan
                     serialPort.Open();
                     comPoortToolStripMenuItem.Enabled = false;
                     maakVerbindingToolStripMenuItem.Enabled = false;
-                    NotConnectedBanner.Text = "Ophalen Data";
+                    NotConnectedBanner.Text = "      Ophalen Data       ";
                     ReadAllData();
                     Task.Factory.StartNew(HardwareReadout);
 
@@ -900,7 +916,7 @@ namespace Pendelbaan
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Fout bij openen van " + (string)comPoortToolStripMenuItem.SelectedItem);
+                    MessageBox.Show("Fout bij openen van Com poort " + (string)comPoortToolStripMenuItem.SelectedItem);
                 }
             }            
         }

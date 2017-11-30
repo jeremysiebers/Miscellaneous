@@ -62,6 +62,8 @@ void EEPROMxREAD(void)
     printf("\r\n-----------------------------------------------------------------\r\n");
 #endif
 
+    INTCON = 0x00;
+    
 	for(i = 0; i < LIST_SIZE; i++ )
     {        
 		Data = Eeprom_Read(i);							// read the data on the location according to the variables numbered in the ApiList
@@ -72,6 +74,8 @@ void EEPROMxREAD(void)
 		API_EEPROM[ApiList[i]] = Data;					// Store the data in API_EEPROM to be used for determining update of EEPROM val in EEPROMxSTORE()
 		// temporary rule as long as EEPROM is not configured yet --> to be deleted and above 2 lines uncommented
     }
+    
+    INTCON = 0xA0;
     
 }
 
@@ -95,19 +99,8 @@ unsigned int Eeprom_Read(unsigned int Location)
 	unsigned int Location_Low_Byte  = Location_High_Byte + 1;
 	unsigned int Return_Data = 0;
 	
-    INTCON = 0x00;
+    //INTCON = 0x00;
     
-	EECON1bits.EEPGD = 0;           //access eeprom
-    EECON1bits.CFGS = 0;            //access eeprom
-	EEADR = Location_High_Byte;           
-	EECON1bits.RD = 1; 
-    while (EECON1bits.RD);
-	Return_Data = EEDATA;  
-	Return_Data = Return_Data << 8;
-#ifdef DEBUG
-    printf("Location_High_Byte %d EEADR: 0x%X EEDATA: 0x%X\r\n", Location_High_Byte, EEADR, EEDATA);
-#endif
-	
 	EECON1bits.EEPGD = 0;           //access eeprom
     EECON1bits.CFGS = 0;            //access eeprom
 	EEADR = Location_Low_Byte;           
@@ -118,7 +111,18 @@ unsigned int Eeprom_Read(unsigned int Location)
     printf("Location_Low_Byte %d EEADR: 0x%X EEDATA: 0x%X\r\n", Location_Low_Byte, EEADR, EEDATA);
 #endif
     
-    INTCON = 0xA0;
+    EECON1bits.EEPGD = 0;           //access eeprom
+    EECON1bits.CFGS = 0;            //access eeprom
+	EEADR = Location_High_Byte;           
+	EECON1bits.RD = 1; 
+    while (EECON1bits.RD);
+	Return_Data = EEDATA;  
+	Return_Data = Return_Data << 8;
+#ifdef DEBUG
+    printf("Location_High_Byte %d EEADR: 0x%X EEDATA: 0x%X\r\n", Location_High_Byte, EEADR, EEDATA);
+#endif
+    
+    //INTCON = 0xA0;
 	
 	return (Return_Data);
 }
@@ -140,6 +144,8 @@ unsigned int Eeprom_Read(unsigned int Location)
 void EEPROMxSTORE(void)
 {
 	unsigned char i, api_list;
+    
+    INTCON = 0x00;
 	
 	for(i = 0; i < LIST_SIZE; i++ )
     {
@@ -159,6 +165,8 @@ void EEPROMxSTORE(void)
 			API_EEPROM[ApiList[i]] = API[ApiList[i]];    // Store the new value also in te API_EEPROM for next comparisson
 		}
     }
+    
+    INTCON = 0xA0;
 }
 
 /******************************************************************************
@@ -180,7 +188,7 @@ void Eeprom_Store(unsigned int Location, unsigned int Value)
 	unsigned int Location_High_Byte = Location * 2;
 	unsigned int Location_Low_Byte  = Location_High_Byte + 1;
 
-    INTCON = 0x00;                  // disable interrupts
+    //INTCON = 0x00;                  // disable interrupts
     
     EECON1bits.WRERR = 0;
 	EEADR = (unsigned char)Location_High_Byte;
@@ -228,7 +236,7 @@ void Eeprom_Store(unsigned int Location, unsigned int Value)
 #endif
     
     EECON1bits.WREN = 0; 
-	INTCON = 0xA0;
+	//INTCON = 0xA0;
 }
 /*	Location	Location_High_Byte				Location_Low_Byte
 	0 > 		0 					and 		1
