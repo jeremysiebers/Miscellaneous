@@ -121,6 +121,8 @@ unsigned int Eeprom_Read(unsigned int Location)
 #ifdef DEBUG
     printf("Location_High_Byte %d EEADR: 0x%X EEDATA: 0x%X\r\n", Location_High_Byte, EEADR, EEDATA);
 #endif
+
+    EEADR = 0xFF;                                                           // point EEADR to not used location to prevent rpurious write on used addresses
     
     //INTCON = 0xA0;
 	
@@ -235,7 +237,9 @@ void Eeprom_Store(unsigned int Location, unsigned int Value)
     }
 #endif
     
-    EECON1bits.WREN = 0; 
+    EECON1bits.WREN = 0;
+    
+    EEADR = 0xFF;                                                           // point EEADR to not used location to prevent rpurious write on used addresses
 	//INTCON = 0xA0;
 }
 /*	Location	Location_High_Byte				Location_Low_Byte

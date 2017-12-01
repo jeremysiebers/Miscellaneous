@@ -17,7 +17,7 @@
 // CONFIG2L
 #pragma config PWRT = ON        // Power-up Timer Enable bit (PWRT enabled)
 #pragma config BOR = OFF        // Brown-out Reset Enable bits (Brown-out Reset disabled in hardware and software)
-#pragma config BORV = 3         // Brown-out Reset Voltage bits (Minimum setting 2.05V)
+#pragma config BORV = 0         // Brown-out Reset Voltage bits (Minimum setting 4.59V)
 #pragma config VREGEN = OFF     // USB Voltage Regulator Enable bit (USB voltage regulator disabled)
 
 // CONFIG2H
