@@ -135,6 +135,7 @@ namespace Pendelbaan
                 this.comPoortToolStripMenuItem.SelectedItem = this.comPoortToolStripMenuItem.Items[0];
             }
 
+            leesOpnieuwInToolStripMenuItem.Enabled = false;
 
             pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
 
@@ -897,28 +898,68 @@ namespace Pendelbaan
                     NotConnectedBanner.Text = "      Ophalen Data       ";
                     ReadAllData();
                     Task.Factory.StartNew(HardwareReadout);
-
-                    MaxPwmRmuLeft.ValueChanged += MaxPwmRmuLeftValueChanged;
-                    MaxPwmRmdRight.ValueChanged += MaxPwmRmdRightValueChanged;
-                    MaxPwmLmuRight.ValueChanged += MaxPwmLmuRightValueChanged;
-                    MaxPwmLmdLeft.ValueChanged += MaxPwmLmdLeftValueChanged;
-                    DelayLmuDown.ValueChanged += DelayLmuDownValueChanged;
-                    DelayLmdUp.ValueChanged += DelayLmdUpValueChanged;
-                    DelayRmuDown.ValueChanged += DelayRmuDownValueChanged;
-                    DelayRmdUp.ValueChanged += DelayRmdUpValueChanged;
-                    MaxPwmRight.ValueChanged += MaxPwmRightValueChanged;
-                    MaxPwmLeft.ValueChanged += MaxPwmLeftValueChanged;
-                    MaxJerkPwm.ValueChanged += MaxJerkPwmValueChanged;
-                    MaxJerkPwmBrake.ValueChanged += MaxJerkPwmBrakeValueChanged;
-                    LightsOnWaitTime.ValueChanged += LightsOnWaitTimeValueChanged;
-                    TrainWaitTime.ValueChanged += TrainWaitTimeValueChanged;
                     NotConnectedBanner.Visible = false;
+                    leesOpnieuwInToolStripMenuItem.Enabled = true;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Fout bij openen van Com poort " + (string)comPoortToolStripMenuItem.SelectedItem);
                 }
             }            
+        }
+
+        /*#--------------------------------------------------------------------------#*/
+        /*  Description: private void AttachFields(bool attach)
+         *
+         *  Input(s)   :
+         *
+         *  Output(s)  :
+         *
+         *  Returns    :
+         *
+         *  Pre.Cond.  :
+         *
+         *  Post.Cond. :
+         *
+         *  Notes      :
+         */
+        /*#--------------------------------------------------------------------------#*/
+        private void AttachFields(bool attach)
+        {
+            if (attach)
+            {
+                MaxPwmRmuLeft.ValueChanged += MaxPwmRmuLeftValueChanged;
+                MaxPwmRmdRight.ValueChanged += MaxPwmRmdRightValueChanged;
+                MaxPwmLmuRight.ValueChanged += MaxPwmLmuRightValueChanged;
+                MaxPwmLmdLeft.ValueChanged += MaxPwmLmdLeftValueChanged;
+                DelayLmuDown.ValueChanged += DelayLmuDownValueChanged;
+                DelayLmdUp.ValueChanged += DelayLmdUpValueChanged;
+                DelayRmuDown.ValueChanged += DelayRmuDownValueChanged;
+                DelayRmdUp.ValueChanged += DelayRmdUpValueChanged;
+                MaxPwmRight.ValueChanged += MaxPwmRightValueChanged;
+                MaxPwmLeft.ValueChanged += MaxPwmLeftValueChanged;
+                MaxJerkPwm.ValueChanged += MaxJerkPwmValueChanged;
+                MaxJerkPwmBrake.ValueChanged += MaxJerkPwmBrakeValueChanged;
+                LightsOnWaitTime.ValueChanged += LightsOnWaitTimeValueChanged;
+                TrainWaitTime.ValueChanged += TrainWaitTimeValueChanged;
+            }
+            else
+            {
+                MaxPwmRmuLeft.ValueChanged -= MaxPwmRmuLeftValueChanged;
+                MaxPwmRmdRight.ValueChanged -= MaxPwmRmdRightValueChanged;
+                MaxPwmLmuRight.ValueChanged -= MaxPwmLmuRightValueChanged;
+                MaxPwmLmdLeft.ValueChanged -= MaxPwmLmdLeftValueChanged;
+                DelayLmuDown.ValueChanged -= DelayLmuDownValueChanged;
+                DelayLmdUp.ValueChanged -= DelayLmdUpValueChanged;
+                DelayRmuDown.ValueChanged -= DelayRmuDownValueChanged;
+                DelayRmdUp.ValueChanged -= DelayRmdUpValueChanged;
+                MaxPwmRight.ValueChanged -= MaxPwmRightValueChanged;
+                MaxPwmLeft.ValueChanged -= MaxPwmLeftValueChanged;
+                MaxJerkPwm.ValueChanged -= MaxJerkPwmValueChanged;
+                MaxJerkPwmBrake.ValueChanged -= MaxJerkPwmBrakeValueChanged;
+                LightsOnWaitTime.ValueChanged -= LightsOnWaitTimeValueChanged;
+                TrainWaitTime.ValueChanged -= TrainWaitTimeValueChanged;
+            }
         }
                 
         /*#--------------------------------------------------------------------------#*/
@@ -971,14 +1012,19 @@ namespace Pendelbaan
         /*#--------------------------------------------------------------------------#*/
         private void ReadAllData()
         {
-			RawData(Transceive_Data(Get, API.API_SIZE, 0));
+            AttachFields(false);
+
+            RawData(Transceive_Data(Get, API.API_SIZE, 0));
 			
             for (int i = API.API_SIZE + 1; i < api_size; i++)
             {
+                //Console.WriteLine(i.ToString());
                 RawData(Transceive_Data(Get, i, 0));
                 Thread.Sleep(50);
             }
-            
+
+            AttachFields(true);
+
         }
         #endregion Indicator init
 
@@ -1093,6 +1139,11 @@ namespace Pendelbaan
                     JunctionRightBtn.Text = "Rechtdoor";
                 }
             }
+        }
+
+        private void leesOpnieuwInToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReadAllData();
         }
     }
 

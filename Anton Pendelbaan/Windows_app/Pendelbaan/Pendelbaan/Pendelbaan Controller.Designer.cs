@@ -94,6 +94,8 @@
             this.NotConnectedBanner = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.leesOpnieuwInToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DelayLmdUp)).BeginInit();
@@ -148,7 +150,9 @@
             this.communicatieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.comPoortToolStripMenuItem,
             this.toolStripSeparator1,
-            this.maakVerbindingToolStripMenuItem});
+            this.maakVerbindingToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.leesOpnieuwInToolStripMenuItem});
             this.communicatieToolStripMenuItem.Name = "communicatieToolStripMenuItem";
             this.communicatieToolStripMenuItem.Size = new System.Drawing.Size(117, 24);
             this.communicatieToolStripMenuItem.Text = "Communicatie";
@@ -862,6 +866,18 @@
             this.label30.TabIndex = 23;
             this.label30.Text = "Tijd licht uit vóór het schakelen van een wissel [sec]";
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(215, 6);
+            // 
+            // leesOpnieuwInToolStripMenuItem
+            // 
+            this.leesOpnieuwInToolStripMenuItem.Name = "leesOpnieuwInToolStripMenuItem";
+            this.leesOpnieuwInToolStripMenuItem.Size = new System.Drawing.Size(218, 26);
+            this.leesOpnieuwInToolStripMenuItem.Text = "Lees opnieuw in";
+            this.leesOpnieuwInToolStripMenuItem.Click += new System.EventHandler(this.leesOpnieuwInToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -1023,6 +1039,8 @@
         private System.Windows.Forms.Label NotConnectedBanner;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem leesOpnieuwInToolStripMenuItem;
     }
 }
 

@@ -13,13 +13,13 @@
 [v _SETxAPIxVALxNoxRET SETxAPIxVALxNoxRET `(v  1 e 1 0 ]
 "226
 [v _GETxAPIxVAL GETxAPIxVAL `(ui  1 e 2 0 ]
-"57 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/eeprom_settings.c
-[v _EEPROMxREAD EEPROMxREAD `(v  1 e 1 0 ]
-"96
+"60 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/eeprom_settings.c
+[v _EEPROMxREAD EEPROMxREAD `(ui  1 e 2 0 ]
+"107
 [v _Eeprom_Read Eeprom_Read `(ui  1 e 2 0 ]
-"144
-[v _EEPROMxSTORE EEPROMxSTORE `(v  1 e 1 0 ]
-"186
+"157
+[v _EEPROMxSTORE EEPROMxSTORE `(ui  1 e 2 0 ]
+"207
 [v _Eeprom_Store Eeprom_Store `(v  1 e 1 0 ]
 "78 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/eusart1.c
 [v _EUSART1_Initialize EUSART1_Initialize `(v  1 e 1 0 ]
@@ -39,21 +39,21 @@
 [v _Debounce_Inputs Debounce_Inputs `(v  1 e 1 0 ]
 "26 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/junction.c
 [v _Junction Junction `(uc  1 e 1 0 ]
-"106 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/Main.c
+"107 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/Main.c
 [v _main main `(v  1 e 1 0 ]
-"148
+"153
 [v _tc_low tc_low `IIL(v  1 e 1 0 ]
-"152
+"157
 [v _tc_high tc_high `IIH(v  1 e 1 0 ]
-"183
+"188
 [v _Init_Timers Init_Timers `(v  1 e 1 0 ]
-"196
+"201
 [v _Init_Pwm Init_Pwm `(v  1 e 1 0 ]
 "20 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/set_pwm.c
 [v _SETxPWM SETxPWM `(v  1 e 1 0 ]
 "41 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/State_Mchn.c
 [v _Update_StateMchn Update_StateMchn `(v  1 e 1 0 ]
-"967
+"968
 [v _Train_Path Train_Path `(uc  1 e 1 0 ]
 "39 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/terminal.c
 [v _READxRECEIVEDxMESSAGE READxRECEIVEDxMESSAGE `(v  1 e 1 0 ]
@@ -123,6 +123,10 @@
 [v _API_RW API_RW `[89]ui  1 e 178 0 ]
 "12 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/eeprom_settings.c
 [v _ApiList ApiList `C[28]ui  1 e 56 0 ]
+"43
+[v _ReadActive ReadActive `ui  1 e 2 0 ]
+"44
+[v _WriteActive WriteActive `ui  1 e 2 0 ]
 "64 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/eusart1.c
 [v _eusart1TxHead eusart1TxHead `uc  1 s 1 eusart1TxHead ]
 "65
@@ -177,9 +181,9 @@
 [v _Train_Move_Pwm_Count Train_Move_Pwm_Count `ui  1 e 2 0 ]
 "6 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/junction.c
 [v _Switch_Junction Switch_Junction `uc  1 e 1 0 ]
-"101 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/Main.c
+"102 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/Main.c
 [v _Update_State_Machine Update_State_Machine `VEuc  1 e 1 0 ]
-"102
+"103
 [v _Led1_Counter Led1_Counter `VEui  1 e 2 0 ]
 "12 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/State_Mchn.c
 [v _Switch_Main Switch_Main `uc  1 e 1 0 ]
@@ -264,7 +268,7 @@
 `uc 1 RB7 1 0 :1:7 
 ]
 "2481
-[s S1370 . 1 `uc 1 INT0 1 0 :1:0 
+[s S1378 . 1 `uc 1 INT0 1 0 :1:0 
 `uc 1 INT1 1 0 :1:1 
 `uc 1 INT2 1 0 :1:2 
 `uc 1 . 1 0 :2:3 
@@ -272,12 +276,12 @@
 `uc 1 PGC 1 0 :1:6 
 `uc 1 PGD 1 0 :1:7 
 ]
-[s S1378 . 1 `uc 1 . 1 0 :3:0 
+[s S1386 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 CCP2_PA2 1 0 :1:3 
 ]
-[u S1381 . 1 `S273 1 . 1 0 `S1370 1 . 1 0 `S1378 1 . 1 0 ]
-[v _PORTBbits PORTBbits `VES1381  1 e 1 @3969 ]
-[s S1288 . 1 `uc 1 RC0 1 0 :1:0 
+[u S1389 . 1 `S273 1 . 1 0 `S1378 1 . 1 0 `S1386 1 . 1 0 ]
+[v _PORTBbits PORTBbits `VES1389  1 e 1 @3969 ]
+[s S1296 . 1 `uc 1 RC0 1 0 :1:0 
 `uc 1 RC1 1 0 :1:1 
 `uc 1 RC2 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -287,29 +291,29 @@
 `uc 1 RC7 1 0 :1:7 
 ]
 "2603
-[s S1297 . 1 `uc 1 T1OSO 1 0 :1:0 
+[s S1305 . 1 `uc 1 T1OSO 1 0 :1:0 
 `uc 1 T1OSI 1 0 :1:1 
 `uc 1 CCP1 1 0 :1:2 
 `uc 1 . 1 0 :3:3 
 `uc 1 TX 1 0 :1:6 
 `uc 1 RX 1 0 :1:7 
 ]
-[s S1304 . 1 `uc 1 T13CKI 1 0 :1:0 
+[s S1312 . 1 `uc 1 T13CKI 1 0 :1:0 
 `uc 1 . 1 0 :1:1 
 `uc 1 P1A 1 0 :1:2 
 `uc 1 . 1 0 :3:3 
 `uc 1 CK 1 0 :1:6 
 `uc 1 DT 1 0 :1:7 
 ]
-[s S1311 . 1 `uc 1 . 1 0 :1:0 
+[s S1319 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 CCP2 1 0 :1:1 
 `uc 1 PA1 1 0 :1:2 
 ]
-[s S1315 . 1 `uc 1 . 1 0 :1:0 
+[s S1323 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 PA2 1 0 :1:1 
 ]
-[u S1318 . 1 `S1288 1 . 1 0 `S1297 1 . 1 0 `S1304 1 . 1 0 `S1311 1 . 1 0 `S1315 1 . 1 0 ]
-[v _PORTCbits PORTCbits `VES1318  1 e 1 @3970 ]
+[u S1326 . 1 `S1296 1 . 1 0 `S1305 1 . 1 0 `S1312 1 . 1 0 `S1319 1 . 1 0 `S1323 1 . 1 0 ]
+[v _PORTCbits PORTCbits `VES1326  1 e 1 @3970 ]
 [s S73 . 1 `uc 1 RD0 1 0 :1:0 
 `uc 1 RD1 1 0 :1:1 
 `uc 1 RD2 1 0 :1:2 
@@ -334,7 +338,7 @@
 ]
 [u S186 . 1 `S73 1 . 1 0 `S174 1 . 1 0 `S183 1 . 1 0 ]
 [v _PORTDbits PORTDbits `VES186  1 e 1 @3971 ]
-[s S1406 . 1 `uc 1 RE0 1 0 :1:0 
+[s S1414 . 1 `uc 1 RE0 1 0 :1:0 
 `uc 1 RE1 1 0 :1:1 
 `uc 1 RE2 1 0 :1:2 
 `uc 1 RE3 1 0 :1:3 
@@ -342,31 +346,31 @@
 `uc 1 RDPU 1 0 :1:7 
 ]
 "2866
-[s S1413 . 1 `uc 1 CK1SPP 1 0 :1:0 
+[s S1421 . 1 `uc 1 CK1SPP 1 0 :1:0 
 `uc 1 CK2SPP 1 0 :1:1 
 `uc 1 OESPP 1 0 :1:2 
 ]
-[s S1417 . 1 `uc 1 PD2 1 0 :1:0 
+[s S1425 . 1 `uc 1 PD2 1 0 :1:0 
 `uc 1 PC2 1 0 :1:1 
 `uc 1 CCP10 1 0 :1:2 
 `uc 1 CCP9E 1 0 :1:3 
 `uc 1 . 1 0 :3:4 
 `uc 1 CCP2E 1 0 :1:7 
 ]
-[s S1424 . 1 `uc 1 RDE 1 0 :1:0 
+[s S1432 . 1 `uc 1 RDE 1 0 :1:0 
 `uc 1 WRE 1 0 :1:1 
 `uc 1 CS 1 0 :1:2 
 `uc 1 PC3E 1 0 :1:3 
 `uc 1 . 1 0 :3:4 
 `uc 1 PA2E 1 0 :1:7 
 ]
-[s S1431 . 1 `uc 1 . 1 0 :2:0 
+[s S1439 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 PB2 1 0 :1:2 
 `uc 1 . 1 0 :4:3 
 `uc 1 RE7 1 0 :1:7 
 ]
-[u S1436 . 1 `S1406 1 . 1 0 `S1413 1 . 1 0 `S1417 1 . 1 0 `S1424 1 . 1 0 `S1431 1 . 1 0 ]
-[v _PORTEbits PORTEbits `VES1436  1 e 1 @3972 ]
+[u S1444 . 1 `S1414 1 . 1 0 `S1421 1 . 1 0 `S1425 1 . 1 0 `S1432 1 . 1 0 `S1439 1 . 1 0 ]
+[v _PORTEbits PORTEbits `VES1444  1 e 1 @3972 ]
 "3425
 [v _TRISA TRISA `VEuc  1 e 1 @3986 ]
 [s S28 . 1 `uc 1 TRISA0 1 0 :1:0 
@@ -440,7 +444,7 @@
 ]
 [u S252 . 1 `S244 1 . 1 0 `S248 1 . 1 0 ]
 [v _TRISEbits TRISEbits `VES252  1 e 1 @3990 ]
-[s S385 . 1 `uc 1 TMR1IE 1 0 :1:0 
+[s S391 . 1 `uc 1 TMR1IE 1 0 :1:0 
 `uc 1 TMR2IE 1 0 :1:1 
 `uc 1 CCP1IE 1 0 :1:2 
 `uc 1 SSPIE 1 0 :1:3 
@@ -450,15 +454,15 @@
 `uc 1 SPPIE 1 0 :1:7 
 ]
 "4406
-[s S394 . 1 `uc 1 . 1 0 :4:0 
+[s S400 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 TX1IE 1 0 :1:4 
 `uc 1 RC1IE 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 `uc 1 PSPIE 1 0 :1:7 
 ]
-[u S400 . 1 `S385 1 . 1 0 `S394 1 . 1 0 ]
-[v _PIE1bits PIE1bits `VES400  1 e 1 @3997 ]
-[s S419 . 1 `uc 1 TMR1IF 1 0 :1:0 
+[u S406 . 1 `S391 1 . 1 0 `S400 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES406  1 e 1 @3997 ]
+[s S425 . 1 `uc 1 TMR1IF 1 0 :1:0 
 `uc 1 TMR2IF 1 0 :1:1 
 `uc 1 CCP1IF 1 0 :1:2 
 `uc 1 SSPIF 1 0 :1:3 
@@ -468,15 +472,15 @@
 `uc 1 SPPIF 1 0 :1:7 
 ]
 "4490
-[s S428 . 1 `uc 1 . 1 0 :4:0 
+[s S434 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 TX1IF 1 0 :1:4 
 `uc 1 RC1IF 1 0 :1:5 
 `uc 1 . 1 0 :1:6 
 `uc 1 PSPIF 1 0 :1:7 
 ]
-[u S434 . 1 `S419 1 . 1 0 `S428 1 . 1 0 ]
-[v _PIR1bits PIR1bits `VES434  1 e 1 @3998 ]
-[s S1165 . 1 `uc 1 CCP2IF 1 0 :1:0 
+[u S440 . 1 `S425 1 . 1 0 `S434 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES440  1 e 1 @3998 ]
+[s S1171 . 1 `uc 1 CCP2IF 1 0 :1:0 
 `uc 1 TMR3IF 1 0 :1:1 
 `uc 1 HLVDIF 1 0 :1:2 
 `uc 1 BCLIF 1 0 :1:3 
@@ -486,12 +490,12 @@
 `uc 1 OSCFIF 1 0 :1:7 
 ]
 "4726
-[s S1174 . 1 `uc 1 . 1 0 :2:0 
+[s S1180 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 LVDIF 1 0 :1:2 
 ]
-[u S1177 . 1 `S1165 1 . 1 0 `S1174 1 . 1 0 ]
-[v _PIR2bits PIR2bits `VES1177  1 e 1 @4001 ]
-[s S1128 . 1 `uc 1 RD 1 0 :1:0 
+[u S1183 . 1 `S1171 1 . 1 0 `S1180 1 . 1 0 ]
+[v _PIR2bits PIR2bits `VES1183  1 e 1 @4001 ]
+[s S1134 . 1 `uc 1 RD 1 0 :1:0 
 `uc 1 WR 1 0 :1:1 
 `uc 1 WREN 1 0 :1:2 
 `uc 1 WRERR 1 0 :1:3 
@@ -501,18 +505,18 @@
 `uc 1 EEPGD 1 0 :1:7 
 ]
 "4868
-[s S1137 . 1 `uc 1 . 1 0 :6:0 
+[s S1143 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 EEFS 1 0 :1:6 
 ]
-[u S1140 . 1 `S1128 1 . 1 0 `S1137 1 . 1 0 ]
-[v _EECON1bits EECON1bits `VES1140  1 e 1 @4006 ]
+[u S1146 . 1 `S1134 1 . 1 0 `S1143 1 . 1 0 ]
+[v _EECON1bits EECON1bits `VES1146  1 e 1 @4006 ]
 "4913
 [v _EECON2 EECON2 `VEuc  1 e 1 @4007 ]
 "4920
 [v _EEDATA EEDATA `VEuc  1 e 1 @4008 ]
 "4927
 [v _EEADR EEADR `VEuc  1 e 1 @4009 ]
-[s S816 . 1 `uc 1 RX9D 1 0 :1:0 
+[s S822 . 1 `uc 1 RX9D 1 0 :1:0 
 `uc 1 OERR 1 0 :1:1 
 `uc 1 FERR 1 0 :1:2 
 `uc 1 ADDEN 1 0 :1:3 
@@ -522,25 +526,25 @@
 `uc 1 SPEN 1 0 :1:7 
 ]
 "4975
-[s S825 . 1 `uc 1 . 1 0 :3:0 
+[s S831 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 ADEN 1 0 :1:3 
 ]
-[s S828 . 1 `uc 1 . 1 0 :5:0 
+[s S834 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 SRENA 1 0 :1:5 
 ]
-[s S831 . 1 `uc 1 . 1 0 :6:0 
+[s S837 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC8_9 1 0 :1:6 
 ]
-[s S834 . 1 `uc 1 . 1 0 :6:0 
+[s S840 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 RC9 1 0 :1:6 
 ]
-[s S837 . 1 `uc 1 RCD8 1 0 :1:0 
+[s S843 . 1 `uc 1 RCD8 1 0 :1:0 
 ]
-[u S839 . 1 `S816 1 . 1 0 `S825 1 . 1 0 `S828 1 . 1 0 `S831 1 . 1 0 `S834 1 . 1 0 `S837 1 . 1 0 ]
-[v _RCSTAbits RCSTAbits `VES839  1 e 1 @4011 ]
+[u S845 . 1 `S822 1 . 1 0 `S831 1 . 1 0 `S834 1 . 1 0 `S837 1 . 1 0 `S840 1 . 1 0 `S843 1 . 1 0 ]
+[v _RCSTAbits RCSTAbits `VES845  1 e 1 @4011 ]
 "5074
-[v _RCSTA1bits RCSTA1bits `VES839  1 e 1 @4011 ]
-[s S870 . 1 `uc 1 TX9D 1 0 :1:0 
+[v _RCSTA1bits RCSTA1bits `VES845  1 e 1 @4011 ]
+[s S876 . 1 `uc 1 TX9D 1 0 :1:0 
 `uc 1 TRMT 1 0 :1:1 
 `uc 1 BRGH 1 0 :1:2 
 `uc 1 SENDB 1 0 :1:3 
@@ -550,7 +554,7 @@
 `uc 1 CSRC 1 0 :1:7 
 ]
 "5183
-[s S879 . 1 `uc 1 TX9D1 1 0 :1:0 
+[s S885 . 1 `uc 1 TX9D1 1 0 :1:0 
 `uc 1 TRMT1 1 0 :1:1 
 `uc 1 BRGH1 1 0 :1:2 
 `uc 1 SENDB1 1 0 :1:3 
@@ -559,13 +563,13 @@
 `uc 1 TX91 1 0 :1:6 
 `uc 1 CSRC1 1 0 :1:7 
 ]
-[s S888 . 1 `uc 1 . 1 0 :6:0 
+[s S894 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 TX8_9 1 0 :1:6 
 ]
-[s S891 . 1 `uc 1 TXD8 1 0 :1:0 
+[s S897 . 1 `uc 1 TXD8 1 0 :1:0 
 ]
-[u S893 . 1 `S870 1 . 1 0 `S879 1 . 1 0 `S888 1 . 1 0 `S891 1 . 1 0 ]
-[v _TXSTAbits TXSTAbits `VES893  1 e 1 @4012 ]
+[u S899 . 1 `S876 1 . 1 0 `S885 1 . 1 0 `S894 1 . 1 0 `S897 1 . 1 0 ]
+[v _TXSTAbits TXSTAbits `VES899  1 e 1 @4012 ]
 "5405
 [v _TXREG1 TXREG1 `VEuc  1 e 1 @4013 ]
 "5417
@@ -576,7 +580,7 @@
 [v _SPBRGH SPBRGH `VEuc  1 e 1 @4016 ]
 "5585
 [v _CMCON CMCON `VEuc  1 e 1 @4020 ]
-[s S770 . 1 `uc 1 ABDEN 1 0 :1:0 
+[s S776 . 1 `uc 1 ABDEN 1 0 :1:0 
 `uc 1 WUE 1 0 :1:1 
 `uc 1 . 1 0 :1:2 
 `uc 1 BRG16 1 0 :1:3 
@@ -586,19 +590,19 @@
 `uc 1 ABDOVF 1 0 :1:7 
 ]
 "6096
-[s S779 . 1 `uc 1 . 1 0 :4:0 
+[s S785 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 SCKP 1 0 :1:4 
 `uc 1 . 1 0 :1:5 
 `uc 1 RCMT 1 0 :1:6 
 ]
-[s S784 . 1 `uc 1 . 1 0 :5:0 
+[s S790 . 1 `uc 1 . 1 0 :5:0 
 `uc 1 RXCKP 1 0 :1:5 
 ]
-[s S787 . 1 `uc 1 . 1 0 :1:0 
+[s S793 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 W4E 1 0 :1:1 
 ]
-[u S790 . 1 `S770 1 . 1 0 `S779 1 . 1 0 `S784 1 . 1 0 `S787 1 . 1 0 ]
-[v _BAUDCONbits BAUDCONbits `VES790  1 e 1 @4024 ]
+[u S796 . 1 `S776 1 . 1 0 `S785 1 . 1 0 `S790 1 . 1 0 `S793 1 . 1 0 ]
+[v _BAUDCONbits BAUDCONbits `VES796  1 e 1 @4024 ]
 "6325
 [v _CCP1CON CCP1CON `VEuc  1 e 1 @4029 ]
 "6494
@@ -609,22 +613,22 @@
 [v _T2CON T2CON `VEuc  1 e 1 @4042 ]
 "7296
 [v _PR2 PR2 `VEuc  1 e 1 @4043 ]
-[s S461 . 1 `uc 1 NOT_BOR 1 0 :1:0 
+[s S467 . 1 `uc 1 NOT_BOR 1 0 :1:0 
 ]
 "7586
-[s S463 . 1 `uc 1 . 1 0 :1:0 
+[s S469 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 NOT_POR 1 0 :1:1 
 ]
-[s S466 . 1 `uc 1 . 1 0 :2:0 
+[s S472 . 1 `uc 1 . 1 0 :2:0 
 `uc 1 NOT_PD 1 0 :1:2 
 ]
-[s S469 . 1 `uc 1 . 1 0 :3:0 
+[s S475 . 1 `uc 1 . 1 0 :3:0 
 `uc 1 NOT_TO 1 0 :1:3 
 ]
-[s S472 . 1 `uc 1 . 1 0 :4:0 
+[s S478 . 1 `uc 1 . 1 0 :4:0 
 `uc 1 NOT_RI 1 0 :1:4 
 ]
-[s S475 . 1 `uc 1 nBOR 1 0 :1:0 
+[s S481 . 1 `uc 1 nBOR 1 0 :1:0 
 `uc 1 nPOR 1 0 :1:1 
 `uc 1 nPD 1 0 :1:2 
 `uc 1 nTO 1 0 :1:3 
@@ -633,10 +637,10 @@
 `uc 1 SBOREN 1 0 :1:6 
 `uc 1 IPEN 1 0 :1:7 
 ]
-[s S484 . 1 `uc 1 . 1 0 :7:0 
+[s S490 . 1 `uc 1 . 1 0 :7:0 
 `uc 1 NOT_IPEN 1 0 :1:7 
 ]
-[s S487 . 1 `uc 1 BOR 1 0 :1:0 
+[s S493 . 1 `uc 1 BOR 1 0 :1:0 
 `uc 1 POR 1 0 :1:1 
 `uc 1 PD 1 0 :1:2 
 `uc 1 TO 1 0 :1:3 
@@ -644,8 +648,8 @@
 `uc 1 . 1 0 :2:5 
 `uc 1 nIPEN 1 0 :1:7 
 ]
-[u S495 . 1 `S461 1 . 1 0 `S463 1 . 1 0 `S466 1 . 1 0 `S469 1 . 1 0 `S472 1 . 1 0 `S475 1 . 1 0 `S484 1 . 1 0 `S487 1 . 1 0 ]
-[v _RCONbits RCONbits `VES495  1 e 1 @4048 ]
+[u S501 . 1 `S467 1 . 1 0 `S469 1 . 1 0 `S472 1 . 1 0 `S475 1 . 1 0 `S478 1 . 1 0 `S481 1 . 1 0 `S490 1 . 1 0 `S493 1 . 1 0 ]
+[v _RCONbits RCONbits `VES501  1 e 1 @4048 ]
 "8067
 [v _T0CON T0CON `VEuc  1 e 1 @4053 ]
 "8144
@@ -656,7 +660,7 @@
 [v _INTCON2 INTCON2 `VEuc  1 e 1 @4081 ]
 "8580
 [v _INTCON INTCON `VEuc  1 e 1 @4082 ]
-[s S336 . 1 `uc 1 RBIF 1 0 :1:0 
+[s S342 . 1 `uc 1 RBIF 1 0 :1:0 
 `uc 1 INT0IF 1 0 :1:1 
 `uc 1 TMR0IF 1 0 :1:2 
 `uc 1 RBIE 1 0 :1:3 
@@ -666,7 +670,7 @@
 `uc 1 GIE_GIEH 1 0 :1:7 
 ]
 "8612
-[s S345 . 1 `uc 1 . 1 0 :1:0 
+[s S351 . 1 `uc 1 . 1 0 :1:0 
 `uc 1 INT0F 1 0 :1:1 
 `uc 1 T0IF 1 0 :1:2 
 `uc 1 . 1 0 :1:3 
@@ -675,37 +679,37 @@
 `uc 1 PEIE 1 0 :1:6 
 `uc 1 GIE 1 0 :1:7 
 ]
-[s S354 . 1 `uc 1 . 1 0 :6:0 
+[s S360 . 1 `uc 1 . 1 0 :6:0 
 `uc 1 GIEL 1 0 :1:6 
 `uc 1 GIEH 1 0 :1:7 
 ]
-[u S358 . 1 `S336 1 . 1 0 `S345 1 . 1 0 `S354 1 . 1 0 ]
-[v _INTCONbits INTCONbits `VES358  1 e 1 @4082 ]
+[u S364 . 1 `S342 1 . 1 0 `S351 1 . 1 0 `S360 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES364  1 e 1 @4082 ]
 "10327
 [v _TXIF TXIF `VEb  1 e 0 @31988 ]
 "354 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\common\doprnt.c
 [v _dpowers dpowers `C[5]ui  1 s 10 dpowers ]
-"106 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/Main.c
+"107 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/Main.c
 [v _main main `(v  1 e 1 0 ]
 {
-"141
+"146
 } 0
 "41 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/State_Mchn.c
 [v _Update_StateMchn Update_StateMchn `(v  1 e 1 0 ]
 {
-"950
+"951
 } 0
-"967
+"968
 [v _Train_Path Train_Path `(uc  1 e 1 0 ]
 {
 [v Train_Path@From From `uc  1 a 1 wreg ]
 [v Train_Path@From From `uc  1 a 1 wreg ]
 [v Train_Path@To To `uc  1 p 1 23 ]
-"969
+"970
 [v Train_Path@Return_Val Return_Val `uc  1 s 1 Return_Val ]
-"971
+"972
 [v Train_Path@From From `uc  1 a 1 24 ]
-"1252
+"1253
 } 0
 "27 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/train_move_right.c
 [v _Train_Move_Right_Start Train_Move_Right_Start `(uc  1 e 1 0 ]
@@ -827,25 +831,25 @@
 [v Green_Led@Operation Operation `uc  1 a 1 18 ]
 "81
 } 0
-"144 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/eeprom_settings.c
-[v _EEPROMxSTORE EEPROMxSTORE `(v  1 e 1 0 ]
+"157 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/eeprom_settings.c
+[v _EEPROMxSTORE EEPROMxSTORE `(ui  1 e 2 0 ]
 {
-"146
-[v EEPROMxSTORE@i i `uc  1 a 1 35 ]
-[v EEPROMxSTORE@api_list api_list `uc  1 a 1 34 ]
-"170
+"159
+[v EEPROMxSTORE@i i `uc  1 a 1 22 ]
+[v EEPROMxSTORE@api_list api_list `uc  1 a 1 21 ]
+"191
 } 0
-"186
+"207
 [v _Eeprom_Store Eeprom_Store `(v  1 e 1 0 ]
 {
-"188
+"209
 [v Eeprom_Store@Location_High_Byte Location_High_Byte `ui  1 a 2 24 ]
-"189
+"210
 [v Eeprom_Store@Location_Low_Byte Location_Low_Byte `ui  1 a 2 22 ]
-"186
+"207
 [v Eeprom_Store@Location Location `ui  1 p 2 18 ]
 [v Eeprom_Store@Value Value `ui  1 p 2 20 ]
-"240
+"263
 } 0
 "148 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/io.c
 [v _Debounce_Inputs Debounce_Inputs `(v  1 e 1 0 ]
@@ -855,9 +859,9 @@
 "7 C:\Program Files (x86)\Microchip\xc8\v1.44\sources\pic18\plib\PWM\pw1setdc.c
 [v _SetDCPWM1 SetDCPWM1 `(v  1 e 1 0 ]
 {
-[u S1601 PWMDC 2 `ui 1 lpwm 2 0 `[2]uc 1 bpwm 2 0 ]
+[u S1609 PWMDC 2 `ui 1 lpwm 2 0 `[2]uc 1 bpwm 2 0 ]
 "9
-[v SetDCPWM1@DCycle DCycle `S1601  1 a 2 24 ]
+[v SetDCPWM1@DCycle DCycle `S1609  1 a 2 24 ]
 "7
 [v SetDCPWM1@dutycycle dutycycle `ui  1 p 2 20 ]
 "19
@@ -931,15 +935,15 @@
 [v EUSART1_Read@readValue readValue `uc  1 a 1 18 ]
 "159
 } 0
-"183 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/Main.c
+"188 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/Main.c
 [v _Init_Timers Init_Timers `(v  1 e 1 0 ]
 {
-"191
-} 0
 "196
+} 0
+"201
 [v _Init_Pwm Init_Pwm `(v  1 e 1 0 ]
 {
-"206
+"211
 } 0
 "213 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/api.c
 [v _SETxAPIxVAL SETxAPIxVAL `(v  1 e 1 0 ]
@@ -962,27 +966,27 @@
 [v EUSART1_Initialize@baud_rate baud_rate `ui  1 a 2 18 ]
 "119
 } 0
-"57 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/eeprom_settings.c
-[v _EEPROMxREAD EEPROMxREAD `(v  1 e 1 0 ]
+"60 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/eeprom_settings.c
+[v _EEPROMxREAD EEPROMxREAD `(ui  1 e 2 0 ]
 {
-"60
-[v EEPROMxREAD@Data Data `ui  1 a 2 28 ]
-"59
-[v EEPROMxREAD@i i `uc  1 a 1 30 ]
-"80
+"63
+[v EEPROMxREAD@Data Data `ui  1 a 2 30 ]
+"62
+[v EEPROMxREAD@i i `uc  1 a 1 32 ]
+"91
 } 0
-"96
+"107
 [v _Eeprom_Read Eeprom_Read `(ui  1 e 2 0 ]
 {
-"100
+"111
 [v Eeprom_Read@Return_Data Return_Data `ui  1 a 2 24 ]
-"98
+"109
 [v Eeprom_Read@Location_High_Byte Location_High_Byte `ui  1 a 2 22 ]
-"99
+"110
 [v Eeprom_Read@Location_Low_Byte Location_Low_Byte `ui  1 a 2 20 ]
-"96
+"107
 [v Eeprom_Read@Location Location `ui  1 p 2 18 ]
-"128
+"141
 } 0
 "194 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/terminal.c
 [v _DIAGNOSTICxTOxPC DIAGNOSTICxTOxPC `(v  1 e 1 0 ]
@@ -1050,15 +1054,15 @@
 [v APIxInitialize@i i `ui  1 a 2 18 ]
 "193
 } 0
-"148 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/Main.c
+"153 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/Main.c
 [v _tc_low tc_low `IIL(v  1 e 1 0 ]
 {
-"150
+"155
 } 0
-"152
+"157
 [v _tc_high tc_high `IIH(v  1 e 1 0 ]
 {
-"179
+"184
 } 0
 "184 C:\GIT_REPOS\Miscellaneous-Source\Anton Pendelbaan/eusart1.c
 [v _EUSART1_Transmit_ISR EUSART1_Transmit_ISR `(v  1 e 1 0 ]

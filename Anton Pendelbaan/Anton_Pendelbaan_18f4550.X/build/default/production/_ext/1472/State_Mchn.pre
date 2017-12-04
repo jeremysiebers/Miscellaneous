@@ -5685,8 +5685,8 @@ extern void Green_Led(unsigned char Operation);
 extern void Red_Led(unsigned char Operation);
 
 # 15 "../eeprom_settings.h"
-extern void EEPROMxSTORE(void);
-extern void EEPROMxREAD(void);
+extern unsigned int EEPROMxSTORE(void);
+extern unsigned int EEPROMxREAD(void);
 
 void Eeprom_Store(unsigned int Location, unsigned int Value);
 unsigned int Eeprom_Read(unsigned int Location);
@@ -5732,8 +5732,9 @@ SETxAPIxVAL(72, 0);
 asm("reset");
 }
 else if (GETxAPIxVAL(87)){
-EEPROMxSTORE();
+if (EEPROMxSTORE() == 1){
 SETxAPIxVAL(87, 0);
+}
 }
 
 Debounce_Inputs();
@@ -6182,7 +6183,7 @@ break;
 default : break;
 }
 
-# 680
+# 681
 if(GETxAPIxVAL(33) || GETxAPIxVAL(71))
 {
 Stop_Program = 1;
@@ -6252,7 +6253,7 @@ break;
 default : break;
 }
 
-# 931
+# 932
 if(GETxAPIxVAL(33) || GETxAPIxVAL(71))
 {
 Stop_Program = 1;
@@ -6274,7 +6275,7 @@ SETxAPIxVAL(63, Switch_Main);
 SETxAPIxVAL(80, Switch_Program);
 }
 
-# 967
+# 968
 char Train_Path(unsigned char From, unsigned char To)
 {
 static char Return_Val = 1;

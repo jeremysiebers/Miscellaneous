@@ -5675,8 +5675,8 @@ extern __nonreentrant void _delay3(unsigned char);
 
 
 #pragma config PWRT = ON
-#pragma config BOR = OFF
-#pragma config BORV = 3
+#pragma config BOR = ON
+#pragma config BORV = 1
 #pragma config VREGEN = OFF
 
 
@@ -5866,13 +5866,13 @@ extern void Green_Led(unsigned char Operation);
 extern void Red_Led(unsigned char Operation);
 
 # 15 "../eeprom_settings.h"
-extern void EEPROMxSTORE(void);
-extern void EEPROMxREAD(void);
+extern unsigned int EEPROMxSTORE(void);
+extern unsigned int EEPROMxREAD(void);
 
 void Eeprom_Store(unsigned int Location, unsigned int Value);
 unsigned int Eeprom_Read(unsigned int Location);
 
-# 98 "../Main.c"
+# 99 "../Main.c"
 void Init_Timers(void);
 void Init_Pwm(void);
 
@@ -5900,10 +5900,14 @@ PORTAbits.RA0 = 0;
 TRISDbits.TRISD2=1;TRISDbits.TRISD3=1;TRISDbits.TRISD0=1;TRISDbits.TRISD1=1;TRISCbits.TRISC1=1;TRISDbits.TRISD4=1;TRISEbits.TRISE0=1;TRISEbits.TRISE1=1;;
 TRISBbits.TRISB0=1;TRISBbits.TRISB1=1;TRISBbits.TRISB2=1;TRISBbits.TRISB3=1;TRISBbits.TRISB4=1;TRISBbits.TRISB5=1;TRISDbits.TRISD7=1;;
 APIxInitialize();
+_delay((unsigned long)((1000)*(24000000/4000.0)));
+while(EEPROMxREAD() == 0){
+continue;
+};
 Init_Pwm();
 Init_Timers();
 EUSART1_Initialize();
-EEPROMxREAD();
+
 
 while(1)
 {
@@ -5918,7 +5922,7 @@ DIAGNOSTICxTOxPC();
 }
 }
 
-# 148
+# 153
 void interrupt low_priority tc_low(void) {
 
 }

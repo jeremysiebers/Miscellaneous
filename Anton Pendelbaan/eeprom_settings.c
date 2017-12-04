@@ -40,6 +40,9 @@ const unsigned int ApiList[] = {			// List containing the writable variables tha
 	DELAY_LMU_UP		                    // 27
 };
 
+unsigned int ReadActive = 0;
+unsigned int WriteActive = 0;
+
 /******************************************************************************
  * Function:        EEPROMxREAD(void)
  *                  Read program values in EEPROM at startup
@@ -54,7 +57,7 @@ const unsigned int ApiList[] = {			// List containing the writable variables tha
  *
  * Overview:        None
  *****************************************************************************/
-void EEPROMxREAD(void)
+unsigned int EEPROMxREAD(void)
 {
 	unsigned char i = 0;
 	unsigned int Data = 0;
@@ -62,20 +65,28 @@ void EEPROMxREAD(void)
     printf("\r\n-----------------------------------------------------------------\r\n");
 #endif
 
-    INTCON = 0x00;
+    if (!WriteActive){
+        ReadActive = On;
+        INTCON = 0x00;
     
-	for(i = 0; i < LIST_SIZE; i++ )
-    {        
-		Data = Eeprom_Read(i);							// read the data on the location according to the variables numbered in the ApiList
+        for(i = 0; i < LIST_SIZE; i++ )
+        {        
+        	Data = Eeprom_Read(i);							// read the data on the location according to the variables numbered in the ApiList
 #ifdef DEBUG  
         printf("index: %d Data: 0x%X\r\n", i, Data);
 #endif
-		API[ApiList[i]] = Data;							// Store the data in API to be used by the program	
-		API_EEPROM[ApiList[i]] = Data;					// Store the data in API_EEPROM to be used for determining update of EEPROM val in EEPROMxSTORE()
-		// temporary rule as long as EEPROM is not configured yet --> to be deleted and above 2 lines uncommented
-    }
+        	API[ApiList[i]] = Data;							// Store the data in API to be used by the program	
+        	API_EEPROM[ApiList[i]] = Data;					// Store the data in API_EEPROM to be used for determining update of EEPROM val in EEPROMxSTORE()
+        	// temporary rule as long as EEPROM is not configured yet --> to be deleted and above 2 lines uncommented
+        }
     
-    INTCON = 0xA0;
+        INTCON = 0xA0;
+        ReadActive = Off;
+        return (On);
+    }
+    else{
+        return (Off);
+    }
     
 }
 
@@ -103,16 +114,6 @@ unsigned int Eeprom_Read(unsigned int Location)
     
 	EECON1bits.EEPGD = 0;           //access eeprom
     EECON1bits.CFGS = 0;            //access eeprom
-	EEADR = Location_Low_Byte;           
-	EECON1bits.RD = 1; 
-    while (EECON1bits.RD);
-	Return_Data = Return_Data | EEDATA;
-#ifdef DEBUG
-    printf("Location_Low_Byte %d EEADR: 0x%X EEDATA: 0x%X\r\n", Location_Low_Byte, EEADR, EEDATA);
-#endif
-    
-    EECON1bits.EEPGD = 0;           //access eeprom
-    EECON1bits.CFGS = 0;            //access eeprom
 	EEADR = Location_High_Byte;           
 	EECON1bits.RD = 1; 
     while (EECON1bits.RD);
@@ -121,8 +122,18 @@ unsigned int Eeprom_Read(unsigned int Location)
 #ifdef DEBUG
     printf("Location_High_Byte %d EEADR: 0x%X EEDATA: 0x%X\r\n", Location_High_Byte, EEADR, EEDATA);
 #endif
+    
+    EECON1bits.EEPGD = 0;           //access eeprom
+    EECON1bits.CFGS = 0;            //access eeprom
+	EEADR = Location_Low_Byte;           
+	EECON1bits.RD = 1; 
+    while (EECON1bits.RD);
+	Return_Data = Return_Data | EEDATA;
+#ifdef DEBUG
+    printf("Location_Low_Byte %d EEADR: 0x%X EEDATA: 0x%X\r\n", Location_Low_Byte, EEADR, EEDATA);
+#endif
 
-    EEADR = 0xFF;                                                           // point EEADR to not used location to prevent rpurious write on used addresses
+    EEADR = 0xFF;                                                               // point EEADR to not used location to prevent rpurious write on used addresses
     
     //INTCON = 0xA0;
 	
@@ -143,32 +154,40 @@ unsigned int Eeprom_Read(unsigned int Location)
  *
  * Overview:        None
  *****************************************************************************/
-void EEPROMxSTORE(void)
+unsigned int EEPROMxSTORE(void)
 {
 	unsigned char i, api_list;
     
-    INTCON = 0x00;
+    if (!ReadActive){
+        WriteActive = On;
+        INTCON = 0x00;
 	
-	for(i = 0; i < LIST_SIZE; i++ )
-    {
-        api_list = ApiList[i];
+        for(i = 0; i < LIST_SIZE; i++ )
+        {
+            api_list = ApiList[i];
         
 #ifdef DEBUG  
         printf("index outside if: 0x%X api_list: 0x%X\r\n", i, api_list);
 #endif
         
-		if (API[ApiList[i]] != API_EEPROM[ApiList[i]])	// compare the data on the location according to the variables numbered in the ApiList
-		{
+        	if (API[ApiList[i]] != API_EEPROM[ApiList[i]])	// compare the data on the location according to the variables numbered in the ApiList
+        	{
             
 #ifdef DEBUG  
         printf("index inside if: 0x%X api_list: 0x%X\r\n", i, api_list);
 #endif
-			Eeprom_Store(i, API[ApiList[i]]); 			// Send list index number as Location and the API[address].value to be stored.
-			API_EEPROM[ApiList[i]] = API[ApiList[i]];    // Store the new value also in te API_EEPROM for next comparisson
-		}
-    }
+        		Eeprom_Store(i, API[ApiList[i]]); 			// Send list index number as Location and the API[address].value to be stored.
+        		API_EEPROM[ApiList[i]] = API[ApiList[i]];    // Store the new value also in te API_EEPROM for next comparisson
+        	}
+        }
     
-    INTCON = 0xA0;
+        INTCON = 0xA0;
+        WriteActive = Off;
+        return (On);
+    }
+    else{
+        return (Off);
+    }    
 }
 
 /******************************************************************************
@@ -199,9 +218,9 @@ void Eeprom_Store(unsigned int Location, unsigned int Value)
     EECON1bits.CFGS = 0;            //access eeprom
     EECON1bits.WREN = 1;            //write enable eeprom    
 	EECON2 = 0x55;
-	EECON2 = 0xaa;
+	EECON2 = 0xAA;
     EECON1bits.WR = 1;
-	while (EECON1bits.WR){
+	while (EECON1bits.WR && !PIR2bits.EEIF){
         continue;
     }
     PIR2bits.EEIF = 0;
@@ -222,9 +241,9 @@ void Eeprom_Store(unsigned int Location, unsigned int Value)
     EECON1bits.WREN = 1;            //write enable eeprom
     INTCON = 0x00;                  // disable interrupts
 	EECON2 = 0x55;
-	EECON2 = 0xaa;    
+	EECON2 = 0xAA;    
 	EECON1bits.WR = 1;
-	while (EECON1bits.WR){
+	while (EECON1bits.WR && !PIR2bits.EEIF){
         continue;
     }
     PIR2bits.EEIF = 0;
@@ -239,7 +258,7 @@ void Eeprom_Store(unsigned int Location, unsigned int Value)
     
     EECON1bits.WREN = 0;
     
-    EEADR = 0xFF;                                                           // point EEADR to not used location to prevent rpurious write on used addresses
+    EEADR = 0xFF;                                                               // point EEADR to not used location to prevent rpurious write on used addresses
 	//INTCON = 0xA0;
 }
 /*	Location	Location_High_Byte				Location_Low_Byte

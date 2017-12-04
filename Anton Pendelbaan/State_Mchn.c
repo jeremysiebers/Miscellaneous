@@ -45,8 +45,9 @@ void Update_StateMchn(void)
         RESET();
     }
     else if (GETxAPIxVAL(SW_EEPROM_STORE)){
-		EEPROMxSTORE();
-		SETxAPIxVAL(SW_EEPROM_STORE, Off);
+		if (EEPROMxSTORE() == On){
+            SETxAPIxVAL(SW_EEPROM_STORE, Off);
+        }
     }
     
 	Debounce_Inputs();

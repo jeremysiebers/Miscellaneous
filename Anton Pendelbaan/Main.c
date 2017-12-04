@@ -16,8 +16,8 @@
 
 // CONFIG2L
 #pragma config PWRT = ON        // Power-up Timer Enable bit (PWRT enabled)
-#pragma config BOR = OFF        // Brown-out Reset Enable bits (Brown-out Reset disabled in hardware and software)
-#pragma config BORV = 0         // Brown-out Reset Voltage bits (Minimum setting 4.59V)
+#pragma config BOR = ON         // Brown-out Reset Enable bits (Brown-out Reset disabled in hardware and software)
+#pragma config BORV = 1         // Brown-out Reset Voltage bits (Minimum setting 4.59V)
 #pragma config VREGEN = OFF     // USB Voltage Regulator Enable bit (USB voltage regulator disabled)
 
 // CONFIG2H
@@ -85,6 +85,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //DECLARATIONS//
+ #define _XTAL_FREQ 24000000
 
 #define InitPwm()					TRISCbits.TRISC2=0;TRISCbits.TRISC0=0;
 #define Init_Led_Outputs()			TRISAbits.TRISA4=0;TRISDbits.TRISD5=0;TRISDbits.TRISD6=0;
@@ -122,10 +123,14 @@ void main (void)
 	Init_Reed_Contacts();
 	Init_Switches();
     APIxInitialize();
+    __delay_ms(1000);
+    while(EEPROMxREAD() == Off){
+        continue;
+    };
 	Init_Pwm();
 	Init_Timers();
     EUSART1_Initialize();
-	EEPROMxREAD();
+	
 			
 	while(1)
 	{
