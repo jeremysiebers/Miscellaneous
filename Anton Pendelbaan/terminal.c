@@ -188,7 +188,7 @@ void SendMessage(unsigned int index, unsigned int value){
     //unsigned char low = value;
     
     //printf("M#%d %d%d\r\n", index, high, low);
-    printf("M#%d %d\r\n", index, value);
+    printf("M#%d %d\r\n", index, value);    
 }
 
 void DIAGNOSTICxTOxPC(void)

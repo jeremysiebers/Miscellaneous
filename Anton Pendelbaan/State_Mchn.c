@@ -18,7 +18,9 @@ unsigned char   Switch_Main = Init,
 				Switch_Adjust_RB = 0,
 				Switch_Adjust_RF = 0,
                 Switch_Train_Path = 0,
-                Stop_Program = Off;
+                Stop_Program = Off,
+                Train_Pos1_Temp = 0,
+                Train_Pos2_Temp = 0;
 				
 unsigned int	Adjust_Counter = 0,
                 Activate_Controls_Counter = 0;
@@ -225,10 +227,15 @@ void Update_StateMchn(void)
                                                                 Switch_Main = Run2;
                                                                 Switch_Init = 0;
                                                                 Stop_Program = Off;
-                                                                SETxAPIxVAL(SW_START, Off);
+                                                                SETxAPIxVALxNoxRET(SW_START, Off);
                                                             }
+                                                            
+                                                            else if (Train_Pos1_Temp != GETxAPIxVAL(TRAIN1_POS) || Train_Pos1_Temp != GETxAPIxVAL(TRAIN2_POS)){
+                                                                Switch_Main = Init;
+                                                                Switch_Init = 0;
+                                                            }                                            
                                                             Green_Led(Blink1);
-                                                            Red_Led(Off);
+                                                            Red_Led(Off);                                                            
                                                             break;
 
                                             case	8	:	if(GETxAPIxVAL(TRAIN1_POS) == Middle)		// 2 Trains NEW MODE
@@ -354,6 +361,8 @@ void Update_StateMchn(void)
                                                                                     break;	
                                                                 }
                                                             }
+                                                            Train_Pos1_Temp = GETxAPIxVAL(TRAIN1_POS);
+                                                            Train_Pos2_Temp = GETxAPIxVAL(TRAIN2_POS);
                                                             break;
 
                                             case	9	:	Switch_Init = 11;
@@ -364,6 +373,11 @@ void Update_StateMchn(void)
                                                                 Switch_Main = Run1;
                                                                 Switch_Init = 0;
                                                                 Stop_Program = Off;
+                                                                SETxAPIxVALxNoxRET(SW_START, Off);
+                                                            }
+                                                            else if (Train_Pos1_Temp != GETxAPIxVAL(TRAIN1_POS) || Train_Pos1_Temp != GETxAPIxVAL(TRAIN2_POS)){
+                                                                Switch_Main = Init;
+                                                                Switch_Init = 0;
                                                             }
                                                             Green_Led(Blink1);
                                                             Red_Led(Off);
@@ -384,6 +398,8 @@ void Update_StateMchn(void)
                                                                                 Red_Led(On);
                                                                                 break;
                                                             }
+                                                            Train_Pos1_Temp = GETxAPIxVAL(TRAIN1_POS);
+                                                            Train_Pos2_Temp = GETxAPIxVAL(TRAIN2_POS);
                                                             break;
 
                                             default		:	Switch_Init = 0;
@@ -681,7 +697,7 @@ void Update_StateMchn(void)
 									if(GETxAPIxVAL(BTN_STOP) || GETxAPIxVAL(SW_STOP))
 									{
 										Stop_Program = On;
-                                        SETxAPIxVAL(SW_STOP, Off);
+                                        SETxAPIxVALxNoxRET(SW_STOP, Off);
 									}
 									
 									if(Stop_Program == On)

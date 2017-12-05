@@ -5719,12 +5719,14 @@ Switch_Adjust_LF = 0,
 Switch_Adjust_RB = 0,
 Switch_Adjust_RF = 0,
 Switch_Train_Path = 0,
-Stop_Program = 0;
+Stop_Program = 0,
+Train_Pos1_Temp = 0,
+Train_Pos2_Temp = 0;
 
 unsigned int Adjust_Counter = 0,
 Activate_Controls_Counter = 0;
 
-# 41
+# 43
 void Update_StateMchn(void)
 {
 if (GETxAPIxVAL(72)){
@@ -5912,7 +5914,12 @@ case 7 : if(GETxAPIxVAL(32) || GETxAPIxVAL(70))
 Switch_Main = 2;
 Switch_Init = 0;
 Stop_Program = 0;
-SETxAPIxVAL(70, 0);
+SETxAPIxVALxNoxRET(70, 0);
+}
+
+else if (Train_Pos1_Temp != GETxAPIxVAL(39) || Train_Pos1_Temp != GETxAPIxVAL(40)){
+Switch_Main = 1;
+Switch_Init = 0;
 }
 Green_Led(3);
 Red_Led(0);
@@ -6041,6 +6048,8 @@ Red_Led(1);
 break;
 }
 }
+Train_Pos1_Temp = GETxAPIxVAL(39);
+Train_Pos2_Temp = GETxAPIxVAL(40);
 break;
 
 case 9 : Switch_Init = 11;
@@ -6051,6 +6060,11 @@ case 10 : if(GETxAPIxVAL(32) || GETxAPIxVAL(70))
 Switch_Main = 3;
 Switch_Init = 0;
 Stop_Program = 0;
+SETxAPIxVALxNoxRET(70, 0);
+}
+else if (Train_Pos1_Temp != GETxAPIxVAL(39) || Train_Pos1_Temp != GETxAPIxVAL(40)){
+Switch_Main = 1;
+Switch_Init = 0;
 }
 Green_Led(3);
 Red_Led(0);
@@ -6071,6 +6085,8 @@ default : Switch_Init = 11;
 Red_Led(1);
 break;
 }
+Train_Pos1_Temp = GETxAPIxVAL(39);
+Train_Pos2_Temp = GETxAPIxVAL(40);
 break;
 
 default : Switch_Init = 0;
@@ -6183,11 +6199,11 @@ break;
 default : break;
 }
 
-# 681
+# 697
 if(GETxAPIxVAL(33) || GETxAPIxVAL(71))
 {
 Stop_Program = 1;
-SETxAPIxVAL(71, 0);
+SETxAPIxVALxNoxRET(71, 0);
 }
 
 if(Stop_Program == 1)
@@ -6253,7 +6269,7 @@ break;
 default : break;
 }
 
-# 932
+# 948
 if(GETxAPIxVAL(33) || GETxAPIxVAL(71))
 {
 Stop_Program = 1;
@@ -6275,7 +6291,7 @@ SETxAPIxVAL(63, Switch_Main);
 SETxAPIxVAL(80, Switch_Program);
 }
 
-# 968
+# 984
 char Train_Path(unsigned char From, unsigned char To)
 {
 static char Return_Val = 1;

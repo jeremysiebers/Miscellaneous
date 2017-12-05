@@ -116,6 +116,8 @@ namespace Pendelbaan
         UInt16 junction_right_str_prev = 1;
         UInt16 junction_right_bnd_prev = 0;
         UInt16 pwm_direction = 0;
+        UInt16 sw_eeprom_store = 0;
+        UInt16 hw_pwm_speed = 511;
         #endregion Variables
 
         #region Indicator init
@@ -138,6 +140,21 @@ namespace Pendelbaan
             leesOpnieuwInToolStripMenuItem.Enabled = false;
 
             pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
+
+            Train1Pos.Items.Add("");
+            Train1Pos.Items.Add("Links voor");
+            Train1Pos.Items.Add("Links achter");
+            Train1Pos.Items.Add("Midden");
+            Train1Pos.Items.Add("Rechts voor");
+            Train1Pos.Items.Add("Rechts achter");
+
+            Train2Pos.Items.Add("");
+            Train2Pos.Items.Add("Links voor");
+            Train2Pos.Items.Add("Links achter");
+            Train2Pos.Items.Add("Midden");
+            Train2Pos.Items.Add("Rechts voor");
+            Train2Pos.Items.Add("Rechts achter");
+            Train2Pos.Items.Add("Trein 2 afwezig");
 
             ManPwm.Minimum = -255;
             ManPwm.Maximum = 255;            
@@ -349,6 +366,73 @@ namespace Pendelbaan
             Thread.Sleep(50);
         }
 
+        private void Train1PosValueChanged(object sender, EventArgs e)
+        {
+            train1_pos = TranslateTrainComboListItem(Train1Pos.SelectedIndex);
+            Transceive_Data(Set, API.TRAIN1_POS, train1_pos);
+        }
+
+        private void Train2PosValueChanged(object sender, EventArgs e)
+        {
+            train2_pos = TranslateTrainComboListItem(Train2Pos.SelectedIndex);
+            Transceive_Data(Set, API.TRAIN2_POS, train2_pos);
+        }   
+        
+        private ushort TranslateTrainComboListItem(int nr)
+        {
+            switch (nr)
+            {
+                case 1:
+                    return (2);
+
+                case 2:
+                    return (1);
+
+                case 3:
+                    return (5);
+
+                case 4:
+                    return (4);
+
+                case 5:
+                    return (3);
+
+                case 6:
+                    return (9);
+
+                default: return (0);
+            }
+        }
+
+        private int TranslateTrainComboListItemFromNumber(ushort number)
+        {
+            switch (number)
+            {
+                case 0:
+                    return (Train1Pos.FindString(""));
+
+                case 2:
+                    return (Train1Pos.FindString("Links achter"));
+
+                case 1:
+                    return (Train1Pos.FindString("Links achter"));
+
+                case 5:
+                    return (Train1Pos.FindString("Midden"));
+
+                case 4:
+                    return (Train1Pos.FindString("Rechts voor"));
+
+                case 3:
+                    return (Train1Pos.FindString("Rechts achter"));
+
+                case 9:
+                    return (Train2Pos.FindString("Trein 2 afwezig"));
+
+                default: return (0);
+            }
+        }
+
         /*#--------------------------------------------------------------------------#*/
         /*  Description: private void ManPwm_Stop(object sender, EventArgs e)
          *
@@ -376,7 +460,7 @@ namespace Pendelbaan
 				Thread.Sleep(50);
 				Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, 0); 
 				Thread.Sleep(50);
-				
+                ActualPwmSpeedInd.Text = "0";
             }
         }
 		
@@ -431,7 +515,8 @@ namespace Pendelbaan
 					Thread.Sleep(50);					
 					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, 0); 
 					Thread.Sleep(50);
-				}
+                    ActualPwmSpeedInd.Text = "0";
+                }
             }
             ManPwmTmr.Enabled = true;
         }
@@ -597,8 +682,16 @@ namespace Pendelbaan
                     case API.BTN_LF: btn_lf = Value; break;
                     case API.BTN_RB: btn_rb = Value; break;
                     case API.BTN_RF: btn_rf = Value; break;
-                    case API.TRAIN1_POS: train1_pos = Value; break;
-                    case API.TRAIN2_POS: train2_pos = Value; break;
+
+                    case API.TRAIN1_POS:
+                        train1_pos = Value;
+                        Train1Pos.SelectedIndex = TranslateTrainComboListItemFromNumber(train1_pos);
+                        break;
+
+                    case API.TRAIN2_POS:
+                        train2_pos = Value;
+                        Train2Pos.SelectedIndex = TranslateTrainComboListItemFromNumber(train2_pos);
+                        break;
 
                     case API.RC_LMU:
                         rc_lmu = Value;
@@ -711,12 +804,25 @@ namespace Pendelbaan
                             JunctionLeftBtn.Enabled = true;
                             JunctionRightBtn.Enabled = true;
 							ManPwm.Enabled = true;
+                            Train1Pos.Enabled = true;
+                            Train2Pos.Enabled = true;
+                            SwitchMainInd.Text = "Standby";
                         }
                         else if (main_program == 2 || main_program == 3)
                         {
+                            if(main_program == 2)
+                            {
+                                SwitchMainInd.Text = "2 Treinen";
+                            }
+                            else if (main_program == 3)
+                            {
+                                SwitchMainInd.Text = "1 Trein";
+                            }
                             JunctionLeftBtn.Enabled = false;
                             JunctionRightBtn.Enabled = false;
 							ManPwm.Enabled = false;
+                            Train1Pos.Enabled = false;
+                            Train2Pos.Enabled = false;
                         }
                         break;
 
@@ -761,7 +867,42 @@ namespace Pendelbaan
                     case API.SW_PWM_BRAKE_ON: sw_pwm_brake_on = Value; break;
                     case API.SW_PWM_BRAKE_OFF: sw_pwm_brake_off = Value; break;
                     case API.SW_ACTUAL_PWM_SPEED: sw_actual_pwm_speed = Value; break;
-                    case API.SWITCH_PROGRAM: switch_program = Value; break;
+
+                    case API.SWITCH_PROGRAM:
+                        switch_program = Value;
+                        if (Train1Pos.SelectedIndex > 0 && Train2Pos.SelectedIndex > 0 && Train2Pos.SelectedIndex < 6)
+                        { 
+                            switch (switch_program)
+                            {
+                                case 0: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; break;
+                                case 1: SwitchProgramInd.Text = "Trein van links voor naar rechts achter"; break;
+                                case 2: SwitchProgramInd.Text = "Trein van links achter naar rechts voor"; break;
+                                case 3: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; break;
+                                case 4: SwitchProgramInd.Text = "Trein van rechts voor naar links voor"; break;
+                                case 5: SwitchProgramInd.Text = "Trein van links achter naar rechts achter"; break;
+                                case 6: SwitchProgramInd.Text = "Trein van links voor naar rechts achter"; break;
+                                case 7: SwitchProgramInd.Text = "Trein van rechts voor naar links voor"; break;
+                                default: SwitchProgramInd.Text = "Opgestegen..."; break;
+                            }
+                        }
+                        else if (Train1Pos.SelectedIndex > 0 && Train2Pos.SelectedIndex > 0 && Train2Pos.SelectedIndex == 6)
+                        {
+                            switch (switch_program)
+                            {
+                                case 0: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; break;
+                                case 1: SwitchProgramInd.Text = "Trein van links achter naar rechts voor"; break;
+                                case 2: SwitchProgramInd.Text = "Trein van rechts voor naar links voor"; break;
+                                case 3: SwitchProgramInd.Text = "Trein van links voor naar rechts achter"; break;
+                                default: SwitchProgramInd.Text = "Opgestegen..."; break;
+                            }
+                        }
+                        else
+                        {
+                            SwitchProgramInd.Text = "Standby";
+                        }
+                        break;
+
+
 					case API.SW_PWM_DIRECTION: sw_pwm_direction = Value; break;
 
                     case API.JUNCTION_LEFT_STR_PREV:
@@ -798,6 +939,24 @@ namespace Pendelbaan
                         break;
 
                     case API.PWM_DIRECTION: pwm_direction = Value; break;
+
+                    case API.SW_EEPROM_STORE: sw_eeprom_store = Value; break;
+
+                    case API.HW_PWM_SPEED:
+                        hw_pwm_speed = Value;
+                        if (hw_pwm_speed > 511)
+                        {
+                            ActualPwmSpeedInd.Text = Convert.ToString((hw_pwm_speed - 511) / 2);
+                        }
+                        else if (hw_pwm_speed < 511)
+                        {
+                            ActualPwmSpeedInd.Text = Convert.ToString((511 - hw_pwm_speed) / 2);
+                        }
+                        else
+                        {
+                            ActualPwmSpeedInd.Text = "0";
+                        }
+                        break;
 
                     default:
                         break;
@@ -900,6 +1059,13 @@ namespace Pendelbaan
                     Task.Factory.StartNew(HardwareReadout);
                     NotConnectedBanner.Visible = false;
                     leesOpnieuwInToolStripMenuItem.Enabled = true;
+                    ResetBtn.Enabled = true;
+                    JunctionLeftBtn.Enabled = true;
+                    JunctionRightBtn.Enabled = true;
+                    StartBtn.Enabled = true;
+                    StopBtn.Enabled = true;
+                    Train2Pos.Enabled = true;
+                    Train1Pos.Enabled = true;
                 }
                 catch (Exception ex)
                 {
@@ -942,6 +1108,8 @@ namespace Pendelbaan
                 MaxJerkPwmBrake.ValueChanged += MaxJerkPwmBrakeValueChanged;
                 LightsOnWaitTime.ValueChanged += LightsOnWaitTimeValueChanged;
                 TrainWaitTime.ValueChanged += TrainWaitTimeValueChanged;
+                Train1Pos.SelectedValueChanged += Train1PosValueChanged;
+                Train2Pos.SelectedValueChanged += Train2PosValueChanged;
             }
             else
             {
@@ -959,9 +1127,13 @@ namespace Pendelbaan
                 MaxJerkPwmBrake.ValueChanged -= MaxJerkPwmBrakeValueChanged;
                 LightsOnWaitTime.ValueChanged -= LightsOnWaitTimeValueChanged;
                 TrainWaitTime.ValueChanged -= TrainWaitTimeValueChanged;
+                Train1Pos.SelectedValueChanged -= Train1PosValueChanged;
+                Train2Pos.SelectedValueChanged -= Train2PosValueChanged;
             }
         }
-                
+
+       
+
         /*#--------------------------------------------------------------------------#*/
         /*  Description: private void HardwareReadout()
          *
@@ -1145,6 +1317,47 @@ namespace Pendelbaan
         {
             ReadAllData();
         }
+
+        private void Reset_Click(object sender, EventArgs e)
+        {
+            if (serialPort.IsOpen)
+            {
+                Transceive_Data(Set, API.SW_RESET, On);
+                Train1Pos.Enabled = true;
+                Train2Pos.Enabled = true;
+                StartBtn.Enabled = true;
+                StopBtn.Enabled = true;
+                JunctionLeftBtn.Enabled = true;
+                JunctionRightBtn.Enabled = true;
+                main_program = 1;
+                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
+                JunctionRightBtn.Text = "Rechtdoor";
+                JunctionLeftBtn.Text = "Rechtdoor";
+                Train1Pos.SelectedIndex = 0;
+                Train2Pos.SelectedIndex = 0;
+                SwitchMainInd.Text = "Standby";
+                ManPwm.Enabled = true;
+                ManPwm.Value = 0;
+                ActualPwmSpeedInd.Text = "0";
+                SwitchProgramInd.Text = "Standby";
+            }
+        }
+
+        private void Start_Click(object sender, EventArgs e)
+        {
+            if (serialPort.IsOpen)
+            {
+                Transceive_Data(Set, API.SW_START, On);
+            }
+        }
+
+        private void Stop_Click(object sender, EventArgs e)
+        {
+            if (serialPort.IsOpen)
+            {
+                Transceive_Data(Set, API.SW_STOP, On);
+            }
+        }
     }
 
 
@@ -1239,5 +1452,6 @@ namespace Pendelbaan
         public const int JUNCTION_RIGHT_BND_PREV = 85;
         public const int PWM_DIRECTION = 86;	
 		public const int SW_EEPROM_STORE = 87;
+        public const int HW_PWM_SPEED = 88;
     }
 }
