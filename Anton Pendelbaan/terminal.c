@@ -15,12 +15,10 @@ unsigned char       *pData, *pLen;
 unsigned char       Message_To_Translate    = 0;
 unsigned char       TrSwitch                = 0;
 
-unsigned int   		Diag_Comm=0,				// Switch for read in to be sended command
-					Comm_List[8][2],			//	Command buffer array
-					*Pcomm_List,				//	Pointer to array command buffer
-					*Pcomm_List2,				//	Pointer 2 to array command buffer to write out 
-					Diag_Comm2=0,				// Switch for write command
-                    DelayCounter = 0;           // Determines sent speed
+unsigned int   		Comm_List[190][2],              // Command buffer array					
+                    WritePointer = 0,               // Count pointer increments of Pcomm_List					
+                    ReadPointer = 0,                // Count pointer increments of Pcomm_List2
+					DelayCounter = 0;               // Determines sent speed
 
 
 /******************************************************************************
@@ -193,84 +191,18 @@ void SendMessage(unsigned int index, unsigned int value){
 
 void DIAGNOSTICxTOxPC(void)
 {
-    if (DelayCounter > 10000){
-		DelayCounter = 0;
+    if (DelayCounter > 5000){
+		DelayCounter = 1;
         
-		switch (Diag_Comm2)
-		{
-			case	0	:	Pcomm_List = &Comm_List[0][0];			//Init pointers 1 time
-							Pcomm_List2 = &Comm_List[0][0];
-							Diag_Comm2 = 1;
-							break;
-							
-			case	1	:	Pcomm_List2 = &Comm_List[0][0];
-							if (Pcomm_List2 != Pcomm_List)
-							{
-								SendMessage(Comm_List[0][0], Comm_List[0][1]);	
-								Pcomm_List2+=2;
-								Diag_Comm2 = 2;
-							}
-							break;
-							
-			case	2	:	if (Pcomm_List2 != Pcomm_List)
-							{
-								SendMessage(Comm_List[1][0], Comm_List[1][1]);	
-								Pcomm_List2+=2;
-								Diag_Comm2 = 3;
-							}
-							break;
-							
-			case	3	:	if (Pcomm_List2 != Pcomm_List)
-							{
-								SendMessage(Comm_List[2][0], Comm_List[2][1]);	
-								Pcomm_List2+=2;
-								Diag_Comm2 = 4;							
-							}
-							break;
-			
-			case	4	:	if (Pcomm_List2 != Pcomm_List)
-							{
-								SendMessage(Comm_List[3][0], Comm_List[3][1]);
-								Pcomm_List2+=2;
-								Diag_Comm2 = 5;
-							}
-							break;
-							
-			case	5	:	if (Pcomm_List2 != Pcomm_List)
-							{
-								SendMessage(Comm_List[4][0], Comm_List[4][1]);	
-								Pcomm_List2+=2;
-								Diag_Comm2 = 6;
-							}
-							break;
-							
-			case	6	:	if (Pcomm_List2 != Pcomm_List)
-							{
-								SendMessage(Comm_List[5][0], Comm_List[5][1]);
-								Pcomm_List2+=2;							
-								Diag_Comm2 = 7;
-							}
-							break;
-							
-			case	7	:	if (Pcomm_List2 != Pcomm_List)
-							{
-								SendMessage(Comm_List[6][0], Comm_List[6][1]);	
-								Pcomm_List2+=2;
-								Diag_Comm2 = 8;
-							}
-							break;
-							
-							
-			case	8	:	if (Pcomm_List2 != Pcomm_List)
-							{
-								SendMessage(Comm_List[7][0], Comm_List[7][1]);
-								Pcomm_List2 = &Comm_List[0][0];	// point to Comm_List[0]
-								Diag_Comm2 = 1;
-							}
-							break; 
-							
-			default		:	break;
-		}
+        if (WritePointer != ReadPointer){
+            
+            SendMessage(Comm_List[ReadPointer][0], Comm_List[ReadPointer][1]);
+            ReadPointer++;
+            
+            if (ReadPointer > 189){
+                ReadPointer = 0;
+            }
+        }        
     }
 	else{
 		DelayCounter++;
@@ -278,69 +210,12 @@ void DIAGNOSTICxTOxPC(void)
 }
 
 void SENDxMESSAGE(unsigned int index, unsigned int value)
-{
-	switch (Diag_Comm)
-	{
-		case	0	:	Pcomm_List = &Comm_List[0][0];	// point to Comm_List[0]
-						*Pcomm_List = index;
-						Pcomm_List++;
-						*Pcomm_List = value;
-						Pcomm_List++;						
-						Diag_Comm = 1;
-						break;
-						
-		case	1	:	*Pcomm_List = index;
-						Pcomm_List++;
-						*Pcomm_List = value;
-						Pcomm_List++;	
-						Diag_Comm = 2;
-						break;
-						
-		case	2	:	*Pcomm_List = index;
-						Pcomm_List++;
-						*Pcomm_List = value;
-						Pcomm_List++;	
-						Diag_Comm = 3;
-						break;
-						
-		case	3	:	*Pcomm_List = index;
-						Pcomm_List++;
-						*Pcomm_List = value;
-						Pcomm_List++;	
-						Diag_Comm = 4;
-						break;
-		
-		case	4	:	*Pcomm_List = index;
-						Pcomm_List++;
-						*Pcomm_List = value;
-						Pcomm_List++;	
-						Diag_Comm = 5;
-						break;
-		
-		case	5	:	*Pcomm_List = index;
-						Pcomm_List++;
-						*Pcomm_List = value;
-						Pcomm_List++;	
-						Diag_Comm = 6;
-						break;
-		
-		case	6	:	*Pcomm_List = index;
-						Pcomm_List++;
-						*Pcomm_List = value;
-						Pcomm_List++;	
-						Diag_Comm = 7;
-						break;
-		
-		case	7	:	*Pcomm_List = index;
-						Pcomm_List++;
-						*Pcomm_List = value;
-						Pcomm_List++;												
-						Pcomm_List = &Comm_List[0][0];	// point to Comm_List[0]
-						Diag_Comm = 0;
-						break;
-		
-						
-		default		:	break;
-	}
-				
+{   
+    Comm_List[WritePointer][0] = index;
+    Comm_List[WritePointer][1] = value;    
+    
+    WritePointer++;
+    if (WritePointer > 189){
+        WritePointer = 0;        
+    }			
 }

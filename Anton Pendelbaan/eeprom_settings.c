@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define LIST_SIZE 28
+#define LIST_SIZE 18
 
 const unsigned int ApiList[] = {			// List containing the writable variables that require storage in EEPROM, should be smaller then 255
 	TRAIN_WAIT_TIME,       					// 00         
@@ -20,24 +20,24 @@ const unsigned int ApiList[] = {			// List containing the writable variables tha
 	MAX_JERK_PWM_BRAKE,                     // 07
 	MAX_JERK_PWM,                           // 08
 	INPUT_DEBOUNCE,                         // 09
-	TRAIN1_POS,                             // 10
-	TRAIN2_POS,         	                // 11
-	MAX_PWM_RMU_RIGHT,	                    // 12
-	MAX_PWM_RMU_LEFT,	                    // 13
-	MAX_PWM_RMD_RIGHT,	                    // 14
-	MAX_PWM_RMD_LEFT,	                    // 15
-	MAX_PWM_LMU_RIGHT,	                    // 16
-	MAX_PWM_LMU_LEFT,	                    // 17
-	MAX_PWM_LMD_RIGHT,	                    // 18
-	MAX_PWM_LMD_LEFT,	                    // 19
-	DELAY_RMU_DOWN,		                    // 20
-	DELAY_RMU_UP,		                    // 21
-	DELAY_RMD_DOWN,		                    // 22
-	DELAY_RMD_UP,		                    // 23
-	DELAY_LMD_DOWN,		                    // 24
-	DELAY_LMD_UP,		                    // 25
-	DELAY_LMU_DOWN,		                    // 26
-	DELAY_LMU_UP		                    // 27
+	MAX_PWM_RMU_LEFT,                       // 10
+	MAX_PWM_RMD_RIGHT,         	            // 11
+	MAX_PWM_LMU_RIGHT,	                    // 12
+	MAX_PWM_LMD_LEFT,		                // 13
+	DELAY_RMU_DOWN,			                // 14
+	DELAY_RMD_UP,	                        // 15
+	DELAY_LMD_UP,		                    // 16
+	DELAY_LMU_DOWN		                    // 17
+		                                    // 18
+											// 19
+											// 20
+											// 21
+											// 22
+											// 23
+											// 24
+											// 25
+											// 26
+											// 27
 };
 
 unsigned int ReadActive = 0;

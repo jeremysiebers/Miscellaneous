@@ -29,7 +29,7 @@
 #define Blink 2
 #define BlinkHz 3000
 #define Blink1 3
-#define BlinkHz1 1000
+#define BlinkHz1 30000
 
 #define LMU 1
 #define LMD 2

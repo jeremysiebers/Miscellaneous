@@ -4613,185 +4613,185 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 404 ]
 [; ;Main.c: 141: }
-[; ;Main.c: 143: READxRECEIVEDxMESSAGE();
-"143
+[; ;Main.c: 142: READxRECEIVEDxMESSAGE();
+"142
 [e ( _READxRECEIVEDxMESSAGE ..  ]
-[; ;Main.c: 144: DIAGNOSTICxTOxPC();
-"144
+[; ;Main.c: 143: DIAGNOSTICxTOxPC();
+"143
 [e ( _DIAGNOSTICxTOxPC ..  ]
-"145
+"144
 }
 [e :U 401 ]
 "135
 [e $U 402  ]
 [e :U 403 ]
+[; ;Main.c: 144: }
 [; ;Main.c: 145: }
-[; ;Main.c: 146: }
-"146
+"145
 [e :UE 397 ]
 }
 [v $root$_tc_low `(v ~T0 @X0 0 e ]
 [v F4662 `(v ~T0 @X0 1 tf ]
-"153
+"152
 [v _tc_low `ILF4662 ~T0 @X0 1 e ]
 {
-[; ;Main.c: 153: void interrupt low_priority tc_low(void) {
+[; ;Main.c: 152: void interrupt low_priority tc_low(void) {
 [e :U _tc_low ]
 [f ]
-[; ;Main.c: 155: }
-"155
+[; ;Main.c: 154: }
+"154
 [e :UE 405 ]
 }
 [v $root$_tc_high `(v ~T0 @X0 0 e ]
 [v F4665 `(v ~T0 @X0 1 tf ]
-"157
+"156
 [v _tc_high `IHF4665 ~T0 @X0 1 e ]
 {
-[; ;Main.c: 157: void interrupt high_priority tc_high(void) {
+[; ;Main.c: 156: void interrupt high_priority tc_high(void) {
 [e :U _tc_high ]
 [f ]
-[; ;Main.c: 159: if (INTCONbits.TMR0IF)
-"159
+[; ;Main.c: 158: if (INTCONbits.TMR0IF)
+"158
 [e $ ! != -> . . _INTCONbits 0 2 `i -> -> -> 0 `i `Vuc `i 407  ]
-[; ;Main.c: 160: {
+[; ;Main.c: 159: {
+"159
+{
+[; ;Main.c: 160: if(Led1_Counter <= 100)
 "160
-{
-[; ;Main.c: 161: if(Led1_Counter <= 100)
-"161
 [e $ ! <= _Led1_Counter -> -> 100 `i `ui 408  ]
-[; ;Main.c: 162: {
+[; ;Main.c: 161: {
+"161
+{
+[; ;Main.c: 162: PORTAbits.RA4 = 1;
 "162
-{
-[; ;Main.c: 163: PORTAbits.RA4 = 1;
-"163
 [e = . . _PORTAbits 0 4 -> -> 1 `i `uc ]
-"164
+"163
 }
-[; ;Main.c: 164: }
+[; ;Main.c: 163: }
 [e $U 409  ]
-"165
+"164
 [e :U 408 ]
-[; ;Main.c: 165: else
-[; ;Main.c: 166: {
-"166
+[; ;Main.c: 164: else
+[; ;Main.c: 165: {
+"165
 {
-[; ;Main.c: 167: PORTAbits.RA4 = 0;
-"167
+[; ;Main.c: 166: PORTAbits.RA4 = 0;
+"166
 [e = . . _PORTAbits 0 4 -> -> 0 `i `uc ]
-"168
+"167
 }
 [e :U 409 ]
-[; ;Main.c: 168: }
-[; ;Main.c: 169: if(Led1_Counter >= 700)
-"169
+[; ;Main.c: 167: }
+[; ;Main.c: 168: if(Led1_Counter >= 700)
+"168
 [e $ ! >= _Led1_Counter -> -> 700 `i `ui 410  ]
-[; ;Main.c: 170: {
-"170
+[; ;Main.c: 169: {
+"169
 {
-[; ;Main.c: 171: Led1_Counter = 0;
-"171
+[; ;Main.c: 170: Led1_Counter = 0;
+"170
 [e = _Led1_Counter -> -> 0 `i `ui ]
-"172
+"171
 }
 [e :U 410 ]
-[; ;Main.c: 172: }
-[; ;Main.c: 173: Led1_Counter++;
-"173
+[; ;Main.c: 171: }
+[; ;Main.c: 172: Led1_Counter++;
+"172
 [e ++ _Led1_Counter -> -> 1 `i `ui ]
-[; ;Main.c: 174: Update_State_Machine = 1;
-"174
+[; ;Main.c: 173: Update_State_Machine = 1;
+"173
 [e = _Update_State_Machine -> -> 1 `i `uc ]
-[; ;Main.c: 175: INTCONbits.TMR0IF = 0;
-"175
+[; ;Main.c: 174: INTCONbits.TMR0IF = 0;
+"174
 [e = . . _INTCONbits 0 2 -> -> 0 `i `uc ]
-"176
+"175
 }
 [e :U 407 ]
-[; ;Main.c: 176: }
-[; ;Main.c: 178: if (PIE1bits.RC1IE == 1 && PIR1bits.RC1IF == 1) {
-"178
+[; ;Main.c: 175: }
+[; ;Main.c: 177: if (PIE1bits.RC1IE == 1 && PIR1bits.RC1IF == 1) {
+"177
 [e $ ! && == -> . . _PIE1bits 1 2 `i -> 1 `i == -> . . _PIR1bits 1 2 `i -> 1 `i 411  ]
 {
-[; ;Main.c: 179: EUSART1_Receive_ISR();
-"179
+[; ;Main.c: 178: EUSART1_Receive_ISR();
+"178
 [e ( _EUSART1_Receive_ISR ..  ]
-"180
+"179
 }
 [e :U 411 ]
-[; ;Main.c: 180: }
-[; ;Main.c: 181: if (PIE1bits.TX1IE == 1 && PIR1bits.TX1IF == 1) {
-"181
+[; ;Main.c: 179: }
+[; ;Main.c: 180: if (PIE1bits.TX1IE == 1 && PIR1bits.TX1IF == 1) {
+"180
 [e $ ! && == -> . . _PIE1bits 1 1 `i -> 1 `i == -> . . _PIR1bits 1 1 `i -> 1 `i 412  ]
 {
-[; ;Main.c: 182: EUSART1_Transmit_ISR();
-"182
+[; ;Main.c: 181: EUSART1_Transmit_ISR();
+"181
 [e ( _EUSART1_Transmit_ISR ..  ]
-"183
+"182
 }
 [e :U 412 ]
+[; ;Main.c: 182: }
 [; ;Main.c: 183: }
-[; ;Main.c: 184: }
-"184
+"183
 [e :UE 406 ]
 }
-"188
+"187
 [v _Init_Timers `(v ~T0 @X0 1 ef ]
-"189
+"188
 {
-[; ;Main.c: 188: void Init_Timers(void)
-[; ;Main.c: 189: {
+[; ;Main.c: 187: void Init_Timers(void)
+[; ;Main.c: 188: {
 [e :U _Init_Timers ]
 [f ]
-[; ;Main.c: 190: RCONbits.IPEN = 1;
-"190
+[; ;Main.c: 189: RCONbits.IPEN = 1;
+"189
 [e = . . _RCONbits 5 7 -> -> 1 `i `uc ]
-[; ;Main.c: 191: INTCON = 0xA0;
-"191
+[; ;Main.c: 190: INTCON = 0xA0;
+"190
 [e = _INTCON -> -> 160 `i `uc ]
-[; ;Main.c: 192: INTCON2 = 0x84;
-"192
+[; ;Main.c: 191: INTCON2 = 0x84;
+"191
 [e = _INTCON2 -> -> 132 `i `uc ]
-[; ;Main.c: 193: TMR0H = 0x0;
-"193
+[; ;Main.c: 192: TMR0H = 0x0;
+"192
 [e = _TMR0H -> -> 0 `i `uc ]
-[; ;Main.c: 194: TMR0L = 0x0;
-"194
+[; ;Main.c: 193: TMR0L = 0x0;
+"193
 [e = _TMR0L -> -> 0 `i `uc ]
-[; ;Main.c: 195: T0CON = 0xC3;
-"195
+[; ;Main.c: 194: T0CON = 0xC3;
+"194
 [e = _T0CON -> -> 195 `i `uc ]
-[; ;Main.c: 196: }
-"196
+[; ;Main.c: 195: }
+"195
 [e :UE 413 ]
 }
-"201
+"200
 [v _Init_Pwm `(v ~T0 @X0 1 ef ]
-"202
+"201
 {
-[; ;Main.c: 201: void Init_Pwm(void)
-[; ;Main.c: 202: {
+[; ;Main.c: 200: void Init_Pwm(void)
+[; ;Main.c: 201: {
 [e :U _Init_Pwm ]
 [f ]
-[; ;Main.c: 204: SETxAPIxVAL(69, 1);
-"204
+[; ;Main.c: 203: SETxAPIxVAL(69, 1);
+"203
 [e ( _SETxAPIxVAL (2 , -> -> 69 `i `ui -> -> 1 `i `ui ]
-[; ;Main.c: 205: PR2=0xFF;
-"205
+[; ;Main.c: 204: PR2=0xFF;
+"204
 [e = _PR2 -> -> 255 `i `uc ]
-[; ;Main.c: 206: CCPR1L = 0x7F;
-"206
+[; ;Main.c: 205: CCPR1L = 0x7F;
+"205
 [e = _CCPR1L -> -> 127 `i `uc ]
-[; ;Main.c: 207: CCP1CON = 0x0F;
-"207
+[; ;Main.c: 206: CCP1CON = 0x0F;
+"206
 [e = _CCP1CON -> -> 15 `i `uc ]
-[; ;Main.c: 208: T2CON = 0x04;
-"208
+[; ;Main.c: 207: T2CON = 0x04;
+"207
 [e = _T2CON -> -> 4 `i `uc ]
-[; ;Main.c: 209: TRISCbits.TRISC2=0;TRISCbits.TRISC0=0;;
-"209
+[; ;Main.c: 208: TRISCbits.TRISC2=0;TRISCbits.TRISC0=0;;
+"208
 [e = . . _TRISCbits 0 2 -> -> 0 `i `uc ]
 [e = . . _TRISCbits 0 0 -> -> 0 `i `uc ]
-[; ;Main.c: 211: }
-"211
+[; ;Main.c: 210: }
+"210
 [e :UE 414 ]
 }

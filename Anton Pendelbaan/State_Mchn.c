@@ -92,6 +92,9 @@ void Update_StateMchn(void)
                                     else if (GETxAPIxVAL(PWM_DIRECTION) != GETxAPIxVAL(SW_PWM_DIRECTION)){
                                         SETxAPIxVALxNoxRET(PWM_DIRECTION, GETxAPIxVAL(SW_PWM_DIRECTION));                                        
                                     }
+                                    else if (GETxAPIxVAL(SW_START) && (GETxAPIxVAL(TRAIN1_POS) == 0 || GETxAPIxVAL(TRAIN2_POS) == 0)){
+                                        SETxAPIxVALxNoxRET(SW_START, Off);
+                                    }
 									else{
                                         
                                         switch(Switch_Init)

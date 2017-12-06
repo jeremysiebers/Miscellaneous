@@ -5916,13 +5916,12 @@ if (1 == Update_State_Machine)
 Update_State_Machine = 0;
 Update_StateMchn();
 }
-
 READxRECEIVEDxMESSAGE();
 DIAGNOSTICxTOxPC();
 }
 }
 
-# 153
+# 152
 void interrupt low_priority tc_low(void) {
 
 }

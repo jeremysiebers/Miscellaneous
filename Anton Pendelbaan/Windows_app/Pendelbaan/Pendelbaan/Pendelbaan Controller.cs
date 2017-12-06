@@ -43,6 +43,7 @@ namespace Pendelbaan
 		public const int Off = 0;
 		public const bool Get = false;
 		public const bool Set = true;
+        public const int sleep = 10;
 
         #region Variables
         UInt16 api_size = 0;
@@ -118,6 +119,8 @@ namespace Pendelbaan
         UInt16 pwm_direction = 0;
         UInt16 sw_eeprom_store = 0;
         UInt16 hw_pwm_speed = 511;
+        UInt16 green_led = 511;
+        UInt16 red_led = 511;
         #endregion Variables
 
         #region Indicator init
@@ -156,8 +159,11 @@ namespace Pendelbaan
             Train2Pos.Items.Add("Rechts achter");
             Train2Pos.Items.Add("Trein 2 afwezig");
 
+            StartBtn.Enabled = true;
+            StopBtn.Enabled = false;
+
             ManPwm.Minimum = -255;
-            ManPwm.Maximum = 255;            
+            ManPwm.Maximum = 264;            
 			ManPwm.MouseLeave += ManPwm_Stop;
             SetPwm = ManPwm.Value;
 
@@ -244,126 +250,126 @@ namespace Pendelbaan
         {
             delay_rmd_up = Convert.ToUInt16(DelayRmdUp.Value * 1000);
             Transceive_Data(Set, API.DELAY_RMD_UP, Convert.ToUInt16(delay_rmd_up / 0.538));
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void DelayRmuDownValueChanged(object sender, EventArgs e)
         {
             delay_rmu_down = Convert.ToUInt16(DelayRmuDown.Value * 1000);
             Transceive_Data(Set, API.DELAY_RMU_DOWN, Convert.ToUInt16(delay_rmu_down / 0.538));
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void DelayLmdUpValueChanged(object sender, EventArgs e)
         {
             delay_lmd_up = Convert.ToUInt16(DelayLmdUp.Value * 1000);
             Transceive_Data(Set, API.DELAY_LMD_UP, Convert.ToUInt16(delay_lmd_up / 0.538));
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void DelayLmuDownValueChanged(object sender, EventArgs e)
         {
             delay_lmu_down = Convert.ToUInt16(DelayLmuDown.Value * 1000);
             Transceive_Data(Set, API.DELAY_LMU_DOWN, Convert.ToUInt16(delay_lmu_down / 0.538));
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void MaxPwmLmdLeftValueChanged(object sender, EventArgs e)
         {
             max_pwm_lmd_left = Convert.ToUInt16(MaxPwmLmdLeft.Value);
             Transceive_Data(Set, API.MAX_PWM_LMD_LEFT, max_pwm_lmd_left);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void MaxPwmLmuRightValueChanged(object sender, EventArgs e)
         {
             max_pwm_lmu_right = Convert.ToUInt16(MaxPwmLmuRight.Value);
             Transceive_Data(Set, API.MAX_PWM_LMU_RIGHT, max_pwm_lmu_right);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void MaxPwmRmdRightValueChanged(object sender, EventArgs e)
         {
             max_pwm_rmd_right = Convert.ToUInt16(MaxPwmRmdRight.Value);
             Transceive_Data(Set, API.MAX_PWM_RMD_RIGHT, max_pwm_rmd_right);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void MaxPwmRmuLeftValueChanged(object sender, EventArgs e)
         {
             max_pwm_rmu_left = Convert.ToUInt16(MaxPwmRmuLeft.Value);
             Transceive_Data(Set, API.MAX_PWM_RMU_LEFT, max_pwm_rmu_left);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void TrainWaitTimeValueChanged(object sender, EventArgs e)
         {
             train_wait_time = Convert.ToUInt16(TrainWaitTime.Value * 1000);
             Transceive_Data(Set, API.TRAIN_WAIT_TIME, Convert.ToUInt16(train_wait_time / 0.538));
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void LightsOnWaitTimeValueChanged(object sender, EventArgs e)
         {
             lights_on_wait_time = Convert.ToUInt16(LightsOnWaitTime.Value * 1000);
             Transceive_Data(Set, API.LIGHTS_ON_WAIT_TIME, Convert.ToUInt16(lights_on_wait_time / 0.538));
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void MaxJerkPwmBrakeValueChanged(object sender, EventArgs e)
         {
             max_jerk_pwm_brake = Convert.ToUInt16(MaxJerkPwmBrake.Value);
             Transceive_Data(Set, API.MAX_JERK_PWM_BRAKE, max_jerk_pwm_brake);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void MaxJerkPwmValueChanged(object sender, EventArgs e)
         {
             max_jerk_pwm = Convert.ToUInt16(MaxJerkPwm.Value);
             Transceive_Data(Set, API.MAX_JERK_PWM, max_jerk_pwm);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void MaxPwmLeftValueChanged(object sender, EventArgs e)
         {
             max_pwm_left = Convert.ToUInt16(MaxPwmLeft.Value);
             Transceive_Data(Set, API.MAX_PWM_LEFT, max_pwm_left);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void MaxPwmRightValueChanged(object sender, EventArgs e)
         {
             max_pwm_right = Convert.ToUInt16(MaxPwmRight.Value);
             Transceive_Data(Set, API.MAX_PWM_RIGHT, max_pwm_right);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
             Transceive_Data(Set, API.SW_EEPROM_STORE, On);
-            Thread.Sleep(50);
+            Thread.Sleep(sleep);
         }
 
         private void Train1PosValueChanged(object sender, EventArgs e)
@@ -457,9 +463,9 @@ namespace Pendelbaan
 				ManPwm.Value = 0;
 				SetPwm  = 0;
 				Transceive_Data(Set, API.SW_PWM_BRAKE_ON, On);				
-				Thread.Sleep(50);
+				Thread.Sleep(sleep);
 				Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, 0); 
-				Thread.Sleep(50);
+				Thread.Sleep(sleep);
                 ActualPwmSpeedInd.Text = "0";
             }
         }
@@ -490,11 +496,11 @@ namespace Pendelbaan
                 {
                     SetPwm = ManPwm.Value;
 					Transceive_Data(Set, API.SW_PWM_BRAKE_OFF, On);
-					Thread.Sleep(50);
+					Thread.Sleep(sleep);
 					Transceive_Data(Set, API.SW_PWM_DIRECTION, TrainGoRight);
-					Thread.Sleep(50);
+					Thread.Sleep(sleep);
 					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, Convert.ToUInt16(ManPwm.Value)); 
-					Thread.Sleep(50);					
+					Thread.Sleep(sleep);					
                 }
                 else if(ManPwm.Value < -20 && SetPwm != ManPwm.Value)
                 {
@@ -502,19 +508,19 @@ namespace Pendelbaan
                     int drive_left = SetPwm * -1;
 					
 					Transceive_Data(Set, API.SW_PWM_BRAKE_OFF, On);
-					Thread.Sleep(50);
+					Thread.Sleep(sleep);
 					Transceive_Data(Set, API.SW_PWM_DIRECTION, TrainGoLeft);
-					Thread.Sleep(50);
+					Thread.Sleep(sleep);
 					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, Convert.ToUInt16(drive_left)); 
-					Thread.Sleep(50);			                    
+					Thread.Sleep(sleep);			                    
                 }  
 				else if(ManPwm.Value > -20 && ManPwm.Value < 20 && SetPwm != ManPwm.Value)
 				{
 					SetPwm = ManPwm.Value = 0;
 					Transceive_Data(Set, API.SW_PWM_BRAKE_ON, On);
-					Thread.Sleep(50);					
+					Thread.Sleep(sleep);					
 					Transceive_Data(Set, API.SW_ACTUAL_PWM_SPEED, 0); 
-					Thread.Sleep(50);
+					Thread.Sleep(sleep);
                     ActualPwmSpeedInd.Text = "0";
                 }
             }
@@ -807,6 +813,8 @@ namespace Pendelbaan
                             Train1Pos.Enabled = true;
                             Train2Pos.Enabled = true;
                             SwitchMainInd.Text = "Standby";
+                            StartBtn.Enabled = true;
+                            StopBtn.Enabled = false;
                         }
                         else if (main_program == 2 || main_program == 3)
                         {
@@ -823,6 +831,8 @@ namespace Pendelbaan
 							ManPwm.Enabled = false;
                             Train1Pos.Enabled = false;
                             Train2Pos.Enabled = false;
+                            StartBtn.Enabled = false;
+                            StopBtn.Enabled = true;
                         }
                         break;
 
@@ -844,14 +854,14 @@ namespace Pendelbaan
                         junction_right_str = Value;
                         if (junction_right_str == 1)
                         {
-                            JunctionRightBtn.Text = "Rechtdoor";                            
+                            JunctionRightBtn.Text = "Afbuigen";  // swapped due to matching original design with physical train track pos                          
                         }
                         break;
                     case API.JUNCTION_RIGHT_BND:
                         junction_right_bnd = Value;
                         if (junction_right_bnd == 1)
                         {
-                            JunctionRightBtn.Text = "Afbuigen";                            
+                            JunctionRightBtn.Text = "Rechtdoor";  // swapped due to matching original design with physical train track pos                              
                         }
                         break;
 
@@ -958,6 +968,30 @@ namespace Pendelbaan
                         }
                         break;
 
+                    case API.GREEN_LED:
+                        green_led = Value;
+                        if (green_led == 1)
+                        {
+                            GreenLedInd.BackColor = System.Drawing.Color.Lime;
+                        }
+                        else
+                        {
+                            GreenLedInd.BackColor = System.Drawing.Color.Gray;
+                        }
+                        break;
+
+                    case API.RED_LED:
+                        red_led = Value;
+                        if (red_led == 1)
+                        {
+                            RedLedInd.BackColor = System.Drawing.Color.Red;
+                        }
+                        else
+                        {
+                            RedLedInd.BackColor = System.Drawing.Color.Gray;
+                        }
+                        break;
+
                     default:
                         break;
                 }
@@ -985,19 +1019,19 @@ namespace Pendelbaan
         {
             if (junction_left_str_prev == 1 && junction_right_str_prev == 1)
             {
-                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
+                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_bnd;
             }
             else if (junction_left_bnd_prev == 1 && junction_right_bnd_prev == 1)
             {
-                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_bnd_bnd;
+                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_bnd_str;
             }
             else if (junction_left_str_prev == 1 && junction_right_bnd_prev == 1)
             {
-                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_bnd;
+                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
             }
             else if (junction_left_bnd_prev == 1 && junction_right_str_prev == 1)
             {
-                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_bnd_str;
+                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_bnd_bnd;
             }
         }
 
@@ -1066,6 +1100,9 @@ namespace Pendelbaan
                     StopBtn.Enabled = true;
                     Train2Pos.Enabled = true;
                     Train1Pos.Enabled = true;
+                    StartBtn.Enabled = true;
+                    StopBtn.Enabled = false;
+                    UpdatePicture();
                 }
                 catch (Exception ex)
                 {
@@ -1192,7 +1229,7 @@ namespace Pendelbaan
             {
                 //Console.WriteLine(i.ToString());
                 RawData(Transceive_Data(Get, i, 0));
-                Thread.Sleep(50);
+                Thread.Sleep(sleep);
             }
 
             AttachFields(true);
@@ -1300,10 +1337,10 @@ namespace Pendelbaan
         {
             if (serialPort.IsOpen)
             {
-                if (JunctionRightBtn.Text == "Rechtdoor")
+                if (JunctionRightBtn.Text == "Afbuigen")   // swapped due to matching original design with physical train track pos   
                 {
 					Transceive_Data(Set, API.SW_JUNCTION_RIGHT_BND, On);
-                    JunctionRightBtn.Text = "Afbuigen";
+                    JunctionRightBtn.Text = "Rechtdoor";   // swapped due to matching original design with physical train track pos   
                 }
                 else
                 {
@@ -1326,7 +1363,7 @@ namespace Pendelbaan
                 Train1Pos.Enabled = true;
                 Train2Pos.Enabled = true;
                 StartBtn.Enabled = true;
-                StopBtn.Enabled = true;
+                StopBtn.Enabled = false;
                 JunctionLeftBtn.Enabled = true;
                 JunctionRightBtn.Enabled = true;
                 main_program = 1;
@@ -1340,6 +1377,9 @@ namespace Pendelbaan
                 ManPwm.Value = 0;
                 ActualPwmSpeedInd.Text = "0";
                 SwitchProgramInd.Text = "Standby";
+                UpdatePicture();
+                GreenLedInd.BackColor = System.Drawing.Color.Gray;
+                RedLedInd.BackColor = System.Drawing.Color.Gray;
             }
         }
 
@@ -1453,5 +1493,8 @@ namespace Pendelbaan
         public const int PWM_DIRECTION = 86;	
 		public const int SW_EEPROM_STORE = 87;
         public const int HW_PWM_SPEED = 88;
+        public const int GREEN_LED = 89;
+        public const int RED_LED = 90;
+
     }
 }

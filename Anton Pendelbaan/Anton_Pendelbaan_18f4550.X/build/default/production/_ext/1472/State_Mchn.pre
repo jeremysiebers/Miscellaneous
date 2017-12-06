@@ -5779,6 +5779,9 @@ SETxPWM(GETxAPIxVAL(68),GETxAPIxVAL(86));
 else if (GETxAPIxVAL(86) != GETxAPIxVAL(81)){
 SETxAPIxVALxNoxRET(86, GETxAPIxVAL(81));
 }
+else if (GETxAPIxVAL(70) && (GETxAPIxVAL(39) == 0 || GETxAPIxVAL(40) == 0)){
+SETxAPIxVALxNoxRET(70, 0);
+}
 else{
 
 switch(Switch_Init)
@@ -6199,7 +6202,7 @@ break;
 default : break;
 }
 
-# 697
+# 700
 if(GETxAPIxVAL(33) || GETxAPIxVAL(71))
 {
 Stop_Program = 1;
@@ -6269,7 +6272,7 @@ break;
 default : break;
 }
 
-# 948
+# 951
 if(GETxAPIxVAL(33) || GETxAPIxVAL(71))
 {
 Stop_Program = 1;
@@ -6291,7 +6294,7 @@ SETxAPIxVAL(63, Switch_Main);
 SETxAPIxVAL(80, Switch_Program);
 }
 
-# 984
+# 987
 char Train_Path(unsigned char From, unsigned char To)
 {
 static char Return_Val = 1;

@@ -114,18 +114,19 @@ void APIxInitialize(){
 	API_RW[PWM_DIRECTION]			= 	RO;
 	API_RW[SW_EEPROM_STORE]			=	RW;
     API_RW[HW_PWM_SPEED]            =   RO;
-	
+	API_RW[GREEN_LED]               =   RO;
+	API_RW[RED_LED]                 =   RO;
 	
 	/*  Set the API data */
     API[API_SIZE]                   =   APISIZE;                                // Set the APISIZE on the API_SIZE location within API
     API[WATCHDOG]                   =   0; 
-	API[TRAIN_WAIT_TIME]            =   10000; 								
+	API[TRAIN_WAIT_TIME]            =   18587; 								
 	API[JUNCTION_WAIT_TIME]         =   800;
-	API[LIGHTS_ON_WAIT_TIME]        =   5000;
+	API[LIGHTS_ON_WAIT_TIME]        =   9294;
 	API[STATIONARY_LEFT]            =   20;
 	API[STATIONARY_RIGHT]           =   20;
-	API[MAX_PWM_RIGHT]              =   107;
-	API[MAX_PWM_LEFT]               =   107;
+	API[MAX_PWM_RIGHT]              =   200;
+	API[MAX_PWM_LEFT]               =   200;
 	API[MAX_JERK_PWM_BRAKE]         =   80;
 	API[MAX_JERK_PWM]               =   45;
 	API[INPUT_DEBOUNCE]             =   20;
@@ -147,21 +148,21 @@ void APIxInitialize(){
 	API[RC_RMU]						= 	Off;
 	API[RC_RMD]			  			= 	Off;
 	API[MAX_PWM_RMU_RIGHT]			= 	0;                                      // not used
-	API[MAX_PWM_RMU_LEFT]			= 	80;
-	API[MAX_PWM_RMD_RIGHT]			= 	120;
+	API[MAX_PWM_RMU_LEFT]			= 	150;
+	API[MAX_PWM_RMD_RIGHT]			= 	250;
 	API[MAX_PWM_RMD_LEFT]			= 	0;                                      // not used
-	API[MAX_PWM_LMU_RIGHT]			= 	80;
+	API[MAX_PWM_LMU_RIGHT]			= 	150;
 	API[MAX_PWM_LMU_LEFT]			= 	0;                                      // not used
     API[MAX_PWM_LMD_RIGHT]			= 	0;                                      // not used
-    API[MAX_PWM_LMD_LEFT]			= 	120;	
-	API[DELAY_RMU_DOWN]				= 	100;                                    // 100  = 53.76 ms
-	API[DELAY_RMU_UP]				= 	100;                                    // not used
-	API[DELAY_RMD_DOWN]				= 	100;                                    // not used
-	API[DELAY_RMD_UP]				= 	100;                
-	API[DELAY_LMD_DOWN]				= 	100;                                    // not used
-	API[DELAY_LMD_UP]				= 	100;                                    
-	API[DELAY_LMU_DOWN]				= 	100;                    
-	API[DELAY_LMU_UP]				= 	100;                                    // not used
+    API[MAX_PWM_LMD_LEFT]			= 	250;	
+	API[DELAY_RMU_DOWN]				= 	1859;                                   // 100  = 53.76 ms
+	API[DELAY_RMU_UP]				= 	0;                                      // not used
+	API[DELAY_RMD_DOWN]				= 	0;                                      // not used
+	API[DELAY_RMD_UP]				= 	1859;                
+	API[DELAY_LMD_DOWN]				= 	0;                                      // not used
+	API[DELAY_LMD_UP]				= 	1859;                                    
+	API[DELAY_LMU_DOWN]				= 	1859;                    
+	API[DELAY_LMU_UP]				= 	0;                                      // not used
 	API[TRAIN_PATH_FROM]     		=	0;
 	API[TRAIN_PATH_TO]       		=	0;
 	API[MAIN_PROGRAM]				=	Init;
@@ -190,6 +191,8 @@ void APIxInitialize(){
 	API[PWM_DIRECTION]				= 	0;
 	API[SW_EEPROM_STORE]			=	0;
     API[HW_PWM_SPEED]               =   511;
+	API[GREEN_LED]                  =   Off;
+    API[RED_LED]                    =   Off;
 }
 
 /******************************************************************************

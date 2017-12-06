@@ -33,7 +33,7 @@ extern unsigned int API_EEPROM[];
  *
  * Overview:        Here all API addresses are declared
  *****************************************************************************/
-#define     APISIZE                     89      // Size of the API array
+#define     APISIZE                     91      // Size of the API array
 #define     RO	                        0
 #define     RW	                        1
 
@@ -110,6 +110,8 @@ extern unsigned int API_EEPROM[];
 #define     PWM_DIRECTION               86      // PWM direction control
 #define 	SW_EEPROM_STORE				87		// SW controlled EEPROM store command
 #define     HW_PWM_SPEED                88      // Hardware PWM setpoint 10bit PWM
+#define     GREEN_LED                   89      // Green led status
+#define     RED_LED                     90      // Green led status
                                         
 #ifdef	__cplusplus
 extern "C" {

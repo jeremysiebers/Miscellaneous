@@ -137,11 +137,10 @@ void main (void)
 		if (True == Update_State_Machine)
 		{
 			Update_State_Machine = False;
-			Update_StateMchn();            
-		}
-        
+			Update_StateMchn();                       
+		}        
         READxRECEIVEDxMESSAGE();
-        DIAGNOSTICxTOxPC();
+        DIAGNOSTICxTOxPC(); 
 	}
 }
 

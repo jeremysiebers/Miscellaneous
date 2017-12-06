@@ -109,6 +109,8 @@
             this.label34 = new System.Windows.Forms.Label();
             this.ActualPwmSpeedInd = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
+            this.GreenLedInd = new System.Windows.Forms.TextBox();
+            this.RedLedInd = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DelayLmdUp)).BeginInit();
@@ -727,7 +729,7 @@
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(124, 18);
             this.label25.TabIndex = 19;
-            this.label25.Text = "Optrek snelheid";
+            this.label25.Text = "Optrek tijd";
             // 
             // MaxJerkPwmBrake
             // 
@@ -753,7 +755,7 @@
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(124, 18);
             this.label26.TabIndex = 21;
-            this.label26.Text = "Afrem snelheid";
+            this.label26.Text = "Afrem tijd";
             // 
             // LightsOnWaitTime
             // 
@@ -961,12 +963,30 @@
             this.label35.TabIndex = 39;
             this.label35.Text = "Snelheid [km/h]";
             // 
+            // GreenLedInd
+            // 
+            this.GreenLedInd.Enabled = false;
+            this.GreenLedInd.Location = new System.Drawing.Point(517, 391);
+            this.GreenLedInd.Name = "GreenLedInd";
+            this.GreenLedInd.Size = new System.Drawing.Size(17, 20);
+            this.GreenLedInd.TabIndex = 40;
+            // 
+            // RedLedInd
+            // 
+            this.RedLedInd.Enabled = false;
+            this.RedLedInd.Location = new System.Drawing.Point(517, 420);
+            this.RedLedInd.Name = "RedLedInd";
+            this.RedLedInd.Size = new System.Drawing.Size(17, 20);
+            this.RedLedInd.TabIndex = 41;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.RedLedInd);
+            this.Controls.Add(this.GreenLedInd);
             this.Controls.Add(this.SerialRead);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.ActualPwmSpeedInd);
@@ -1149,6 +1169,8 @@
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.TextBox ActualPwmSpeedInd;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.TextBox GreenLedInd;
+        private System.Windows.Forms.TextBox RedLedInd;
     }
 }
 

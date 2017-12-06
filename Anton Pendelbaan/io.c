@@ -53,11 +53,11 @@ void Green_Led(unsigned char Operation)
 		case	On		:	Green = On;		break;
 		
 		case	Blink	:	Green_Led_Counter++;
-							if(Green_Led_Counter >= BlinkHz)
+							if(Green_Led_Counter > BlinkHz)
 							{
 								Green_Led_Counter = 0;
 							}
-							if(Green_Led_Counter >= BlinkHz/2)
+							if(Green_Led_Counter > BlinkHz/2)
 							{
 								Green = On;
 							}
@@ -65,11 +65,11 @@ void Green_Led(unsigned char Operation)
 							break;
 							
 		case	Blink1	:	Green_Led_Counter++;
-							if(Green_Led_Counter >= BlinkHz1)
+							if(Green_Led_Counter > BlinkHz1)
 							{
 								Green_Led_Counter = 0;
 							}
-							if(Green_Led_Counter >= BlinkHz1/2)
+							if(Green_Led_Counter > BlinkHz1/2)
 							{
 								Green = On;
 							}
@@ -78,6 +78,7 @@ void Green_Led(unsigned char Operation)
 							
 		default			:	break;
 	}
+    SETxAPIxVAL(GREEN_LED, Green);
 }
 
 /******************************************************************************
@@ -128,6 +129,7 @@ void Red_Led(unsigned char Operation)
 							
 		default			:	break;
 	}
+    SETxAPIxVAL(RED_LED, Red);
 }
 
 
