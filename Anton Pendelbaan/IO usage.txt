@@ -36,3 +36,9 @@ PORTE 0    Reed_Contact_RMD			Screw-block Back	: 5
 PORTE 1    Reed_Contact_RMU			Screw-block Back	: 4
 PORTE 2
 PORTE 3    MRESET
+
+VDD									Screw-block Back	: 1
+VSS									Screw-block Back	: 6
+
+VDD									Screw-block Front	: 7
+VSS									Screw-block Front	: 12
