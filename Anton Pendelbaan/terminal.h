@@ -73,6 +73,7 @@ extern "C" {
     extern void SENDxMESSAGE(unsigned int index, unsigned int value);
     extern void READxRECEIVEDxMESSAGE(void);
     extern void DIAGNOSTICxTOxPC(void);
+    extern unsigned int GETxEMPTYxBUFFER(void);
     
     void TranslateMessage(void);
     void SendMessage(unsigned int index, unsigned int value);

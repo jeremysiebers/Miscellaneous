@@ -189,6 +189,19 @@ void SendMessage(unsigned int index, unsigned int value){
     printf("M#%d %d\r\n", index, value);    
 }
 
+/******************************************************************************
+ * Function:        DIAGNOSTICxTOxPC(void)
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *
+ * Output:          Stores a message to buffer
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
 void DIAGNOSTICxTOxPC(void)
 {
     if (DelayCounter > 5000){
@@ -209,6 +222,20 @@ void DIAGNOSTICxTOxPC(void)
 	}
 }
 
+
+/******************************************************************************
+ * Function:        SENDxMESSAGE(unsigned int index, unsigned int value)
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *
+ * Output:          Sends a stored message from buffer
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
 void SENDxMESSAGE(unsigned int index, unsigned int value)
 {   
     Comm_List[WritePointer][0] = index;
@@ -218,4 +245,27 @@ void SENDxMESSAGE(unsigned int index, unsigned int value)
     if (WritePointer > 189){
         WritePointer = 0;        
     }			
+}
+
+/******************************************************************************
+ * Function:        unsigned int GETxEMPTYxBUFFER()
+ *
+ * PreCondition:    None
+ *
+ * Input:           None
+ *
+ * Output:          Sends back if both pointers are equal (used for reset)
+ *
+ * Side Effects:    None
+ *
+ * Overview:        None
+ *****************************************************************************/
+unsigned int GETxEMPTYxBUFFER()
+{
+    if (ReadPointer == WritePointer){
+        return (1);
+    }
+    else{
+        return (0);
+    }
 }

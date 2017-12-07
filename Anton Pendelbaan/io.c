@@ -48,9 +48,13 @@ void Green_Led(unsigned char Operation)
 {
 	switch(Operation)
 	{
-		case	Off		:	Green = Off; 	break;
+		case	Off		:	Green = Off; 	
+							Green_Led_Counter = 0;
+							break;
 		
-		case	On		:	Green = On;		break;
+		case	On		:	Green = On;
+							Green_Led_Counter = 0;
+							break;
 		
 		case	Blink	:	Green_Led_Counter++;
 							if(Green_Led_Counter > BlinkHz)
@@ -99,9 +103,13 @@ void Red_Led(unsigned char Operation)
 {
 	switch(Operation)
 	{
-		case	Off		:	Red = Off; 	break;
+		case	Off		:	Red = Off; 	
+							Red_Led_Counter = 0;
+							break;
 		
-		case	On		:	Red = On; 	break;
+		case	On		:	Red = On; 	
+							Red_Led_Counter = 0;
+							break;
 		
 		case	Blink	:	Red_Led_Counter++;
 							if(Red_Led_Counter >= BlinkHz)
