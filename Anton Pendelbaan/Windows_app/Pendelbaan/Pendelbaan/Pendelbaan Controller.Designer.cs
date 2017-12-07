@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,7 +42,6 @@
             this.RcRb = new System.Windows.Forms.TextBox();
             this.RcRf = new System.Windows.Forms.TextBox();
             this.RcLf = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.RcLb = new System.Windows.Forms.TextBox();
             this.SerialRead = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -111,8 +111,8 @@
             this.label35 = new System.Windows.Forms.Label();
             this.GreenLedInd = new System.Windows.Forms.TextBox();
             this.RedLedInd = new System.Windows.Forms.TextBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DelayLmdUp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxPwmLmdLeft)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DelayLmuDown)).BeginInit();
@@ -127,6 +127,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.MaxJerkPwmBrake)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LightsOnWaitTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrainWaitTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -231,19 +232,6 @@
             this.RcLf.Name = "RcLf";
             this.RcLf.Size = new System.Drawing.Size(9, 20);
             this.RcLf.TabIndex = 4;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.ErrorImage = null;
-            this.pictureBox1.Image = global::Pendelbaan.Properties.Resources.tandrad_str_str;
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 26);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1008, 577);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
             // 
             // RcLb
             // 
@@ -979,6 +967,19 @@
             this.RedLedInd.Size = new System.Drawing.Size(17, 20);
             this.RedLedInd.TabIndex = 41;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.ErrorImage = null;
+            this.pictureBox1.Image = global::Pendelbaan.Properties.Resources.tandrad_str_str;
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 26);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(1008, 577);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1061,13 +1062,13 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pendelbaan Controller";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DelayLmdUp)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MaxPwmLmdLeft)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DelayLmuDown)).EndInit();
@@ -1082,6 +1083,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.MaxJerkPwmBrake)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LightsOnWaitTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TrainWaitTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

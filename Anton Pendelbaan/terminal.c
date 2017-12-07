@@ -44,7 +44,7 @@ void READxRECEIVEDxMESSAGE(void){
         switch (RxSwitch){
             case 0 : 
                 pData = &Data[0];
-                pLen  = &Data[DataLen - 1];
+                pLen  = &Data[DataLen];
                 if (Received_Data == 's' || Received_Data == 'g'){
                     *pData = Received_Data;
                     *pData++;
@@ -165,6 +165,14 @@ void TranslateMessage(void){
         }
             
     }
+    /*
+    pData = &Data[0];
+    pLen  = &Data[DataLen];
+    
+    while(pLen > pData){
+                       *pData = '\0';
+                       pData++;
+                    }*/
 }
 
 /******************************************************************************

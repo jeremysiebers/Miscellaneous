@@ -4453,8 +4453,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;terminal.h: 73: extern void SENDxMESSAGE(unsigned int index, unsigned int value);
 [; ;terminal.h: 74: extern void READxRECEIVEDxMESSAGE(void);
 [; ;terminal.h: 75: extern void DIAGNOSTICxTOxPC(void);
-[; ;terminal.h: 77: void TranslateMessage(void);
-[; ;terminal.h: 78: void SendMessage(unsigned int index, unsigned int value);
+[; ;terminal.h: 76: extern unsigned int GETxEMPTYxBUFFER(void);
+[; ;terminal.h: 78: void TranslateMessage(void);
+[; ;terminal.h: 79: void SendMessage(unsigned int index, unsigned int value);
 [; ;api.h: 11: extern void APIxInitialize(void);
 [; ;api.h: 12: extern unsigned int GETxAPIxRW(unsigned int index);
 [; ;api.h: 13: extern void SETxAPIxVAL(unsigned int index, unsigned int value);
@@ -4631,9 +4632,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 397 ]
 }
 [v $root$_tc_low `(v ~T0 @X0 0 e ]
-[v F4662 `(v ~T0 @X0 1 tf ]
+[v F4664 `(v ~T0 @X0 1 tf ]
 "152
-[v _tc_low `ILF4662 ~T0 @X0 1 e ]
+[v _tc_low `ILF4664 ~T0 @X0 1 e ]
 {
 [; ;Main.c: 152: void interrupt low_priority tc_low(void) {
 [e :U _tc_low ]
@@ -4643,9 +4644,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :UE 405 ]
 }
 [v $root$_tc_high `(v ~T0 @X0 0 e ]
-[v F4665 `(v ~T0 @X0 1 tf ]
+[v F4667 `(v ~T0 @X0 1 tf ]
 "156
-[v _tc_high `IHF4665 ~T0 @X0 1 e ]
+[v _tc_high `IHF4667 ~T0 @X0 1 e ]
 {
 [; ;Main.c: 156: void interrupt high_priority tc_high(void) {
 [e :U _tc_high ]

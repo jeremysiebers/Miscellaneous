@@ -8,7 +8,8 @@ unsigned char 	Switch_Train_Move = 0,
                 Switch_Moutain = 0;
 
 unsigned int	Train_Move_Pwm_Fast_Count = 0,
-                Mountain_Delay_Counter = 0;
+                Mountain_Delay_Counter = 0,
+                Train_Move_Wait_Time = 0;
 
 /******************************************************************************
  * Function:        static char Train_Move_Right_Start(void)
@@ -27,7 +28,6 @@ unsigned int	Train_Move_Pwm_Fast_Count = 0,
 char Train_Move_Right_Start(void)
 {
 	static char Return_Val = Busy;
-	static unsigned int Train_Move_Wait_Time = 0;
 	
 	switch(Switch_Train_Move)
 	{
@@ -35,11 +35,13 @@ char Train_Move_Right_Start(void)
 		
 		case	0	:	if(Train_Move_Wait_Time >= GETxAPIxVAL(LIGHTS_ON_WAIT_TIME))
 						{
+                            //Led1 = Off;
 							Switch_Train_Move = 1;
 							Train_Move_Wait_Time = 0;
 							Return_Val = Busy;
 							break;
 						}
+                        //Led1 = On;
 						Train_Move_Wait_Time++;
 						Switch_Train_Move = 0;
 						Return_Val = Busy;

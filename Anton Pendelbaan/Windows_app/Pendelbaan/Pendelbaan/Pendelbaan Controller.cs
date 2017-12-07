@@ -144,6 +144,8 @@ namespace Pendelbaan
 
             pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
 
+            
+
             Train1Pos.Items.Add("");
             Train1Pos.Items.Add("Links voor");
             Train1Pos.Items.Add("Links achter");
@@ -588,8 +590,13 @@ namespace Pendelbaan
                 {
                     progressBar1.Value = 0;
                 }
-
+                
                 SerialRead.AppendText(Api.ToString() + " " + Value.ToString() + Environment.NewLine);
+
+                if (SerialRead.TextLength > 2000)
+                {
+                    SerialRead.Clear();
+                }
 
                 switch (Api)
                 {
@@ -884,26 +891,26 @@ namespace Pendelbaan
                         { 
                             switch (switch_program)
                             {
-                                case 0: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; break;
-                                case 1: SwitchProgramInd.Text = "Trein van links voor naar rechts achter"; break;
-                                case 2: SwitchProgramInd.Text = "Trein van links achter naar rechts voor"; break;
-                                case 3: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; break;
-                                case 4: SwitchProgramInd.Text = "Trein van rechts voor naar links voor"; break;
-                                case 5: SwitchProgramInd.Text = "Trein van links achter naar rechts achter"; break;
-                                case 6: SwitchProgramInd.Text = "Trein van links voor naar rechts achter"; break;
-                                case 7: SwitchProgramInd.Text = "Trein van rechts voor naar links voor"; break;
-                                default: SwitchProgramInd.Text = "Opgestegen..."; break;
+                                case 1: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; break;
+                                case 2: SwitchProgramInd.Text = "Trein van links voor naar rechts achter"; break;
+                                case 3: SwitchProgramInd.Text = "Trein van links achter naar rechts voor"; break;
+                                case 4: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; break;
+                                case 5: SwitchProgramInd.Text = "Trein van rechts voor naar links voor"; break;
+                                case 6: SwitchProgramInd.Text = "Trein van links achter naar rechts voor"; break;
+                                case 7: SwitchProgramInd.Text = "Trein van links voor naar rechts achter"; break;
+                                case 8: SwitchProgramInd.Text = "Trein van rechts voor naar links voor"; break;
+                                default: SwitchProgramInd.Text = ""; break;
                             }
                         }
                         else if (Train1Pos.SelectedIndex > 0 && Train2Pos.SelectedIndex > 0 && Train2Pos.SelectedIndex == 6)
                         {
                             switch (switch_program)
                             {
-                                case 0: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; break;
-                                case 1: SwitchProgramInd.Text = "Trein van links achter naar rechts voor"; break;
-                                case 2: SwitchProgramInd.Text = "Trein van rechts voor naar links voor"; break;
-                                case 3: SwitchProgramInd.Text = "Trein van links voor naar rechts achter"; break;
-                                default: SwitchProgramInd.Text = "Opgestegen..."; break;
+                                case 1: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; break;
+                                case 2: SwitchProgramInd.Text = "Trein van links achter naar rechts voor"; break;
+                                case 3: SwitchProgramInd.Text = "Trein van rechts voor naar links voor"; break;
+                                case 4: SwitchProgramInd.Text = "Trein van links voor naar rechts achter"; break;
+                                default: SwitchProgramInd.Text = ""; break;
                             }
                         }
                         else

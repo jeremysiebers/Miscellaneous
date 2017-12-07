@@ -5,7 +5,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _EUSART1_Read `(uc ~T0 @X0 0 ef ]
 "195 C:\Program Files (x86)\Microchip\xc8\v1.44\include\stdio.h
 [v _printf `(i ~T0 @X0 0 ev`*Cuc ]
-"77 ../terminal.h
+"78 ../terminal.h
 [v _TranslateMessage `(v ~T0 @X0 0 ef ]
 "55 C:\Program Files (x86)\Microchip\xc8\v1.44\include\stdlib.h
 [v _atoi `(i ~T0 @X0 0 ef1`*Cuc ]
@@ -4144,8 +4144,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;terminal.h: 73: extern void SENDxMESSAGE(unsigned int index, unsigned int value);
 [; ;terminal.h: 74: extern void READxRECEIVEDxMESSAGE(void);
 [; ;terminal.h: 75: extern void DIAGNOSTICxTOxPC(void);
-[; ;terminal.h: 77: void TranslateMessage(void);
-[; ;terminal.h: 78: void SendMessage(unsigned int index, unsigned int value);
+[; ;terminal.h: 76: extern unsigned int GETxEMPTYxBUFFER(void);
+[; ;terminal.h: 78: void TranslateMessage(void);
+[; ;terminal.h: 79: void SendMessage(unsigned int index, unsigned int value);
 [; ;stdint.h: 13: typedef signed char int8_t;
 [; ;stdint.h: 20: typedef signed int int16_t;
 [; ;stdint.h: 28: typedef signed short long int int24_t;
@@ -4339,9 +4340,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 0 `i `uc
 ]
 [; ;terminal.c: 16: unsigned char TrSwitch = 0;
-[v F4909 `ui ~T0 @X0 -> 2 `i t ]
+[v F4911 `ui ~T0 @X0 -> 2 `i t ]
 "18
-[v _Comm_List `F4909 ~T0 @X0 -> 190 `i e ]
+[v _Comm_List `F4911 ~T0 @X0 -> 190 `i e ]
 "19
 [v _WritePointer `ui ~T0 @X0 1 e ]
 [i _WritePointer
@@ -4384,9 +4385,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;terminal.c: 46: pData = &Data[0];
 "46
 [e = _pData &U *U + &U _Data * -> -> -> 0 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
-[; ;terminal.c: 47: pLen = &Data[DataLen - 1];
+[; ;terminal.c: 47: pLen = &Data[DataLen];
 "47
-[e = _pLen &U *U + &U _Data * -> -> - -> _DataLen `i -> 1 `i `ui `ux -> -> # *U &U _Data `ui `ux ]
+[e = _pLen &U *U + &U _Data * -> _DataLen `ux -> -> # *U &U _Data `ui `ux ]
 [; ;terminal.c: 48: if (Received_Data == 's' || Received_Data == 'g'){
 "48
 [e $ ! || == -> _Received_Data `ui -> 115 `ui == -> _Received_Data `ui -> 103 `ui 407  ]
@@ -4721,122 +4722,158 @@ Version 3.2 HI-TECH Software Intermediate Code
 "167
 }
 [e :U 434 ]
-"168
+"176
 [e :U 433 ]
 [; ;terminal.c: 165: }
 [; ;terminal.c: 167: }
-[; ;terminal.c: 168: }
+[; ;terminal.c: 176: }
 [e :UE 423 ]
 }
-"183
+"191
 [v _SendMessage `(v ~T0 @X0 1 ef2`ui`ui ]
 {
-[; ;terminal.c: 183: void SendMessage(unsigned int index, unsigned int value){
+[; ;terminal.c: 191: void SendMessage(unsigned int index, unsigned int value){
 [e :U _SendMessage ]
 [v _index `ui ~T0 @X0 1 r1 ]
 [v _value `ui ~T0 @X0 1 r2 ]
 [f ]
-[; ;terminal.c: 189: printf("M#%d %d\r\n", index, value);
-"189
+[; ;terminal.c: 197: printf("M#%d %d\r\n", index, value);
+"197
 [e ( _printf , , (. :s 8C _index _value ]
-[; ;terminal.c: 190: }
-"190
+[; ;terminal.c: 198: }
+"198
 [e :UE 439 ]
 }
-"192
+"213
 [v _DIAGNOSTICxTOxPC `(v ~T0 @X0 1 ef ]
-"193
+"214
 {
-[; ;terminal.c: 192: void DIAGNOSTICxTOxPC(void)
-[; ;terminal.c: 193: {
+[; ;terminal.c: 213: void DIAGNOSTICxTOxPC(void)
+[; ;terminal.c: 214: {
 [e :U _DIAGNOSTICxTOxPC ]
 [f ]
-[; ;terminal.c: 194: if (DelayCounter > 5000){
-"194
+[; ;terminal.c: 215: if (DelayCounter > 5000){
+"215
 [e $ ! > _DelayCounter -> -> 5000 `i `ui 441  ]
 {
-[; ;terminal.c: 195: DelayCounter = 1;
-"195
+[; ;terminal.c: 216: DelayCounter = 1;
+"216
 [e = _DelayCounter -> -> 1 `i `ui ]
-[; ;terminal.c: 197: if (WritePointer != ReadPointer){
-"197
+[; ;terminal.c: 218: if (WritePointer != ReadPointer){
+"218
 [e $ ! != _WritePointer _ReadPointer 442  ]
 {
-[; ;terminal.c: 199: SendMessage(Comm_List[ReadPointer][0], Comm_List[ReadPointer][1]);
-"199
+[; ;terminal.c: 220: SendMessage(Comm_List[ReadPointer][0], Comm_List[ReadPointer][1]);
+"220
 [e ( _SendMessage (2 , *U + &U *U + &U _Comm_List * -> _ReadPointer `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> _ReadPointer `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux *U + &U *U + &U _Comm_List * -> _ReadPointer `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> _ReadPointer `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux ]
-[; ;terminal.c: 200: ReadPointer++;
-"200
+[; ;terminal.c: 221: ReadPointer++;
+"221
 [e ++ _ReadPointer -> -> 1 `i `ui ]
-[; ;terminal.c: 202: if (ReadPointer > 189){
-"202
+[; ;terminal.c: 223: if (ReadPointer > 189){
+"223
 [e $ ! > _ReadPointer -> -> 189 `i `ui 443  ]
 {
-[; ;terminal.c: 203: ReadPointer = 0;
-"203
+[; ;terminal.c: 224: ReadPointer = 0;
+"224
 [e = _ReadPointer -> -> 0 `i `ui ]
-"204
+"225
 }
 [e :U 443 ]
-"205
+"226
 }
 [e :U 442 ]
-"206
+"227
 }
-[; ;terminal.c: 204: }
-[; ;terminal.c: 205: }
-[; ;terminal.c: 206: }
+[; ;terminal.c: 225: }
+[; ;terminal.c: 226: }
+[; ;terminal.c: 227: }
 [e $U 444  ]
-"207
+"228
 [e :U 441 ]
-[; ;terminal.c: 207: else{
+[; ;terminal.c: 228: else{
 {
-[; ;terminal.c: 208: DelayCounter++;
-"208
+[; ;terminal.c: 229: DelayCounter++;
+"229
 [e ++ _DelayCounter -> -> 1 `i `ui ]
-"209
+"230
 }
 [e :U 444 ]
-[; ;terminal.c: 209: }
-[; ;terminal.c: 210: }
-"210
+[; ;terminal.c: 230: }
+[; ;terminal.c: 231: }
+"231
 [e :UE 440 ]
 }
-"212
+"247
 [v _SENDxMESSAGE `(v ~T0 @X0 1 ef2`ui`ui ]
-"213
+"248
 {
-[; ;terminal.c: 212: void SENDxMESSAGE(unsigned int index, unsigned int value)
-[; ;terminal.c: 213: {
+[; ;terminal.c: 247: void SENDxMESSAGE(unsigned int index, unsigned int value)
+[; ;terminal.c: 248: {
 [e :U _SENDxMESSAGE ]
-"212
+"247
 [v _index `ui ~T0 @X0 1 r1 ]
 [v _value `ui ~T0 @X0 1 r2 ]
-"213
+"248
 [f ]
-[; ;terminal.c: 214: Comm_List[WritePointer][0] = index;
-"214
+[; ;terminal.c: 249: Comm_List[WritePointer][0] = index;
+"249
 [e = *U + &U *U + &U _Comm_List * -> _WritePointer `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 0 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> _WritePointer `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux _index ]
-[; ;terminal.c: 215: Comm_List[WritePointer][1] = value;
-"215
+[; ;terminal.c: 250: Comm_List[WritePointer][1] = value;
+"250
 [e = *U + &U *U + &U _Comm_List * -> _WritePointer `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux * -> -> -> 1 `i `ui `ux -> -> # *U &U *U + &U _Comm_List * -> _WritePointer `ux -> * -> # *U &U *U &U _Comm_List `ui -> -> 2 `i `ui `ux `ui `ux _value ]
-[; ;terminal.c: 217: WritePointer++;
-"217
+[; ;terminal.c: 252: WritePointer++;
+"252
 [e ++ _WritePointer -> -> 1 `i `ui ]
-[; ;terminal.c: 218: if (WritePointer > 189){
-"218
+[; ;terminal.c: 253: if (WritePointer > 189){
+"253
 [e $ ! > _WritePointer -> -> 189 `i `ui 446  ]
 {
-[; ;terminal.c: 219: WritePointer = 0;
-"219
+[; ;terminal.c: 254: WritePointer = 0;
+"254
 [e = _WritePointer -> -> 0 `i `ui ]
-"220
+"255
 }
 [e :U 446 ]
-[; ;terminal.c: 220: }
-[; ;terminal.c: 221: }
-"221
+[; ;terminal.c: 255: }
+[; ;terminal.c: 256: }
+"256
 [e :UE 445 ]
+}
+"271
+[v _GETxEMPTYxBUFFER `(ui ~T0 @X0 1 ef ]
+"272
+{
+[; ;terminal.c: 271: unsigned int GETxEMPTYxBUFFER()
+[; ;terminal.c: 272: {
+[e :U _GETxEMPTYxBUFFER ]
+[f ]
+[; ;terminal.c: 273: if (ReadPointer == WritePointer){
+"273
+[e $ ! == _ReadPointer _WritePointer 448  ]
+{
+[; ;terminal.c: 274: return (1);
+"274
+[e ) -> -> 1 `i `ui ]
+[e $UE 447  ]
+"275
+}
+[; ;terminal.c: 275: }
+[e $U 449  ]
+"276
+[e :U 448 ]
+[; ;terminal.c: 276: else{
+{
+[; ;terminal.c: 277: return (0);
+"277
+[e ) -> -> 0 `i `ui ]
+[e $UE 447  ]
+"278
+}
+[e :U 449 ]
+[; ;terminal.c: 278: }
+[; ;terminal.c: 279: }
+"279
+[e :UE 447 ]
 }
 [p f _printf 8388736 ]
 [a 8C 77 35 37 100 32 37 100 13 10 0 ]

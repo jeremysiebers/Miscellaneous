@@ -251,7 +251,7 @@ void Update_StateMchn(void)
                                                                 Green_Led(On);
                                                             }
                                                             
-                                                            else if (Train_Pos1_Temp != GETxAPIxVAL(TRAIN1_POS) || Train_Pos1_Temp != GETxAPIxVAL(TRAIN2_POS)){
+                                                            else if (Train_Pos1_Temp != GETxAPIxVAL(TRAIN1_POS) || Train_Pos2_Temp != GETxAPIxVAL(TRAIN2_POS)){
                                                                 Switch_Main = Init;
                                                                 Switch_Init = 0;
                                                             }
@@ -311,13 +311,13 @@ void Update_StateMchn(void)
                                                                                     {
                                                                                         case	LB	:	Switch_Init = 0;
                                                                                                         break;
-                                                                                        case	LF	:	Switch_Program = 1;
+                                                                                        case	LF	:	Switch_Program = 2;
                                                                                                         Switch_Init = 7;
                                                                                                         break;
-                                                                                        case	RB	:	Switch_Program = 2;
+                                                                                        case	RB	:	Switch_Program = 3;
                                                                                                         Switch_Init = 7;
                                                                                                         break;
-                                                                                        case	RF	:	Switch_Program = 4;
+                                                                                        case	RF	:	Switch_Program = 5;
                                                                                                         Switch_Init = 7;
                                                                                                         break;
                                                                                         default		:	Switch_Init = 8;
@@ -327,15 +327,15 @@ void Update_StateMchn(void)
                                                                                     break;
                                                                     case	LF	:	switch(GETxAPIxVAL(TRAIN2_POS))
                                                                                     {
-                                                                                        case	LB	:	Switch_Program = 1;
+                                                                                        case	LB	:	Switch_Program = 2;
                                                                                                         Switch_Init = 7;
                                                                                                         break;
                                                                                         case	LF	:	Switch_Init = 0;
                                                                                                         break;
-                                                                                        case	RB	:	Switch_Program = 0;
+                                                                                        case	RB	:	Switch_Program = 1;
                                                                                                         Switch_Init = 7;
                                                                                                         break;
-                                                                                        case	RF	:	Switch_Program = 6;
+                                                                                        case	RF	:	Switch_Program = 7;
                                                                                                         Switch_Init = 7;
                                                                                                         break;
                                                                                         default		:	Switch_Init = 8;
@@ -345,15 +345,15 @@ void Update_StateMchn(void)
                                                                                     break;
                                                                     case	RB	:	switch(GETxAPIxVAL(TRAIN2_POS))
                                                                                     {
-                                                                                        case	LB	:	Switch_Program = 2;
+                                                                                        case	LB	:	Switch_Program = 3;
                                                                                                         Switch_Init = 7;
                                                                                                         break;
-                                                                                        case	LF	:	Switch_Program = 0;
+                                                                                        case	LF	:	Switch_Program = 1;
                                                                                                         Switch_Init = 7;
                                                                                                         break;
                                                                                         case	RB	:	Switch_Init = 0;
                                                                                                         break;
-                                                                                        case	RF	:	Switch_Program = 3;
+                                                                                        case	RF	:	Switch_Program = 4;
                                                                                                         Switch_Init = 7;
                                                                                                         break;
                                                                                         default		:	Switch_Init = 8;
@@ -363,13 +363,13 @@ void Update_StateMchn(void)
                                                                                     break;
                                                                     case	RF	:	switch(GETxAPIxVAL(TRAIN2_POS))
                                                                                     {
-                                                                                        case	LB	:	Switch_Program = 4;
+                                                                                        case	LB	:	Switch_Program = 5;
                                                                                                         Switch_Init = 7;
                                                                                                         break;
-                                                                                        case	LF	:	Switch_Program = 6;
+                                                                                        case	LF	:	Switch_Program = 7;
                                                                                                         Switch_Init = 7;
                                                                                                         break;
-                                                                                        case	RB	:	Switch_Program = 3;
+                                                                                        case	RB	:	Switch_Program = 4;
                                                                                                         Switch_Init = 7;
                                                                                                         break;
                                                                                         case	RF	:	Switch_Init = 0;
@@ -400,27 +400,27 @@ void Update_StateMchn(void)
                                                                 SETxAPIxVALxNoxRET(SW_START, Off);
                                                                 Green_Led(On);
                                                             }
-                                                            else if (Train_Pos1_Temp != GETxAPIxVAL(TRAIN1_POS) || Train_Pos1_Temp != GETxAPIxVAL(TRAIN2_POS)){
+                                                            else if (Train_Pos1_Temp != GETxAPIxVAL(TRAIN1_POS) || Train_Pos2_Temp != GETxAPIxVAL(TRAIN2_POS)){
                                                                 Switch_Main = Init;
                                                                 Switch_Init = 0;
                                                             }
                                                             else{
                                                                 Green_Led(Blink1);
-                                                                Red_Led(Off);
+                                                                Red_Led(Off);                                                            
                                                             }
                                                             break;
 
                                             case	11	:	if(GETxAPIxVAL(TRAIN1_POS) == Middle)		// 1 Train NEW MODE
                                                             {
-                                                                Switch_Program = 0;
+                                                                Switch_Program = 1;
                                                                 Switch_Init = 10;
                                                             }
                                                             else switch(GETxAPIxVAL(TRAIN1_POS))
                                                             {
-                                                                case	LB	:	Switch_Program = 1;Switch_Init = 10; break;
-                                                                case	LF	:	Switch_Program = 3;Switch_Init = 10; break; 
-                                                                case	RB	:	Switch_Program = 0;Switch_Init = 10; break;
-                                                                case	RF	:	Switch_Program = 2;Switch_Init = 10; break;
+                                                                case	LB	:	Switch_Program = 2;Switch_Init = 10; break;
+                                                                case	LF	:	Switch_Program = 4;Switch_Init = 10; break; 
+                                                                case	RB	:	Switch_Program = 1;Switch_Init = 10; break;
+                                                                case	RF	:	Switch_Program = 3;Switch_Init = 10; break;
                                                                 default		:	Switch_Init = 11;
                                                                                 Red_Led(On);
                                                                                 break;
@@ -438,98 +438,98 @@ void Update_StateMchn(void)
 				
 				case	Run2	:	switch (Switch_Program)
 									{
-										case	0	: 	if (Train_Path(RB,LB) == Finished)
-														{
-															Switch_Program = 1;
-															EEPROMxSTORE();
-															if(Stop_Program == On)
-															{
-																Switch_Main = Init;
-																//Stop_Program = Off;
-															}
-														}
-														break;
-														
-										case	1	: 	if (Train_Path(LF,RB) == Finished)
+										case	1	: 	if (Train_Path(RB,LB) == Finished)
 														{
 															Switch_Program = 2;
 															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
-																//Stop_Program = Off;
+																Switch_Program = 0;
 															}
 														}
 														break;
 														
-										case	2	: 	if (Train_Path(LB,RF) == Finished)
+										case	2	: 	if (Train_Path(LF,RB) == Finished)
 														{
 															Switch_Program = 3;
 															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
-																//Stop_Program = Off;
+																Switch_Program = 0;
 															}
 														}
 														break;
 														
-										case	3	: 	if (Train_Path(RB,LB) == Finished)
+										case	3	: 	if (Train_Path(LB,RF) == Finished)
 														{
 															Switch_Program = 4;
 															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
-																//Stop_Program = Off;
+																Switch_Program = 0;
 															}
 														}
 														break;
 														
-										case	4	: 	if (Train_Path(RF,LF) == Finished)
+										case	4	: 	if (Train_Path(RB,LB) == Finished)
 														{
 															Switch_Program = 5;
 															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
-																//Stop_Program = Off;
+																Switch_Program = 0;
 															}
 														}
 														break;
 														
-										case	5	: 	if (Train_Path(LB,RF) == Finished)
+										case	5	: 	if (Train_Path(RF,LF) == Finished)
 														{
 															Switch_Program = 6;
 															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
-																//Stop_Program = Off;
+																Switch_Program = 0;
 															}
 														}
 														break;
 														
-										case	6	: 	if (Train_Path(LF,RB) == Finished)
+										case	6	: 	if (Train_Path(LB,RF) == Finished)
 														{
 															Switch_Program = 7;
 															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
-																//Stop_Program = Off;
+																Switch_Program = 0;
 															}
 														}
 														break;
 														
-										case	7	: 	if (Train_Path(RF,LF) == Finished)
+										case	7	: 	if (Train_Path(LF,RB) == Finished)
 														{
-															Switch_Program = 0;
+															Switch_Program = 8;
 															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
-																//Stop_Program = Off;
+																Switch_Program = 0;
+															}
+														}
+														break;
+														
+										case	8	: 	if (Train_Path(RF,LF) == Finished)
+														{
+															Switch_Program = 1;
+															EEPROMxSTORE();
+															if(Stop_Program == On)
+															{
+																Switch_Main = Init;
+																Switch_Program = 0;
 															}
 														}
 														break;
@@ -736,50 +736,50 @@ void Update_StateMchn(void)
 									
 				case	Run1	:	switch (Switch_Program)
 									{
-										case	0	: 	if (Train_Path(RB,LB) == Finished)
-														{
-															Switch_Program = 1;
-															EEPROMxSTORE();
-															if(Stop_Program == On)
-															{
-																Switch_Main = Init;
-																//Stop_Program = Off;
-															}
-														}
-														break;
-														
-										case	1	: 	if (Train_Path(LB,RF) == Finished)
+										case	1	: 	if (Train_Path(RB,LB) == Finished)
 														{
 															Switch_Program = 2;
 															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
-																//Stop_Program = Off;
+																Switch_Program = 0;
 															}
 														}
 														break;
 														
-										case	2	: 	if (Train_Path(RF,LF) == Finished)
+										case	2	: 	if (Train_Path(LB,RF) == Finished)
 														{
 															Switch_Program = 3;
 															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
-																//Stop_Program = Off;
+																Switch_Program = 0;
 															}
 														}
 														break;
 														
-										case	3	: 	if (Train_Path(LF,RB) == Finished)
+										case	3	: 	if (Train_Path(RF,LF) == Finished)
 														{
-															Switch_Program = 0;
+															Switch_Program = 4;
 															EEPROMxSTORE();
 															if(Stop_Program == On)
 															{
 																Switch_Main = Init;
-																//Stop_Program = Off;
+																Switch_Program = 0;
+															}
+														}
+														break;
+														
+										case	4	: 	if (Train_Path(LF,RB) == Finished)
+														{
+															Switch_Program = 1;
+															EEPROMxSTORE();
+															if(Stop_Program == On)
+															{
+																Switch_Main = Init;
+																Switch_Program = 0;
 															}
 														}
 														break;

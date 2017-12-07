@@ -5666,6 +5666,7 @@ extern __nonreentrant void _delay3(unsigned char);
 extern void SENDxMESSAGE(unsigned int index, unsigned int value);
 extern void READxRECEIVEDxMESSAGE(void);
 extern void DIAGNOSTICxTOxPC(void);
+extern unsigned int GETxEMPTYxBUFFER(void);
 
 void TranslateMessage(void);
 void SendMessage(unsigned int index, unsigned int value);
@@ -5984,7 +5985,7 @@ Received_Data = EUSART1_Read();
 switch (RxSwitch){
 case 0 :
 pData = &Data[0];
-pLen = &Data[DataLen - 1];
+pLen = &Data[DataLen];
 if (Received_Data == 's' || Received_Data == 'g'){
 *pData = Received_Data;
 *pData++;
@@ -6092,15 +6093,18 @@ SENDxMESSAGE(Index, Value);
 }
 
 }
+
+# 176
 }
 
-# 183
+# 191
 void SendMessage(unsigned int index, unsigned int value){
 
-# 189
+# 197
 printf("M#%d %d\r\n", index, value);
 }
 
+# 213
 void DIAGNOSTICxTOxPC(void)
 {
 if (DelayCounter > 5000){
@@ -6121,6 +6125,7 @@ DelayCounter++;
 }
 }
 
+# 247
 void SENDxMESSAGE(unsigned int index, unsigned int value)
 {
 Comm_List[WritePointer][0] = index;
@@ -6129,5 +6134,16 @@ Comm_List[WritePointer][1] = value;
 WritePointer++;
 if (WritePointer > 189){
 WritePointer = 0;
+}
+}
+
+# 271
+unsigned int GETxEMPTYxBUFFER()
+{
+if (ReadPointer == WritePointer){
+return (1);
+}
+else{
+return (0);
 }
 }

@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Pendelbaan.exe" version="1.0.0.0" publicKeyToken="325fb46ba4c9828a" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Pendelbaan" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Pendelbaan.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the 
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward 
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Pendelbaan.exe" size="148504">
+      <assemblyIdentity name="Pendelbaan" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>xGaXB1BtJZ96dA4Bdu/5a/W3OVF+8tPZDyHPgbBOspk=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Pendelbaan.exe.config" size="189">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>6N7MliNbVJSIAIPrecIshMbZ7zEoKLr5SQvud4LDUOw=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=DESKTOP-MH7F4O6\Jeremy Siebers" issuerKeyHash="ee6304d316ee21fd5adaab394eb9d4265c426526" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>MlYs7dFfBKXi2MFiIbUdFKyswaHZ4xK5TTw73WEK4pw=</DigestValue></Reference></SignedInfo><SignatureValue>egwmMx4COwTpNO8Sjk8Oa6pJMpJiXVsE9Rry7PVDdfWc0DKLM7FaNAStakZnfDqm5kGHVrD5+tTpinZoz6NSfwnKFmW4sDQ3YI1D0cYrWlmMBWg7VNIgtblOEEl+B5DG5r/CP99rJO6GrscEDYCG5+9g8WO2pK+tDKT7WRXcE5I=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>xTXujLPMXD0Zg0acgrbkAwMyYtmIU+BIm5akjgkc6AnQPSdvOuD8N12EOYVsZuKuvx/e07iC0TBr3bILqjgxq5GrYdrleXzvPJG5t0rZFpisCsGRm6s+F5+DfSpIIRKoQD8Tv6Kj2dqc9Axl9HhAp+X839WGBXlLN2SF1oCFXgE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="9ce20a61dd3b3c4db912e3d9a1c1acac141db52162c1d8e2a5045fd1ed2c5632" Description="" Url=""><as:assemblyIdentity name="Pendelbaan.exe" version="1.0.0.0" publicKeyToken="325fb46ba4c9828a" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=DESKTOP-MH7F4O6\Jeremy Siebers</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>oPcXxdwvviD2qdhUAaVkZ/3/YG1zj8P4glbXIVpKg24=</DigestValue></Reference></SignedInfo><SignatureValue>voKH3NsMqq14mbF9PfYjwHGCtAG2vELSw1Ghc3X+IhQUCPnVl0wm9qiaiBxUiO+BELdlw3Ti5omZFoX/+aS6n0V1f0KADko3XDcqa0gkgO7+NOIkBrOHHlJ7a9kDN67vrDRfnphfDwhRDw8GIwmafhZ1zL7ZETKyMFs+S10bEMQ=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>xTXujLPMXD0Zg0acgrbkAwMyYtmIU+BIm5akjgkc6AnQPSdvOuD8N12EOYVsZuKuvx/e07iC0TBr3bILqjgxq5GrYdrleXzvPJG5t0rZFpisCsGRm6s+F5+DfSpIIRKoQD8Tv6Kj2dqc9Axl9HhAp+X839WGBXlLN2SF1oCFXgE=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIICETCCAXqgAwIBAgIQQ54zaYmXspNNXQBO3T+Z2TANBgkqhkiG9w0BAQsFADBHMUUwQwYDVQQDHjwARABFAFMASwBUAE8AUAAtAE0ASAA3AEYANABPADYAXABKAGUAcgBlAG0AeQAgAFMAaQBlAGIAZQByAHMwHhcNMTcxMjA3MjEzMTQ5WhcNMTgxMjA4MDMzMTQ5WjBHMUUwQwYDVQQDHjwARABFAFMASwBUAE8AUAAtAE0ASAA3AEYANABPADYAXABKAGUAcgBlAG0AeQAgAFMAaQBlAGIAZQByAHMwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMU17oyzzFw9GYNGnIK25AMDMmLZiFPgSJuWpI4JHOgJ0D0nbzrg/DddhDmFbGbirr8f3tO4gtEwa92yC6o4MauRq2Ha5Xl87zyRubdK2RaYrArBkZurPhefg30qSCESqEA/E7+io9nanPQMZfR4QKfl/N/VhgV5SzdkhdaAhV4BAgMBAAEwDQYJKoZIhvcNAQELBQADgYEANlrmFRucTPhjKY1KBkH/yYyd29vpJfGPQApCwPG9puU90QtkHI3si9ddKJ9yBxcHh/FP3RyS8DUQxO9IL5/huWs2lbopyRpY8mqx65grtnCLLPnvyXg/lZMDq6LN/rpTzVLqOFiFeC2DZ0osPPQnoQFrtCadyJCiq+1L73r6JG8=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
