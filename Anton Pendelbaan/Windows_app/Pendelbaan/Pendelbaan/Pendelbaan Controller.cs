@@ -44,6 +44,10 @@ namespace Pendelbaan
 		public const bool Get = false;
 		public const bool Set = true;
         public const int sleep = 10;
+        public const uint LeftBack = 1;
+        public const uint LeftFront = 2;
+        public const uint RightBack = 3;
+        public const uint RightFront = 4;
 
         #region Variables
         UInt16 api_size = 0;
@@ -891,14 +895,14 @@ namespace Pendelbaan
                         { 
                             switch (switch_program)
                             {
-                                case 1: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; break;
-                                case 2: SwitchProgramInd.Text = "Trein van links voor naar rechts achter"; break;
-                                case 3: SwitchProgramInd.Text = "Trein van links achter naar rechts voor"; break;
-                                case 4: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; break;
-                                case 5: SwitchProgramInd.Text = "Trein van rechts voor naar links voor"; break;
-                                case 6: SwitchProgramInd.Text = "Trein van links achter naar rechts voor"; break;
-                                case 7: SwitchProgramInd.Text = "Trein van links voor naar rechts achter"; break;
-                                case 8: SwitchProgramInd.Text = "Trein van rechts voor naar links voor"; break;
+                                case 1: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; UpdatePicture(LeftBack, RightBack); break;
+                                case 2: SwitchProgramInd.Text = "Trein van links voor naar rechts achter";   UpdatePicture(LeftFront, RightBack); break;
+                                case 3: SwitchProgramInd.Text = "Trein van links achter naar rechts voor";   UpdatePicture(LeftBack, RightFront); break;
+                                case 4: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; UpdatePicture(LeftBack, RightBack); break;
+                                case 5: SwitchProgramInd.Text = "Trein van rechts voor naar links voor";     UpdatePicture(LeftFront, RightFront); break;
+                                case 6: SwitchProgramInd.Text = "Trein van links achter naar rechts voor";   UpdatePicture(LeftBack, RightFront); break;
+                                case 7: SwitchProgramInd.Text = "Trein van links voor naar rechts achter";   UpdatePicture(LeftFront, RightBack); break;
+                                case 8: SwitchProgramInd.Text = "Trein van rechts voor naar links voor";     UpdatePicture(LeftFront, RightFront); break;
                                 default: SwitchProgramInd.Text = ""; break;
                             }
                         }
@@ -906,10 +910,10 @@ namespace Pendelbaan
                         {
                             switch (switch_program)
                             {
-                                case 1: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; break;
-                                case 2: SwitchProgramInd.Text = "Trein van links achter naar rechts voor"; break;
-                                case 3: SwitchProgramInd.Text = "Trein van rechts voor naar links voor"; break;
-                                case 4: SwitchProgramInd.Text = "Trein van links voor naar rechts achter"; break;
+                                case 1: SwitchProgramInd.Text = "Trein van rechts achter naar links achter"; UpdatePicture(LeftBack, RightBack); break;
+                                case 2: SwitchProgramInd.Text = "Trein van links achter naar rechts voor";   UpdatePicture(LeftBack, RightFront); break;
+                                case 3: SwitchProgramInd.Text = "Trein van rechts voor naar links voor";     UpdatePicture(LeftFront, RightFront); break;
+                                case 4: SwitchProgramInd.Text = "Trein van links voor naar rechts achter";   UpdatePicture(LeftFront, RightBack); break;
                                 default: SwitchProgramInd.Text = ""; break;
                             }
                         }
@@ -928,7 +932,7 @@ namespace Pendelbaan
                         {
                             junction_left_bnd_prev = 0;
                         }
-                        UpdatePicture();
+                        //UpdatePicture();
                         break;
                     case API.JUNCTION_LEFT_BND_PREV:
                         junction_left_bnd_prev = Value;
@@ -936,7 +940,7 @@ namespace Pendelbaan
                         {
                             junction_left_str_prev = 0;
                         }
-                        UpdatePicture();
+                        //UpdatePicture();
                         break;
                     case API.JUNCTION_RIGHT_STR_PREV:
                         junction_right_str_prev = Value;
@@ -944,7 +948,7 @@ namespace Pendelbaan
                         {
                             junction_right_bnd_prev = 0;
                         }
-                        UpdatePicture();
+                        //UpdatePicture();
                         break;
                     case API.JUNCTION_RIGHT_BND_PREV:
                         junction_right_bnd_prev = Value;
@@ -952,7 +956,7 @@ namespace Pendelbaan
                         {
                             junction_right_str_prev = 0;
                         }
-                        UpdatePicture();
+                        //UpdatePicture();
                         break;
 
                     case API.PWM_DIRECTION: pwm_direction = Value; break;
@@ -1022,24 +1026,55 @@ namespace Pendelbaan
          *  Notes      :
          */
         /*#--------------------------------------------------------------------------#*/
-        private void UpdatePicture()
+        private void UpdatePicture(uint junction_left, uint junction_right)
         {
+
+            switch (junction_left)
+            {
+                case LeftBack: switch (junction_right)
+                    {
+                        case RightBack:
+                            pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_bnd_bnd;
+                            break;
+                        case RightFront:
+                            pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_bnd_str;
+                            break;
+                    }
+                    break;
+
+                case LeftFront: switch (junction_right)
+                    {
+                        case RightBack:
+                            pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_bnd;
+                            break;
+                        case RightFront:
+                            pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
+                            break;
+                    }
+                    break;
+            }
+
+
+
+
+            /*
             if (junction_left_str_prev == 1 && junction_right_str_prev == 1)
             {
                 pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_bnd;
             }
             else if (junction_left_bnd_prev == 1 && junction_right_bnd_prev == 1)
             {
-                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_bnd_str;
+                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
             }
             else if (junction_left_str_prev == 1 && junction_right_bnd_prev == 1)
             {
-                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_str_str;
+                pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_bnd_str;
             }
             else if (junction_left_bnd_prev == 1 && junction_right_str_prev == 1)
             {
                 pictureBox1.Image = Pendelbaan.Properties.Resources.tandrad_bnd_bnd;
             }
+            */
         }
 
         /*#--------------------------------------------------------------------------#*/
@@ -1109,7 +1144,7 @@ namespace Pendelbaan
                     Train1Pos.Enabled = true;
                     StartBtn.Enabled = true;
                     StopBtn.Enabled = false;
-                    UpdatePicture();
+                    UpdatePicture(LeftFront, RightFront);
                 }
                 catch (Exception ex)
                 {
@@ -1323,6 +1358,7 @@ namespace Pendelbaan
          *  Notes      :
          */
         /*#--------------------------------------------------------------------------#*/
+
         private void JunctionLeftBtn_Click(object sender, EventArgs e)
         {
             if (serialPort.IsOpen)
@@ -1331,11 +1367,29 @@ namespace Pendelbaan
                 {
 					Transceive_Data(Set, API.SW_JUNCTION_LEFT_BND, On);                    
                     JunctionLeftBtn.Text = "Afbuigen";
+
+                    if (JunctionRightBtn.Text == "Afbuigen")
+                    {
+                        UpdatePicture(LeftBack, RightBack);
+                    }
+                    else
+                    {
+                        UpdatePicture(LeftBack, RightFront);
+                    }
                 }
                 else
                 {
 					Transceive_Data(Set, API.SW_JUNCTION_LEFT_STR, On);
                     JunctionLeftBtn.Text = "Rechtdoor";
+
+                    if (JunctionRightBtn.Text == "Afbuigen")
+                    {
+                        UpdatePicture(LeftFront, RightBack);
+                    }
+                    else
+                    {
+                        UpdatePicture(LeftFront, RightFront);
+                    }
                 }
             }          
         }
@@ -1344,15 +1398,33 @@ namespace Pendelbaan
         {
             if (serialPort.IsOpen)
             {
-                if (JunctionRightBtn.Text == "Afbuigen")   // swapped due to matching original design with physical train track pos   
+                if (JunctionRightBtn.Text == "Rechtdoor")   // swapped due to matching original design with physical train track pos   
                 {
-					Transceive_Data(Set, API.SW_JUNCTION_RIGHT_BND, On);
-                    JunctionRightBtn.Text = "Rechtdoor";   // swapped due to matching original design with physical train track pos   
+					Transceive_Data(Set, API.SW_JUNCTION_RIGHT_STR, On);
+                    JunctionRightBtn.Text = "Afbuigen";   // swapped due to matching original design with physical train track pos   
+
+                    if (JunctionLeftBtn.Text == "Afbuigen")
+                    {
+                        UpdatePicture(LeftBack, RightBack);
+                    }
+                    else
+                    {
+                        UpdatePicture(LeftFront, RightBack);
+                    }
                 }
                 else
                 {
-					Transceive_Data(Set, API.SW_JUNCTION_RIGHT_STR, On);
+					Transceive_Data(Set, API.SW_JUNCTION_RIGHT_BND, On);
                     JunctionRightBtn.Text = "Rechtdoor";
+
+                    if (JunctionLeftBtn.Text == "Rechtdoor")
+                    {
+                        UpdatePicture(LeftFront, RightFront);
+                    }
+                    else
+                    {
+                        UpdatePicture(LeftBack, RightFront);
+                    }
                 }
             }
         }
@@ -1384,9 +1456,10 @@ namespace Pendelbaan
                 ManPwm.Value = 0;
                 ActualPwmSpeedInd.Text = "0";
                 SwitchProgramInd.Text = "Standby";
-                UpdatePicture();
                 GreenLedInd.BackColor = System.Drawing.Color.Gray;
                 RedLedInd.BackColor = System.Drawing.Color.Gray;
+                Thread.Sleep(2000);
+                ReadAllData();
             }
         }
 
