@@ -1,0 +1,1309 @@
+Disassembly Listing for christmas_star
+Generated From:
+C:/Users/Jeremy/MPLABXProjects/Christmas_star/christmas_star.X/dist/default/production/christmas_star.X.production.cof
+Dec 20, 2012 10:02:56 PM
+
+---  C:/Users/Jeremy/MPLABXProjects/Christmas_star/christmas_star.X/main.c  -----------------------------
+1:             /* 
+2:              * File:   main.c
+3:              * Author: Jeremy
+4:              *
+5:              * Created on December 10, 2012, 9:36 PM
+6:              */
+7:             
+8:             #include "p18F4455.h"
+9:             #include <stdio.h>
+10:            #include <stdlib.h>
+11:            
+12:            /******************************************************************************/
+13:            /*          PIC18F4455 Configuration Bit Settings                             */
+14:            /******************************************************************************/
+15:             
+16:            // CONFIG1L
+17:            #pragma config PLLDIV = 5       // PLL Prescaler Selection bits (Divide by 5 (20 MHz oscillator input))
+18:            #pragma config CPUDIV = OSC1_PLL2// System Clock Postscaler Selection bits ([Primary Oscillator Src: /1][96 MHz PLL Src: /2])
+19:            #pragma config USBDIV = 1       // USB Clock Selection bit (used in Full-Speed USB mode only; UCFG:FSEN = 1) (USB clock source comes directly from the primary oscillator block with no postscale)
+20:            
+21:            // CONFIG1H
+22:            #pragma config FOSC = HSPLL_HS  // Oscillator Selection bits (HS oscillator, PLL enabled (HSPLL))
+23:            #pragma config FCMEN = OFF      // Fail-Safe Clock Monitor Enable bit (Fail-Safe Clock Monitor disabled)
+24:            #pragma config IESO = OFF       // Internal/External Oscillator Switchover bit (Oscillator Switchover mode disabled)
+25:            
+26:            // CONFIG2L
+27:            #pragma config PWRT = OFF       // Power-up Timer Enable bit (PWRT disabled)
+28:            #pragma config BOR = OFF        // Brown-out Reset Enable bits (Brown-out Reset disabled in hardware and software)
+29:            #pragma config BORV = 3         // Brown-out Reset Voltage bits (Minimum setting)
+30:            #pragma config VREGEN = OFF     // USB Voltage Regulator Enable bit (USB voltage regulator disabled)
+31:            
+32:            // CONFIG2H
+33:            #pragma config WDT = OFF        // Watchdog Timer Enable bit (WDT disabled (control is placed on the SWDTEN bit))
+34:            #pragma config WDTPS = 32768    // Watchdog Timer Postscale Select bits (1:32768)
+35:            
+36:            // CONFIG3H
+37:            #pragma config CCP2MX = ON      // CCP2 MUX bit (CCP2 input/output is multiplexed with RC1)
+38:            #pragma config PBADEN = OFF     // PORTB A/D Enable bit (PORTB<4:0> pins are configured as digital I/O on Reset)
+39:            #pragma config LPT1OSC = OFF    // Low-Power Timer 1 Oscillator Enable bit (Timer1 configured for higher power operation)
+40:            #pragma config MCLRE = ON       // MCLR Pin Enable bit (MCLR pin enabled; RE3 input pin disabled)
+41:            
+42:            // CONFIG4L
+43:            #pragma config STVREN = OFF      // Stack Full/Underflow Reset Enable bit (Stack full/underflow will cause Reset)
+44:            #pragma config LVP = OFF        // Single-Supply ICSP Enable bit (Single-Supply ICSP disabled)
+45:            #pragma config ICPRT = OFF      // Dedicated In-Circuit Debug/Programming Port (ICPORT) Enable bit (ICPORT disabled)
+46:            #pragma config XINST = OFF      // Extended Instruction Set Enable bit (Instruction set extension and Indexed Addressing mode disabled (Legacy mode))
+47:            
+48:            // CONFIG5L
+49:            #pragma config CP0 = OFF        // Code Protection bit (Block 0 (000800-001FFFh) is not code-protected)
+50:            #pragma config CP1 = OFF        // Code Protection bit (Block 1 (002000-003FFFh) is not code-protected)
+51:            #pragma config CP2 = OFF        // Code Protection bit (Block 2 (004000-005FFFh) is not code-protected)
+52:            
+53:            // CONFIG5H
+54:            #pragma config CPB = OFF        // Boot Block Code Protection bit (Boot block (000000-0007FFh) is not code-protected)
+55:            #pragma config CPD = OFF        // Data EEPROM Code Protection bit (Data EEPROM is not code-protected)
+56:            
+57:            // CONFIG6L
+58:            #pragma config WRT0 = OFF       // Write Protection bit (Block 0 (000800-001FFFh) is not write-protected)
+59:            #pragma config WRT1 = OFF       // Write Protection bit (Block 1 (002000-003FFFh) is not write-protected)
+60:            #pragma config WRT2 = OFF       // Write Protection bit (Block 2 (004000-005FFFh) is not write-protected)
+61:            
+62:            // CONFIG6H
+63:            #pragma config WRTC = OFF       // Configuration Register Write Protection bit (Configuration registers (300000-3000FFh) are not write-protected)
+64:            #pragma config WRTB = OFF       // Boot Block Write Protection bit (Boot block (000000-0007FFh) is not write-protected)
+65:            #pragma config WRTD = OFF       // Data EEPROM Write Protection bit (Data EEPROM is not write-protected)
+66:            
+67:            // CONFIG7L
+68:            #pragma config EBTR0 = OFF      // Table Read Protection bit (Block 0 (000800-001FFFh) is not protected from table reads executed in other blocks)
+69:            #pragma config EBTR1 = OFF      // Table Read Protection bit (Block 1 (002000-003FFFh) is not protected from table reads executed in other blocks)
+70:            #pragma config EBTR2 = OFF      // Table Read Protection bit (Block 2 (004000-005FFFh) is not protected from table reads executed in other blocks)
+71:            
+72:            // CONFIG7H
+73:            #pragma config EBTRB = OFF      // Boot Block Table Read Protection bit (Boot block (000000-0007FFh) is not protected from table reads executed in other blocks)
+74:            
+75:            
+76:            #include "main.h"
+77:            #include "executer.h"
+78:            
+79:            
+80:            /******************************************************************************/
+81:            /*          DEFINES                                                           */
+82:            /******************************************************************************/
+83:            
+84:            #define TIMER0_VAL 0x7E                                                         // A0 = 81.3Hz // 90 = 69.69Hz // 80 = 60.99Hz // 7E = 60.05Hz -> 16.7% time on of 1 second
+85:            #define TIMER1_VAL 0xFFF0                                                       // Timer1 count value max is 204
+86:            #define COUNT 50
+87:            #define Finished -1
+88:            #define Busy 0
+89:            
+90:            /******************************************************************************/
+91:            /*          GLOBAL VARIABLES                                                  */
+92:            /******************************************************************************/
+93:            
+94:            unsigned char Led[6] = {0,0,0,0,0,0};                                           // Row of 8 leds variable
+95:            unsigned char Row_Updater = 0;                                                  // Update the row information multipl times while the selected Kolum is enabled
+96:            unsigned char Kolum_Selector = 0;                                               // Select which Kolum should be lid
+97:            
+98:            /******************************************************************************/
+99:            /*          LOCAL VARIABLES                                                   */
+100:           /******************************************************************************/
+101:           
+102:           static void Init_IO(void);                                                      // Initialize required IO
+103:           static void Init_Osc(void);             					// Initialize and setup Oscillators
+104:           static void Init_Timers(void);							// Initialize Timers (0)
+105:           
+106:           static unsigned char Update_Star = 0;                                           // In 1 periode off enabled Kolum, the rows are updated 16 times to get PWM
+107:           static unsigned char Effect = 0;                                                // Switch to load different effects
+108:           
+109:           /******************************************************************************/
+110:           /*          MAIN ROUTINE                                                      */
+111:           /******************************************************************************/
+112:           
+113:           void main (void)
+114:           {
+115:               Init_IO();                                          			// Initialize all IO and onstraints
+045E  D8B9     RCALL Init_IO
+116:               Init_Osc();                                         			// Initialize Oscillator sub routine
+0460  D8CE     RCALL Init_Osc
+117:               Init_Timers();                                      			// Initialize seconds timer
+0462  D8CF     RCALL Init_Timers
+118:           
+119:               Row = 0x00;                                                                 // All Rows off(8)
+0464  6A8C     CLRF LATD, ACCESS
+120:               Kolum = 0xFF;                                                               // All Kolums off(6)
+0466  688A     SETF LATB, ACCESS
+121:               
+122:               while(1)                                                                    // Infinite loop
+047C  D7F5     BRA 0x468
+123:               {
+124:                   
+125:                   if (ON == Update_Star)
+0468  0100     MOVLB 0x0
+046A  05BA     DECF Update_Star, W, BANKED
+046C  E107     BNZ 0x47C
+126:                   {
+127:                       EXECUTExEFFECT(Kolum_Selector);
+046E  C0B9     MOVFF Kolum_Selector, POSTINC1
+0470  FFE6     NOP
+0472  EC1C     CALL 0x38, 0
+0474  F000     NOP
+0476  52E5     MOVF POSTDEC1, F, ACCESS
+128:                       Update_Star = OFF;
+0478  0100     MOVLB 0x0
+047A  6BBA     CLRF Update_Star, BANKED
+129:                   }
+130:                       
+131:               }
+132:           }
+047E  0012     RETURN 0
+133:           
+134:           /******************************************************************************/
+135:           /*          INTERRUPT ROUTINE HIGH                                            */
+136:           /******************************************************************************/
+137:           
+138:           void high_isr(void);								// Set high interrupt routine and map vector
+139:           #pragma code high_vector=0x8
+140:           void interrupt_at_high_vector (void)
+141:           {
+142:           	_asm goto high_isr _endasm
+0008  EF40     GOTO 0x480
+000A  F002     NOP
+143:           }
+000C  0012     RETURN 0
+144:           #pragma code
+145:           #pragma interrupt high_isr
+146:           void high_isr()
+0480  CFDA     MOVFF FSR2H, PREINC1
+0482  FFE4     NOP
+0484  CFE2     MOVFF FSR1H, FSR2H
+0486  FFDA     NOP
+0488  CFE9     MOVFF FSR0L, PREINC1
+048A  FFE4     NOP
+048C  CFEA     MOVFF FSR0H, PREINC1
+048E  FFE4     NOP
+0490  52E6     MOVF POSTINC1, F, ACCESS
+0492  CFD9     MOVFF FSR2L, POSTINC1
+0494  FFE6     NOP
+0496  CFE1     MOVFF FSR1L, FSR2L
+0498  FFD9     NOP
+049A  0E02     MOVLW 0x2
+049C  26E1     ADDWF FSR1L, F, ACCESS
+147:           {
+148:               unsigned int x=0;
+049E  6ADE     CLRF POSTINC2, ACCESS
+04A0  6ADD     CLRF POSTDEC2, ACCESS
+149:           
+150:               if (INTCONbits.TMR0IF)							// If Timer 0 interrupt
+04A2  A4F2     BTFSS INTCON, 2, ACCESS
+04A4  D055     BRA 0x550
+151:               {
+152:           	Ledx = 1;
+04A6  8084     BSF PORTE, 0, ACCESS
+153:                   T1CONbits.TMR1ON = OFF;                                                 // Disable Timer1
+04A8  90CD     BCF T1CON, 0, ACCESS
+154:                   Kolum = 0xFF;                                                           // First disable to prevent ghosting
+04AA  688A     SETF LATB, ACCESS
+155:                   Row = 0x00;                                                             // First disable to prevent ghosting
+04AC  6A8C     CLRF LATD, ACCESS
+156:                   for(x=0;x<5;x++);                                                       // Extra wait time to disable leds before new value is applied
+04AE  6ADE     CLRF POSTINC2, ACCESS
+04B0  6ADD     CLRF POSTDEC2, ACCESS
+04B2  CFDE     MOVFF POSTINC2, __tmp_1
+04B4  F000     NOP
+04B6  CFDD     MOVFF POSTDEC2, 0x1
+04B8  F001     NOP
+04BA  0E05     MOVLW 0x5
+04BC  5C00     SUBWF __tmp_1, W, ACCESS
+04BE  0E00     MOVLW 0x0
+04C0  5801     SUBWFB 0x1, W, ACCESS
+04C2  E205     BC 0x4CE
+04C4  2ADF     INCF INDF2, F, ACCESS
+04C6  0E01     MOVLW 0x1
+04C8  E301     BNC 0x4CC
+04CA  2ADB     INCF PLUSW2, F, ACCESS
+04CC  D7F2     BRA 0x4B2
+157:           
+158:           	switch (Kolum_Selector)
+04CE  0100     MOVLB 0x0
+04D0  51B9     MOVF Kolum_Selector, W, BANKED
+04D2  0A05     XORLW 0x5
+04D4  E029     BZ 0x528
+04D6  0A01     XORLW 0x1
+04D8  E021     BZ 0x51C
+04DA  0A07     XORLW 0x7
+04DC  E019     BZ 0x510
+04DE  0A01     XORLW 0x1
+04E0  E011     BZ 0x504
+04E2  0A03     XORLW 0x3
+04E4  E009     BZ 0x4F8
+04E6  0A01     XORLW 0x1
+04E8  E001     BZ 0x4EC
+04EA  D023     BRA 0x532
+159:           	{
+160:                       case    0   :   Kolum = 0xFD;
+04EC  0EFD     MOVLW 0xFD
+04EE  6E8A     MOVWF LATB, ACCESS
+161:                                       Kolum_Selector = 1;
+04F0  0100     MOVLB 0x0
+04F2  0E01     MOVLW 0x1
+04F4  6FB9     MOVWF Kolum_Selector, BANKED
+162:                                       break;
+04F6  D022     BRA 0x53C
+163:                       case    1   :   Kolum = 0xFB;
+04F8  0EFB     MOVLW 0xFB
+04FA  6E8A     MOVWF LATB, ACCESS
+164:                                       Kolum_Selector = 2;
+04FC  0100     MOVLB 0x0
+04FE  0E02     MOVLW 0x2
+0500  6FB9     MOVWF Kolum_Selector, BANKED
+165:                                       break;
+0502  D01C     BRA 0x53C
+166:                       case    2   :   Kolum = 0xF7;
+0504  0EF7     MOVLW 0xF7
+0506  6E8A     MOVWF LATB, ACCESS
+167:                                       Kolum_Selector = 3;
+0508  0100     MOVLB 0x0
+050A  0E03     MOVLW 0x3
+050C  6FB9     MOVWF Kolum_Selector, BANKED
+168:                                       break;
+050E  D016     BRA 0x53C
+169:                       case    3   :   Kolum = 0xEF;
+0510  0EEF     MOVLW 0xEF
+0512  6E8A     MOVWF LATB, ACCESS
+170:                                       Kolum_Selector = 4;
+0514  0100     MOVLB 0x0
+0516  0E04     MOVLW 0x4
+0518  6FB9     MOVWF Kolum_Selector, BANKED
+171:                                       break;
+051A  D010     BRA 0x53C
+172:                       case    4   :   Kolum = 0xDF;
+051C  0EDF     MOVLW 0xDF
+051E  6E8A     MOVWF LATB, ACCESS
+173:                                       Kolum_Selector = 5;
+0520  0100     MOVLB 0x0
+0522  0E05     MOVLW 0x5
+0524  6FB9     MOVWF Kolum_Selector, BANKED
+174:                                       break;
+0526  D00A     BRA 0x53C
+175:                       case    5   :   Kolum = 0xFE;
+0528  0EFE     MOVLW 0xFE
+052A  6E8A     MOVWF LATB, ACCESS
+176:                                       Kolum_Selector = 0;
+052C  0100     MOVLB 0x0
+052E  6BB9     CLRF Kolum_Selector, BANKED
+177:                                       break;
+0530  D005     BRA 0x53C
+178:           
+179:                       default     :   Kolum = 0xFF;
+0532  688A     SETF LATB, ACCESS
+180:                                       Row = 0x00;
+0534  6A8C     CLRF LATD, ACCESS
+181:                                       Kolum_Selector = 0;
+0536  0100     MOVLB 0x0
+0538  6BB9     CLRF Kolum_Selector, BANKED
+182:                                       break;
+053A  D000     BRA 0x53C
+183:           	}
+184:           	
+185:           	TMR0L = TIMER0_VAL;                                                     // A0 = 81.3Hz // 90 = 69.69Hz // 80 = 60.99Hz // 7E = 60.05Hz -> 16.7% time on of 1 second
+053C  0E7E     MOVLW 0x7E
+053E  6ED6     MOVWF TMR0L, ACCESS
+186:           	INTCONbits.TMR0IF = OFF;                                                // Clear Timer 0 interrupt flag
+0540  94F2     BCF INTCON, 2, ACCESS
+187:           
+188:                   Row_Updater = 0;                                                        // Clear for next illum
+0542  0100     MOVLB 0x0
+0544  6BB8     CLRF Row_Updater, BANKED
+189:                   TMR1H = 0xFF;                                                           // Force direct activation of timer1 (takes min 4us measured)
+0546  68CF     SETF TMR1H, ACCESS
+190:                   TMR1L = 0xFF;                                                           // Force direct activation of timer1 (takes min 4us measured)
+0548  68CE     SETF TMR1L, ACCESS
+191:                   T1CONbits.TMR1ON = ON;                                                  // Enable Timer1
+054A  80CD     BSF T1CON, 0, ACCESS
+192:                   PIR1bits.TMR1IF = ON;                                                   // Set timer 1 interrupt flag
+054C  809E     BSF PIR1, 0, ACCESS
+193:                   Ledx = 0;
+054E  9084     BCF PORTE, 0, ACCESS
+194:               }
+195:           
+196:               if (PIR1bits.TMR1IF)                                                        // If Timer 1 interrupt
+0550  A09E     BTFSS PIR1, 0, ACCESS
+0552  D025     BRA 0x59E
+197:               {
+198:           
+199:           
+200:                   if (Row_Updater > ROW_UPDATE_VAL)                                       // If updates are done within time of timer0
+0554  0100     MOVLB 0x0
+0556  51B8     MOVF Row_Updater, W, BANKED
+0558  6E00     MOVWF __tmp_1, ACCESS
+055A  6A01     CLRF 0x1, ACCESS
+055C  3401     RLCF 0x1, W, ACCESS
+055E  E204     BC 0x568
+0560  5000     MOVF __tmp_1, W, ACCESS
+0562  08BC     SUBLW 0xBC
+0564  0E00     MOVLW 0x0
+0566  5401     SUBFWB 0x1, W, ACCESS
+0568  E206     BC 0x576
+201:                   {
+202:                       Row_Updater = 0;
+056A  0100     MOVLB 0x0
+056C  6BB8     CLRF Row_Updater, BANKED
+203:                       T1CONbits.TMR1ON = OFF;
+056E  90CD     BCF T1CON, 0, ACCESS
+204:                       Ledy = 0;
+0570  9284     BCF PORTE, 1, ACCESS
+205:                       Row = OFF;                                                          // All leds off
+0572  6A8C     CLRF LATD, ACCESS
+206:           
+207:                   }
+208:                   else
+0574  D013     BRA 0x59C
+209:                   {
+210:                       Row = Led[Kolum_Selector];
+0576  0100     MOVLB 0x0
+0578  51B9     MOVF Kolum_Selector, W, BANKED
+057A  6AEA     CLRF FSR0H, ACCESS
+057C  0FB2     ADDLW 0xB2
+057E  6EE9     MOVWF FSR0L, ACCESS
+0580  0E00     MOVLW 0x0
+0582  22EA     ADDWFC FSR0H, F, ACCESS
+0584  50EF     MOVF INDF0, W, ACCESS
+0586  6E8C     MOVWF LATD, ACCESS
+211:                       Row_Updater++;                                                      // Update start again
+0588  0100     MOVLB 0x0
+058A  2BB8     INCF Row_Updater, F, BANKED
+212:                       Ledy = 1;                                                           // Status led
+058C  8284     BSF PORTE, 1, ACCESS
+213:                       Update_Star = ON;                                                   // Set enable for calculation of next row led value
+058E  0100     MOVLB 0x0
+0590  0E01     MOVLW 0x1
+0592  6FBA     MOVWF Update_Star, BANKED
+214:                       T1CONbits.TMR1ON = ON;
+0594  80CD     BSF T1CON, 0, ACCESS
+215:                       TMR1H = TIMER1_VAL >> 8;                                            // Pre-set timer1 register
+0596  68CF     SETF TMR1H, ACCESS
+216:                       TMR1L = TIMER1_VAL;                                                 // Pre-set timer1 register
+0598  0EF0     MOVLW 0xF0
+059A  6ECE     MOVWF TMR1L, ACCESS
+217:                   }
+218:           
+219:                   PIR1bits.TMR1IF = OFF;                                                  // Clear timer 1 interrupt flag
+059C  909E     BCF PIR1, 0, ACCESS
+220:               }
+221:           }
+059E  0E02     MOVLW 0x2
+05A0  5CE1     SUBWF FSR1L, W, ACCESS
+05A2  E202     BC 0x5A8
+05A4  6AE1     CLRF FSR1L, ACCESS
+05A6  52E5     MOVF POSTDEC1, F, ACCESS
+05A8  6EE1     MOVWF FSR1L, ACCESS
+05AA  52E5     MOVF POSTDEC1, F, ACCESS
+05AC  CFE7     MOVFF INDF1, FSR2L
+05AE  FFD9     NOP
+05B0  52E5     MOVF POSTDEC1, F, ACCESS
+05B2  CFE5     MOVFF POSTDEC1, FSR0H
+05B4  FFEA     NOP
+05B6  CFE5     MOVFF POSTDEC1, FSR0L
+05B8  FFE9     NOP
+05BA  CFE5     MOVFF POSTDEC1, FSR2H
+05BC  FFDA     NOP
+05BE  0011     RETFIE 1
+222:           
+223:           /******************************************************************************/
+224:           /*          INTERRUPT ROUTINE LOW                                             */
+225:           /******************************************************************************/
+226:           
+227:           void low_isr(void);                                                             // Set low interrupt routine and map vector
+228:           #pragma code low_vector=0x18
+229:           void interrupt_at_low_vector (void)
+230:           {
+231:           	_asm goto low_isr _endasm
+0018  EFE0     GOTO 0x5C0
+001A  F002     NOP
+232:           }
+001C  0012     RETURN 0
+233:           #pragma code
+234:           #pragma interrupt low_isr
+235:           void low_isr()
+05C0  CFDA     MOVFF FSR2H, PREINC1
+05C2  FFE4     NOP
+05C4  CFE2     MOVFF FSR1H, FSR2H
+05C6  FFDA     NOP
+05C8  52E6     MOVF POSTINC1, F, ACCESS
+236:           {
+237:               
+238:           }
+05CA  52E5     MOVF POSTDEC1, F, ACCESS
+05CC  CFE5     MOVFF POSTDEC1, FSR2H
+05CE  FFDA     NOP
+05D0  0011     RETFIE 1
+239:           
+240:           /******************************************************************************/
+241:           /*          MAIN ROUTINES                                                     */
+242:           /******************************************************************************/
+243:           
+244:           static void Init_IO(void)
+245:           {
+246:               TRISA = 0xFF; TRISB = 0xFF; TRISC = 0xFF; TRISD = 0xFF; TRISE = 0xFF;	// Set all ports to inputs
+05D2  6892     SETF TRISA, ACCESS
+05D4  6893     SETF TRISB, ACCESS
+05D6  6894     SETF TRISC, ACCESS
+05D8  6895     SETF TRISD, ACCESS
+05DA  6896     SETF TRISE, ACCESS
+247:               ADCON0 = 0x00;
+05DC  6AC2     CLRF ADCON0, ACCESS
+248:               ADCON1 = 0x0F;
+05DE  0E0F     MOVLW 0xF
+05E0  6EC1     MOVWF ADCON1, ACCESS
+249:               ADCON2 = 0x00;
+05E2  6AC0     CLRF ADCON2, ACCESS
+250:               UCFGbits.UTRDIS = 1;							// Disable internall USB transceiver
+05E4  866F     BSF UCFG, 3, ACCESS
+251:               INTCON2bits.RBPU = 0;							// Disable internall pullup resistors
+05E6  9EF1     BCF INTCON2, 7, ACCESS
+252:               TRISA = 0xFF;TRISB = 0x00;TRISC = 0xFF;TRISD = 0x00;TRISE = 0x00;           // Configure IO
+05E8  6892     SETF TRISA, ACCESS
+05EA  6A93     CLRF TRISB, ACCESS
+05EC  6894     SETF TRISC, ACCESS
+05EE  6A95     CLRF TRISD, ACCESS
+05F0  6A96     CLRF TRISE, ACCESS
+253:               PORTA = 0; PORTB = 0; PORTC = 0; PORTD = 0; PORTE = 0;			// Set all ports OFF to be sure
+05F2  6A80     CLRF PORTA, ACCESS
+05F4  6A81     CLRF PORTB, ACCESS
+05F6  6A82     CLRF PORTC, ACCESS
+05F8  6A83     CLRF PORTD, ACCESS
+05FA  6A84     CLRF PORTE, ACCESS
+254:           }
+05FC  0012     RETURN 0
+255:           
+256:           static void Init_Osc(void)
+257:           {
+258:               OSCCON = 0x0;
+05FE  6AD3     CLRF OSCCON, ACCESS
+259:           }
+0600  0012     RETURN 0
+260:           
+261:           static void Init_Timers(void)
+262:           {
+263:           	RCONbits.IPEN 		= 1;        					// dis/(en)able priority levels
+0602  8ED0     BSF RCON, 7, ACCESS
+264:           	INTCONbits.GIEH		= 1;						// When IPEN = 1: 1 = Enables all high priority interrupts
+0604  8EF2     BSF INTCON, 7, ACCESS
+265:           	INTCONbits.GIEL		= 0;						// Enable low interrupts
+0606  9CF2     BCF INTCON, 6, ACCESS
+266:           	INTCONbits.TMR0IE 	= 1;						// TMR0 Interrupt enable
+0608  8AF2     BSF INTCON, 5, ACCESS
+267:           	INTCON2bits.TMR0IP	= 1;						// TMR0 High Interrupt
+060A  84F1     BSF INTCON2, 2, ACCESS
+268:           	TMR0H = 0x0;                    					// clear timer0
+060C  6AD7     CLRF TMR0H, ACCESS
+269:           	TMR0L = 0x0;                    					// clear timer0
+060E  6AD6     CLRF TMR0L, ACCESS
+270:           	T0CONbits.TMR0ON 	= 1;						// Timer0 On/Off Control bit 1 is On
+0610  8ED5     BSF T0CON, 7, ACCESS
+271:           	T0CONbits.T08BIT	= 1;						// Timer0 8-Bit/16-Bit Control bit, 8Bit is 1
+0612  8CD5     BSF T0CON, 6, ACCESS
+272:           	T0CONbits.T0CS 		= 0;						// Timer0 Clock Source Select bit, 0 is internall instruction cycle
+0614  9AD5     BCF T0CON, 5, ACCESS
+273:           	T0CONbits.T0SE 		= 0;						// Timer0 Source Edge Select bit, 0 is low to high
+0616  98D5     BCF T0CON, 4, ACCESS
+274:           	T0CONbits.PSA 		= 0;						// Timer0 Prescaler Assignment bit, 0 is On
+0618  96D5     BCF T0CON, 3, ACCESS
+275:           	T0CONbits.T0PS2		= 1;						// Timer0 Prescaler Select bits, 111 -> 1:256
+061A  84D5     BSF T0CON, 2, ACCESS
+276:           	T0CONbits.T0PS1		= 1;						// Timer0 Prescaler Select bits, 011 -> 1:16
+061C  82D5     BSF T0CON, 1, ACCESS
+277:           	T0CONbits.T0PS0		= 1;						// Timer0 Prescaler Select bits, 000 -> 1:2
+061E  80D5     BSF T0CON, 0, ACCESS
+278:           
+279:                   PIE1bits.TMR1IE         = 1;                                            // Timer1 Interrupt enable
+0620  809D     BSF PIE1, 0, ACCESS
+280:                   IPR1bits.TMR1IP         = 1;                                            // Timer1 Low Interrupt=0, High Interrupt=1
+0622  809F     BSF IPR1, 0, ACCESS
+281:                   TMR1H = 0x0;                                                            // clear timer1
+0624  6ACF     CLRF TMR1H, ACCESS
+282:                   TMR1L = 0x0;                                                            // clear timer1
+0626  6ACE     CLRF TMR1L, ACCESS
+283:                   T1CONbits.NOT_T1SYNC    = 0;                                            // Timer1 External Clock Input Synchronization Select bit
+0628  94CD     BCF T1CON, 2, ACCESS
+284:                   T1CONbits.RD16          = 0;                                            // 16-Bit Read/Write Mode Enable bit
+062A  9ECD     BCF T1CON, 7, ACCESS
+285:                   T1CONbits.T1CKPS0       = 1;                                            // Timer1 Input Clock Prescale Select bit0
+062C  88CD     BSF T1CON, 4, ACCESS
+286:                   T1CONbits.T1CKPS1       = 1;                                            // Timer1 Input Clock Prescale Select bit1
+062E  8ACD     BSF T1CON, 5, ACCESS
+287:                   T1CONbits.T1OSCEN       = 0;                                            // Timer1 Oscillator Enable bit
+0630  96CD     BCF T1CON, 3, ACCESS
+288:                   T1CONbits.T1RUN         = 0;                                            // Timer1 System Clock Status bit
+0632  9CCD     BCF T1CON, 6, ACCESS
+289:                   T1CONbits.T1SYNC        = 0;                                            // Timer1 External Clock Input Synchronization Select bit
+0634  94CD     BCF T1CON, 2, ACCESS
+290:                   T1CONbits.TMR1CS        = 0;                                            // Timer1 Clock Source Select bit
+0636  92CD     BCF T1CON, 1, ACCESS
+291:                   T1CONbits.TMR1ON        = 0;                                            // Timer1 On bit
+0638  90CD     BCF T1CON, 0, ACCESS
+292:           }
+063A  0012     RETURN 0
+---  C:/Users/Jeremy/MPLABXProjects/Christmas_star/christmas_star.X/ecexcuter.c  ------------------------
+1:             #include "main.h"
+2:             #include "executer.h"
+3:             #include <stdio.h>
+4:             #include <stdlib.h>
+5:             #include <p18F4455.h>
+6:             
+7:             #define Finished -1
+8:             #define Busy 1
+9:             
+10:            void Effect_Prog(unsigned char Active_Kolum, unsigned char Prog, unsigned char Speed, unsigned char Led);
+11:            
+12:            enum
+13:            {
+14:                Prog0,Prog1,Prog2,Prog3
+15:            };
+16:            
+17:            typedef struct
+18:            {
+19:                unsigned char A:1;
+20:                unsigned char B:1;
+21:                unsigned char C:1;
+22:                unsigned char D:1;
+23:                unsigned char E:1;
+24:                unsigned char F:1;
+25:                unsigned char G:1;
+26:                unsigned char H:1;
+27:            
+28:                //unsigned char Prog[8];
+29:            
+30:                unsigned char AProg:2;
+31:                unsigned char BProg:2;
+32:                unsigned char CProg:2;
+33:                unsigned char DProg:2;
+34:                unsigned char EProg:2;
+35:                unsigned char FProg:2;
+36:                unsigned char GProg:2;
+37:                unsigned char HProg:2;
+38:            
+39:                unsigned char ASpeed:8;
+40:                unsigned char BSpeed:8;
+41:                unsigned char CSpeed:8;
+42:                unsigned char DSpeed:8;
+43:                unsigned char ESpeed:8;
+44:                unsigned char FSpeed:8;
+45:                unsigned char GSpeed:8;
+46:                unsigned char HSpeed:8;    
+47:            }LEDBIT;
+48:            static LEDBIT Led_Bit[6] = {0,0,0,0,0,0};
+49:            
+50:            static unsigned Return_Val = 0;
+51:            static unsigned long int Iteration_Count=0;
+52:            
+53:            unsigned char EXECUTExEFFECT(unsigned char Active_Kolum)
+0038  CFD9     MOVFF FSR2L, POSTINC1
+003A  FFE6     NOP
+003C  CFE1     MOVFF FSR1L, FSR2L
+003E  FFD9     NOP
+54:            {
+55:                Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].AProg,Led_Bit[Active_Kolum].ASpeed,0);
+0040  6AE6     CLRF POSTINC1, ACCESS
+0042  0EFE     MOVLW 0xFE
+0044  50DB     MOVF PLUSW2, W, ACCESS
+0046  0D0B     MULLW 0xB
+0048  CFF3     MOVFF PRODL, FSR0L
+004A  FFE9     NOP
+004C  CFF4     MOVFF PRODH, FSR0H
+004E  FFEA     NOP
+0050  0E60     MOVLW 0x60
+0052  26E9     ADDWF FSR0L, F, ACCESS
+0054  0E00     MOVLW 0x0
+0056  22EA     ADDWFC FSR0H, F, ACCESS
+0058  0E03     MOVLW 0x3
+005A  26E9     ADDWF FSR0L, F, ACCESS
+005C  0E00     MOVLW 0x0
+005E  22EA     ADDWFC FSR0H, F, ACCESS
+0060  50EF     MOVF INDF0, W, ACCESS
+0062  6EE6     MOVWF POSTINC1, ACCESS
+0064  0EFE     MOVLW 0xFE
+0066  50DB     MOVF PLUSW2, W, ACCESS
+0068  0D0B     MULLW 0xB
+006A  CFF3     MOVFF PRODL, FSR0L
+006C  FFE9     NOP
+006E  CFF4     MOVFF PRODH, FSR0H
+0070  FFEA     NOP
+0072  0E60     MOVLW 0x60
+0074  26E9     ADDWF FSR0L, F, ACCESS
+0076  0E00     MOVLW 0x0
+0078  22EA     ADDWFC FSR0H, F, ACCESS
+007A  52EE     MOVF POSTINC0, F, ACCESS
+007C  50EF     MOVF INDF0, W, ACCESS
+007E  0B03     ANDLW 0x3
+0080  6EE6     MOVWF POSTINC1, ACCESS
+0082  0EFE     MOVLW 0xFE
+0084  CFDB     MOVFF PLUSW2, POSTINC1
+0086  FFE6     NOP
+0088  D94A     RCALL Effect_Prog
+008A  52E5     MOVF POSTDEC1, F, ACCESS
+008C  52E5     MOVF POSTDEC1, F, ACCESS
+008E  52E5     MOVF POSTDEC1, F, ACCESS
+0090  52E5     MOVF POSTDEC1, F, ACCESS
+56:                Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].BProg,Led_Bit[Active_Kolum].BSpeed,1);
+0092  0E01     MOVLW 0x1
+0094  6EE6     MOVWF POSTINC1, ACCESS
+0096  0EFE     MOVLW 0xFE
+0098  50DB     MOVF PLUSW2, W, ACCESS
+009A  0D0B     MULLW 0xB
+009C  CFF3     MOVFF PRODL, FSR0L
+009E  FFE9     NOP
+00A0  CFF4     MOVFF PRODH, FSR0H
+00A2  FFEA     NOP
+00A4  0E60     MOVLW 0x60
+00A6  26E9     ADDWF FSR0L, F, ACCESS
+00A8  0E00     MOVLW 0x0
+00AA  22EA     ADDWFC FSR0H, F, ACCESS
+00AC  0E04     MOVLW 0x4
+00AE  26E9     ADDWF FSR0L, F, ACCESS
+00B0  0E00     MOVLW 0x0
+00B2  22EA     ADDWFC FSR0H, F, ACCESS
+00B4  50EF     MOVF INDF0, W, ACCESS
+00B6  6EE6     MOVWF POSTINC1, ACCESS
+00B8  0EFE     MOVLW 0xFE
+00BA  50DB     MOVF PLUSW2, W, ACCESS
+00BC  0D0B     MULLW 0xB
+00BE  CFF3     MOVFF PRODL, FSR0L
+00C0  FFE9     NOP
+00C2  CFF4     MOVFF PRODH, FSR0H
+00C4  FFEA     NOP
+00C6  0E60     MOVLW 0x60
+00C8  26E9     ADDWF FSR0L, F, ACCESS
+00CA  0E00     MOVLW 0x0
+00CC  22EA     ADDWFC FSR0H, F, ACCESS
+00CE  52EE     MOVF POSTINC0, F, ACCESS
+00D0  50EF     MOVF INDF0, W, ACCESS
+00D2  0B0C     ANDLW 0xC
+00D4  42E8     RRNCF WREG, F, ACCESS
+00D6  42E8     RRNCF WREG, F, ACCESS
+00D8  6EE6     MOVWF POSTINC1, ACCESS
+00DA  0EFE     MOVLW 0xFE
+00DC  CFDB     MOVFF PLUSW2, POSTINC1
+00DE  FFE6     NOP
+00E0  D91E     RCALL Effect_Prog
+00E2  52E5     MOVF POSTDEC1, F, ACCESS
+00E4  52E5     MOVF POSTDEC1, F, ACCESS
+00E6  52E5     MOVF POSTDEC1, F, ACCESS
+00E8  52E5     MOVF POSTDEC1, F, ACCESS
+57:                Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].CProg,Led_Bit[Active_Kolum].CSpeed,2);
+00EA  0E02     MOVLW 0x2
+00EC  6EE6     MOVWF POSTINC1, ACCESS
+00EE  0EFE     MOVLW 0xFE
+00F0  50DB     MOVF PLUSW2, W, ACCESS
+00F2  0D0B     MULLW 0xB
+00F4  CFF3     MOVFF PRODL, FSR0L
+00F6  FFE9     NOP
+00F8  CFF4     MOVFF PRODH, FSR0H
+00FA  FFEA     NOP
+00FC  0E60     MOVLW 0x60
+00FE  26E9     ADDWF FSR0L, F, ACCESS
+0100  0E00     MOVLW 0x0
+0102  22EA     ADDWFC FSR0H, F, ACCESS
+0104  0E05     MOVLW 0x5
+0106  26E9     ADDWF FSR0L, F, ACCESS
+0108  0E00     MOVLW 0x0
+010A  22EA     ADDWFC FSR0H, F, ACCESS
+010C  50EF     MOVF INDF0, W, ACCESS
+010E  6EE6     MOVWF POSTINC1, ACCESS
+0110  0EFE     MOVLW 0xFE
+0112  50DB     MOVF PLUSW2, W, ACCESS
+0114  0D0B     MULLW 0xB
+0116  CFF3     MOVFF PRODL, FSR0L
+0118  FFE9     NOP
+011A  CFF4     MOVFF PRODH, FSR0H
+011C  FFEA     NOP
+011E  0E60     MOVLW 0x60
+0120  26E9     ADDWF FSR0L, F, ACCESS
+0122  0E00     MOVLW 0x0
+0124  22EA     ADDWFC FSR0H, F, ACCESS
+0126  52EE     MOVF POSTINC0, F, ACCESS
+0128  50EF     MOVF INDF0, W, ACCESS
+012A  0B30     ANDLW 0x30
+012C  42E8     RRNCF WREG, F, ACCESS
+012E  42E8     RRNCF WREG, F, ACCESS
+0130  42E8     RRNCF WREG, F, ACCESS
+0132  42E8     RRNCF WREG, F, ACCESS
+0134  6EE6     MOVWF POSTINC1, ACCESS
+0136  0EFE     MOVLW 0xFE
+0138  CFDB     MOVFF PLUSW2, POSTINC1
+013A  FFE6     NOP
+013C  D8F0     RCALL Effect_Prog
+013E  52E5     MOVF POSTDEC1, F, ACCESS
+0140  52E5     MOVF POSTDEC1, F, ACCESS
+0142  52E5     MOVF POSTDEC1, F, ACCESS
+0144  52E5     MOVF POSTDEC1, F, ACCESS
+58:                Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].DProg,Led_Bit[Active_Kolum].DSpeed,3);
+0146  0E03     MOVLW 0x3
+0148  6EE6     MOVWF POSTINC1, ACCESS
+014A  0EFE     MOVLW 0xFE
+014C  50DB     MOVF PLUSW2, W, ACCESS
+014E  0D0B     MULLW 0xB
+0150  CFF3     MOVFF PRODL, FSR0L
+0152  FFE9     NOP
+0154  CFF4     MOVFF PRODH, FSR0H
+0156  FFEA     NOP
+0158  0E60     MOVLW 0x60
+015A  26E9     ADDWF FSR0L, F, ACCESS
+015C  0E00     MOVLW 0x0
+015E  22EA     ADDWFC FSR0H, F, ACCESS
+0160  0E06     MOVLW 0x6
+0162  26E9     ADDWF FSR0L, F, ACCESS
+0164  0E00     MOVLW 0x0
+0166  22EA     ADDWFC FSR0H, F, ACCESS
+0168  50EF     MOVF INDF0, W, ACCESS
+016A  6EE6     MOVWF POSTINC1, ACCESS
+016C  0EFE     MOVLW 0xFE
+016E  50DB     MOVF PLUSW2, W, ACCESS
+0170  0D0B     MULLW 0xB
+0172  CFF3     MOVFF PRODL, FSR0L
+0174  FFE9     NOP
+0176  CFF4     MOVFF PRODH, FSR0H
+0178  FFEA     NOP
+017A  0E60     MOVLW 0x60
+017C  26E9     ADDWF FSR0L, F, ACCESS
+017E  0E00     MOVLW 0x0
+0180  22EA     ADDWFC FSR0H, F, ACCESS
+0182  52EE     MOVF POSTINC0, F, ACCESS
+0184  50EF     MOVF INDF0, W, ACCESS
+0186  0BC0     ANDLW 0xC0
+0188  42E8     RRNCF WREG, F, ACCESS
+018A  42E8     RRNCF WREG, F, ACCESS
+018C  42E8     RRNCF WREG, F, ACCESS
+018E  42E8     RRNCF WREG, F, ACCESS
+0190  42E8     RRNCF WREG, F, ACCESS
+0192  42E8     RRNCF WREG, F, ACCESS
+0194  6EE6     MOVWF POSTINC1, ACCESS
+0196  0EFE     MOVLW 0xFE
+0198  CFDB     MOVFF PLUSW2, POSTINC1
+019A  FFE6     NOP
+019C  D8C0     RCALL Effect_Prog
+019E  52E5     MOVF POSTDEC1, F, ACCESS
+01A0  52E5     MOVF POSTDEC1, F, ACCESS
+01A2  52E5     MOVF POSTDEC1, F, ACCESS
+01A4  52E5     MOVF POSTDEC1, F, ACCESS
+59:                Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].EProg,Led_Bit[Active_Kolum].ESpeed,4);
+01A6  0E04     MOVLW 0x4
+01A8  6EE6     MOVWF POSTINC1, ACCESS
+01AA  0EFE     MOVLW 0xFE
+01AC  50DB     MOVF PLUSW2, W, ACCESS
+01AE  0D0B     MULLW 0xB
+01B0  CFF3     MOVFF PRODL, FSR0L
+01B2  FFE9     NOP
+01B4  CFF4     MOVFF PRODH, FSR0H
+01B6  FFEA     NOP
+01B8  0E60     MOVLW 0x60
+01BA  26E9     ADDWF FSR0L, F, ACCESS
+01BC  0E00     MOVLW 0x0
+01BE  22EA     ADDWFC FSR0H, F, ACCESS
+01C0  0E07     MOVLW 0x7
+01C2  26E9     ADDWF FSR0L, F, ACCESS
+01C4  0E00     MOVLW 0x0
+01C6  22EA     ADDWFC FSR0H, F, ACCESS
+01C8  50EF     MOVF INDF0, W, ACCESS
+01CA  6EE6     MOVWF POSTINC1, ACCESS
+01CC  0EFE     MOVLW 0xFE
+01CE  50DB     MOVF PLUSW2, W, ACCESS
+01D0  0D0B     MULLW 0xB
+01D2  CFF3     MOVFF PRODL, FSR0L
+01D4  FFE9     NOP
+01D6  CFF4     MOVFF PRODH, FSR0H
+01D8  FFEA     NOP
+01DA  0E60     MOVLW 0x60
+01DC  26E9     ADDWF FSR0L, F, ACCESS
+01DE  0E00     MOVLW 0x0
+01E0  22EA     ADDWFC FSR0H, F, ACCESS
+01E2  52EE     MOVF POSTINC0, F, ACCESS
+01E4  52EE     MOVF POSTINC0, F, ACCESS
+01E6  50EF     MOVF INDF0, W, ACCESS
+01E8  0B03     ANDLW 0x3
+01EA  6EE6     MOVWF POSTINC1, ACCESS
+01EC  0EFE     MOVLW 0xFE
+01EE  CFDB     MOVFF PLUSW2, POSTINC1
+01F0  FFE6     NOP
+01F2  D895     RCALL Effect_Prog
+01F4  52E5     MOVF POSTDEC1, F, ACCESS
+01F6  52E5     MOVF POSTDEC1, F, ACCESS
+01F8  52E5     MOVF POSTDEC1, F, ACCESS
+01FA  52E5     MOVF POSTDEC1, F, ACCESS
+60:                Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].FProg,Led_Bit[Active_Kolum].FSpeed,5);
+01FC  0E05     MOVLW 0x5
+01FE  6EE6     MOVWF POSTINC1, ACCESS
+0200  0EFE     MOVLW 0xFE
+0202  50DB     MOVF PLUSW2, W, ACCESS
+0204  0D0B     MULLW 0xB
+0206  CFF3     MOVFF PRODL, FSR0L
+0208  FFE9     NOP
+020A  CFF4     MOVFF PRODH, FSR0H
+020C  FFEA     NOP
+020E  0E60     MOVLW 0x60
+0210  26E9     ADDWF FSR0L, F, ACCESS
+0212  0E00     MOVLW 0x0
+0214  22EA     ADDWFC FSR0H, F, ACCESS
+0216  0E08     MOVLW 0x8
+0218  26E9     ADDWF FSR0L, F, ACCESS
+021A  0E00     MOVLW 0x0
+021C  22EA     ADDWFC FSR0H, F, ACCESS
+021E  50EF     MOVF INDF0, W, ACCESS
+0220  6EE6     MOVWF POSTINC1, ACCESS
+0222  0EFE     MOVLW 0xFE
+0224  50DB     MOVF PLUSW2, W, ACCESS
+0226  0D0B     MULLW 0xB
+0228  CFF3     MOVFF PRODL, FSR0L
+022A  FFE9     NOP
+022C  CFF4     MOVFF PRODH, FSR0H
+022E  FFEA     NOP
+0230  0E60     MOVLW 0x60
+0232  26E9     ADDWF FSR0L, F, ACCESS
+0234  0E00     MOVLW 0x0
+0236  22EA     ADDWFC FSR0H, F, ACCESS
+0238  52EE     MOVF POSTINC0, F, ACCESS
+023A  52EE     MOVF POSTINC0, F, ACCESS
+023C  50EF     MOVF INDF0, W, ACCESS
+023E  0B0C     ANDLW 0xC
+0240  42E8     RRNCF WREG, F, ACCESS
+0242  42E8     RRNCF WREG, F, ACCESS
+0244  6EE6     MOVWF POSTINC1, ACCESS
+0246  0EFE     MOVLW 0xFE
+0248  CFDB     MOVFF PLUSW2, POSTINC1
+024A  FFE6     NOP
+024C  D868     RCALL Effect_Prog
+024E  52E5     MOVF POSTDEC1, F, ACCESS
+0250  52E5     MOVF POSTDEC1, F, ACCESS
+0252  52E5     MOVF POSTDEC1, F, ACCESS
+0254  52E5     MOVF POSTDEC1, F, ACCESS
+61:                Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].GProg,Led_Bit[Active_Kolum].GSpeed,6);
+0256  0E06     MOVLW 0x6
+0258  6EE6     MOVWF POSTINC1, ACCESS
+025A  0EFE     MOVLW 0xFE
+025C  50DB     MOVF PLUSW2, W, ACCESS
+025E  0D0B     MULLW 0xB
+0260  CFF3     MOVFF PRODL, FSR0L
+0262  FFE9     NOP
+0264  CFF4     MOVFF PRODH, FSR0H
+0266  FFEA     NOP
+0268  0E60     MOVLW 0x60
+026A  26E9     ADDWF FSR0L, F, ACCESS
+026C  0E00     MOVLW 0x0
+026E  22EA     ADDWFC FSR0H, F, ACCESS
+0270  0E09     MOVLW 0x9
+0272  26E9     ADDWF FSR0L, F, ACCESS
+0274  0E00     MOVLW 0x0
+0276  22EA     ADDWFC FSR0H, F, ACCESS
+0278  50EF     MOVF INDF0, W, ACCESS
+027A  6EE6     MOVWF POSTINC1, ACCESS
+027C  0EFE     MOVLW 0xFE
+027E  50DB     MOVF PLUSW2, W, ACCESS
+0280  0D0B     MULLW 0xB
+0282  CFF3     MOVFF PRODL, FSR0L
+0284  FFE9     NOP
+0286  CFF4     MOVFF PRODH, FSR0H
+0288  FFEA     NOP
+028A  0E60     MOVLW 0x60
+028C  26E9     ADDWF FSR0L, F, ACCESS
+028E  0E00     MOVLW 0x0
+0290  22EA     ADDWFC FSR0H, F, ACCESS
+0292  52EE     MOVF POSTINC0, F, ACCESS
+0294  52EE     MOVF POSTINC0, F, ACCESS
+0296  50EF     MOVF INDF0, W, ACCESS
+0298  0B30     ANDLW 0x30
+029A  42E8     RRNCF WREG, F, ACCESS
+029C  42E8     RRNCF WREG, F, ACCESS
+029E  42E8     RRNCF WREG, F, ACCESS
+02A0  42E8     RRNCF WREG, F, ACCESS
+02A2  6EE6     MOVWF POSTINC1, ACCESS
+02A4  0EFE     MOVLW 0xFE
+02A6  CFDB     MOVFF PLUSW2, POSTINC1
+02A8  FFE6     NOP
+02AA  D839     RCALL Effect_Prog
+02AC  52E5     MOVF POSTDEC1, F, ACCESS
+02AE  52E5     MOVF POSTDEC1, F, ACCESS
+02B0  52E5     MOVF POSTDEC1, F, ACCESS
+02B2  52E5     MOVF POSTDEC1, F, ACCESS
+62:                Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].HProg,Led_Bit[Active_Kolum].HSpeed,7);
+02B4  0E07     MOVLW 0x7
+02B6  6EE6     MOVWF POSTINC1, ACCESS
+02B8  0EFE     MOVLW 0xFE
+02BA  50DB     MOVF PLUSW2, W, ACCESS
+02BC  0D0B     MULLW 0xB
+02BE  CFF3     MOVFF PRODL, FSR0L
+02C0  FFE9     NOP
+02C2  CFF4     MOVFF PRODH, FSR0H
+02C4  FFEA     NOP
+02C6  0E60     MOVLW 0x60
+02C8  26E9     ADDWF FSR0L, F, ACCESS
+02CA  0E00     MOVLW 0x0
+02CC  22EA     ADDWFC FSR0H, F, ACCESS
+02CE  0E0A     MOVLW 0xA
+02D0  26E9     ADDWF FSR0L, F, ACCESS
+02D2  0E00     MOVLW 0x0
+02D4  22EA     ADDWFC FSR0H, F, ACCESS
+02D6  50EF     MOVF INDF0, W, ACCESS
+02D8  6EE6     MOVWF POSTINC1, ACCESS
+02DA  0EFE     MOVLW 0xFE
+02DC  50DB     MOVF PLUSW2, W, ACCESS
+02DE  0D0B     MULLW 0xB
+02E0  CFF3     MOVFF PRODL, FSR0L
+02E2  FFE9     NOP
+02E4  CFF4     MOVFF PRODH, FSR0H
+02E6  FFEA     NOP
+02E8  0E60     MOVLW 0x60
+02EA  26E9     ADDWF FSR0L, F, ACCESS
+02EC  0E00     MOVLW 0x0
+02EE  22EA     ADDWFC FSR0H, F, ACCESS
+02F0  52EE     MOVF POSTINC0, F, ACCESS
+02F2  52EE     MOVF POSTINC0, F, ACCESS
+02F4  50EF     MOVF INDF0, W, ACCESS
+02F6  0BC0     ANDLW 0xC0
+02F8  42E8     RRNCF WREG, F, ACCESS
+02FA  42E8     RRNCF WREG, F, ACCESS
+02FC  42E8     RRNCF WREG, F, ACCESS
+02FE  42E8     RRNCF WREG, F, ACCESS
+0300  42E8     RRNCF WREG, F, ACCESS
+0302  42E8     RRNCF WREG, F, ACCESS
+0304  6EE6     MOVWF POSTINC1, ACCESS
+0306  0EFE     MOVLW 0xFE
+0308  CFDB     MOVFF PLUSW2, POSTINC1
+030A  FFE6     NOP
+030C  D808     RCALL Effect_Prog
+030E  52E5     MOVF POSTDEC1, F, ACCESS
+0310  52E5     MOVF POSTDEC1, F, ACCESS
+0312  52E5     MOVF POSTDEC1, F, ACCESS
+0314  52E5     MOVF POSTDEC1, F, ACCESS
+63:                
+64:            }
+0316  52E5     MOVF POSTDEC1, F, ACCESS
+0318  CFE7     MOVFF INDF1, FSR2L
+031A  FFD9     NOP
+031C  0012     RETURN 0
+65:            
+66:            void Effect_Prog(unsigned char Active_Kolum, unsigned char Prog, unsigned char Speed, unsigned char Led)
+031E  CFD9     MOVFF FSR2L, POSTINC1
+0320  FFE6     NOP
+0322  CFE1     MOVFF FSR1L, FSR2L
+0324  FFD9     NOP
+67:            {
+68:                switch (Prog)
+0326  0EFD     MOVLW 0xFD
+0328  50DB     MOVF PLUSW2, W, ACCESS
+032A  0A03     XORLW 0x3
+032C  E101     BNZ 0x330
+032E  D091     BRA 0x452
+0330  0A01     XORLW 0x1
+0332  E101     BNZ 0x336
+0334  D08D     BRA 0x450
+0336  0A03     XORLW 0x3
+0338  E101     BNZ 0x33C
+033A  D089     BRA 0x44E
+033C  0A01     XORLW 0x1
+033E  E001     BZ 0x342
+0340  D089     BRA 0x454
+69:                {
+70:                    case    Prog0   :   if(Led == 0)
+0342  0EFB     MOVLW 0xFB
+0344  50DB     MOVF PLUSW2, W, ACCESS
+0346  E10D     BNZ 0x362
+71:                                        {
+72:                                            Led_Bit[Active_Kolum].A = OFF;
+0348  0EFE     MOVLW 0xFE
+034A  50DB     MOVF PLUSW2, W, ACCESS
+034C  0D0B     MULLW 0xB
+034E  CFF3     MOVFF PRODL, FSR0L
+0350  FFE9     NOP
+0352  CFF4     MOVFF PRODH, FSR0H
+0354  FFEA     NOP
+0356  0E60     MOVLW 0x60
+0358  26E9     ADDWF FSR0L, F, ACCESS
+035A  0E00     MOVLW 0x0
+035C  22EA     ADDWFC FSR0H, F, ACCESS
+035E  90EF     BCF INDF0, 0, ACCESS
+73:                                        }
+74:                                        else if (Led == 1)
+0360  D075     BRA 0x44C
+0362  0EFB     MOVLW 0xFB
+0364  04DB     DECF PLUSW2, W, ACCESS
+0366  E10D     BNZ 0x382
+75:                                        {
+76:                                            Led_Bit[Active_Kolum].B = OFF;
+0368  0EFE     MOVLW 0xFE
+036A  50DB     MOVF PLUSW2, W, ACCESS
+036C  0D0B     MULLW 0xB
+036E  CFF3     MOVFF PRODL, FSR0L
+0370  FFE9     NOP
+0372  CFF4     MOVFF PRODH, FSR0H
+0374  FFEA     NOP
+0376  0E60     MOVLW 0x60
+0378  26E9     ADDWF FSR0L, F, ACCESS
+037A  0E00     MOVLW 0x0
+037C  22EA     ADDWFC FSR0H, F, ACCESS
+037E  92EF     BCF INDF0, 1, ACCESS
+77:                                        }
+78:                                        else if (Led == 2)
+0380  D065     BRA 0x44C
+0382  0EFB     MOVLW 0xFB
+0384  50DB     MOVF PLUSW2, W, ACCESS
+0386  0802     SUBLW 0x2
+0388  E10D     BNZ 0x3A4
+79:                                        {
+80:                                            Led_Bit[Active_Kolum].C = OFF;
+038A  0EFE     MOVLW 0xFE
+038C  50DB     MOVF PLUSW2, W, ACCESS
+038E  0D0B     MULLW 0xB
+0390  CFF3     MOVFF PRODL, FSR0L
+0392  FFE9     NOP
+0394  CFF4     MOVFF PRODH, FSR0H
+0396  FFEA     NOP
+0398  0E60     MOVLW 0x60
+039A  26E9     ADDWF FSR0L, F, ACCESS
+039C  0E00     MOVLW 0x0
+039E  22EA     ADDWFC FSR0H, F, ACCESS
+03A0  94EF     BCF INDF0, 2, ACCESS
+81:                                        }
+82:                                        else if (Led == 3)
+03A2  D054     BRA 0x44C
+03A4  0EFB     MOVLW 0xFB
+03A6  50DB     MOVF PLUSW2, W, ACCESS
+03A8  0803     SUBLW 0x3
+03AA  E10D     BNZ 0x3C6
+83:                                        {
+84:                                            Led_Bit[Active_Kolum].D = OFF;
+03AC  0EFE     MOVLW 0xFE
+03AE  50DB     MOVF PLUSW2, W, ACCESS
+03B0  0D0B     MULLW 0xB
+03B2  CFF3     MOVFF PRODL, FSR0L
+03B4  FFE9     NOP
+03B6  CFF4     MOVFF PRODH, FSR0H
+03B8  FFEA     NOP
+03BA  0E60     MOVLW 0x60
+03BC  26E9     ADDWF FSR0L, F, ACCESS
+03BE  0E00     MOVLW 0x0
+03C0  22EA     ADDWFC FSR0H, F, ACCESS
+03C2  96EF     BCF INDF0, 3, ACCESS
+85:                                        }
+86:                                        else if (Led == 4)
+03C4  D043     BRA 0x44C
+03C6  0EFB     MOVLW 0xFB
+03C8  50DB     MOVF PLUSW2, W, ACCESS
+03CA  0804     SUBLW 0x4
+03CC  E10D     BNZ 0x3E8
+87:                                        {
+88:                                            Led_Bit[Active_Kolum].E = OFF;
+03CE  0EFE     MOVLW 0xFE
+03D0  50DB     MOVF PLUSW2, W, ACCESS
+03D2  0D0B     MULLW 0xB
+03D4  CFF3     MOVFF PRODL, FSR0L
+03D6  FFE9     NOP
+03D8  CFF4     MOVFF PRODH, FSR0H
+03DA  FFEA     NOP
+03DC  0E60     MOVLW 0x60
+03DE  26E9     ADDWF FSR0L, F, ACCESS
+03E0  0E00     MOVLW 0x0
+03E2  22EA     ADDWFC FSR0H, F, ACCESS
+03E4  98EF     BCF INDF0, 4, ACCESS
+89:                                        }
+90:                                        else if (Led == 5)
+03E6  D032     BRA 0x44C
+03E8  0EFB     MOVLW 0xFB
+03EA  50DB     MOVF PLUSW2, W, ACCESS
+03EC  0805     SUBLW 0x5
+03EE  E10D     BNZ 0x40A
+91:                                        {
+92:                                            Led_Bit[Active_Kolum].F = OFF;
+03F0  0EFE     MOVLW 0xFE
+03F2  50DB     MOVF PLUSW2, W, ACCESS
+03F4  0D0B     MULLW 0xB
+03F6  CFF3     MOVFF PRODL, FSR0L
+03F8  FFE9     NOP
+03FA  CFF4     MOVFF PRODH, FSR0H
+03FC  FFEA     NOP
+03FE  0E60     MOVLW 0x60
+0400  26E9     ADDWF FSR0L, F, ACCESS
+0402  0E00     MOVLW 0x0
+0404  22EA     ADDWFC FSR0H, F, ACCESS
+0406  9AEF     BCF INDF0, 5, ACCESS
+93:                                        }
+94:                                        else if (Led == 6)
+0408  D021     BRA 0x44C
+040A  0EFB     MOVLW 0xFB
+040C  50DB     MOVF PLUSW2, W, ACCESS
+040E  0806     SUBLW 0x6
+0410  E10D     BNZ 0x42C
+95:                                        {
+96:                                            Led_Bit[Active_Kolum].G = OFF;
+0412  0EFE     MOVLW 0xFE
+0414  50DB     MOVF PLUSW2, W, ACCESS
+0416  0D0B     MULLW 0xB
+0418  CFF3     MOVFF PRODL, FSR0L
+041A  FFE9     NOP
+041C  CFF4     MOVFF PRODH, FSR0H
+041E  FFEA     NOP
+0420  0E60     MOVLW 0x60
+0422  26E9     ADDWF FSR0L, F, ACCESS
+0424  0E00     MOVLW 0x0
+0426  22EA     ADDWFC FSR0H, F, ACCESS
+0428  9CEF     BCF INDF0, 6, ACCESS
+97:                                        }
+98:                                        else if (Led == 7)
+042A  D010     BRA 0x44C
+042C  0EFB     MOVLW 0xFB
+042E  50DB     MOVF PLUSW2, W, ACCESS
+0430  0807     SUBLW 0x7
+0432  E10C     BNZ 0x44C
+99:                                        {
+100:                                           Led_Bit[Active_Kolum].H = OFF;
+0434  0EFE     MOVLW 0xFE
+0436  50DB     MOVF PLUSW2, W, ACCESS
+0438  0D0B     MULLW 0xB
+043A  CFF3     MOVFF PRODL, FSR0L
+043C  FFE9     NOP
+043E  CFF4     MOVFF PRODH, FSR0H
+0440  FFEA     NOP
+0442  0E60     MOVLW 0x60
+0444  26E9     ADDWF FSR0L, F, ACCESS
+0446  0E00     MOVLW 0x0
+0448  22EA     ADDWFC FSR0H, F, ACCESS
+044A  9EEF     BCF INDF0, 7, ACCESS
+101:                                       }
+102:                       break;
+044C  D004     BRA 0x456
+103:           
+104:                   case    Prog1   :   
+105:                       break;
+044E  D003     BRA 0x456
+106:           
+107:                   case    Prog2   :   
+108:                       break;
+0450  D002     BRA 0x456
+109:           
+110:                   case    Prog3   :   
+111:                       break;
+0452  D001     BRA 0x456
+112:                       
+113:                   default         :
+114:                       break;
+0454  D000     BRA 0x456
+115:           
+116:               }
+117:           
+118:           }
+0456  52E5     MOVF POSTDEC1, F, ACCESS
+0458  CFE7     MOVFF INDF1, FSR2L
+045A  FFD9     NOP
+045C  0012     RETURN 0
+---  C:/MCC18/src/traditional/stdclib/__init.c  ---------------------------------------------------------
+0006  0012     RETURN 0
+---  C:/MCC18/src/traditional/startup/c018i.c  ----------------------------------------------------------
+0000  EF7D     GOTO 0x6FA
+0002  F003     NOP
+0004  0012     RETURN 0
+06FA  EE13     LFSR 1, 0x300
+06FC  F000     NOP
+06FE  EE23     LFSR 2, 0x300
+0700  F000     NOP
+0702  6AF8     CLRF TBLPTRU, ACCESS
+0704  9C03     BCF 0x3, 6, ACCESS
+0706  EC1E     CALL 0x63C, 0
+0708  F003     NOP
+070A  EC03     CALL 0x6, 0
+070C  F000     NOP
+070E  EC2F     CALL 0x45E, 0
+0710  F002     NOP
+0712  D7FB     BRA 0x70A
+0714  0012     RETURN 0
+063C  0E1E     MOVLW 0x1E
+063E  6EF6     MOVWF TBLPTRL, ACCESS
+0640  0E00     MOVLW 0x0
+0642  6EF7     MOVWF TBLPTRH, ACCESS
+0644  0E00     MOVLW 0x0
+0646  6EF8     MOVWF TBLPTRU, ACCESS
+0648  0100     MOVLB 0x0
+064A  0009     TBLRD*+
+064C  50F5     MOVF TABLAT, W, ACCESS
+064E  6FAD     MOVWF curr_entry, BANKED
+0650  0009     TBLRD*+
+0652  50F5     MOVF TABLAT, W, ACCESS
+0654  6FAE     MOVWF 0xAE, BANKED
+0656  E103     BNZ 0x65E
+0658  67AD     TSTFSZ curr_entry, BANKED
+065A  D001     BRA 0x65E
+065C  D03D     BRA 0x6D8
+065E  0009     TBLRD*+
+0660  50F5     MOVF TABLAT, W, ACCESS
+0662  6FA8     MOVWF prom, BANKED
+0664  0009     TBLRD*+
+0666  50F5     MOVF TABLAT, W, ACCESS
+0668  6FA9     MOVWF 0xA9, BANKED
+066A  0009     TBLRD*+
+066C  50F5     MOVF TABLAT, W, ACCESS
+066E  6FAA     MOVWF 0xAA, BANKED
+0670  0009     TBLRD*+
+0672  0009     TBLRD*+
+0674  50F5     MOVF TABLAT, W, ACCESS
+0676  6EE9     MOVWF FSR0L, ACCESS
+0678  0009     TBLRD*+
+067A  50F5     MOVF TABLAT, W, ACCESS
+067C  6EEA     MOVWF FSR0H, ACCESS
+067E  0009     TBLRD*+
+0680  0009     TBLRD*+
+0682  0009     TBLRD*+
+0684  50F5     MOVF TABLAT, W, ACCESS
+0686  6FAB     MOVWF curr_byte, BANKED
+0688  0009     TBLRD*+
+068A  50F5     MOVF TABLAT, W, ACCESS
+068C  6FAC     MOVWF 0xAC, BANKED
+068E  0009     TBLRD*+
+0690  0009     TBLRD*+
+0692  CFF6     MOVFF TBLPTRL, data_ptr
+0694  F0AF     NOP
+0696  CFF7     MOVFF TBLPTRH, 0xB0
+0698  F0B0     NOP
+069A  CFF8     MOVFF TBLPTRU, 0xB1
+069C  F0B1     NOP
+069E  C0A8     MOVFF prom, TBLPTRL
+06A0  FFF6     NOP
+06A2  C0A9     MOVFF 0xA9, TBLPTRH
+06A4  FFF7     NOP
+06A6  C0AA     MOVFF 0xAA, TBLPTRU
+06A8  FFF8     NOP
+06AA  0100     MOVLB 0x0
+06AC  53AB     MOVF curr_byte, F, BANKED
+06AE  E102     BNZ 0x6B4
+06B0  53AC     MOVF 0xAC, F, BANKED
+06B2  E007     BZ 0x6C2
+06B4  0009     TBLRD*+
+06B6  50F5     MOVF TABLAT, W, ACCESS
+06B8  6EEE     MOVWF POSTINC0, ACCESS
+06BA  07AB     DECF curr_byte, F, BANKED
+06BC  E2F8     BC 0x6AE
+06BE  07AC     DECF 0xAC, F, BANKED
+06C0  D7F9     BRA 0x6B4
+06C2  C0AF     MOVFF data_ptr, TBLPTRL
+06C4  FFF6     NOP
+06C6  C0B0     MOVFF 0xB0, TBLPTRH
+06C8  FFF7     NOP
+06CA  C0B1     MOVFF 0xB1, TBLPTRU
+06CC  FFF8     NOP
+06CE  0100     MOVLB 0x0
+06D0  07AD     DECF curr_entry, F, BANKED
+06D2  0E00     MOVLW 0x0
+06D4  5BAE     SUBWFB 0xAE, F, BANKED
+06D6  D7BF     BRA 0x656
+06D8  0012     RETURN 0
+---  C:/MCC18/src/traditional/proc/p18F4455.asm  --------------------------------------------------------
+06DA  0E00     MOVLW 0x0
+06DC  6EF3     MOVWF PRODL, ACCESS
+06DE  EE00     LFSR 0, 0x0
+06E0  F000     NOP
+06E2  0E08     MOVLW 0x8
+06E4  D801     RCALL zero_block
+06E6  0012     RETURN 0
+06E8  60EA     CPFSLT FSR0H, ACCESS
+06EA  D002     BRA compare_l
+06EC  6AEE     CLRF POSTINC0, ACCESS
+06EE  D7FC     BRA zero_block
+06F0  50F3     MOVF PRODL, W, ACCESS
+06F2  60E9     CPFSLT FSR0L, ACCESS
+06F4  0012     RETURN 0
+06F6  6AEE     CLRF POSTINC0, ACCESS
+06F8  D7FC     BRA loop_l

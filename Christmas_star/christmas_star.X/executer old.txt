@@ -1,0 +1,155 @@
+#include "main.h"
+#include "executer.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <p18F4455.h>
+
+#define Finished -1
+#define Busy 1
+
+void Effect_Prog(unsigned char Active_Kolum, unsigned char Prog, unsigned char Speed, unsigned char Led);
+void Effect_Prog0(unsigned char Active_Kolum, unsigned char Led);
+void Effect_Prog1(unsigned char Active_Kolum, unsigned char Led, unsigned char Speed);
+void Effect_Prog2(unsigned char Active_Kolum, unsigned char Led, unsigned char Speed);
+void Effect_Prog3(unsigned char Active_Kolum, unsigned char Led, unsigned char Speed);
+
+enum
+{
+    Prog0,Prog1,Prog2,Prog3
+};
+
+typedef struct
+{
+    unsigned char A:1;
+    unsigned char B:1;
+    unsigned char C:1;
+    unsigned char D:1;
+    unsigned char E:1;
+    unsigned char F:1;
+    unsigned char G:1;
+    unsigned char H:1;
+    
+    unsigned char AProg:2;
+    unsigned char BProg:2;
+    unsigned char CProg:2;
+    unsigned char DProg:2;
+    unsigned char EProg:2;
+    unsigned char FProg:2;
+    unsigned char GProg:2;
+    unsigned char HProg:2;
+
+    unsigned char ASpeed:8;
+    unsigned char BSpeed:8;
+    unsigned char CSpeed:8;
+    unsigned char DSpeed:8;
+    unsigned char ESpeed:8;
+    unsigned char FSpeed:8;
+    unsigned char GSpeed:8;
+    unsigned char HSpeed:8;
+
+    unsigned int Count;
+
+}LEDBIT;
+static LEDBIT Led_Bit[6] = {0,0,0,0,0,0};
+
+static unsigned Return_Val = 0;
+static unsigned long int Iteration_Count=0;
+
+unsigned char EXECUTExEFFECT(unsigned char Active_Kolum)
+{
+    Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].AProg,0,Led_Bit[Active_Kolum].ASpeed);
+    Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].BProg,1,Led_Bit[Active_Kolum].ASpeed);
+    Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].CProg,2,Led_Bit[Active_Kolum].ASpeed);
+    Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].DProg,3,Led_Bit[Active_Kolum].ASpeed);
+    Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].EProg,4,Led_Bit[Active_Kolum].ASpeed);
+    Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].FProg,5,Led_Bit[Active_Kolum].ASpeed);
+    Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].GProg,6,Led_Bit[Active_Kolum].ASpeed);
+    Effect_Prog(Active_Kolum,Led_Bit[Active_Kolum].HProg,7,Led_Bit[Active_Kolum].ASpeed);
+    
+}
+
+void Effect_Prog(unsigned char Active_Kolum, unsigned char Prog, unsigned char Led, unsigned char Speed)
+{
+    switch (Prog)
+    {
+        case    Prog0   :   Effect_Prog0(Active_Kolum, Led);
+                            break;
+
+        case    Prog1   :   Effect_Prog1(Active_Kolum, Led, Speed);
+                            break;
+
+        case    Prog2   :   Effect_Prog2(Active_Kolum, Led, Speed);
+                            break;
+
+        case    Prog3   :   Effect_Prog3(Active_Kolum, Led, Speed);
+                            break;
+            
+        default         :
+                            break;
+
+    }
+
+}
+
+/******************************************************************************/
+/*          Program 0 = Leds off                                              */
+/******************************************************************************/
+void Effect_Prog0(unsigned char Active_Kolum, unsigned char Led)
+{
+                            if(Led == 0)
+                            {
+                                Led_Bit[Active_Kolum].A = OFF;
+                            }
+                            else if (Led == 1)
+                            {
+                                Led_Bit[Active_Kolum].B = OFF;
+                            }
+                            else if (Led == 2)
+                            {
+                                Led_Bit[Active_Kolum].C = OFF;
+                            }
+                            else if (Led == 3)
+                            {
+                                Led_Bit[Active_Kolum].D = OFF;
+                            }
+                            else if (Led == 4)
+                            {
+                                Led_Bit[Active_Kolum].E = OFF;
+                            }
+                            else if (Led == 5)
+                            {
+                                Led_Bit[Active_Kolum].F = OFF;
+                            }
+                            else if (Led == 6)
+                            {
+                                Led_Bit[Active_Kolum].G = OFF;
+                            }
+                            else if (Led == 7)
+                            {
+                                Led_Bit[Active_Kolum].H = OFF;
+                            }
+}
+
+/******************************************************************************/
+/*          Program 1 Led slow on - slow off                                  */
+/******************************************************************************/
+void Effect_Prog1(unsigned char Active_Kolum, unsigned char Led, unsigned char Speed)
+{
+    
+}
+
+/******************************************************************************/
+/*          GLOBAL VARIABLES                                                  */
+/******************************************************************************/
+void Effect_Prog2(unsigned char Active_Kolum, unsigned char Led, unsigned char Speed)
+{
+
+}
+
+/******************************************************************************/
+/*          GLOBAL VARIABLES                                                  */
+/******************************************************************************/
+void Effect_Prog3(unsigned char Active_Kolum, unsigned char Led, unsigned char Speed)
+{
+
+}
