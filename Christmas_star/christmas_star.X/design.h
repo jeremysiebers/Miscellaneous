@@ -8,7 +8,7 @@
 #ifndef DESIGN_H
 #define	DESIGN_H
 
-extern void RUNxDISPLAY(void);
+extern void RUNxDISPLAY(unsigned char Program_Selector);
 
 
 #endif	/* DESIGN_H */

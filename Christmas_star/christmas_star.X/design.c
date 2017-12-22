@@ -6,7 +6,7 @@
 
 #define INIT 0xFFFF
 
-void RUNxDISPLAY(void);
+void RUNxDISPLAY(unsigned char Program_Selector);
 char UPDATExDESIGN(unsigned int Seq);
 char EXECxTIME(unsigned int Time);
 
@@ -25,8 +25,15 @@ static unsigned int Sequencer = INIT;                                           
 static unsigned int Time = 0;                                                   // Variable used for calculating the wait time
 static unsigned char Return_Val = Busy;                                         // Return variable to stop current routine when finished
 static unsigned int index = 0;
+static unsigned char Program_Selector_Old = 9;
 
 const rom unsigned int Run_Display0[] = {
+    ALL_LED_OFF,
+    MAIN_START,
+    FINISHED
+};
+
+const rom unsigned int Run_Display1[] = {
     ALL_LED_OFF,
     MAIN_START,
     RANDOM_START,
@@ -211,20 +218,391 @@ const rom unsigned int Run_Display0[] = {
     FINISHED
 };
 
+const rom unsigned int Run_Display2[] = {
+    RANDOM_START, 
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    DELAY5,
+    FINISHED
+};
+
+const rom unsigned int Run_Display3[] = {
+    ALL_LED_OFF,
+    
+    SLOW_BLINK_CNTR_LED,
+    DELAY1, 
+    SLOW_BLINK_ALL_LED,
+    DELAY1,
+    ALL_LED_OFF,
+//----------------------------------------------------------------------------//    
+    TW0_ON,
+    TW0_OFF,
+    TW1_ON,
+    TW1_OFF,
+    TW2_ON,
+    TW2_OFF,
+    TW3_ON,
+    TW3_OFF,
+    TW4_ON,
+    TW4_OFF,
+    TW5_ON,
+    TW5_OFF,
+    TW6_ON,
+    TW6_OFF,
+    TW7_ON,
+    TW7_OFF,
+    
+    TW0_ON,
+    TW0_OFF,
+    TW1_ON,
+    TW1_OFF,
+    TW2_ON,
+    TW2_OFF,
+    TW3_ON,
+    TW3_OFF,
+    TW4_ON,
+    TW4_OFF,
+    TW5_ON,
+    TW5_OFF,
+    TW6_ON,
+    TW6_OFF,
+    TW7_ON,
+    TW7_OFF,
+    
+    TW0_ON,
+    TW0_OFF,
+    TW1_ON,
+    TW1_OFF,
+    TW2_ON,
+    TW2_OFF,
+    TW3_ON,
+    TW3_OFF,
+    TW4_ON,
+    TW4_OFF,
+    TW5_ON,
+    TW5_OFF,
+    TW6_ON,
+    TW6_OFF,
+    TW7_ON,
+    TW7_OFF,
+    
+    TW0_ON,
+    TW0_OFF,
+    TW1_ON,
+    TW1_OFF,
+    TW2_ON,
+    TW2_OFF,
+    TW3_ON,
+    TW3_OFF,
+    TW4_ON,
+    TW4_OFF,
+    TW5_ON,
+    TW5_OFF,
+    TW6_ON,
+    TW6_OFF,
+    TW7_ON,
+    TW7_OFF,
+    
+    TW0_ON,
+    TW0_OFF,
+    TW1_ON,
+    TW1_OFF,
+    TW2_ON,
+    TW2_OFF,
+    TW3_ON,
+    TW3_OFF,
+    TW4_ON,
+    TW4_OFF,
+    TW5_ON,
+    TW5_OFF,
+    TW6_ON,
+    TW6_OFF,
+    TW7_ON,
+    TW7_OFF,
+//----------------------------------------------------------------------------//    
+    TW0_ON,    
+    TW1_ON,
+    TW2_ON,
+    TW3_ON,
+    TW4_ON,
+    TW5_ON,
+    TW6_ON,
+    TW7_ON,
+//----------------------------------------------------------------------------//    
+    
+    TW0_OFF,
+    TW0_ON, 
+    TW1_OFF,
+    TW1_ON,
+    TW2_OFF,
+    TW2_ON,
+    TW3_OFF,
+    TW3_ON,
+    TW4_OFF,
+    TW4_ON,
+    TW5_OFF,
+    TW5_ON,
+    TW6_OFF,
+    TW6_ON,
+    TW7_OFF,
+    TW7_ON,
+    
+    TW0_OFF,
+    TW0_ON, 
+    TW1_OFF,
+    TW1_ON,
+    TW2_OFF,
+    TW2_ON,
+    TW3_OFF,
+    TW3_ON,
+    TW4_OFF,
+    TW4_ON,
+    TW5_OFF,
+    TW5_ON,
+    TW6_OFF,
+    TW6_ON,
+    TW7_OFF,
+    TW7_ON,
+    
+    TW0_OFF,
+    TW0_ON, 
+    TW1_OFF,
+    TW1_ON,
+    TW2_OFF,
+    TW2_ON,
+    TW3_OFF,
+    TW3_ON,
+    TW4_OFF,
+    TW4_ON,
+    TW5_OFF,
+    TW5_ON,
+    TW6_OFF,
+    TW6_ON,
+    TW7_OFF,
+    TW7_ON,
+    
+    TW0_OFF,
+    TW0_ON, 
+    TW1_OFF,
+    TW1_ON,
+    TW2_OFF,
+    TW2_ON,
+    TW3_OFF,
+    TW3_ON,
+    TW4_OFF,
+    TW4_ON,
+    TW5_OFF,
+    TW5_ON,
+    TW6_OFF,
+    TW6_ON,
+    TW7_OFF,
+    TW7_ON,
+    
+    TW0_OFF,
+    TW0_ON, 
+    TW1_OFF,
+    TW1_ON,
+    TW2_OFF,
+    TW2_ON,
+    TW3_OFF,
+    TW3_ON,
+    TW4_OFF,
+    TW4_ON,
+    TW5_OFF,
+    TW5_ON,
+    TW6_OFF,
+    TW6_ON,
+    TW7_OFF,
+    TW7_ON,
+//----------------------------------------------------------------------------// 
+    
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+ //----------------------------------------------------------------------------//
+    
+    SPIRAL_CLK_WISE_ON,
+    SPIRAL_CCLK_WISE_OFF,
+    SLOW_BLINK_CNTR_LED,
+    SPIRAL_CLK_WISE_ON,
+    SPIRAL_CCLK_WISE_OFF,
+    SPIRAL_CLK_WISE_ON,
+    SPIRAL_CCLK_WISE_OFF,
+    
+    ALL_LED_OFF,
+    LINE_AROUND_ON,
+    LINE_AROUND_OFF,
+    SLOW_BLINK_CNTR_LED,
+    LINE_AROUND_ON,
+    LINE_AROUND_OFF,
+    LINE_AROUND_ON,
+    LINE_AROUND_OFF,
+    LINE_AROUND_ON,
+    LINE_AROUND_OFF,
+    
+//----------------------------------------------------------------------------//   
+    
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    LINE_AROUND_ON,
+    TW0_ON,
+    TW0_OFF,
+    TW1_ON,
+    TW1_OFF,
+    SPIRAL_CLK_WISE_ON,
+    TW2_ON,
+    TW2_OFF,
+    TW3_ON,
+    TW3_OFF,
+    SPIRAL_CCLK_WISE_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    TW4_ON,
+    TW4_OFF,
+    TW5_ON,
+    TW5_OFF,
+    SPIRAL_CLK_WISE_ON,
+    TW6_ON,
+    TW6_OFF,
+    TW7_ON,
+    TW7_OFF,
+    SPIRAL_CCLK_WISE_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    ALL_LED_ON,
+    ALL_LED_OFF,
+    
+    FINISHED
+};
+
 /******************************************************************************/
 /*          RUN DISPLAY                                                       */
 /******************************************************************************/
 
-void RUNxDISPLAY(void)
+void RUNxDISPLAY(unsigned char Program_Selector)
 {
-    if (Run_Display0[index] == FINISHED)
-    {
+    if (Program_Selector != Program_Selector_Old){
+        Program_Selector_Old = Program_Selector;
         index = 0;
     }
     
-    if (UPDATExDESIGN(Run_Display0[index]) == Finished)
-    {
-        index++;
+    switch (Program_Selector){
+        
+        case 0 :
+            if (Run_Display0[index] == FINISHED)
+            {
+                index = 0;
+            }    
+            if (UPDATExDESIGN(Run_Display0[index]) == Finished)
+            {
+                index++;
+            }
+            break;
+            
+        case 1 :
+            if (Run_Display1[index] == FINISHED)
+            {
+                index = 0;
+            }    
+            if (UPDATExDESIGN(Run_Display1[index]) == Finished)
+            {
+                index++;
+            }
+            break;
+            
+        case 2 :
+            if (Run_Display2[index] == FINISHED)
+            {
+                index = 0;
+            }    
+            if (UPDATExDESIGN(Run_Display2[index]) == Finished)
+            {
+                index++;
+            }
+            break;
+            
+        case 3 :
+            if (Run_Display3[index] == FINISHED)
+            {
+                index = 0;
+            }    
+            if (UPDATExDESIGN(Run_Display3[index]) == Finished)
+            {
+                index++;
+            }
+            break;
+            
+        default :
+            break;
     }
 }
 

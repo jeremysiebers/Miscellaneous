@@ -135,7 +135,7 @@ void main (void)
             if (EXECUTExEFFECT(Kolum_Selector) == Finished )                    // When all switch cases are stable in the underlying routines, finished is pushed back
             {
                 UPDATExLEDSTAT(Kolum_Selector);                                 // Write the contents of Led_Bit[x].Led to the active kolum Led[x]
-                RUNxDISPLAY();                                                  // Update the design program
+                RUNxDISPLAY(Program_Selector);                                                  // Update the design program
                 Update_Star = OFF;                                              // Set to OFF for next update of timer1
             }            
         
