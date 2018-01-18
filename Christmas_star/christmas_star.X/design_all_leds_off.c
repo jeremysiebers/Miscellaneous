@@ -5,6 +5,7 @@
 void DESIGNxALLxLEDSxOFF(void);
 void DESIGNxALLxLEDSxON(void);
 void DESIGNxALLxLEDSxSLBLNK(void);
+void DESIGNxALLxLEDSxONxNoxBLUE(void);
 
 /******************************************************************************/
 /*          DESIGN ALL LEDS OFF                                               */
@@ -31,6 +32,19 @@ void DESIGNxALLxLEDSxON(void)
     for(x=0;x<48;x++)
     {
         Led_Bit[x].Prog = 1;                                                    // Set Led ON
+    }
+}
+
+void DESIGNxALLxLEDSxONxNoxBLUE(void)
+{
+    unsigned char x = 0;
+
+    for(x=0;x<48;x++)
+    {
+        if (x < 8 || x > 15){
+            Led_Bit[x].Prog = 1;                                                    // Set Led ON
+        }
+        
     }
 }
 

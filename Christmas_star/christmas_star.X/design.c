@@ -26,10 +26,15 @@ static unsigned int Time = 0;                                                   
 static unsigned char Return_Val = Busy;                                         // Return variable to stop current routine when finished
 static unsigned int index = 0;
 static unsigned char Program_Selector_Old = 9;
+static unsigned char KnobSelectorSwitch = 0;
+
+const rom unsigned int All_Led_Off[] = {
+    ALL_LED_OFF,
+    FINISHED
+};
 
 const rom unsigned int Run_Display0[] = {
-    ALL_LED_OFF,
-    MAIN_START,
+    DESIGN_ALL_LEDS_ON_NO_BLUE,
     FINISHED
 };
 
@@ -220,40 +225,6 @@ const rom unsigned int Run_Display1[] = {
 
 const rom unsigned int Run_Display2[] = {
     RANDOM_START, 
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
-    DELAY5,
     FINISHED
 };
 
@@ -551,58 +522,73 @@ const rom unsigned int Run_Display3[] = {
 void RUNxDISPLAY(unsigned char Program_Selector)
 {
     if (Program_Selector != Program_Selector_Old){
-        Program_Selector_Old = Program_Selector;
-        index = 0;
-    }
-    
-    switch (Program_Selector){
         
-        case 0 :
-            if (Run_Display0[index] == FINISHED)
-            {
-                index = 0;
-            }    
-            if (UPDATExDESIGN(Run_Display0[index]) == Finished)
-            {
-                index++;
-            }
-            break;
-            
-        case 1 :
-            if (Run_Display1[index] == FINISHED)
-            {
-                index = 0;
-            }    
-            if (UPDATExDESIGN(Run_Display1[index]) == Finished)
-            {
-                index++;
-            }
-            break;
-            
-        case 2 :
-            if (Run_Display2[index] == FINISHED)
-            {
-                index = 0;
-            }    
-            if (UPDATExDESIGN(Run_Display2[index]) == Finished)
-            {
-                index++;
-            }
-            break;
-            
-        case 3 :
-            if (Run_Display3[index] == FINISHED)
-            {
-                index = 0;
-            }    
-            if (UPDATExDESIGN(Run_Display3[index]) == Finished)
-            {
-                index++;
-            }
-            break;
-            
-        default :
-            break;
+        switch(KnobSelectorSwitch){
+            case 0 : index = 0; KnobSelectorSwitch = 1; break;
+            case 1 :
+                if(All_Led_Off[index] == FINISHED){
+                    Program_Selector_Old = Program_Selector;
+                    index = 0;
+                    KnobSelectorSwitch = 0;
+                }
+                if (UPDATExDESIGN(All_Led_Off[index]) == Finished)
+                {
+                    index++;
+                }
+                break;
+            default : break;
+        }
+    }
+    else{    
+        switch (Program_Selector){
+
+            case 0 :
+                if (Run_Display0[index] == FINISHED)
+                {
+                    index = 0;
+                }    
+                if (UPDATExDESIGN(Run_Display0[index]) == Finished)
+                {
+                    index++;
+                }
+                break;
+
+            case 1 :
+                if (Run_Display1[index] == FINISHED)
+                {
+                    index = 0;
+                }    
+                if (UPDATExDESIGN(Run_Display1[index]) == Finished)
+                {
+                    index++;
+                }
+                break;
+
+            case 2 :
+                if (Run_Display2[index] == FINISHED)
+                {
+                    index = 0;
+                }    
+                if (UPDATExDESIGN(Run_Display2[index]) == Finished)
+                {
+                    index++;
+                }
+                break;
+
+            case 3 :
+                if (Run_Display3[index] == FINISHED)
+                {
+                    index = 0;
+                }    
+                if (UPDATExDESIGN(Run_Display3[index]) == Finished)
+                {
+                    index++;
+                }
+                break;
+
+            default :
+                break;
+        }
     }
 }
 
@@ -654,6 +640,9 @@ char UPDATExDESIGN(unsigned int Seq)
                                                 break;
 
                             case    Prog9   :   DESIGNxALLxLEDSxSLBLNK();       // in order to make all leds slow blink on easier and cheaper
+                                                break;
+                                                
+                            case    Prog10  :   DESIGNxALLxLEDSxONxNoxBLUE();
                                                 break;
 
                             case    Prog14  :   Return_Val = Finished;          // When display routine is finished call for next routine to run

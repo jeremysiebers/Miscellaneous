@@ -11,6 +11,7 @@
 extern void DESIGNxALLxLEDSxOFF(void);
 extern void DESIGNxALLxLEDSxON(void);
 extern void DESIGNxALLxLEDSxSLBLNK(void);
+extern void DESIGNxALLxLEDSxONxNoxBLUE(void);
 
 #endif	/* DESIGN_ALL_LEDS_OFF_H */
 

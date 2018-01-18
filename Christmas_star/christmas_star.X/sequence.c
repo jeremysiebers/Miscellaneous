@@ -380,6 +380,8 @@ const rom SEQUENCE Sequence[NO_OF_SEQUENCES] =
         {14,0,0,0,0},                   //////////////////////////////////////// Return finished
         {0,0,0,250,250},                                                        // Delay 5 sec
         {14,0,0,0,0},                   //////////////////////////////////////// Return finished
+        {10,0,0,0,0},
+        {14,0,0,0,0},
 };
 // No off sequences -> line number - 20 -> store in sequence.h as NO_OF_SEQUENCES
 

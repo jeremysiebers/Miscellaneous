@@ -8,7 +8,7 @@
 #ifndef SEQUENCE_H
 #define	SEQUENCE_H
 
-#define NO_OF_SEQUENCES 362                                                     // Max sequences 3230 with optimization (subract 20 from line number in sequence.c)
+#define NO_OF_SEQUENCES 364                                                     // Max sequences 3230 with optimization (subract 20 from line number in sequence.c)
 
 // Subtract 21 for index number of struct array //
 #define MAIN_START 0
@@ -50,6 +50,7 @@
 #define DELAY3 356
 #define DELAY4 358
 #define DELAY5 360
+#define DESIGN_ALL_LEDS_ON_NO_BLUE 362
 
 typedef struct
 {
