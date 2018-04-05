@@ -3,7 +3,6 @@ LIBS:power
 LIBS:device
 LIBS:switches
 LIBS:relays
-LIBS:motors
 LIBS:transistors
 LIBS:conn
 LIBS:linear
@@ -174,7 +173,7 @@ Wire Wire Line
 	5600 4650 5600 4450
 Connection ~ 5600 4650
 Text Notes 4200 5900 0    60   ~ 0
-BOM:\n2x C1,2   20uF Through Hole Fnl:9452397\n3(5)x R1,4,5,6  1206 resistor Multicomp 100Ohm 500mW    Fnl:2694436\n1x      R2           1206 resistor Multicomp 1KOhm 250mW  Fnl:\n1x      R3           1206 resistor Multicomp 1MOhm 250mW  Fnl:\n4x      D1,2,3,4  SOD-123 Shottky rectifier 40V, 500mA FV 500mV Fnl:1175677\n1x      U1  SOIC8 LP2951DR Fnl:2781769
+BOM:\n2x C1,2   22uF Through Hole Fnl:9452397\n3(5)x R1,4,5,6  1206 resistor Multicomp 100Ohm 500mW    Fnl:2694436\n1x      R2           1206 resistor Multicomp 1KOhm 250mW  Fnl:\n1x      R3           1206 resistor Multicomp 1MOhm 250mW  Fnl:\n4x      D1,2,3,4  SOD-123 Shottky rectifier 40V, 500mA FV 500mV Fnl:1175677\n1x      U1  SOIC8 LP2951DR Fnl:2781769
 $Comp
 L C C1
 U 1 1 5ABB8BA8

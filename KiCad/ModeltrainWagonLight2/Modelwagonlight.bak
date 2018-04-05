@@ -203,7 +203,7 @@ U 1 1 5ABBBE6F
 P 4050 3950
 F 0 "J1" H 4050 4050 50  0000 C CNN
 F 1 "Conn_01x01" H 4050 3850 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01_Pitch1.00mm" H 4050 3950 50  0001 C CNN
+F 2 "Contact_fingers:Pin_Header_Straight_1x01_Pitch1.00mm" H 4050 3950 50  0001 C CNN
 F 3 "" H 4050 3950 50  0001 C CNN
 	1    4050 3950
 	-1   0    0    1   
@@ -214,7 +214,7 @@ U 1 1 5ABBBEC0
 P 4050 4300
 F 0 "J2" H 4050 4400 50  0000 C CNN
 F 1 "Conn_01x01" H 4050 4200 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01_Pitch1.00mm" H 4050 4300 50  0001 C CNN
+F 2 "Contact_fingers:Pin_Header_Straight_1x01_Pitch1.00mm" H 4050 4300 50  0001 C CNN
 F 3 "" H 4050 4300 50  0001 C CNN
 	1    4050 4300
 	-1   0    0    1   
@@ -225,7 +225,7 @@ U 1 1 5ABBC0DE
 P 5950 3600
 F 0 "J3" H 5950 3700 50  0000 C CNN
 F 1 "Conn_01x01" H 5950 3500 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01_Pitch1.00mm" H 5950 3600 50  0001 C CNN
+F 2 "Contact_fingers:Pin_Header_Straight_1x01_Pitch1.00mm" H 5950 3600 50  0001 C CNN
 F 3 "" H 5950 3600 50  0001 C CNN
 	1    5950 3600
 	0    -1   -1   0   
@@ -236,7 +236,7 @@ U 1 1 5ABBC139
 P 6600 3600
 F 0 "J4" H 6600 3700 50  0000 C CNN
 F 1 "Conn_01x01" H 6600 3500 50  0000 C CNN
-F 2 "Pin_Headers:Pin_Header_Straight_1x01_Pitch1.00mm" H 6600 3600 50  0001 C CNN
+F 2 "Contact_fingers:Pin_Header_Straight_1x01_Pitch1.00mm" H 6600 3600 50  0001 C CNN
 F 3 "" H 6600 3600 50  0001 C CNN
 	1    6600 3600
 	0    -1   -1   0   
@@ -305,7 +305,7 @@ U 1 1 5AC4948C
 P 8400 4250
 F 0 "C4" H 8425 4350 50  0000 L CNN
 F 1 "100nF" H 8425 4150 50  0000 L CNN
-F 2 "Capacitors_THT:CP_Radial_D6.3mm_P2.50mm" H 8438 4100 50  0001 C CNN
+F 2 "Capacitors_SMD:C_1206" H 8438 4100 50  0001 C CNN
 F 3 "" H 8400 4250 50  0001 C CNN
 	1    8400 4250
 	1    0    0    -1  
@@ -325,7 +325,7 @@ U 1 1 5AC4A12F
 P 6450 4300
 F 0 "C3" H 6475 4400 50  0000 L CNN
 F 1 "100nF" H 6475 4200 50  0000 L CNN
-F 2 "Capacitors_THT:CP_Radial_D6.3mm_P2.50mm" H 6488 4150 50  0001 C CNN
+F 2 "Capacitors_SMD:C_1206" H 6488 4150 50  0001 C CNN
 F 3 "" H 6450 4300 50  0001 C CNN
 	1    6450 4300
 	1    0    0    -1  
