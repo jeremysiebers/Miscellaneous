@@ -1,11 +1,11 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
-# ClockDistrTest-rescue:+5V
+# ClockDistrTest-rescue:+5V-ClockDistrTest-rescue
 #
-DEF ClockDistrTest-rescue:+5V #PWR 0 0 Y Y 1 F P
+DEF ClockDistrTest-rescue:+5V-ClockDistrTest-rescue #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -150 50 H I C CNN
-F1 "ClockDistrTest-rescue:+5V" 0 140 50 H V C CNN
+F1 "ClockDistrTest-rescue:+5V-ClockDistrTest-rescue" 0 140 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -16,11 +16,11 @@ X +5V 1 0 0 0 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# ClockDistrTest-rescue:4049
+# ClockDistrTest-rescue:4049-ClockDistrTest-rescue
 #
-DEF ClockDistrTest-rescue:4049 U 0 40 Y Y 7 L N
+DEF ClockDistrTest-rescue:4049-ClockDistrTest-rescue U 0 40 Y Y 7 L N
 F0 "U" 0 50 50 H V C CNN
-F1 "ClockDistrTest-rescue:4049" 0 -50 50 H V C CNN
+F1 "ClockDistrTest-rescue:4049-ClockDistrTest-rescue" 0 -50 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -51,11 +51,11 @@ X VSS 8 0 -500 200 U 50 50 7 0 W
 ENDDRAW
 ENDDEF
 #
-# ClockDistrTest-rescue:C
+# ClockDistrTest-rescue:C-ClockDistrTest-rescue
 #
-DEF ClockDistrTest-rescue:C C 0 10 N Y 1 F N
+DEF ClockDistrTest-rescue:C-ClockDistrTest-rescue C 0 10 N Y 1 F N
 F0 "C" 25 100 50 H V L CNN
-F1 "ClockDistrTest-rescue:C" 25 -100 50 H V L CNN
+F1 "ClockDistrTest-rescue:C-ClockDistrTest-rescue" 25 -100 50 H V L CNN
 F2 "" 38 -150 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -69,11 +69,11 @@ X ~ 2 0 -150 110 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# ClockDistrTest-rescue:Conn_01x02_Male
+# ClockDistrTest-rescue:Conn_01x02_Male-ClockDistrTest-rescue
 #
-DEF ClockDistrTest-rescue:Conn_01x02_Male J 0 40 Y N 1 F N
+DEF ClockDistrTest-rescue:Conn_01x02_Male-ClockDistrTest-rescue J 0 40 Y N 1 F N
 F0 "J" 0 100 50 H V C CNN
-F1 "ClockDistrTest-rescue:Conn_01x02_Male" 0 -200 50 H V C CNN
+F1 "ClockDistrTest-rescue:Conn_01x02_Male-ClockDistrTest-rescue" 0 -200 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -89,11 +89,11 @@ X Pin_2 2 200 -100 150 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# ClockDistrTest-rescue:Crystal
+# ClockDistrTest-rescue:Crystal-ClockDistrTest-rescue
 #
-DEF ClockDistrTest-rescue:Crystal Y 0 40 N N 1 F N
+DEF ClockDistrTest-rescue:Crystal-ClockDistrTest-rescue Y 0 40 N N 1 F N
 F0 "Y" 0 150 50 H V C CNN
-F1 "ClockDistrTest-rescue:Crystal" 0 -150 50 H V C CNN
+F1 "ClockDistrTest-rescue:Crystal-ClockDistrTest-rescue" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -110,11 +110,11 @@ X 2 2 150 0 50 L 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# ClockDistrTest-rescue:GND
+# ClockDistrTest-rescue:GND-ClockDistrTest-rescue
 #
-DEF ClockDistrTest-rescue:GND #PWR 0 0 Y Y 1 F P
+DEF ClockDistrTest-rescue:GND-ClockDistrTest-rescue #PWR 0 0 Y Y 1 F P
 F0 "#PWR" 0 -250 50 H I C CNN
-F1 "ClockDistrTest-rescue:GND" 0 -150 50 H V C CNN
+F1 "ClockDistrTest-rescue:GND-ClockDistrTest-rescue" 0 -150 50 H V C CNN
 F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 DRAW
@@ -123,11 +123,11 @@ X GND 1 0 0 0 D 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #
-# ClockDistrTest-rescue:LM7805_TO220
+# ClockDistrTest-rescue:LM7805_TO220-ClockDistrTest-rescue
 #
-DEF ClockDistrTest-rescue:LM7805_TO220 U 0 10 Y Y 1 F N
+DEF ClockDistrTest-rescue:LM7805_TO220-ClockDistrTest-rescue U 0 10 Y Y 1 F N
 F0 "U" -150 125 50 H V C CNN
-F1 "ClockDistrTest-rescue:LM7805_TO220" 0 125 50 H V L CNN
+F1 "ClockDistrTest-rescue:LM7805_TO220-ClockDistrTest-rescue" 0 125 50 H V L CNN
 F2 "Package_TO_SOT_THT:TO-220-3_Vertical" 0 225 50 H I C CIN
 F3 "" 0 -50 50 H I C CNN
 $FPLIST
@@ -141,11 +141,11 @@ X VO 3 300 0 100 L 50 50 1 1 w
 ENDDRAW
 ENDDEF
 #
-# ClockDistrTest-rescue:NB3N511
+# ClockDistrTest-rescue:NB3N511-ClockDistrTest-rescue
 #
-DEF ClockDistrTest-rescue:NB3N511 U 0 20 Y Y 1 F N
+DEF ClockDistrTest-rescue:NB3N511-ClockDistrTest-rescue U 0 20 Y Y 1 F N
 F0 "U" 100 700 50 H V L CNN
-F1 "ClockDistrTest-rescue:NB3N511" 100 600 50 H V L CNN
+F1 "ClockDistrTest-rescue:NB3N511-ClockDistrTest-rescue" 100 600 50 H V L CNN
 F2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" 50 -750 50 H I C CNN
 F3 "" 50 -850 50 H I C CNN
 $FPLIST
@@ -164,11 +164,11 @@ X X2 8 -500 100 200 R 50 50 1 1 I
 ENDDRAW
 ENDDEF
 #
-# ClockDistrTest-rescue:R
+# ClockDistrTest-rescue:R-ClockDistrTest-rescue
 #
-DEF ClockDistrTest-rescue:R R 0 0 N Y 1 F N
+DEF ClockDistrTest-rescue:R-ClockDistrTest-rescue R 0 0 N Y 1 F N
 F0 "R" 80 0 50 V V C CNN
-F1 "ClockDistrTest-rescue:R" 0 0 50 V V C CNN
+F1 "ClockDistrTest-rescue:R-ClockDistrTest-rescue" 0 0 50 V V C CNN
 F2 "" -70 0 50 V I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
@@ -181,11 +181,11 @@ X ~ 2 0 -150 50 U 50 50 1 1 P
 ENDDRAW
 ENDDEF
 #
-# ClockDistrTest-rescue:SG-531
+# ClockDistrTest-rescue:SG-531-ClockDistrTest-rescue
 #
-DEF ClockDistrTest-rescue:SG-531 X 0 10 Y Y 1 F N
+DEF ClockDistrTest-rescue:SG-531-ClockDistrTest-rescue X 0 10 Y Y 1 F N
 F0 "X" -200 250 50 H V L CNN
-F1 "ClockDistrTest-rescue:SG-531" 50 -250 50 H V L CNN
+F1 "ClockDistrTest-rescue:SG-531-ClockDistrTest-rescue" 50 -250 50 H V L CNN
 F2 "Oscillator:Oscillator_SeikoEpson_SG-8002DC" 450 -350 50 H I C CNN
 F3 "" -100 0 50 H I C CNN
 $FPLIST
