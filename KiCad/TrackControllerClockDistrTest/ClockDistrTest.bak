@@ -443,17 +443,6 @@ F 3 "" H 3600 2200 50  0001 C CNN
 	1    3600 2200
 	0    1    1    0   
 $EndComp
-$Comp
-L ClockDistrTest-rescue:Conn_01x02_Male-ClockDistrTest-rescue J5
-U 1 1 5AD684BA
-P 4500 5400
-F 0 "J5" H 4500 5500 50  0000 C CNN
-F 1 "Conn_01x02_Male" V 4350 5200 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4500 5400 50  0001 C CNN
-F 3 "" H 4500 5400 50  0001 C CNN
-	1    4500 5400
-	0    1    1    0   
-$EndComp
 Connection ~ 2350 900 
 Wire Wire Line
 	2950 1200 2950 1500
@@ -567,12 +556,8 @@ Wire Wire Line
 Wire Wire Line
 	3050 4050 4400 4050
 Wire Wire Line
-	4100 5600 4400 5600
-Wire Wire Line
 	4500 4150 4500 4050
 Connection ~ 4850 4150
-Wire Wire Line
-	4850 5600 4500 5600
 $Comp
 L ClockDistrTest-rescue:+5V-ClockDistrTest-rescue #PWR016
 U 1 1 5AD69C34
@@ -607,28 +592,6 @@ F 3 "" H 3150 3500 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L ClockDistrTest-rescue:Conn_01x02_Male-ClockDistrTest-rescue J6
-U 1 1 5AD6C486
-P 4500 5850
-F 0 "J6" H 4500 5950 50  0000 C CNN
-F 1 "Conn_01x02_Male" V 4750 6200 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4500 5850 50  0001 C CNN
-F 3 "" H 4500 5850 50  0001 C CNN
-	1    4500 5850
-	0    1    1    0   
-$EndComp
-$Comp
-L ClockDistrTest-rescue:Conn_01x02_Male-ClockDistrTest-rescue J7
-U 1 1 5AD6C60A
-P 4500 6300
-F 0 "J7" H 4500 6400 50  0000 C CNN
-F 1 "Conn_01x02_Male" V 4800 6600 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4500 6300 50  0001 C CNN
-F 3 "" H 4500 6300 50  0001 C CNN
-	1    4500 6300
-	0    1    1    0   
-$EndComp
-$Comp
 L ClockDistrTest-rescue:Conn_01x02_Male-ClockDistrTest-rescue J3
 U 1 1 5AD6C687
 P 4450 6750
@@ -640,20 +603,9 @@ F 3 "" H 4450 6750 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	4100 6050 4400 6050
-Wire Wire Line
-	4100 6500 4400 6500
-Wire Wire Line
 	4100 6950 4350 6950
 Wire Wire Line
-	4850 6050 4500 6050
-Connection ~ 4850 5600
-Wire Wire Line
-	4850 6500 4500 6500
-Connection ~ 4850 6050
-Wire Wire Line
 	4850 6950 4450 6950
-Connection ~ 4850 6500
 Wire Wire Line
 	2100 900  2350 900 
 Wire Wire Line
@@ -698,14 +650,6 @@ Wire Wire Line
 	3400 6500 3400 6950
 Wire Wire Line
 	4850 4150 4500 4150
-Wire Wire Line
-	4850 4150 4850 5600
-Wire Wire Line
-	4850 5600 4850 6050
-Wire Wire Line
-	4850 6050 4850 6500
-Wire Wire Line
-	4850 6500 4850 6950
 $Comp
 L Interface_UART:MAX14783E U4
 U 1 1 5AD6BC12
@@ -2092,4 +2036,6 @@ Wire Wire Line
 	3350 3150 3450 3150
 Wire Wire Line
 	3750 3150 4200 3150
+Wire Wire Line
+	4850 4150 4850 6950
 $EndSCHEMATC
