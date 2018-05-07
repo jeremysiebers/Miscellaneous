@@ -840,7 +840,7 @@ U 1 1 5AF2B4EA
 P 10800 2300
 F 0 "J2" H 10800 2600 50  0000 C CNN
 F 1 "Conn_01x06" H 10800 1900 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Horizontal" H 10800 2300 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 10800 2300 50  0001 C CNN
 F 3 "~" H 10800 2300 50  0001 C CNN
 	1    10800 2300
 	1    0    0    -1  
@@ -1432,7 +1432,7 @@ Text GLabel 9000 1150 0    50   Output ~ 0
 ID
 Wire Wire Line
 	9000 1150 9200 1150
-Text GLabel 7200 2150 0    50   Input ~ 0
+Text GLabel 7200 1750 0    50   Input ~ 0
 ID
 $Comp
 L TrackAmplifier-rescue:C C20
@@ -2063,7 +2063,7 @@ $EndComp
 Wire Wire Line
 	1650 750  1650 800 
 Text GLabel 900  800  0    50   Input ~ 0
-Vbus_flt+
+Vbus_flt
 Text Notes 7350 6450 0    50   ~ 0
 377uA/A --> 4A meauring range\n5V / (377^-6 x 4) -->\n3K3
 $Comp
@@ -2172,11 +2172,8 @@ Wire Wire Line
 	9800 5250 10100 5250
 Wire Wire Line
 	9800 5350 10100 5350
-Text GLabel 1700 5700 0    50   Input ~ 0
+Text GLabel 950  5900 0    50   Input ~ 0
 Vbus_flt
-Wire Wire Line
-	1700 5700 1850 5700
-Connection ~ 1850 5700
 Wire Wire Line
 	9500 2150 9500 2250
 Wire Wire Line
@@ -2201,8 +2198,6 @@ Wire Wire Line
 	7200 1950 7350 1950
 Wire Wire Line
 	7350 2050 7200 2050
-Wire Wire Line
-	7200 2150 7350 2150
 $Comp
 L Reference_Voltage:REF3025 U10
 U 1 1 5B4E4160
@@ -2290,23 +2285,13 @@ Wire Wire Line
 	6250 1450 5500 1450
 Connection ~ 5500 1450
 Wire Wire Line
-	7350 1750 7300 1750
-Wire Wire Line
-	6750 1750 6750 1150
+	6750 1850 6750 1150
 Wire Wire Line
 	6750 1150 6650 1150
-Wire Wire Line
-	7350 1850 7300 1850
-Wire Wire Line
-	7300 1850 7300 1750
-Connection ~ 7300 1750
-Wire Wire Line
-	7300 1750 6750 1750
-Text GLabel 6700 1750 0    50   Output ~ 0
+Text GLabel 6600 1850 0    50   Output ~ 0
 VREF
 Wire Wire Line
-	6700 1750 6750 1750
-Connection ~ 6750 1750
+	6600 1850 6750 1850
 Text GLabel 5450 2350 2    50   Input ~ 0
 VREF
 Text GLabel 7050 4700 2    50   Input ~ 0
@@ -2484,7 +2469,7 @@ F 3 "~" V 8800 4690 50  0000 C CNN
 	-1   0    0    -1  
 $EndComp
 Text GLabel 8450 4750 0    50   Output ~ 0
-Vbus_flt+
+Vbus_flt
 Text GLabel 8450 4550 0    50   Output ~ 0
 GND
 Text GLabel 900  1300 0    50   Input ~ 0
@@ -2602,8 +2587,6 @@ $EndComp
 Wire Wire Line
 	9200 6150 9200 5850
 Connection ~ 9200 5850
-Text Notes 3000 7700 0    50   ~ 0
-Package_TO_SOT_THT:TO-220-11_Horizontal_TabDown_StaggeredType1_Py2.54mm
 Wire Wire Line
 	2850 5700 2850 6200
 Wire Wire Line
@@ -2640,7 +2623,7 @@ L Device:R_Shunt R16
 U 1 1 5AFB3E95
 P 4850 6750
 F 0 "R16" V 4675 6750 50  0000 C CNN
-F 1 "0.02" V 4750 6750 50  0000 C CNN
+F 1 "0.025" V 4750 6750 50  0000 C CNN
 F 2 "Resistor_SMD:R_Shunt_2512_6332Metric_0.005-0.2" V 4780 6750 50  0001 C CNN
 F 3 "~" H 4850 6750 50  0001 C CNN
 	1    4850 6750
@@ -2654,4 +2637,148 @@ Wire Wire Line
 	4750 6500 4750 6600
 Wire Wire Line
 	4950 6500 4950 6600
+$Comp
+L Device:Polyfuse F1
+U 1 1 5AF3A43B
+P 1250 5900
+F 0 "F1" V 1150 5900 50  0000 C CNN
+F 1 "Polyfuse" V 1350 5900 50  0000 C CNN
+F 2 "Fuse:Fuse_Bourns_MF-SM_7.98x5.44mm" H 1300 5700 50  0001 L CNN
+F 3 "~" H 1250 5900 50  0001 C CNN
+	1    1250 5900
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	1100 5900 950  5900
+Wire Wire Line
+	1400 5900 1450 5900
+Wire Wire Line
+	1450 5900 1450 5700
+Wire Wire Line
+	1450 5700 1850 5700
+Connection ~ 1850 5700
+$Comp
+L Device:R R38
+U 1 1 5AFB301E
+P 6950 1850
+F 0 "R38" V 7030 1850 50  0000 C CNN
+F 1 "10E" V 6950 1850 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 6880 1850 50  0001 C CNN
+F 3 "~" H 6950 1850 50  0001 C CNN
+	1    6950 1850
+	0    -1   -1   0   
+$EndComp
+Connection ~ 6750 1850
+Wire Wire Line
+	6750 1850 6800 1850
+Wire Wire Line
+	7100 1850 7350 1850
+Wire Wire Line
+	7200 1750 7350 1750
+Text GLabel 5900 5700 2    50   Output ~ 0
+Vlm
+$Comp
+L TrackAmplifier-rescue:C C36
+U 1 1 5B1E8513
+P 5800 5900
+F 0 "C36" H 5825 6000 50  0000 L CNN
+F 1 "220n" H 5825 5800 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 5838 5750 50  0001 C CNN
+F 3 "" H 5800 5900 50  0001 C CNN
+	1    5800 5900
+	-1   0    0    1   
+$EndComp
+$Comp
+L TrackAmplifier-rescue:GND #PWR038
+U 1 1 5B1E851A
+P 5800 6100
+F 0 "#PWR038" H 5800 5850 50  0001 C CNN
+F 1 "GND" H 5800 5950 50  0000 C CNN
+F 2 "" H 5800 6100 50  0001 C CNN
+F 3 "" H 5800 6100 50  0001 C CNN
+	1    5800 6100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L Device:D D9
+U 1 1 5B1E8528
+P 5300 5500
+F 0 "D9" H 5300 5600 50  0000 C CNN
+F 1 "1n4148" H 5300 5400 50  0000 C CNN
+F 2 "Diode_SMD:D_1206_3216Metric" H 5300 5500 50  0001 C CNN
+F 3 "~" H 5300 5500 50  0001 C CNN
+	1    5300 5500
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:D D10
+U 1 1 5B1E852F
+P 5300 5900
+F 0 "D10" H 5300 6000 50  0000 C CNN
+F 1 "1n4148" H 5300 5800 50  0000 C CNN
+F 2 "Diode_SMD:D_1206_3216Metric" H 5300 5900 50  0001 C CNN
+F 3 "~" H 5300 5900 50  0001 C CNN
+	1    5300 5900
+	0    1    1    0   
+$EndComp
+$Comp
+L TrackAmplifier-rescue:GND #PWR017
+U 1 1 5B1E8536
+P 5300 6100
+F 0 "#PWR017" H 5300 5850 50  0001 C CNN
+F 1 "GND" H 5300 5950 50  0000 C CNN
+F 2 "" H 5300 6100 50  0001 C CNN
+F 3 "" H 5300 6100 50  0001 C CNN
+	1    5300 6100
+	-1   0    0    -1  
+$EndComp
+$Comp
+L power:+5V #PWR010
+U 1 1 5B1E853C
+P 5300 5300
+F 0 "#PWR010" H 5300 5150 50  0001 C CNN
+F 1 "+5V" H 5300 5440 50  0000 C CNN
+F 2 "" H 5300 5300 50  0001 C CNN
+F 3 "" H 5300 5300 50  0001 C CNN
+	1    5300 5300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5300 5300 5300 5350
+Wire Wire Line
+	5300 5650 5300 5700
+Wire Wire Line
+	5300 6100 5300 6050
+Connection ~ 5300 5700
+Wire Wire Line
+	5300 5700 5300 5750
+Wire Wire Line
+	5800 6100 5800 6050
+$Comp
+L Device:R R17
+U 1 1 5B2136D1
+P 5000 5700
+F 0 "R17" V 5080 5700 50  0000 C CNN
+F 1 "10k" V 5000 5700 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 4930 5700 50  0001 C CNN
+F 3 "~" H 5000 5700 50  0001 C CNN
+	1    5000 5700
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2850 5700 4850 5700
+Connection ~ 2850 5700
+Wire Wire Line
+	5150 5700 5300 5700
+Wire Wire Line
+	5800 5700 5800 5750
+Wire Wire Line
+	5300 5700 5800 5700
+Wire Wire Line
+	5900 5700 5800 5700
+Connection ~ 5800 5700
+Text GLabel 7200 2150 0    50   Input ~ 0
+Vlm
+Wire Wire Line
+	7200 2150 7350 2150
 $EndSCHEMATC
