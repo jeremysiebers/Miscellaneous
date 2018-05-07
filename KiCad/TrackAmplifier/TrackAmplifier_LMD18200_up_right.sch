@@ -840,7 +840,7 @@ U 1 1 5AF2B4EA
 P 10800 2300
 F 0 "J2" H 10800 2600 50  0000 C CNN
 F 1 "Conn_01x06" H 10800 1900 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical" H 10800 2300 50  0001 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Horizontal" H 10800 2300 50  0001 C CNN
 F 3 "~" H 10800 2300 50  0001 C CNN
 	1    10800 2300
 	1    0    0    -1  
@@ -1649,10 +1649,22 @@ Wire Wire Line
 	3850 6400 3900 6400
 Wire Wire Line
 	3850 7200 3900 7200
-Text GLabel 4750 6500 1    50   Output ~ 0
+Wire Wire Line
+	4500 6550 4450 6550
+Wire Wire Line
+	4450 6550 4450 6750
+Connection ~ 4450 6750
+Wire Wire Line
+	4450 6750 4500 6750
+Wire Wire Line
+	5250 6750 5300 6750
+Text GLabel 4450 6350 1    50   Output ~ 0
 OCC1
-Text GLabel 4950 6500 1    50   Output ~ 0
+Text GLabel 5250 6350 1    50   Output ~ 0
 OCC2
+Wire Wire Line
+	4450 6350 4450 6550
+Connection ~ 4450 6550
 $Comp
 L Amplifier_Instrumentation:INA326 U8
 U 1 1 5BAED109
@@ -1873,6 +1885,8 @@ Text GLabel 7200 2050 0    50   Input ~ 0
 OCC
 Wire Wire Line
 	9900 1150 9900 1400
+Wire Wire Line
+	3850 6750 4450 6750
 Wire Wire Line
 	3850 6950 5300 6950
 Text GLabel 7550 5550 0    50   Input ~ 0
@@ -2588,6 +2602,20 @@ Wire Wire Line
 	6650 4700 6650 4800
 Wire Wire Line
 	7000 4700 7050 4700
+Wire Wire Line
+	5250 6350 5250 6550
+Wire Wire Line
+	4850 6750 4800 6750
+Wire Wire Line
+	4800 6550 4850 6550
+Wire Wire Line
+	5150 6550 5250 6550
+Connection ~ 5250 6550
+Wire Wire Line
+	5250 6550 5250 6750
+Wire Wire Line
+	5150 6750 5250 6750
+Connection ~ 5250 6750
 $Comp
 L power:GNDD #PWR0104
 U 1 1 5AF2B1F8
@@ -2636,22 +2664,47 @@ Connection ~ 3850 6400
 Wire Wire Line
 	2850 7400 2850 7600
 $Comp
-L Device:R_Shunt R16
-U 1 1 5AFB3E95
-P 4850 6750
-F 0 "R16" V 4675 6750 50  0000 C CNN
-F 1 "0.02" V 4750 6750 50  0000 C CNN
-F 2 "Resistor_SMD:R_Shunt_2512_6332Metric_0.005-0.2" V 4780 6750 50  0001 C CNN
-F 3 "~" H 4850 6750 50  0001 C CNN
-	1    4850 6750
+L Device:R R17
+U 1 1 5BA29CE0
+P 4650 6750
+F 0 "R17" V 4730 6750 50  0000 C CNN
+F 1 "0.2E" V 4650 6750 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal" V 4580 6750 50  0001 C CNN
+F 3 "~" H 4650 6750 50  0001 C CNN
+	1    4650 6750
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	3850 6750 4650 6750
-Wire Wire Line
-	5050 6750 5300 6750
-Wire Wire Line
-	4750 6500 4750 6600
-Wire Wire Line
-	4950 6500 4950 6600
+$Comp
+L Device:R R39
+U 1 1 5B2E4D8A
+P 5000 6750
+F 0 "R39" V 5080 6750 50  0000 C CNN
+F 1 "0.2E" V 5000 6750 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal" V 4930 6750 50  0001 C CNN
+F 3 "~" H 5000 6750 50  0001 C CNN
+	1    5000 6750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R38
+U 1 1 5B2E4CB0
+P 5000 6550
+F 0 "R38" V 5080 6550 50  0000 C CNN
+F 1 "0.2E" V 5000 6550 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal" V 4930 6550 50  0001 C CNN
+F 3 "~" H 5000 6550 50  0001 C CNN
+	1    5000 6550
+	0    -1   -1   0   
+$EndComp
+$Comp
+L Device:R R16
+U 1 1 5BA58FC8
+P 4650 6550
+F 0 "R16" V 4730 6550 50  0000 C CNN
+F 1 "0.2E" V 4650 6550 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0411_L9.9mm_D3.6mm_P12.70mm_Horizontal" V 4580 6550 50  0001 C CNN
+F 3 "~" H 4650 6550 50  0001 C CNN
+	1    4650 6550
+	0    -1   -1   0   
+$EndComp
 $EndSCHEMATC
