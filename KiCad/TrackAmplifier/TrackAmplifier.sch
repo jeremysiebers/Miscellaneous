@@ -30,11 +30,7 @@ Wire Wire Line
 Wire Wire Line
 	9250 4550 9250 4750
 Wire Wire Line
-	10100 5950 9250 5950
-Wire Wire Line
 	10100 4650 9200 4650
-Wire Wire Line
-	9200 5850 10100 5850
 $Comp
 L TrackAmplifier-rescue:C C7
 U 1 1 5ABE3B27
@@ -405,7 +401,6 @@ Wire Wire Line
 	1850 4200 1850 4250
 Wire Wire Line
 	1850 4250 1000 4250
-Connection ~ 1000 3950
 Text GLabel 1400 3600 0    50   Input ~ 0
 Sync_B
 Text GLabel 1400 3900 0    50   Input ~ 0
@@ -674,9 +669,9 @@ Text GLabel 9800 5350 0    50   Output ~ 0
 RX_B
 Text GLabel 9800 5250 0    50   Output ~ 0
 RX_A
-Text GLabel 9800 5450 0    50   Input ~ 0
-TX_B
 Text GLabel 9800 5550 0    50   Input ~ 0
+TX_B
+Text GLabel 9800 5450 0    50   Input ~ 0
 TX_A
 $Comp
 L Driver_Motor:LMD18200 U4
@@ -693,12 +688,10 @@ Text GLabel 5800 6750 2    50   Output ~ 0
 PWMO1
 Text GLabel 5800 6950 2    50   Output ~ 0
 PWMO2
-Text GLabel 9800 5650 0    50   Input ~ 0
+Text GLabel 9800 5850 0    50   Input ~ 0
 PWMO1
-Text GLabel 9800 5750 0    50   Input ~ 0
+Text GLabel 9800 5950 0    50   Input ~ 0
 PWMO2
-Wire Wire Line
-	9800 5750 10100 5750
 Wire Wire Line
 	4050 3200 4050 3250
 Wire Wire Line
@@ -830,7 +823,7 @@ Text GLabel 7050 2850 0    50   Output ~ 0
 TX_ENA
 Text GLabel 2350 3600 2    50   Output ~ 0
 SYNC
-Text GLabel 3100 2000 2    50   Input ~ 0
+Text GLabel 3500 2000 2    50   Input ~ 0
 RST
 Wire Wire Line
 	2250 3600 2350 3600
@@ -1000,9 +993,9 @@ Wire Wire Line
 	1600 6600 1700 6600
 Text GLabel 8500 2650 2    50   Input ~ 0
 TEMP
-Text GLabel 8500 2750 2    50   Output ~ 0
-PWM
 Text GLabel 8500 2950 2    50   Output ~ 0
+PWM
+Text GLabel 8500 2750 2    50   Output ~ 0
 DIR
 Text GLabel 8500 2850 2    50   Output ~ 0
 BRK
@@ -1165,12 +1158,12 @@ $EndComp
 $Comp
 L Transistor_FET:2N7002 Q1
 U 1 1 5B357979
-P 2900 2300
-F 0 "Q1" H 3100 2375 50  0000 L CNN
-F 1 "2N7002" H 3100 2300 50  0000 L CNN
-F 2 "Package_TO_SOT_SMD:SOT-23" H 3100 2225 50  0001 L CIN
-F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 2900 2300 50  0001 L CNN
-	1    2900 2300
+P 3300 2300
+F 0 "Q1" H 3500 2375 50  0000 L CNN
+F 1 "2N7002" H 3500 2300 50  0000 L CNN
+F 2 "Package_TO_SOT_SMD:SOT-23" H 3500 2225 50  0001 L CIN
+F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 3300 2300 50  0001 L CNN
+	1    3300 2300
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1191,20 +1184,20 @@ Wire Wire Line
 $Comp
 L TrackAmplifier-rescue:GND #PWR012
 U 1 1 5B3BB8BC
-P 3000 2600
-F 0 "#PWR012" H 3000 2350 50  0001 C CNN
-F 1 "GND" H 3000 2450 50  0000 C CNN
-F 2 "" H 3000 2600 50  0001 C CNN
-F 3 "" H 3000 2600 50  0001 C CNN
-	1    3000 2600
+P 3400 2600
+F 0 "#PWR012" H 3400 2350 50  0001 C CNN
+F 1 "GND" H 3400 2450 50  0000 C CNN
+F 2 "" H 3400 2600 50  0001 C CNN
+F 3 "" H 3400 2600 50  0001 C CNN
+	1    3400 2600
 	-1   0    0    -1  
 $EndComp
 Wire Wire Line
-	3000 2600 3000 2500
+	3400 2600 3400 2500
 Wire Wire Line
-	3100 2000 3000 2000
+	3500 2000 3400 2000
 Wire Wire Line
-	3000 2000 3000 2100
+	3400 2000 3400 2100
 $Comp
 L Device:D D7
 U 1 1 5B3F6022
@@ -1253,15 +1246,9 @@ Wire Wire Line
 Text Notes 10050 4050 0    50   ~ 0
 ~MCLR~ Vil = 0.2V Vih = 0.7V\nLVP is possible, HVP only\nwhen "RESET" transceiver \ninput A < B 
 Text Notes 2150 1900 0    50   ~ 0
-Disconnected receiver inputs\nor idle bus will have RO high.\nInvert for uController reset
-Wire Wire Line
-	9800 5650 10100 5650
+Disconnected receiver inputs\nor idle bus will have RO high.\nInvert for continuous uController reset
 Wire Wire Line
 	9800 4750 10100 4750
-Wire Wire Line
-	10100 5450 9800 5450
-Wire Wire Line
-	9800 5550 10100 5550
 $Comp
 L power:GNDD #PWR046
 U 1 1 5B57F88C
@@ -1340,23 +1327,23 @@ Wire Wire Line
 $Comp
 L TrackAmplifier-rescue:C C30
 U 1 1 5B65E3B2
-P 9700 1350
-F 0 "C30" H 9725 1450 50  0000 L CNN
-F 1 "220n" H 9800 1350 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 9738 1200 50  0001 C CNN
-F 3 "" H 9700 1350 50  0001 C CNN
-	1    9700 1350
+P 9500 1350
+F 0 "C30" H 9525 1450 50  0000 L CNN
+F 1 "220n" H 9550 1250 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 9538 1200 50  0001 C CNN
+F 3 "" H 9500 1350 50  0001 C CNN
+	1    9500 1350
 	-1   0    0    1   
 $EndComp
 $Comp
 L TrackAmplifier-rescue:GND #PWR040
 U 1 1 5B66EA4C
-P 9700 1550
-F 0 "#PWR040" H 9700 1300 50  0001 C CNN
-F 1 "GND" H 9700 1400 50  0000 C CNN
-F 2 "" H 9700 1550 50  0001 C CNN
-F 3 "" H 9700 1550 50  0001 C CNN
-	1    9700 1550
+P 9500 1550
+F 0 "#PWR040" H 9500 1300 50  0001 C CNN
+F 1 "GND" H 9500 1400 50  0000 C CNN
+F 2 "" H 9500 1550 50  0001 C CNN
+F 3 "" H 9500 1550 50  0001 C CNN
+	1    9500 1550
 	-1   0    0    -1  
 $EndComp
 Connection ~ 9900 1150
@@ -1365,12 +1352,12 @@ Resistor on backplane \nwill determine ID voltage
 $Comp
 L Device:R R30
 U 1 1 5B6A0D19
-P 9450 1150
-F 0 "R30" V 9530 1150 50  0000 C CNN
-F 1 "1K" V 9450 1150 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 9380 1150 50  0001 C CNN
-F 3 "~" H 9450 1150 50  0001 C CNN
-	1    9450 1150
+P 9700 1150
+F 0 "R30" V 9780 1150 50  0000 C CNN
+F 1 "10k" V 9700 1150 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 9630 1150 50  0001 C CNN
+F 3 "~" H 9700 1150 50  0001 C CNN
+	1    9700 1150
 	0    1    1    0   
 $EndComp
 $Comp
@@ -1424,7 +1411,7 @@ Wire Wire Line
 Wire Wire Line
 	9200 1550 9200 1500
 Wire Wire Line
-	9300 1150 9200 1150
+	9550 1150 9500 1150
 Connection ~ 9200 1150
 Wire Wire Line
 	9200 1150 9200 1200
@@ -2089,13 +2076,6 @@ Connection ~ 9850 3900
 Wire Wire Line
 	9850 3900 9850 3950
 Wire Wire Line
-	9600 1150 9700 1150
-Wire Wire Line
-	9700 1150 9700 1200
-Wire Wire Line
-	9700 1150 9900 1150
-Connection ~ 9700 1150
-Wire Wire Line
 	4850 3750 4950 3750
 $Comp
 L Device:R R29
@@ -2176,12 +2156,6 @@ Text GLabel 950  5900 0    50   Input ~ 0
 Vbus_flt
 Wire Wire Line
 	9500 2150 9500 2250
-Wire Wire Line
-	8500 2950 8350 2950
-Wire Wire Line
-	8350 2850 8500 2850
-Wire Wire Line
-	8500 2750 8350 2750
 Wire Wire Line
 	8350 2650 8500 2650
 Wire Wire Line
@@ -2285,22 +2259,19 @@ Wire Wire Line
 	6250 1450 5500 1450
 Connection ~ 5500 1450
 Wire Wire Line
-	6750 1850 6750 1150
+	6750 1850 6750 1550
 Wire Wire Line
 	6750 1150 6650 1150
-Text GLabel 6600 1850 0    50   Output ~ 0
+Text GLabel 6650 1550 0    50   Output ~ 0
 VREF
-Wire Wire Line
-	6600 1850 6750 1850
 Text GLabel 5450 2350 2    50   Input ~ 0
 VREF
 Text GLabel 7050 4700 2    50   Input ~ 0
 VREF
 Wire Wire Line
-	9700 1550 9700 1500
+	9500 1550 9500 1500
 NoConn ~ 7350 2250
 NoConn ~ 7350 2350
-NoConn ~ 7350 2450
 NoConn ~ 4450 3550
 NoConn ~ 10600 2600
 Wire Wire Line
@@ -2351,8 +2322,6 @@ Wire Wire Line
 	9500 2350 9500 2450
 Text Notes 1200 8100 0    50   ~ 0
 http://nl.farnell.com/epcos/b82722a2202n001/filter-common-mode-choke-2-2mh/dp/1223076?ost=B82722A2202N001&scope=partnumberlookahead&exaMfpn=true&searchref=searchlookahead&ddkey=http%3Anl-NL%2FElement14_Netherlands%2Fw%2Fsearch
-Wire Wire Line
-	1850 4350 1000 4350
 $Comp
 L TrackAmplifier-rescue:C C35
 U 1 1 5AEECD74
@@ -2430,8 +2399,6 @@ Wire Wire Line
 	750  5350 750  5400
 Connection ~ 1000 4950
 Connection ~ 1000 5350
-Wire Wire Line
-	1000 3950 1000 4350
 $Comp
 L Sensor_Temperature:LM35-LP U11
 U 1 1 5AEEC2F8
@@ -2478,12 +2445,12 @@ Wire Wire Line
 	900  1300 1650 1300
 Connection ~ 1650 1300
 Wire Wire Line
-	9200 4650 9200 5850
+	9200 4650 9200 5650
 Wire Wire Line
 	9000 4750 9250 4750
 Connection ~ 9250 4750
 Wire Wire Line
-	9250 4750 9250 5950
+	9250 4750 9250 5750
 Wire Wire Line
 	9000 4550 9200 4550
 Wire Wire Line
@@ -2504,7 +2471,7 @@ Wire Wire Line
 	2650 2400 2650 2300
 Connection ~ 2650 2300
 Wire Wire Line
-	2650 2300 2700 2300
+	2650 2300 3000 2300
 $Comp
 L TrackAmplifier-rescue:GND #PWR05
 U 1 1 5B1F6A68
@@ -2584,7 +2551,6 @@ Wire Wire Line
 	2850 5700 2850 6200
 Wire Wire Line
 	2350 5700 2850 5700
-NoConn ~ 2650 7400
 Wire Wire Line
 	2750 7450 2750 7400
 Wire Wire Line
@@ -2661,7 +2627,6 @@ F 3 "~" H 6950 1850 50  0001 C CNN
 	1    6950 1850
 	0    -1   -1   0   
 $EndComp
-Connection ~ 6750 1850
 Wire Wire Line
 	6750 1850 6800 1850
 Wire Wire Line
@@ -2806,10 +2771,99 @@ Wire Wire Line
 Wire Wire Line
 	5250 6050 5250 6100
 Wire Wire Line
-	9250 6150 9250 5950
-Connection ~ 9250 5950
-Wire Wire Line
 	8450 4550 8600 4550
 Wire Wire Line
 	8450 4750 8600 4750
+Text GLabel 2650 7450 3    50   Output ~ 0
+THFLG
+Wire Wire Line
+	2650 7400 2650 7450
+Text GLabel 6350 2500 3    50   Output ~ 0
+THFLG
+Wire Wire Line
+	6650 1550 6750 1550
+Connection ~ 6750 1550
+Wire Wire Line
+	6750 1550 6750 1150
+$Comp
+L power:+5V #PWR049
+U 1 1 5AFAD006
+P 6350 2050
+F 0 "#PWR049" H 6350 1900 50  0001 C CNN
+F 1 "+5V" H 6350 2190 50  0000 C CNN
+F 2 "" H 6350 2050 50  0001 C CNN
+F 3 "" H 6350 2050 50  0001 C CNN
+	1    6350 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R40
+U 1 1 5AFAD0DF
+P 6350 2250
+F 0 "R40" V 6430 2250 50  0000 C CNN
+F 1 "4k7" V 6350 2250 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 6280 2250 50  0001 C CNN
+F 3 "~" H 6350 2250 50  0001 C CNN
+	1    6350 2250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6350 2050 6350 2100
+Wire Wire Line
+	6350 2400 6350 2450
+Wire Wire Line
+	7350 2450 6350 2450
+Connection ~ 6350 2450
+Wire Wire Line
+	6350 2450 6350 2500
+$Comp
+L TrackAmplifier-rescue:C C37
+U 1 1 5B05E585
+P 3000 2550
+F 0 "C37" H 3025 2650 50  0000 L CNN
+F 1 "100n" H 3025 2450 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 3038 2400 50  0001 C CNN
+F 3 "" H 3000 2550 50  0001 C CNN
+	1    3000 2550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	3000 2400 3000 2300
+Connection ~ 3000 2300
+Wire Wire Line
+	3000 2300 3100 2300
+Wire Wire Line
+	3000 2700 2650 2700
+Connection ~ 2650 2700
+Wire Wire Line
+	1000 4250 1000 3950
+Connection ~ 1000 3950
+Wire Wire Line
+	9850 1150 9900 1150
+Wire Wire Line
+	9500 1200 9500 1150
+Connection ~ 9500 1150
+Wire Wire Line
+	9500 1150 9200 1150
+Wire Wire Line
+	10100 5650 9200 5650
+Wire Wire Line
+	10100 5750 9250 5750
+Connection ~ 9250 5750
+Wire Wire Line
+	9250 5750 9250 6150
+Wire Wire Line
+	9800 5850 10100 5850
+Wire Wire Line
+	10100 5950 9800 5950
+Wire Wire Line
+	9800 5450 10100 5450
+Wire Wire Line
+	10100 5550 9800 5550
+Wire Wire Line
+	8350 2750 8500 2750
+Wire Wire Line
+	8500 2850 8350 2850
+Wire Wire Line
+	8350 2950 8500 2950
 $EndSCHEMATC
