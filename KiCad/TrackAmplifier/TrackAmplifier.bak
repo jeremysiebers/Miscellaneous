@@ -26,11 +26,7 @@ F 3 "" H 10400 5250 50  0001 C CNN
 	1    0    0    1   
 $EndComp
 Wire Wire Line
-	10100 4550 9250 4550
-Wire Wire Line
 	9250 4550 9250 4750
-Wire Wire Line
-	10100 4650 9200 4650
 $Comp
 L TrackAmplifier-rescue:C C7
 U 1 1 5ABE3B27
@@ -657,21 +653,21 @@ Wire Wire Line
 	3600 3550 3650 3550
 Wire Wire Line
 	3600 3850 3650 3850
-Text GLabel 9800 4950 0    50   Output ~ 0
+Text GLabel 9800 5550 0    50   Output ~ 0
 Reset_B
-Text GLabel 9800 4850 0    50   Output ~ 0
+Text GLabel 9800 5650 0    50   Output ~ 0
 Reset_A
-Text GLabel 9800 5150 0    50   Output ~ 0
-Sync_B
-Text GLabel 9800 5050 0    50   Output ~ 0
-Sync_A
 Text GLabel 9800 5350 0    50   Output ~ 0
+Sync_B
+Text GLabel 9800 5450 0    50   Output ~ 0
+Sync_A
+Text GLabel 9800 5150 0    50   Output ~ 0
 RX_B
 Text GLabel 9800 5250 0    50   Output ~ 0
 RX_A
-Text GLabel 9800 5550 0    50   Input ~ 0
+Text GLabel 9800 4950 0    50   Input ~ 0
 TX_B
-Text GLabel 9800 5450 0    50   Input ~ 0
+Text GLabel 9800 5050 0    50   Input ~ 0
 TX_A
 $Comp
 L Driver_Motor:LMD18200 U4
@@ -688,9 +684,9 @@ Text GLabel 5800 6750 2    50   Output ~ 0
 PWMO1
 Text GLabel 5800 6950 2    50   Output ~ 0
 PWMO2
-Text GLabel 9800 5850 0    50   Input ~ 0
+Text GLabel 9800 4650 0    50   Input ~ 0
 PWMO1
-Text GLabel 9800 5950 0    50   Input ~ 0
+Text GLabel 9800 4550 0    50   Input ~ 0
 PWMO2
 Wire Wire Line
 	4050 3200 4050 3250
@@ -993,9 +989,9 @@ Wire Wire Line
 	1600 6600 1700 6600
 Text GLabel 8500 2650 2    50   Input ~ 0
 TEMP
-Text GLabel 8500 2750 2    50   Output ~ 0
-PWM
 Text GLabel 8500 2950 2    50   Output ~ 0
+PWM
+Text GLabel 8500 2750 2    50   Output ~ 0
 DIR
 Text GLabel 8500 2850 2    50   Output ~ 0
 BRK
@@ -1221,7 +1217,7 @@ Wire Wire Line
 	10450 3350 10450 3500
 Wire Wire Line
 	10450 3500 10600 3500
-Text GLabel 9800 4750 0    50   Input ~ 0
+Text GLabel 9800 5750 0    50   Input ~ 0
 ID_R
 Text GLabel 9900 1400 3    50   Output ~ 0
 ID_R
@@ -1247,8 +1243,6 @@ Text Notes 10050 4050 0    50   ~ 0
 ~MCLR~ Vil = 0.2V Vih = 0.7V\nLVP is possible, HVP only\nwhen "RESET" transceiver \ninput A < B 
 Text Notes 2150 1900 0    50   ~ 0
 Disconnected receiver inputs\nor idle bus will have RO high.\nInvert for continuous uController reset
-Wire Wire Line
-	9800 4750 10100 4750
 $Comp
 L power:GNDD #PWR046
 U 1 1 5B57F88C
@@ -2140,28 +2134,10 @@ F 3 "" H 6300 7550 50  0001 C CNN
 	1    6300 7550
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	9800 4850 10100 4850
-Wire Wire Line
-	9800 4950 10100 4950
-Wire Wire Line
-	9800 5050 10100 5050
-Wire Wire Line
-	9800 5150 10100 5150
-Wire Wire Line
-	9800 5250 10100 5250
-Wire Wire Line
-	9800 5350 10100 5350
 Text GLabel 950  5900 0    50   Input ~ 0
 Vbus_flt
 Wire Wire Line
 	9500 2150 9500 2250
-Wire Wire Line
-	8500 2950 8350 2950
-Wire Wire Line
-	8350 2850 8500 2850
-Wire Wire Line
-	8500 2750 8350 2750
 Wire Wire Line
 	8350 2650 8500 2650
 Wire Wire Line
@@ -2451,17 +2427,10 @@ Wire Wire Line
 	900  1300 1650 1300
 Connection ~ 1650 1300
 Wire Wire Line
-	9200 4650 9200 5650
-Wire Wire Line
 	9000 4750 9250 4750
 Connection ~ 9250 4750
 Wire Wire Line
-	9250 4750 9250 5750
-Wire Wire Line
 	9000 4550 9200 4550
-Wire Wire Line
-	9200 4550 9200 4650
-Connection ~ 9200 4650
 $Comp
 L Device:R R36
 U 1 1 5B1A1FDD
@@ -2852,18 +2821,49 @@ Connection ~ 9500 1150
 Wire Wire Line
 	9500 1150 9200 1150
 Wire Wire Line
-	10100 5650 9200 5650
+	8350 2750 8500 2750
 Wire Wire Line
-	10100 5750 9250 5750
-Connection ~ 9250 5750
+	8500 2850 8350 2850
 Wire Wire Line
-	9250 5750 9250 6150
+	8350 2950 8500 2950
 Wire Wire Line
-	9800 5850 10100 5850
+	10100 5850 9200 5850
 Wire Wire Line
-	10100 5950 9800 5950
+	10100 4850 9200 4850
+Connection ~ 9200 4850
+Wire Wire Line
+	9200 4850 9200 5850
+Wire Wire Line
+	9200 4550 9200 4850
+Wire Wire Line
+	9250 4750 9250 5950
+Wire Wire Line
+	10100 5950 9250 5950
+Connection ~ 9250 5950
+Wire Wire Line
+	9250 5950 9250 6150
+Wire Wire Line
+	10100 4750 9250 4750
+Wire Wire Line
+	9800 4550 10100 4550
+Wire Wire Line
+	10100 4650 9800 4650
+Wire Wire Line
+	9800 5750 10100 5750
+Wire Wire Line
+	9800 5650 10100 5650
+Wire Wire Line
+	9800 5550 10100 5550
+Wire Wire Line
+	9800 4950 10100 4950
+Wire Wire Line
+	9800 5050 10100 5050
+Wire Wire Line
+	10100 5150 9800 5150
+Wire Wire Line
+	9800 5250 10100 5250
+Wire Wire Line
+	10100 5350 9800 5350
 Wire Wire Line
 	9800 5450 10100 5450
-Wire Wire Line
-	10100 5550 9800 5550
 $EndSCHEMATC
