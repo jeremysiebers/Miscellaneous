@@ -25,8 +25,6 @@ F 3 "" H 10400 5250 50  0001 C CNN
 	1    10400 5250
 	1    0    0    1   
 $EndComp
-Wire Wire Line
-	9250 4550 9250 4750
 $Comp
 L TrackAmplifier-rescue:C C7
 U 1 1 5ABE3B27
@@ -39,7 +37,7 @@ F 3 "" H 1950 1050 50  0001 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L Interface_UART:ST485EBDR U1
+L TrackAmplifier-rescue:ST485EBDR-Interface_UART U1
 U 1 1 5AE19840
 P 1850 2400
 F 0 "U1" H 1600 2750 50  0000 C CNN
@@ -301,7 +299,7 @@ Connection ~ 2350 2600
 Wire Wire Line
 	2350 2600 2350 2500
 $Comp
-L Interface_UART:ST485EBDR U2
+L TrackAmplifier-rescue:ST485EBDR-Interface_UART U2
 U 1 1 5AE58D1D
 P 1850 3700
 F 0 "U2" H 1600 4050 50  0000 C CNN
@@ -423,7 +421,7 @@ Connection ~ 2350 3900
 Wire Wire Line
 	2350 3900 2350 3800
 $Comp
-L Interface_UART:ST485EBDR U6
+L TrackAmplifier-rescue:ST485EBDR-Interface_UART U6
 U 1 1 5AE5B3FC
 P 4050 5000
 F 0 "U6" H 3800 5350 50  0000 C CNN
@@ -548,7 +546,7 @@ Connection ~ 4550 5200
 Wire Wire Line
 	4550 5200 4550 5100
 $Comp
-L Interface_UART:ST485EBDR U5
+L TrackAmplifier-rescue:ST485EBDR-Interface_UART U5
 U 1 1 5AE5F184
 P 4050 3650
 F 0 "U5" H 3800 4000 50  0000 C CNN
@@ -670,7 +668,7 @@ TX_B
 Text GLabel 9800 5050 0    50   Input ~ 0
 TX_A
 $Comp
-L Driver_Motor:LMD18200 U4
+L TrackAmplifier-rescue:LMD18200-Driver_Motor U4
 U 1 1 5AE92F98
 P 2750 6800
 F 0 "U4" H 2250 7350 50  0000 R CNN
@@ -698,7 +696,7 @@ Wire Wire Line
 	4550 3650 4450 3650
 Connection ~ 4050 3200
 $Comp
-L MCU_Microchip_PIC16:PIC16F18854-SO U9
+L TrackAmplifier-rescue:PIC16F18854-SO-MCU_Microchip_PIC16 U9
 U 1 1 5AEBDEF2
 P 7850 2350
 F 0 "U9" H 7500 3100 50  0000 C CNN
@@ -1850,7 +1848,7 @@ OCC
 Wire Wire Line
 	7500 4200 7550 4200
 Connection ~ 7500 4200
-Text GLabel 7200 2050 0    50   Input ~ 0
+Text GLabel 7200 1850 0    50   Input ~ 0
 OCC
 Wire Wire Line
 	9900 1150 9900 1400
@@ -2152,8 +2150,6 @@ Wire Wire Line
 	7050 2650 7350 2650
 Wire Wire Line
 	7200 1950 7350 1950
-Wire Wire Line
-	7350 2050 7200 2050
 $Comp
 L Reference_Voltage:REF3025 U10
 U 1 1 5B4E4160
@@ -2240,8 +2236,6 @@ Connection ~ 5750 850
 Wire Wire Line
 	6250 1450 5500 1450
 Connection ~ 5500 1450
-Wire Wire Line
-	6750 1850 6750 1550
 Wire Wire Line
 	6750 1150 6650 1150
 Text GLabel 6650 1550 0    50   Output ~ 0
@@ -2594,18 +2588,14 @@ Connection ~ 1850 5700
 $Comp
 L Device:R R38
 U 1 1 5AFB301E
-P 6950 1850
-F 0 "R38" V 7030 1850 50  0000 C CNN
-F 1 "10E" V 6950 1850 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 6880 1850 50  0001 C CNN
-F 3 "~" H 6950 1850 50  0001 C CNN
-	1    6950 1850
-	0    -1   -1   0   
+P 6750 1750
+F 0 "R38" V 6830 1750 50  0000 C CNN
+F 1 "10E" V 6750 1750 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 6680 1750 50  0001 C CNN
+F 3 "~" H 6750 1750 50  0001 C CNN
+	1    6750 1750
+	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	6750 1850 6800 1850
-Wire Wire Line
-	7100 1850 7350 1850
 Wire Wire Line
 	7200 1750 7350 1750
 Text GLabel 6250 5700 2    50   Output ~ 0
@@ -2757,7 +2747,6 @@ Text GLabel 6350 2500 3    50   Output ~ 0
 THFLG
 Wire Wire Line
 	6650 1550 6750 1550
-Connection ~ 6750 1550
 Wire Wire Line
 	6750 1550 6750 1150
 $Comp
@@ -2866,4 +2855,13 @@ Wire Wire Line
 	10100 5350 9800 5350
 Wire Wire Line
 	9800 5450 10100 5450
+Wire Wire Line
+	7200 1850 7350 1850
+Wire Wire Line
+	6750 1600 6750 1550
+Connection ~ 6750 1550
+Wire Wire Line
+	7350 2050 6750 2050
+Wire Wire Line
+	6750 2050 6750 1900
 $EndSCHEMATC
