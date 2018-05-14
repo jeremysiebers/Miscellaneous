@@ -22,6 +22,7 @@ F 0 "J1" H 10400 6200 50  0000 C CNN
 F 1 "DB15_Male_MountingHoles" H 10400 6125 50  0000 C CNN
 F 2 "Connector_Dsub:DSUB-15_Male_Horizontal_P2.77x2.84mm_EdgePinOffset4.94mm_Housed_MountingHolesOffset7.48mm" H 10400 5250 50  0001 C CNN
 F 3 "" H 10400 5250 50  0001 C CNN
+F 4 "2294292" H 10400 5250 50  0001 C CNN "Farnell"
 	1    10400 5250
 	1    0    0    1   
 $EndComp
@@ -32,7 +33,8 @@ P 1950 1050
 F 0 "C7" H 1975 1150 50  0000 L CNN
 F 1 "100n" H 1975 950 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric" H 1988 900 50  0001 C CNN
-F 3 "" H 1950 1050 50  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2049140.pdf?_ga=2.261496907.792852979.1526285019-1651149783.1519657816" H 1950 1050 50  0001 C CNN
+F 4 "2395785" H 1950 1050 50  0001 C CNN "Farnell"
 	1    1950 1050
 	-1   0    0    1   
 $EndComp
@@ -44,6 +46,7 @@ F 0 "U1" H 1600 2750 50  0000 C CNN
 F 1 "ST485EBDR" H 1950 2750 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 1850 1500 50  0001 C CNN
 F 3 "http://www.st.com/resource/en/datasheet/st485eb.pdf" H 1850 2450 50  0001 C CNN
+F 4 "1467755" H 1850 2400 50  0001 C CNN "Farnell"
 	1    1850 2400
 	-1   0    0    -1  
 $EndComp
@@ -55,6 +58,7 @@ F 0 "U3" H 2200 925 50  0000 C CNN
 F 1 "LM78M05_TO252" H 2350 925 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:TO-252-2" H 2350 1025 50  0001 C CIN
 F 3 "http://www.fairchildsemi.com/ds/LM/LM78M05.pdf" H 2350 750 50  0001 C CNN
+F 4 "2854542" H 2350 800 50  0001 C CNN "Farnell"
 	1    2350 800 
 	1    0    0    -1  
 $EndComp
@@ -76,7 +80,8 @@ P 2900 1050
 F 0 "C10" H 2925 1150 50  0000 L CNN
 F 1 "100n" H 2925 950 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric" H 2938 900 50  0001 C CNN
-F 3 "" H 2900 1050 50  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2049140.pdf?_ga=2.50946415.792852979.1526285019-1651149783.1519657816" H 2900 1050 50  0001 C CNN
+F 4 "2395785" H 2900 1050 50  0001 C CNN "Farnell"
 	1    2900 1050
 	-1   0    0    1   
 $EndComp
@@ -306,6 +311,7 @@ F 0 "U2" H 1600 4050 50  0000 C CNN
 F 1 "ST485EBDR" H 1950 4050 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 1850 2800 50  0001 C CNN
 F 3 "http://www.st.com/resource/en/datasheet/st485eb.pdf" H 1850 3750 50  0001 C CNN
+F 4 "1467755" H 1850 3700 50  0001 C CNN "Farnell"
 	1    1850 3700
 	-1   0    0    -1  
 $EndComp
@@ -428,6 +434,7 @@ F 0 "U6" H 3800 5350 50  0000 C CNN
 F 1 "ST485EBDR" H 4150 5350 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 4050 4100 50  0001 C CNN
 F 3 "http://www.st.com/resource/en/datasheet/st485eb.pdf" H 4050 5050 50  0001 C CNN
+F 4 "1467755" H 4050 5000 50  0001 C CNN "Farnell"
 	1    4050 5000
 	-1   0    0    -1  
 $EndComp
@@ -553,6 +560,7 @@ F 0 "U5" H 3800 4000 50  0000 C CNN
 F 1 "ST485EBDR" H 4150 4000 50  0000 L CNN
 F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 4050 2750 50  0001 C CNN
 F 3 "http://www.st.com/resource/en/datasheet/st485eb.pdf" H 4050 3700 50  0001 C CNN
+F 4 "1467755" H 4050 3650 50  0001 C CNN "Farnell"
 	1    4050 3650
 	-1   0    0    -1  
 $EndComp
@@ -675,6 +683,7 @@ F 0 "U4" H 2250 7350 50  0000 R CNN
 F 1 "LMD18200" H 3350 7350 50  0000 R CNN
 F 2 "Package_TO_SOT_THT:TO-220-11_20.02x17.50mm_P3.4x5.08mm_StaggerOdd_Lead8.45mm_Tab-Down" H 2750 5900 50  0001 C CNN
 F 3 "http://www.ti.com/lit/ds/symlink/lmd18200.pdf" H 2650 6800 50  0001 C CNN
+F 4 "1468979" H 2750 6800 50  0001 C CNN "Farnell"
 	1    2750 6800
 	1    0    0    -1  
 $EndComp
@@ -703,6 +712,7 @@ F 0 "U9" H 7500 3100 50  0000 C CNN
 F 1 "PIC16F18854-SO" H 8250 3100 50  0000 C CNN
 F 2 "Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm" H 7850 1250 50  0001 C CNN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16(L)F18854%20Data%20Sheet_DS40001826C.pdf" H 8150 1750 50  0001 C CNN
+F 4 "2696647" H 7850 2350 50  0001 C CNN "Farnell"
 	1    7850 2350
 	1    0    0    -1  
 $EndComp
@@ -1157,6 +1167,7 @@ F 0 "Q1" H 3500 2375 50  0000 L CNN
 F 1 "2N7002" H 3500 2300 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 3500 2225 50  0001 L CIN
 F 3 "https://www.fairchildsemi.com/datasheets/2N/2N7002.pdf" H 3300 2300 50  0001 L CNN
+F 4 "2317616" H 3300 2300 50  0001 C CNN "Farnell"
 	1    3300 2300
 	1    0    0    -1  
 $EndComp
@@ -1266,6 +1277,7 @@ F 0 "U7" H 5100 1875 50  0000 L CNN
 F 1 "INA326" H 5100 1625 50  0000 L CNN
 F 2 "Package_SO:MSOP-8_3x3mm_P0.65mm" H 4950 1750 50  0001 L CNN
 F 3 "http://www.ti.com/lit/ds/symlink/ina326.pdf" H 5050 1750 50  0001 C CNN
+F 4 "2764750" H 4950 1750 50  0001 C CNN "Farnell"
 	1    4950 1750
 	1    0    0    -1  
 $EndComp
@@ -1640,6 +1652,7 @@ F 0 "U8" H 6700 4325 50  0000 L CNN
 F 1 "INA326" H 6700 4075 50  0000 L CNN
 F 2 "Package_SO:MSOP-8_3x3mm_P0.65mm" H 6550 4200 50  0001 L CNN
 F 3 "http://www.ti.com/lit/ds/symlink/ina326.pdf" H 6650 4200 50  0001 C CNN
+F 4 "2764750" H 6550 4200 50  0001 C CNN "Farnell"
 	1    6550 4200
 	1    0    0    -1  
 $EndComp
@@ -1952,6 +1965,7 @@ F 0 "D1" H 8900 1900 50  0000 C CNN
 F 1 "LED" H 9300 1900 50  0000 C CNN
 F 2 "LED_SMD:LED_1206_3216Metric" H 9150 1950 50  0001 C CNN
 F 3 "~" H 9150 1950 50  0001 C CNN
+F 4 "1581232" H 9150 1950 50  0001 C CNN "Farnell"
 	1    9150 1950
 	-1   0    0    1   
 $EndComp
@@ -1985,6 +1999,7 @@ F 0 "D2" H 8900 2000 50  0000 C CNN
 F 1 "LED" H 9300 2000 50  0000 C CNN
 F 2 "LED_SMD:LED_1206_3216Metric" H 9150 2050 50  0001 C CNN
 F 3 "~" H 9150 2050 50  0001 C CNN
+F 4 "1581231" H 9150 2050 50  0001 C CNN "Farnell"
 	1    9150 2050
 	-1   0    0    1   
 $EndComp
@@ -1996,6 +2011,7 @@ F 0 "D3" H 8900 2100 50  0000 C CNN
 F 1 "LED" H 9300 2100 50  0000 C CNN
 F 2 "LED_SMD:LED_1206_3216Metric" H 9150 2150 50  0001 C CNN
 F 3 "~" H 9150 2150 50  0001 C CNN
+F 4 "1581229" H 9150 2150 50  0001 C CNN "Farnell"
 	1    9150 2150
 	-1   0    0    1   
 $EndComp
@@ -2088,6 +2104,7 @@ F 0 "D4" H 8900 2200 50  0000 C CNN
 F 1 "LED" H 9300 2200 50  0000 C CNN
 F 2 "LED_SMD:LED_1206_3216Metric" H 9150 2250 50  0001 C CNN
 F 3 "~" H 9150 2250 50  0001 C CNN
+F 4 "1581233" H 9150 2250 50  0001 C CNN "Farnell"
 	1    9150 2250
 	-1   0    0    1   
 $EndComp
@@ -2109,7 +2126,8 @@ P 1100 800
 F 0 "R3" V 1180 800 50  0000 C CNN
 F 1 "10E" V 1100 800 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric" V 1030 800 50  0001 C CNN
-F 3 "~" H 1100 800 50  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2310790.pdf?_ga=2.157221117.792852979.1526285019-1651149783.1519657816" H 1100 800 50  0001 C CNN
+F 4 "1653053" V 1100 800 50  0001 C CNN "Farnell"
 	1    1100 800 
 	0    -1   -1   0   
 $EndComp
@@ -2158,6 +2176,7 @@ F 0 "U10" H 6120 1196 50  0000 R CNN
 F 1 "REF3025" H 6120 1105 50  0000 R CIN
 F 2 "Package_TO_SOT_SMD:SOT-23" H 6350 700 50  0001 C CIN
 F 3 "http://www.ti.com/lit/ds/symlink/ref3033.pdf" H 6450 800 50  0001 C CIN
+F 4 "1234684" H 6350 1150 50  0001 C CNN "Farnell"
 	1    6350 1150
 	1    0    0    -1  
 $EndComp
@@ -2271,6 +2290,7 @@ F 0 "D8" H 8900 2300 50  0000 C CNN
 F 1 "LED" H 9300 2300 50  0000 C CNN
 F 2 "LED_SMD:LED_1206_3216Metric" H 9150 2350 50  0001 C CNN
 F 3 "~" H 9150 2350 50  0001 C CNN
+F 4 "1581233" H 9150 2350 50  0001 C CNN "Farnell"
 	1    9150 2350
 	-1   0    0    1   
 $EndComp
@@ -2383,6 +2403,7 @@ F 0 "U11" H 1250 5300 50  0000 C CNN
 F 1 "LM35-LP" H 1550 5300 50  0000 L CNN
 F 2 "Package_TO_SOT_THT:TO-92" H 1550 4800 50  0001 L CNN
 F 3 "http://www.ti.com/lit/ds/symlink/lm35.pdf" H 1500 5050 50  0001 C CNN
+F 4 "1469236" H 1500 5050 50  0001 C CNN "Farnell"
 	1    1500 5050
 	1    0    0    -1  
 $EndComp
@@ -2893,4 +2914,14 @@ Wire Wire Line
 	2300 5050 2350 5050
 Wire Wire Line
 	2300 5400 2300 5450
+Text Notes 9550 2000 0    50   ~ 0
+GR
+Text Notes 9550 2100 0    50   ~ 0
+YE
+Text Notes 9550 2200 0    50   ~ 0
+RD
+Text Notes 9550 2300 0    50   ~ 0
+BL
+Text Notes 9550 2400 0    50   ~ 0
+BL
 $EndSCHEMATC
