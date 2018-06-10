@@ -2196,7 +2196,7 @@ Wire Wire Line
 Wire Wire Line
 	1600 800  1650 800 
 Text Notes 7550 7100 0    50   ~ 0
-length pcb = 104.7mm\nwidth pcb = 52mm\nheart conn to far pcb edge = 35mm\n\nConnector heart distance = 75mm\nConnector plate = 39.3mm\nSpace between connector plates = 35.4mm
+length pcb = 104.7mm\nwidth pcb = 52mm\nheart conn to far pcb edge = 35mm\n\nConnector heart distance vertical = 75mm horizontal 50mm\nConnector plate = 39.3mm\nSpace between connector plates = 35.4mm
 $Comp
 L Mechanical:Mounting_Hole MK1
 U 1 1 5AED960F

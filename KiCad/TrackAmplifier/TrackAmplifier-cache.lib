@@ -59,7 +59,7 @@ F1 "Device:CP" 25 -100 50 H V L CNN
 F2 "" 38 -150 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
- *:CP_*
+ CP_*
 $ENDFPLIST
 DRAW
 S -90 20 -90 40 0 1 0 N
@@ -83,10 +83,9 @@ F2 "" 0 0 50 H I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
  TO-???*
- *SingleDiode
  *_Diode_*
  *SingleDiode*
- *:D_*
+ D_*
 $ENDFPLIST
 DRAW
 P 2 0 1 8 -50 50 -50 -50 N
@@ -106,7 +105,7 @@ F2 "" 0 40 50 V V C CNN
 F3 "" 0 40 50 V V C CNN
 ALIAS EMI_Filter_CommonMode
 $FPLIST
- *:L_*
+ L_*
  L_CommonMode*
 $ENDFPLIST
 DRAW
@@ -186,7 +185,7 @@ F1 "Device:R" 0 0 50 V V C CNN
 F2 "" -70 0 50 V I C CNN
 F3 "" 0 0 50 H I C CNN
 $FPLIST
- *:R_*
+ R_*
 $ENDFPLIST
 DRAW
 S -40 -100 40 100 0 1 10 N
