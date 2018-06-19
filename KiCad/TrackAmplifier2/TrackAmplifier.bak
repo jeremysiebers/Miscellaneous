@@ -1297,19 +1297,6 @@ Wire Wire Line
 Wire Wire Line
 	10700 4250 10700 4450
 $Comp
-L Amplifier_Instrumentation:INA326 U7
-U 1 1 5B58EFF0
-P 4950 1750
-F 0 "U7" H 5100 1875 50  0000 L CNN
-F 1 "INA326" H 5100 1625 50  0000 L CNN
-F 2 "Package_SO:MSOP-8_3x3mm_P0.65mm" H 4950 1750 50  0001 L CNN
-F 3 "http://www.ti.com/lit/ds/symlink/ina326.pdf" H 5050 1750 50  0001 C CNN
-F 4 "2764750" H 4950 1750 50  0001 C CNN "Farnell"
-F 5 "INA326EA/2K5" H 4950 1750 50  0001 C CNN "Manufacturer nr"
-	1    4950 1750
-	1    0    0    -1  
-$EndComp
-$Comp
 L Device:EMI_Filter_CommonMode FL1
 U 1 1 5B58F25D
 P 5500 6850
@@ -2245,7 +2232,7 @@ Wire Wire Line
 	6250 1450 5500 1450
 Connection ~ 5500 1450
 Wire Wire Line
-	6750 1150 6650 1150
+	6750 1150 6700 1150
 Text GLabel 6650 1550 0    50   Output ~ 0
 VREF
 Text GLabel 5450 2350 2    50   Input ~ 0
@@ -2903,10 +2890,10 @@ Wire Wire Line
 Text Notes 750  8100 0    50   ~ 0
 SMD Vishay resistors:\nhttp://nl.farnell.com/w/c/passive-components/resistors-fixed-value/chip-smd-resistors?brand=vishay&resistor-case-style=1206-3216-metric-&packaging=each|cuttape&range=inc-in-stock|exc-delivery-surcharge|exc-obs
 $Comp
-L TrackAmplifier-rescue:C C?
+L TrackAmplifier-rescue:C C39
 U 1 1 5B01F5E3
 P 8500 900
-F 0 "C?" H 8525 1000 50  0000 L CNN
+F 0 "C39" H 8525 1000 50  0000 L CNN
 F 1 "2.2u" H 8525 800 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric" H 8538 750 50  0001 C CNN
 F 3 "" H 8500 900 50  0001 C CNN
@@ -2916,10 +2903,10 @@ $EndComp
 Text GLabel 8250 650  0    50   Input ~ 0
 VREF
 $Comp
-L TrackAmplifier-rescue:GND #PWR?
+L TrackAmplifier-rescue:GND #PWR030
 U 1 1 5B01FE2E
 P 8500 1150
-F 0 "#PWR?" H 8500 900 50  0001 C CNN
+F 0 "#PWR030" H 8500 900 50  0001 C CNN
 F 1 "GND" H 8500 1000 50  0000 C CNN
 F 2 "" H 8500 1150 50  0001 C CNN
 F 3 "" H 8500 1150 50  0001 C CNN
@@ -2971,13 +2958,15 @@ F 5 "CRCW12062K00FKEA" V 5400 4250 50  0001 C CNN "Manufacturer nr"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Amplifier_Current:INA138 U?
+L Amplifier_Current:INA138 U8
 U 1 1 5B2D87D8
 P 6550 4250
-F 0 "U?" H 6650 4600 50  0000 L CNN
+F 0 "U8" H 6650 4600 50  0000 L CNN
 F 1 "INA180A4" H 6650 4500 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 6600 4000 50  0001 L CNN
 F 3 "http://www.ti.com/lit/ds/symlink/ina138.pdf" H 6550 4255 50  0001 C CNN
+F 4 "2761899" H 6550 4250 50  0001 C CNN "Farnell"
+F 5 "INA180A4IDBVT" H 6550 4250 50  0001 C CNN "Manufacturer nr"
 	1    6550 4250
 	1    0    0    -1  
 $EndComp
@@ -2991,4 +2980,37 @@ Wire Wire Line
 	6550 4600 6550 4550
 Wire Wire Line
 	6950 4250 7050 4250
+$Comp
+L TrackAmplifier-rescue:C C40
+U 1 1 5B2B6918
+P 6950 1200
+F 0 "C40" H 6975 1300 50  0000 L CNN
+F 1 "2.2u" H 6975 1100 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 6988 1050 50  0001 C CNN
+F 3 "" H 6950 1200 50  0001 C CNN
+	1    6950 1200
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	6950 1050 6700 1050
+Wire Wire Line
+	6700 1050 6700 1150
+Connection ~ 6700 1150
+Wire Wire Line
+	6700 1150 6650 1150
+Wire Wire Line
+	6950 1350 7200 1350
+$Comp
+L Amplifier_Instrumentation:INA326 U7
+U 1 1 5B58EFF0
+P 4950 1750
+F 0 "U7" H 5100 1875 50  0000 L CNN
+F 1 "INA326" H 5100 1625 50  0000 L CNN
+F 2 "Package_SO:MSOP-8_3x3mm_P0.65mm" H 4950 1750 50  0001 L CNN
+F 3 "http://www.ti.com/lit/ds/symlink/ina326.pdf" H 5050 1750 50  0001 C CNN
+F 4 "2764750" H 4950 1750 50  0001 C CNN "Farnell"
+F 5 "INA326EA/2K5" H 4950 1750 50  0001 C CNN "Manufacturer nr"
+	1    4950 1750
+	1    0    0    -1  
+$EndComp
 $EndSCHEMATC
