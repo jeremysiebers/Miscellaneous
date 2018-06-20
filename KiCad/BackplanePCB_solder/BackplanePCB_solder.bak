@@ -151,13 +151,13 @@ Text Label 1100 2700 0    50   ~ 0
 SYNC_A
 Text Label 1100 2800 0    50   ~ 0
 SYNC_B
-Text Label 2000 2900 0    50   ~ 0
+Text Label 2000 3000 0    50   ~ 0
 RX_A
 Text Label 2000 2250 0    50   ~ 0
 RX_A
 Text Label 2000 2150 0    50   ~ 0
 RX_B
-Text Label 2000 3000 0    50   ~ 0
+Text Label 2000 2900 0    50   ~ 0
 RX_B
 Text Label 1100 2150 0    50   ~ 0
 TX_A
@@ -2019,8 +2019,6 @@ Wire Wire Line
 	1600 6500 1700 6500
 Entry Wire Line
 	800  6400 900  6500
-Wire Wire Line
-	900  6500 1300 6500
 Text Label 1100 6500 0    50   ~ 0
 +5V
 Entry Wire Line
@@ -2031,8 +2029,6 @@ Text Label 2200 6500 0    50   ~ 0
 GND
 Entry Wire Line
 	2550 6650 2650 6550
-Wire Wire Line
-	2550 6650 1700 6650
 Wire Wire Line
 	1700 6650 1700 6500
 Connection ~ 1700 6500
@@ -2471,18 +2467,68 @@ Wire Wire Line
 Connection ~ 6150 900 
 Wire Wire Line
 	6150 900  6150 950 
-Wire Bus Line
-	800  6050 800  6400
+Wire Wire Line
+	900  6500 1300 6500
+Wire Wire Line
+	1700 6650 2550 6650
+$Comp
+L Device:R R?
+U 1 1 5B4410A9
+P 1450 6750
+F 0 "R?" V 1530 6750 50  0000 C CNN
+F 1 "4k" V 1450 6750 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1380 6750 50  0001 C CNN
+F 3 "~" H 1450 6750 50  0001 C CNN
+	1    1450 6750
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5B44116E
+P 1450 6950
+F 0 "R?" V 1530 6950 50  0000 C CNN
+F 1 "1k" V 1450 6950 50  0000 C CNN
+F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" V 1380 6950 50  0001 C CNN
+F 3 "~" H 1450 6950 50  0001 C CNN
+	1    1450 6950
+	0    1    1    0   
+$EndComp
+Entry Wire Line
+	2550 6750 2650 6650
+Entry Wire Line
+	800  6650 900  6750
+Text Label 1100 6950 0    50   ~ 0
+GND
+Text Label 1100 6750 0    50   ~ 0
++5V
+Text Label 2200 6950 0    50   ~ 0
+RX_B
+Text Label 2200 6750 0    50   ~ 0
+RX_A
+Entry Wire Line
+	800  6850 900  6950
+Entry Wire Line
+	2550 6950 2650 6850
+Wire Wire Line
+	900  6750 1300 6750
+Wire Wire Line
+	900  6950 1300 6950
+Wire Wire Line
+	1600 6750 2550 6750
+Wire Wire Line
+	1600 6950 2550 6950
 Wire Bus Line
 	5900 6050 5900 6550
 Wire Bus Line
-	2650 6050 2650 6550
+	800  6050 800  6900
 Wire Bus Line
 	3050 6050 3050 7550
 Wire Bus Line
 	4000 6050 4000 7550
 Wire Bus Line
 	4950 6050 4950 7550
+Wire Bus Line
+	2650 6050 2650 7050
 Wire Bus Line
 	800  3750 800  6050
 Wire Bus Line
@@ -2511,4 +2557,6 @@ Wire Bus Line
 	3050 1950 3050 3750
 Wire Bus Line
 	2650 3750 2650 5800
+Text Notes 1050 7300 0    50   ~ 0
+Bus pre-load, to be soldered\nonly on 1 place for the whole\nbus!
 $EndSCHEMATC
