@@ -2903,10 +2903,10 @@ Wire Wire Line
 Text Notes 750  8100 0    50   ~ 0
 SMD Vishay resistors:\nhttp://nl.farnell.com/w/c/passive-components/resistors-fixed-value/chip-smd-resistors?brand=vishay&resistor-case-style=1206-3216-metric-&packaging=each|cuttape&range=inc-in-stock|exc-delivery-surcharge|exc-obs
 $Comp
-L TrackAmplifier-rescue:C C?
+L TrackAmplifier-rescue:C C39
 U 1 1 5B01F5E3
 P 8500 900
-F 0 "C?" H 8525 1000 50  0000 L CNN
+F 0 "C39" H 8525 1000 50  0000 L CNN
 F 1 "2.2u" H 8525 800 50  0000 L CNN
 F 2 "Capacitor_SMD:C_1206_3216Metric" H 8538 750 50  0001 C CNN
 F 3 "" H 8500 900 50  0001 C CNN
@@ -2916,10 +2916,10 @@ $EndComp
 Text GLabel 8250 650  0    50   Input ~ 0
 VREF
 $Comp
-L TrackAmplifier-rescue:GND #PWR?
+L TrackAmplifier-rescue:GND #PWR030
 U 1 1 5B01FE2E
 P 8500 1150
-F 0 "#PWR?" H 8500 900 50  0001 C CNN
+F 0 "#PWR030" H 8500 900 50  0001 C CNN
 F 1 "GND" H 8500 1000 50  0000 C CNN
 F 2 "" H 8500 1150 50  0001 C CNN
 F 3 "" H 8500 1150 50  0001 C CNN
@@ -2971,13 +2971,15 @@ F 5 "CRCW12062K00FKEA" V 5400 4250 50  0001 C CNN "Manufacturer nr"
 	1    0    0    -1  
 $EndComp
 $Comp
-L Amplifier_Current:INA138 U?
+L Amplifier_Current:INA138 U8
 U 1 1 5B2D87D8
 P 6550 4250
-F 0 "U?" H 6650 4600 50  0000 L CNN
+F 0 "U8" H 6650 4600 50  0000 L CNN
 F 1 "INA180A4" H 6650 4500 50  0000 L CNN
 F 2 "Package_TO_SOT_SMD:SOT-23-5" H 6600 4000 50  0001 L CNN
 F 3 "http://www.ti.com/lit/ds/symlink/ina138.pdf" H 6550 4255 50  0001 C CNN
+F 4 "2761899" H 6550 4250 50  0001 C CNN "Farnell"
+F 5 "INA180A4IDBVT" H 6550 4250 50  0001 C CNN "Manufacturer nr"
 	1    6550 4250
 	1    0    0    -1  
 $EndComp
