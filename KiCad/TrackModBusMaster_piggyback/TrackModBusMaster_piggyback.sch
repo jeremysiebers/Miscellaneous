@@ -1754,18 +1754,14 @@ $EndComp
 $Comp
 L power:+3.3V #PWR0101
 U 1 1 5BBCC540
-P 4850 700
-F 0 "#PWR0101" H 4850 550 50  0001 C CNN
-F 1 "+3.3V" H 4850 840 50  0000 C CNN
-F 2 "" H 4850 700 50  0001 C CNN
-F 3 "" H 4850 700 50  0001 C CNN
-	1    4850 700 
+P 5000 700
+F 0 "#PWR0101" H 5000 550 50  0001 C CNN
+F 1 "+3.3V" H 5000 840 50  0000 C CNN
+F 2 "" H 5000 700 50  0001 C CNN
+F 3 "" H 5000 700 50  0001 C CNN
+	1    5000 700 
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	4850 700  4850 750 
-Wire Wire Line
-	4850 750  4800 750 
 $Comp
 L power:+3.3VP #PWR0102
 U 1 1 5BC6E62D
@@ -1829,12 +1825,6 @@ Wire Wire Line
 	3150 4450 3150 4500
 Wire Wire Line
 	4150 600  4300 600 
-NoConn ~ 4800 950 
-NoConn ~ 4800 1050
-NoConn ~ 4800 1150
-NoConn ~ 4800 1250
-NoConn ~ 4800 1350
-NoConn ~ 4800 1450
 NoConn ~ 4300 1450
 NoConn ~ 4300 1350
 NoConn ~ 4300 1250
@@ -1844,22 +1834,6 @@ NoConn ~ 4300 950
 Wire Wire Line
 	2650 1500 2650 1250
 Connection ~ 2650 1250
-$Comp
-L power:GND #PWR033
-U 1 1 5BD9464F
-P 4200 1500
-F 0 "#PWR033" H 4200 1250 50  0001 C CNN
-F 1 "GND" H 4200 1350 50  0000 C CNN
-F 2 "" H 4200 1500 50  0001 C CNN
-F 3 "" H 4200 1500 50  0001 C CNN
-	1    4200 1500
-	1    0    0    -1  
-$EndComp
-NoConn ~ 4800 850 
-Wire Wire Line
-	4300 850  4200 850 
-Wire Wire Line
-	4200 850  4200 1500
 $Comp
 L Device:CP C19
 U 1 1 5BBF833B
@@ -1897,4 +1871,66 @@ Wire Wire Line
 	1750 1000 1750 1050
 Wire Wire Line
 	1750 1350 1750 1400
+$Comp
+L power:GND #PWR?
+U 1 1 5BBFD925
+P 4900 1500
+F 0 "#PWR?" H 4900 1250 50  0001 C CNN
+F 1 "GND" H 4900 1350 50  0000 C CNN
+F 2 "" H 4900 1500 50  0001 C CNN
+F 3 "" H 4900 1500 50  0001 C CNN
+	1    4900 1500
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4800 850  4900 850 
+Wire Wire Line
+	4900 850  4900 1150
+Wire Wire Line
+	4800 1150 4900 1150
+Connection ~ 4900 1150
+Wire Wire Line
+	4900 1150 4900 1250
+Wire Wire Line
+	4800 1250 4900 1250
+Connection ~ 4900 1250
+Wire Wire Line
+	4900 1250 4900 1500
+Wire Wire Line
+	4800 750  4900 750 
+Wire Wire Line
+	4900 750  4900 850 
+Connection ~ 4900 850 
+Wire Wire Line
+	4800 1350 5000 1350
+Wire Wire Line
+	5000 1350 5000 700 
+Wire Wire Line
+	4800 1450 5000 1450
+Wire Wire Line
+	5000 1450 5000 1350
+Connection ~ 5000 1350
+NoConn ~ 4300 850 
+$Comp
+L power:+5VP #PWR?
+U 1 1 5BCB023D
+P 5250 700
+F 0 "#PWR?" H 5250 550 50  0001 C CNN
+F 1 "+5VP" H 5250 850 50  0000 C CNN
+F 2 "" H 5250 700 50  0001 C CNN
+F 3 "" H 5250 700 50  0001 C CNN
+	1    5250 700 
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	5250 700  5050 700 
+Wire Wire Line
+	5050 700  5050 950 
+Wire Wire Line
+	5050 950  4800 950 
+Wire Wire Line
+	4800 1050 5050 1050
+Wire Wire Line
+	5050 1050 5050 950 
+Connection ~ 5050 950 
 $EndSCHEMATC
