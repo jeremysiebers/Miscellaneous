@@ -456,7 +456,7 @@ Text Label 3350 2350 0    50   ~ 0
 Text Label 3350 3350 0    50   ~ 0
 +15V
 Text Label 3350 3250 0    50   ~ 0
-ID_1
+ID_10
 Text Label 3350 2050 0    50   ~ 0
 PWMO2_1
 Text Label 3350 2150 0    50   ~ 0
@@ -563,7 +563,7 @@ Text Label 5000 2350 0    50   ~ 0
 Text Label 5000 3350 0    50   ~ 0
 +15V
 Text Label 5000 3250 0    50   ~ 0
-ID_2
+ID_9
 Text Label 5000 2050 0    50   ~ 0
 PWMO2_2
 Text Label 5000 2150 0    50   ~ 0
@@ -670,7 +670,7 @@ Text Label 6600 2350 0    50   ~ 0
 Text Label 6600 3350 0    50   ~ 0
 +15V
 Text Label 6600 3250 0    50   ~ 0
-ID_3
+ID_8
 Text Label 6600 2050 0    50   ~ 0
 PWMO2_3
 Text Label 6600 2150 0    50   ~ 0
@@ -777,7 +777,7 @@ Text Label 8150 2350 0    50   ~ 0
 Text Label 8150 3350 0    50   ~ 0
 +15V
 Text Label 8150 3250 0    50   ~ 0
-ID_4
+ID_7
 Text Label 8150 2050 0    50   ~ 0
 PWMO2_4
 Text Label 8150 2150 0    50   ~ 0
@@ -884,7 +884,7 @@ Text Label 9750 2350 0    50   ~ 0
 Text Label 9750 3350 0    50   ~ 0
 +15V
 Text Label 9750 3250 0    50   ~ 0
-ID_5
+ID_6
 Text Label 9750 2050 0    50   ~ 0
 PWMO2_5
 Text Label 9750 2150 0    50   ~ 0
@@ -991,7 +991,7 @@ Text Label 3350 4650 0    50   ~ 0
 Text Label 3350 5650 0    50   ~ 0
 +15V
 Text Label 3350 5550 0    50   ~ 0
-ID_6
+ID_5
 Text Label 3350 4350 0    50   ~ 0
 PWMO2_6
 Text Label 3350 4450 0    50   ~ 0
@@ -1098,7 +1098,7 @@ Text Label 5000 4650 0    50   ~ 0
 Text Label 5000 5650 0    50   ~ 0
 +15V
 Text Label 5000 5550 0    50   ~ 0
-ID_7
+ID_4
 Text Label 5000 4350 0    50   ~ 0
 PWMO2_7
 Text Label 5000 4450 0    50   ~ 0
@@ -1205,7 +1205,7 @@ Text Label 6600 4650 0    50   ~ 0
 Text Label 6600 5650 0    50   ~ 0
 +15V
 Text Label 6600 5550 0    50   ~ 0
-ID_8
+ID_3
 Text Label 6600 4350 0    50   ~ 0
 PWMO2_8
 Text Label 6600 4450 0    50   ~ 0
@@ -1312,7 +1312,7 @@ Text Label 8150 4650 0    50   ~ 0
 Text Label 8150 5650 0    50   ~ 0
 +15V
 Text Label 8150 5550 0    50   ~ 0
-ID_9
+ID_2
 Text Label 8150 4350 0    50   ~ 0
 PWMO2_9
 Text Label 8150 4450 0    50   ~ 0
@@ -1419,7 +1419,7 @@ Text Label 9750 4650 0    50   ~ 0
 Text Label 9750 5650 0    50   ~ 0
 +15V
 Text Label 9750 5550 0    50   ~ 0
-ID_10
+ID_1
 Text Label 9750 4350 0    50   ~ 0
 PWMO2_10
 Text Label 9750 4450 0    50   ~ 0
@@ -1985,6 +1985,24 @@ Wire Wire Line
 	5050 7350 5450 7350
 Wire Wire Line
 	6000 6350 6400 6350
+Text Label 3150 6850 0    50   ~ 0
+GND
+Text Label 3150 7350 0    50   ~ 0
+GND
+Text Label 4100 6350 0    50   ~ 0
+GND
+Text Label 4100 6850 0    50   ~ 0
+GND
+Text Label 4100 7350 0    50   ~ 0
+GND
+Text Label 5050 6350 0    50   ~ 0
+GND
+Text Label 5050 6850 0    50   ~ 0
+GND
+Text Label 5050 7350 0    50   ~ 0
+GND
+Text Label 6000 6350 0    50   ~ 0
+GND
 Wire Bus Line
 	5900 6050 5900 6550
 Wire Bus Line
@@ -2019,22 +2037,4 @@ Wire Bus Line
 	4700 1950 4700 3750
 Wire Bus Line
 	3050 1950 3050 3750
-Text Label 3150 6850 0    50   ~ 0
-GND
-Text Label 3150 7350 0    50   ~ 0
-GND
-Text Label 4100 6350 0    50   ~ 0
-GND
-Text Label 4100 6850 0    50   ~ 0
-GND
-Text Label 4100 7350 0    50   ~ 0
-GND
-Text Label 5050 6350 0    50   ~ 0
-GND
-Text Label 5050 6850 0    50   ~ 0
-GND
-Text Label 5050 7350 0    50   ~ 0
-GND
-Text Label 6000 6350 0    50   ~ 0
-GND
 $EndSCHEMATC
