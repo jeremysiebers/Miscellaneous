@@ -1170,25 +1170,25 @@ Connection ~ 10000 2650
 Wire Wire Line
 	10000 2650 10000 2750
 Text GLabel 7250 2050 0    50   Output ~ 0
-ID_1
-Text GLabel 7250 2150 0    50   Output ~ 0
-ID_2
-Text GLabel 7250 2250 0    50   Output ~ 0
-ID_3
-Text GLabel 7250 2350 0    50   Output ~ 0
-ID_4
-Text GLabel 7250 2450 0    50   Output ~ 0
-ID_5
-Text GLabel 9000 3250 2    50   Output ~ 0
-ID_6
-Text GLabel 9000 3150 2    50   Output ~ 0
-ID_7
-Text GLabel 9000 3050 2    50   Output ~ 0
-ID_8
-Text GLabel 9000 2950 2    50   Output ~ 0
-ID_9
-Text GLabel 9000 2850 2    50   Output ~ 0
 ID_10
+Text GLabel 7250 2150 0    50   Output ~ 0
+ID_9
+Text GLabel 7250 2250 0    50   Output ~ 0
+ID_8
+Text GLabel 7250 2350 0    50   Output ~ 0
+ID_7
+Text GLabel 7250 2450 0    50   Output ~ 0
+ID_6
+Text GLabel 9000 3250 2    50   Output ~ 0
+ID_5
+Text GLabel 9000 3150 2    50   Output ~ 0
+ID_4
+Text GLabel 9000 3050 2    50   Output ~ 0
+ID_3
+Text GLabel 9000 2950 2    50   Output ~ 0
+ID_2
+Text GLabel 9000 2850 2    50   Output ~ 0
+ID_1
 Wire Wire Line
 	7250 2050 7700 2050
 Wire Wire Line
@@ -1205,7 +1205,7 @@ U 1 1 5C158866
 P 6550 3000
 F 0 "R16" V 6630 3000 50  0000 C CNN
 F 1 "R" V 6550 3000 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 6480 3000 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 6480 3000 50  0001 C CNN
 F 3 "~" H 6550 3000 50  0001 C CNN
 	1    6550 3000
 	1    0    0    -1  
@@ -1216,7 +1216,7 @@ U 1 1 5C158A1B
 P 6350 3000
 F 0 "R15" V 6430 3000 50  0000 C CNN
 F 1 "R" V 6350 3000 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 6280 3000 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 6280 3000 50  0001 C CNN
 F 3 "~" H 6350 3000 50  0001 C CNN
 	1    6350 3000
 	1    0    0    -1  
@@ -1227,7 +1227,7 @@ U 1 1 5C158A8D
 P 6150 3000
 F 0 "R14" V 6230 3000 50  0000 C CNN
 F 1 "R" V 6150 3000 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 6080 3000 50  0001 C CNN
+F 2 "Resistor_SMD:R_0603_1608Metric" V 6080 3000 50  0001 C CNN
 F 3 "~" H 6150 3000 50  0001 C CNN
 	1    6150 3000
 	1    0    0    -1  

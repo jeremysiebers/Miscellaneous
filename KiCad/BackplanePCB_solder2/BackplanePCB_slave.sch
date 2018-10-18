@@ -1170,25 +1170,25 @@ Connection ~ 10000 2650
 Wire Wire Line
 	10000 2650 10000 2750
 Text GLabel 7250 2050 0    50   Output ~ 0
-ID_1
-Text GLabel 7250 2150 0    50   Output ~ 0
-ID_2
-Text GLabel 7250 2250 0    50   Output ~ 0
-ID_3
-Text GLabel 7250 2350 0    50   Output ~ 0
-ID_4
-Text GLabel 7250 2450 0    50   Output ~ 0
-ID_5
-Text GLabel 9000 3250 2    50   Output ~ 0
-ID_6
-Text GLabel 9000 3150 2    50   Output ~ 0
-ID_7
-Text GLabel 9000 3050 2    50   Output ~ 0
-ID_8
-Text GLabel 9000 2950 2    50   Output ~ 0
-ID_9
-Text GLabel 9000 2850 2    50   Output ~ 0
 ID_10
+Text GLabel 7250 2150 0    50   Output ~ 0
+ID_9
+Text GLabel 7250 2250 0    50   Output ~ 0
+ID_8
+Text GLabel 7250 2350 0    50   Output ~ 0
+ID_7
+Text GLabel 7250 2450 0    50   Output ~ 0
+ID_6
+Text GLabel 9000 3250 2    50   Output ~ 0
+ID_5
+Text GLabel 9000 3150 2    50   Output ~ 0
+ID_4
+Text GLabel 9000 3050 2    50   Output ~ 0
+ID_3
+Text GLabel 9000 2950 2    50   Output ~ 0
+ID_2
+Text GLabel 9000 2850 2    50   Output ~ 0
+ID_1
 Wire Wire Line
 	7250 2050 7700 2050
 Wire Wire Line
