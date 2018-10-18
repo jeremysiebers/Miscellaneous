@@ -59,7 +59,7 @@ F 3 "~" H 2350 1200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L BackplanePCB_solder-rescue:L78M05CDT-1_TO251-3-Regulator_Linear U4
+L Regulator_Linear:L78M05CDT-1_TO251-3 U4
 U 1 1 5BD693B7
 P 2900 900
 F 0 "U4" H 2750 1025 50  0000 C CNN
@@ -246,7 +246,7 @@ Wire Wire Line
 	5650 900  5550 900 
 Connection ~ 4150 1450
 $Comp
-L BackplanePCB_solder-rescue:PIC16F18854-SO-MCU_Microchip_PIC16 U6
+L MCU_Microchip_PIC16:PIC16F18854-SO U6
 U 1 1 5BD6BD7D
 P 8200 2650
 F 0 "U6" H 7850 3400 50  0000 C CNN
@@ -1170,25 +1170,25 @@ Connection ~ 10000 2650
 Wire Wire Line
 	10000 2650 10000 2750
 Text GLabel 7250 2050 0    50   Output ~ 0
-ID_10
-Text GLabel 7250 2150 0    50   Output ~ 0
-ID_9
-Text GLabel 7250 2250 0    50   Output ~ 0
-ID_8
-Text GLabel 7250 2350 0    50   Output ~ 0
-ID_7
-Text GLabel 7250 2450 0    50   Output ~ 0
-ID_6
-Text GLabel 9000 3250 2    50   Output ~ 0
-ID_5
-Text GLabel 9000 3150 2    50   Output ~ 0
-ID_4
-Text GLabel 9000 3050 2    50   Output ~ 0
-ID_3
-Text GLabel 9000 2950 2    50   Output ~ 0
-ID_2
-Text GLabel 9000 2850 2    50   Output ~ 0
 ID_1
+Text GLabel 7250 2150 0    50   Output ~ 0
+ID_2
+Text GLabel 7250 2250 0    50   Output ~ 0
+ID_3
+Text GLabel 7250 2350 0    50   Output ~ 0
+ID_4
+Text GLabel 7250 2450 0    50   Output ~ 0
+ID_5
+Text GLabel 9000 3250 2    50   Output ~ 0
+ID_6
+Text GLabel 9000 3150 2    50   Output ~ 0
+ID_7
+Text GLabel 9000 3050 2    50   Output ~ 0
+ID_8
+Text GLabel 9000 2950 2    50   Output ~ 0
+ID_9
+Text GLabel 9000 2850 2    50   Output ~ 0
+ID_10
 Wire Wire Line
 	7250 2050 7700 2050
 Wire Wire Line
