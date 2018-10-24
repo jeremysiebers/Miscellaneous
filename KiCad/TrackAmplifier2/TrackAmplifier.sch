@@ -910,7 +910,7 @@ Wire Wire Line
 	8350 1750 8550 1750
 Wire Wire Line
 	8550 1850 8350 1850
-Text GLabel 10600 3350 2    50   Input ~ 0
+Text GLabel 10950 3350 2    50   Input ~ 0
 VPP
 Text GLabel 10600 3650 2    50   Output ~ 0
 RST
@@ -1229,28 +1229,12 @@ Wire Wire Line
 	3500 2000 3400 2000
 Wire Wire Line
 	3400 2000 3400 2100
-$Comp
-L Device:D D7
-U 1 1 5B3F6022
-P 10100 3500
-F 0 "D7" H 10100 3600 50  0000 C CNN
-F 1 "1n4148" H 10100 3400 50  0000 C CNN
-F 2 "Diode_SMD:D_1206_3216Metric" H 10100 3500 50  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2182681.pdf?_ga=2.208013010.1588585681.1526323724-1626853455.1515011571" H 10100 3500 50  0001 C CNN
-F 4 "2677464" H 10100 3500 50  0001 C CNN "Farnell"
-	1    10100 3500
-	-1   0    0    1   
-$EndComp
 Text GLabel 10600 3500 2    50   Output ~ 0
 ~MCLR
 Text GLabel 6800 2550 0    50   Input ~ 0
 ~MCLR
 Wire Wire Line
 	6800 2550 7350 2550
-Wire Wire Line
-	10600 3350 10450 3350
-Wire Wire Line
-	10450 3350 10450 3500
 Wire Wire Line
 	10450 3500 10600 3500
 Text GLabel 9800 5750 0    50   Input ~ 0
@@ -1268,10 +1252,6 @@ Wire Wire Line
 Wire Wire Line
 	10450 3650 10450 3500
 Connection ~ 10450 3500
-Wire Wire Line
-	10250 3500 10450 3500
-Wire Wire Line
-	9850 3500 9950 3500
 Connection ~ 9850 3500
 Wire Wire Line
 	9850 3500 9850 3550
@@ -1335,7 +1315,7 @@ L Device:R R33
 U 1 1 5B63D4D3
 P 9900 950
 F 0 "R33" V 9980 950 50  0000 C CNN
-F 1 "402k" V 9900 950 50  0000 C CNN
+F 1 "470" V 9900 950 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric" V 9830 950 50  0001 C CNN
 F 3 "~" H 9900 950 50  0001 C CNN
 	1    9900 950 
@@ -3015,4 +2995,39 @@ F 5 "INA326EA/2K5" H 4950 1750 50  0001 C CNN "Manufacturer nr"
 $EndComp
 Text Notes 5350 650  0    50   ~ 0
 Output capacitance on REF required between 1 and 10 uF
+$Comp
+L Device:R R?
+U 1 1 5BD7BB41
+P 10150 3500
+F 0 "R?" V 10230 3500 50  0000 C CNN
+F 1 "470" V 10150 3500 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 10080 3500 50  0001 C CNN
+F 3 "~" H 10150 3500 50  0001 C CNN
+	1    10150 3500
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	10000 3500 9850 3500
+Wire Wire Line
+	10300 3500 10350 3500
+$Comp
+L Device:R R?
+U 1 1 5BDD06F3
+P 10600 3350
+F 0 "R?" V 10500 3350 50  0000 C CNN
+F 1 "470" V 10600 3350 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 10530 3350 50  0001 C CNN
+F 3 "~" H 10600 3350 50  0001 C CNN
+	1    10600 3350
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	10750 3350 10950 3350
+Wire Wire Line
+	10450 3350 10350 3350
+Wire Wire Line
+	10350 3350 10350 3500
+Connection ~ 10350 3500
+Wire Wire Line
+	10350 3500 10450 3500
 $EndSCHEMATC
