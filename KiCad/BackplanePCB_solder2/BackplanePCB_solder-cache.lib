@@ -1,6 +1,25 @@
 EESchema-LIBRARY Version 2.4
 #encoding utf-8
 #
+# BackplanePCB_solder-rescue:L78M05CDT-1_TO251-3-Regulator_Linear
+#
+DEF BackplanePCB_solder-rescue:L78M05CDT-1_TO251-3-Regulator_Linear U 0 10 Y Y 1 F N
+F0 "U" -150 125 50 H V C CNN
+F1 "BackplanePCB_solder-rescue:L78M05CDT-1_TO251-3-Regulator_Linear" 0 125 50 H V L CNN
+F2 "Package_TO_SOT_SMD:TO-251-3" 0 225 50 H I C CIN
+F3 "" 0 -50 50 H I C CNN
+$FPLIST
+ TO?251-3*
+$ENDFPLIST
+DRAW
+S -200 75 200 -200 0 1 10 f
+X VI 1 -300 0 100 R 50 50 1 1 W
+X GND 2 0 -300 100 U 50 50 1 1 W
+X VO 3 300 0 100 L 50 50 1 1 w
+X GND 4 0 -300 100 U 50 50 1 1 W N
+ENDDRAW
+ENDDEF
+#
 # Connector:DB15_Female_MountingHoles
 #
 DEF Connector:DB15_Female_MountingHoles J 0 40 Y N 1 F N
@@ -393,25 +412,6 @@ X RA4 6 -500 200 100 R 50 50 1 1 B
 X RA5 7 -500 100 100 R 50 50 1 1 B
 X VSS 8 0 -800 100 U 50 50 1 1 P N
 X RA7 9 -500 -100 100 R 50 50 1 1 B
-ENDDRAW
-ENDDEF
-#
-# Regulator_Linear:L78M05CDT-1_TO251-3
-#
-DEF Regulator_Linear:L78M05CDT-1_TO251-3 U 0 10 Y Y 1 F N
-F0 "U" -150 125 50 H V C CNN
-F1 "Regulator_Linear:L78M05CDT-1_TO251-3" 0 125 50 H V L CNN
-F2 "Package_TO_SOT_SMD:TO-251-3" 0 225 50 H I C CIN
-F3 "" 0 -50 50 H I C CNN
-$FPLIST
- TO?251-3*
-$ENDFPLIST
-DRAW
-S -200 75 200 -200 0 1 10 f
-X VI 1 -300 0 100 R 50 50 1 1 W
-X GND 2 0 -300 100 U 50 50 1 1 W
-X VO 3 300 0 100 L 50 50 1 1 w
-X GND 4 0 -300 100 U 50 50 1 1 W N
 ENDDRAW
 ENDDEF
 #

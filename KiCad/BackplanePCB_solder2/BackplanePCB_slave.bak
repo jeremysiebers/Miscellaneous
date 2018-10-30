@@ -59,7 +59,7 @@ F 3 "~" H 2350 1200 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Regulator_Linear:L78M05CDT-1_TO251-3 U4
+L BackplanePCB_solder-rescue:L78M05CDT-1_TO251-3-Regulator_Linear U4
 U 1 1 5BD693B7
 P 2900 900
 F 0 "U4" H 2750 1025 50  0000 C CNN
@@ -268,17 +268,6 @@ F 3 "http://www.st.com/resource/en/datasheet/st485eb.pdf" H 2300 2700 50  0001 C
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:R R6
-U 1 1 5BD6BEE7
-P 900 2250
-F 0 "R6" V 980 2250 50  0000 C CNN
-F 1 "R" V 900 2250 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 830 2250 50  0001 C CNN
-F 3 "~" H 900 2250 50  0001 C CNN
-	1    900  2250
-	-1   0    0    1   
-$EndComp
-$Comp
 L Device:C C5
 U 1 1 5BD6BF1D
 P 900 2700
@@ -327,14 +316,10 @@ Wire Wire Line
 Wire Wire Line
 	900  2550 900  2450
 Wire Wire Line
-	900  2100 900  2050
-Wire Wire Line
 	900  2450 1150 2450
 Wire Wire Line
 	1150 2450 1150 2550
 Connection ~ 900  2450
-Wire Wire Line
-	900  2450 900  2400
 Wire Wire Line
 	900  2900 1150 2900
 Wire Wire Line
@@ -405,17 +390,6 @@ F 3 "http://www.st.com/resource/en/datasheet/st485eb.pdf" H 2250 4200 50  0001 C
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:R R4
-U 1 1 5BE7D8F3
-P 850 3750
-F 0 "R4" V 930 3750 50  0000 C CNN
-F 1 "R" V 850 3750 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 780 3750 50  0001 C CNN
-F 3 "~" H 850 3750 50  0001 C CNN
-	1    850  3750
-	-1   0    0    1   
-$EndComp
-$Comp
 L Device:C C3
 U 1 1 5BE7D8FA
 P 850 4200
@@ -464,14 +438,10 @@ Wire Wire Line
 Wire Wire Line
 	850  4050 850  3950
 Wire Wire Line
-	850  3600 850  3550
-Wire Wire Line
 	850  3950 1100 3950
 Wire Wire Line
 	1100 3950 1100 4050
 Connection ~ 850  3950
-Wire Wire Line
-	850  3950 850  3900
 Wire Wire Line
 	850  4400 1100 4400
 Wire Wire Line
@@ -522,17 +492,6 @@ F 3 "http://www.st.com/resource/en/datasheet/st485eb.pdf" H 2250 5700 50  0001 C
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:R R5
-U 1 1 5BE7F7E9
-P 850 5250
-F 0 "R5" V 930 5250 50  0000 C CNN
-F 1 "R" V 850 5250 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 780 5250 50  0001 C CNN
-F 3 "~" H 850 5250 50  0001 C CNN
-	1    850  5250
-	-1   0    0    1   
-$EndComp
-$Comp
 L Device:C C4
 U 1 1 5BE7F7F0
 P 850 5700
@@ -581,14 +540,10 @@ Wire Wire Line
 Wire Wire Line
 	850  5550 850  5450
 Wire Wire Line
-	850  5100 850  5050
-Wire Wire Line
 	850  5450 1100 5450
 Wire Wire Line
 	1100 5450 1100 5550
 Connection ~ 850  5450
-Wire Wire Line
-	850  5450 850  5400
 Wire Wire Line
 	850  5900 1100 5900
 Wire Wire Line
@@ -639,17 +594,6 @@ F 3 "http://www.st.com/resource/en/datasheet/st485eb.pdf" H 4900 4200 50  0001 C
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:R R11
-U 1 1 5BE82D60
-P 3500 3750
-F 0 "R11" V 3580 3750 50  0000 C CNN
-F 1 "R" V 3500 3750 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 3430 3750 50  0001 C CNN
-F 3 "~" H 3500 3750 50  0001 C CNN
-	1    3500 3750
-	-1   0    0    1   
-$EndComp
-$Comp
 L Device:C C11
 U 1 1 5BE82D67
 P 3500 4200
@@ -698,14 +642,10 @@ Wire Wire Line
 Wire Wire Line
 	3500 4050 3500 3950
 Wire Wire Line
-	3500 3600 3500 3550
-Wire Wire Line
 	3500 3950 3750 3950
 Wire Wire Line
 	3750 3950 3750 4050
 Connection ~ 3500 3950
-Wire Wire Line
-	3500 3950 3500 3900
 Wire Wire Line
 	3500 4400 3750 4400
 Wire Wire Line
@@ -893,17 +833,6 @@ F 3 "" H 7150 1050 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L Device:R R21
-U 1 1 5BEEFBE1
-P 7450 1150
-F 0 "R21" V 7530 1150 50  0000 C CNN
-F 1 "R" V 7450 1150 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 7380 1150 50  0001 C CNN
-F 3 "~" H 7450 1150 50  0001 C CNN
-	1    7450 1150
-	0    -1   -1   0   
-$EndComp
-$Comp
 L Device:C C18
 U 1 1 5BEEFD1F
 P 7750 1350
@@ -938,10 +867,6 @@ F 3 "" H 7750 1600 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	7150 1050 7150 1150
-Wire Wire Line
-	7150 1150 7300 1150
-Wire Wire Line
-	7600 1150 7750 1150
 Wire Wire Line
 	7750 1150 7750 1200
 Wire Wire Line
@@ -1461,4 +1386,20 @@ Wire Wire Line
 	8700 3250 9000 3250
 Wire Wire Line
 	2900 1450 2900 1600
+Wire Wire Line
+	900  2050 900  2450
+Wire Wire Line
+	850  3550 850  3950
+Wire Wire Line
+	850  5050 850  5450
+Wire Wire Line
+	3500 3550 3500 3950
+Wire Wire Line
+	7150 1150 7750 1150
+Text Notes 6100 3300 1    50   ~ 0
+BIT1
+Text Notes 6300 3300 1    50   ~ 0
+BIT2
+Text Notes 6500 3300 1    50   ~ 0
+BIT4
 $EndSCHEMATC

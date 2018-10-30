@@ -73,8 +73,6 @@ Text Label 1100 2250 0    50   ~ 0
 RESET_A
 Text Label 2000 2250 0    50   ~ 0
 RESET_B
-Wire Bus Line
-	800  3750 2650 3750
 Entry Wire Line
 	800  1950 900  1850
 Entry Wire Line
@@ -1459,34 +1457,26 @@ Entry Wire Line
 	2550 3500 2650 3400
 Entry Wire Line
 	2550 3650 2650 3550
-Wire Wire Line
-	1550 3500 900  3500
-Wire Wire Line
-	900  3650 1550 3650
-Wire Wire Line
-	2550 3500 1850 3500
-Wire Wire Line
-	1850 3650 2550 3650
 $Comp
 L Device:R R2
 U 1 1 5B4C400A
-P 1700 3500
-F 0 "R2" V 1780 3500 50  0000 C CNN
-F 1 "120E" V 1700 3500 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 1630 3500 50  0001 C CNN
-F 3 "~" H 1700 3500 50  0001 C CNN
-	1    1700 3500
+P 1400 3500
+F 0 "R2" V 1480 3500 50  0000 C CNN
+F 1 "60E" V 1400 3500 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 1330 3500 50  0001 C CNN
+F 3 "~" H 1400 3500 50  0001 C CNN
+	1    1400 3500
 	0    1    1    0   
 $EndComp
 $Comp
 L Device:R R3
 U 1 1 5B4C4089
-P 1700 3650
-F 0 "R3" V 1780 3650 50  0000 C CNN
-F 1 "120E" V 1700 3650 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 1630 3650 50  0001 C CNN
-F 3 "~" H 1700 3650 50  0001 C CNN
-	1    1700 3650
+P 1400 3650
+F 0 "R3" V 1480 3650 50  0000 C CNN
+F 1 "60E" V 1400 3650 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 1330 3650 50  0001 C CNN
+F 3 "~" H 1400 3650 50  0001 C CNN
+	1    1400 3650
 	0    1    1    0   
 $EndComp
 $Comp
@@ -1508,13 +1498,13 @@ Wire Wire Line
 	3550 6250 3150 6250
 Wire Wire Line
 	3150 6450 3550 6450
-Text Label 1100 3500 0    50   ~ 0
+Text Label 950  3500 0    50   ~ 0
 SYNC_A
-Text Label 2000 3500 0    50   ~ 0
+Text Label 2250 3500 0    50   ~ 0
 SYNC_B
-Text Label 1100 3650 0    50   ~ 0
+Text Label 950  3650 0    50   ~ 0
 RESET_A
-Text Label 2000 3650 0    50   ~ 0
+Text Label 2250 3650 0    50   ~ 0
 RESET_B
 Text Label 3150 6250 0    50   ~ 0
 PWMO2_1
@@ -1722,25 +1712,21 @@ Wire Bus Line
 $Comp
 L Device:R R1
 U 1 1 5BBFCEC2
-P 1700 3350
-F 0 "R1" V 1780 3350 50  0000 C CNN
-F 1 "120E" V 1700 3350 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 1630 3350 50  0001 C CNN
-F 3 "~" H 1700 3350 50  0001 C CNN
-	1    1700 3350
+P 1400 3350
+F 0 "R1" V 1480 3350 50  0000 C CNN
+F 1 "60E" V 1400 3350 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 1330 3350 50  0001 C CNN
+F 3 "~" H 1400 3350 50  0001 C CNN
+	1    1400 3350
 	0    1    1    0   
 $EndComp
 Entry Wire Line
 	800  3450 900  3350
 Entry Wire Line
 	2550 3350 2650 3250
-Wire Wire Line
-	900  3350 1550 3350
-Wire Wire Line
-	1850 3350 2550 3350
-Text Label 1100 3350 0    50   ~ 0
+Text Label 950  3350 0    50   ~ 0
 RX_A
-Text Label 2000 3350 0    50   ~ 0
+Text Label 2300 3350 0    50   ~ 0
 RX_B
 Connection ~ 4950 6050
 Wire Bus Line
@@ -1929,7 +1915,6 @@ Text GLabel 1200 6200 2    50   Input ~ 0
 ID_10
 Wire Wire Line
 	1200 6200 900  6200
-Connection ~ 800  3750
 Text Notes 4850 1200 0    50   ~ 0
 BackplaneSlave\nSchematic
 $Comp
@@ -2003,38 +1988,286 @@ Text Label 5050 7350 0    50   ~ 0
 GND
 Text Label 6000 6350 0    50   ~ 0
 GND
+$Comp
+L Device:R R?
+U 1 1 5BDD3F11
+P 2050 3650
+F 0 "R?" V 2130 3650 50  0000 C CNN
+F 1 "60E" V 2050 3650 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 1980 3650 50  0001 C CNN
+F 3 "~" H 2050 3650 50  0001 C CNN
+	1    2050 3650
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5BDD3F5F
+P 2050 3500
+F 0 "R?" V 2130 3500 50  0000 C CNN
+F 1 "60E" V 2050 3500 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 1980 3500 50  0001 C CNN
+F 3 "~" H 2050 3500 50  0001 C CNN
+	1    2050 3500
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5BDD3FB5
+P 2050 3350
+F 0 "R?" V 2130 3350 50  0000 C CNN
+F 1 "60E" V 2050 3350 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 1980 3350 50  0001 C CNN
+F 3 "~" H 2050 3350 50  0001 C CNN
+	1    2050 3350
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5BDD4F1D
+P 2100 5050
+F 0 "C?" H 2215 5096 50  0000 L CNN
+F 1 "100n" H 2215 5005 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 2138 4900 50  0001 C CNN
+F 3 "~" H 2100 5050 50  0001 C CNN
+	1    2100 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5BDD500D
+P 2100 4650
+F 0 "C?" H 2215 4696 50  0000 L CNN
+F 1 "100n" H 2215 4605 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 2138 4500 50  0001 C CNN
+F 3 "~" H 2100 4650 50  0001 C CNN
+	1    2100 4650
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C C?
+U 1 1 5BDD506D
+P 2100 4250
+F 0 "C?" H 2215 4296 50  0000 L CNN
+F 1 "100n" H 2215 4205 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 2138 4100 50  0001 C CNN
+F 3 "~" H 2100 4250 50  0001 C CNN
+	1    2100 4250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	900  3350 1250 3350
+Wire Wire Line
+	900  3500 1250 3500
+Wire Wire Line
+	900  3650 1250 3650
+Wire Wire Line
+	2200 3350 2550 3350
+Wire Wire Line
+	2200 3500 2550 3500
+Wire Wire Line
+	2200 3650 2550 3650
+Entry Wire Line
+	2550 4400 2650 4300
+Entry Wire Line
+	2550 4800 2650 4700
+Entry Wire Line
+	2550 5200 2650 5100
+Wire Wire Line
+	2550 4400 2100 4400
+Wire Wire Line
+	2100 4800 2550 4800
+Wire Wire Line
+	2550 5200 2100 5200
+Text Label 2300 4400 0    50   ~ 0
+GND
+Text Label 2300 4800 0    50   ~ 0
+GND
+Text Label 2300 5200 0    50   ~ 0
+GND
+Entry Wire Line
+	800  3900 900  3800
+Entry Wire Line
+	2550 3800 2650 3700
+$Comp
+L Device:R R?
+U 1 1 5C1AD562
+P 1400 3800
+F 0 "R?" V 1480 3800 50  0000 C CNN
+F 1 "60E" V 1400 3800 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 1330 3800 50  0001 C CNN
+F 3 "~" H 1400 3800 50  0001 C CNN
+	1    1400 3800
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5C1AD5BC
+P 2050 3800
+F 0 "R?" V 2130 3800 50  0000 C CNN
+F 1 "60E" V 2050 3800 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 1980 3800 50  0001 C CNN
+F 3 "~" H 2050 3800 50  0001 C CNN
+	1    2050 3800
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	900  3800 1250 3800
+Wire Wire Line
+	1550 3800 1850 3800
+Wire Wire Line
+	2200 3800 2550 3800
+Text Label 950  3800 0    50   ~ 0
+TX_A
+Text Label 2250 3800 0    50   ~ 0
+TX_B
+Wire Wire Line
+	1550 3350 1700 3350
+Wire Wire Line
+	1550 3500 1750 3500
+$Comp
+L Device:C C?
+U 1 1 5C236207
+P 2100 5500
+F 0 "C?" H 2215 5546 50  0000 L CNN
+F 1 "100n" H 2215 5455 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 2138 5350 50  0001 C CNN
+F 3 "~" H 2100 5500 50  0001 C CNN
+	1    2100 5500
+	1    0    0    -1  
+$EndComp
+Wire Bus Line
+	2650 6050 3050 6050
+Entry Wire Line
+	2550 5650 2650 5550
+Text Label 2300 5650 0    50   ~ 0
+GND
+Wire Wire Line
+	2100 5650 2550 5650
+Wire Wire Line
+	1550 3650 1800 3650
+Wire Wire Line
+	2100 4100 1850 4100
+Wire Wire Line
+	1850 4100 1850 3800
+Connection ~ 1850 3800
+Wire Wire Line
+	1850 3800 1900 3800
+Wire Wire Line
+	2100 4500 1800 4500
+Wire Wire Line
+	1800 4500 1800 3650
+Connection ~ 1800 3650
+Wire Wire Line
+	1800 3650 1900 3650
+Wire Wire Line
+	2100 4900 1750 4900
+Wire Wire Line
+	1750 4900 1750 3500
+Connection ~ 1750 3500
+Wire Wire Line
+	1750 3500 1900 3500
+Wire Wire Line
+	2100 5350 1700 5350
+Wire Wire Line
+	1700 5350 1700 3350
+Connection ~ 1700 3350
+Wire Wire Line
+	1700 3350 1900 3350
+Text Label 1050 6600 0    50   ~ 0
+RESET_A
+Text Label 1050 6750 0    50   ~ 0
+RESET_B
+$Comp
+L Device:R R?
+U 1 1 5C3DDAD5
+P 1900 6600
+F 0 "R?" V 1980 6600 50  0000 C CNN
+F 1 "2k" V 1900 6600 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 1830 6600 50  0001 C CNN
+F 3 "~" H 1900 6600 50  0001 C CNN
+	1    1900 6600
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 5C3DDB5B
+P 1900 6750
+F 0 "R?" V 1980 6750 50  0000 C CNN
+F 1 "2k" V 1900 6750 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 1830 6750 50  0001 C CNN
+F 3 "~" H 1900 6750 50  0001 C CNN
+	1    1900 6750
+	0    1    1    0   
+$EndComp
+Entry Wire Line
+	800  6700 900  6600
+Entry Wire Line
+	2950 6600 3050 6500
+Entry Wire Line
+	2950 6750 3050 6650
+Entry Wire Line
+	800  6850 900  6750
+Wire Wire Line
+	900  6750 1750 6750
+Wire Wire Line
+	900  6600 1750 6600
+Wire Wire Line
+	2050 6600 2950 6600
+Wire Wire Line
+	2950 6750 2050 6750
+Entry Wire Line
+	800  1450 900  1350
+$Comp
+L power:+5V #PWR?
+U 1 1 5C5387E4
+P 1700 1250
+F 0 "#PWR?" H 1700 1100 50  0001 C CNN
+F 1 "+5V" H 1715 1423 50  0000 C CNN
+F 2 "" H 1700 1250 50  0001 C CNN
+F 3 "" H 1700 1250 50  0001 C CNN
+	1    1700 1250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	900  1350 1700 1350
+Wire Wire Line
+	1700 1350 1700 1250
 Wire Bus Line
 	5900 6050 5900 6550
 Wire Bus Line
-	3050 6050 3050 7450
+	2650 3750 2650 6050
 Wire Bus Line
 	4000 6050 4000 7550
 Wire Bus Line
 	4950 6050 4950 7550
 Wire Bus Line
-	800  1150 800  3750
-Wire Bus Line
 	2650 1750 2650 3750
 Wire Bus Line
-	800  3750 800  7450
+	3050 6050 3050 7450
 Wire Bus Line
-	9450 4250 9450 6050
-Wire Bus Line
-	7850 4250 7850 6050
-Wire Bus Line
-	6300 4250 6300 6050
-Wire Bus Line
-	4700 4250 4700 6050
-Wire Bus Line
-	3050 4250 3050 6050
-Wire Bus Line
-	9450 1950 9450 3750
-Wire Bus Line
-	7850 1950 7850 3750
-Wire Bus Line
-	6300 1950 6300 3750
+	3050 1950 3050 3750
 Wire Bus Line
 	4700 1950 4700 3750
 Wire Bus Line
-	3050 1950 3050 3750
+	6300 1950 6300 3750
+Wire Bus Line
+	7850 1950 7850 3750
+Wire Bus Line
+	9450 1950 9450 3750
+Wire Bus Line
+	4700 4250 4700 6050
+Wire Bus Line
+	6300 4250 6300 6050
+Wire Bus Line
+	7850 4250 7850 6050
+Wire Bus Line
+	9450 4250 9450 6050
+Wire Bus Line
+	3050 4250 3050 6050
+Wire Bus Line
+	800  1150 800  7450
+Text Label 2350 6750 0    50   ~ 0
+GND
+Text Label 2350 6600 0    50   ~ 0
++5V
 $EndSCHEMATC
