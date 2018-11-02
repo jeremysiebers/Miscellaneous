@@ -170,13 +170,13 @@ $EndComp
 $Comp
 L Device:R R7
 U 1 1 5BB5BCC5
-P 5850 3800
-F 0 "R7" V 5930 3800 50  0000 C CNN
-F 1 "1k" V 5850 3800 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 5780 3800 50  0001 C CNN
-F 3 "~" H 5850 3800 50  0001 C CNN
-	1    5850 3800
-	0    -1   -1   0   
+P 6150 3700
+F 0 "R7" V 6230 3700 50  0000 C CNN
+F 1 "1k" V 6150 3700 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 6080 3700 50  0001 C CNN
+F 3 "~" H 6150 3700 50  0001 C CNN
+	1    6150 3700
+	-1   0    0    1   
 $EndComp
 $Comp
 L Device:R R3
@@ -233,8 +233,6 @@ F 3 "~" H 5200 4450 50  0001 C CNN
 	1    5200 4450
 	0    -1   -1   0   
 $EndComp
-Wire Wire Line
-	5850 3450 6150 3450
 $Comp
 L power:GND #PWR07
 U 1 1 5BB5D241
@@ -285,28 +283,14 @@ Wire Wire Line
 Wire Wire Line
 	3100 3500 3100 3650
 Wire Wire Line
-	5700 3800 5050 3800
-Wire Wire Line
-	5050 3800 5050 3350
-Wire Wire Line
 	5050 3350 5150 3350
-Wire Wire Line
-	6000 3800 6150 3800
-Wire Wire Line
-	6150 3800 6150 3450
-Connection ~ 6150 3450
-Wire Wire Line
-	6150 3450 6750 3450
-Wire Wire Line
-	6150 3900 6150 3800
-Connection ~ 6150 3800
 Wire Wire Line
 	6150 4200 6150 4250
 Wire Wire Line
 	6150 4250 5550 4250
 Wire Wire Line
 	5550 4250 5550 4000
-Text Notes 5800 3950 0    50   ~ 0
+Text Notes 6200 3750 0    50   ~ 0
 Rf
 Text Notes 6200 4100 0    50   ~ 0
 Rg
@@ -458,4 +442,18 @@ Wire Wire Line
 	5200 4000 5200 4250
 Text Notes 5850 4350 0    50   ~ 0
 see page 9, Gmin = 1 and is 1 when Rf = 0 Ohm and Rg = open
+Wire Wire Line
+	5850 3450 6150 3450
+Wire Wire Line
+	6150 3550 6150 3450
+Connection ~ 6150 3450
+Wire Wire Line
+	6150 3450 6750 3450
+Wire Wire Line
+	6150 3850 6150 3900
+Wire Wire Line
+	5050 3850 6150 3850
+Wire Wire Line
+	5050 3350 5050 3850
+Connection ~ 6150 3850
 $EndSCHEMATC
