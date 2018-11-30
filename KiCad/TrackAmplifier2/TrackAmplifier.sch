@@ -673,10 +673,10 @@ L TrackAmplifier-rescue:PIC16F18854-SO-MCU_Microchip_PIC16 U9
 U 1 1 5AEBDEF2
 P 7850 2350
 F 0 "U9" H 7500 3100 50  0000 C CNN
-F 1 "PIC16F18854-SO" H 8250 3100 50  0000 C CNN
+F 1 "PIC18F25K40" H 8250 3100 50  0000 C CNN
 F 2 "Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm" H 7850 1250 50  0001 C CNN
-F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16(L)F18854%20Data%20Sheet_DS40001826C.pdf" H 8150 1750 50  0001 C CNN
-F 4 "2696647" H 7850 2350 50  0001 C CNN "Farnell"
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/PIC18(L)F24_25K40%2028-Pin%20Low-Power%20High-Performance%20MCU%20with%20XLP%20Technology%2040001843D.pdf" H 8150 1750 50  0001 C CNN
+F 4 "2564200" H 7850 2350 50  0001 C CNN "Farnell"
 F 5 "PIC16F18854-I/SO" H 7850 2350 50  0001 C CNN "Manufacturer nr"
 	1    7850 2350
 	1    0    0    -1  
@@ -1171,11 +1171,11 @@ L Device:R R8
 U 1 1 5B357D23
 P 2450 2300
 F 0 "R8" V 2530 2300 50  0000 C CNN
-F 1 "100E" V 2450 2300 50  0000 C CNN
+F 1 "1k" V 2450 2300 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric" V 2380 2300 50  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2310790.pdf?_ga=2.153896696.1588585681.1526323724-1626853455.1515011571" H 2450 2300 50  0001 C CNN
-F 4 "2616760" V 2450 2300 50  0001 C CNN "Farnell"
-F 5 "CRCW1206100RJNEA" V 2450 2300 50  0001 C CNN "Manufacturer nr"
+F 3 "http://www.farnell.com/datasheets/2310790.pdf?_ga=2.210134357.1588585681.1526323724-1626853455.1515011571" H 2450 2300 50  0001 C CNN
+F 4 "1653077" V 2450 2300 50  0001 C CNN "Farnell"
+F 5 "CRCW12061K00JNEA" V 2450 2300 50  0001 C CNN "Manufacturer nr"
 	1    2450 2300
 	0    -1   -1   0   
 $EndComp
@@ -1228,8 +1228,8 @@ Wire Wire Line
 	9850 3500 9850 3550
 Text Notes 10050 4050 0    50   ~ 0
 ~MCLR~ Vil = 0.2V Vih = 0.7V\nLVP is possible, HVP only\nwhen "RESET" transceiver \ninput A < B 
-Text Notes 2150 1900 0    50   ~ 0
-Disconnected receiver inputs\nor idle bus will have RO high.\nInvert for continuous uController reset
+Text Notes 1100 1850 0    50   ~ 0
+Disconnected receiver inputs\nor idle bus will have RO high.\nInvert for continuous uController reset\nIn order to flash standalone connect\nthe R47 pads
 $Comp
 L power:GNDD #PWR046
 U 1 1 5B57F88C
@@ -3372,4 +3372,32 @@ Wire Wire Line
 Wire Wire Line
 	7400 5100 7000 5100
 Connection ~ 7000 5100
+$Comp
+L Device:R R47
+U 1 1 5C04E09A
+P 2650 2050
+F 0 "R47" V 2730 2050 50  0000 C CNN
+F 1 "NP" V 2650 2050 50  0000 C CNN
+F 2 "Resistor_SMD:R_1206_3216Metric" V 2580 2050 50  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2331353.pdf?_ga=2.31327414.804204398.1540810031-466615820.1533907205&_gac=1.187361882.1540810769.CjwKCAjw39reBRBJEiwAO1m0OeFHyFqLAwRfo1TyfiEw1u5wgH8YT365nEvQxYyzS_SVx6sHehne4BoC4gYQAvD_BwE" H 2650 2050 50  0001 C CNN
+F 4 "1100137" H 1900 0   50  0001 C CNN "Farnell"
+F 5 "WCR1206-R005JI" H 1900 0   50  0001 C CNN "Manufacturer nr"
+	1    2650 2050
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	2650 2200 2650 2300
+$Comp
+L power:+5V #PWR07
+U 1 1 5C083150
+P 2650 1850
+F 0 "#PWR07" H 2650 1700 50  0001 C CNN
+F 1 "+5V" H 2650 1990 50  0000 C CNN
+F 2 "" H 2650 1850 50  0001 C CNN
+F 3 "" H 2650 1850 50  0001 C CNN
+	1    2650 1850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2650 1850 2650 1900
 $EndSCHEMATC

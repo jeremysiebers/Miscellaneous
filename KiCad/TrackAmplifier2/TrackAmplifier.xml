@@ -2,7 +2,7 @@
 <export version="D">
   <design>
     <source>C:\Localdata\GIT_REPO\Miscellaneous\KiCad\TrackAmplifier2\TrackAmplifier.sch</source>
-    <date>12-11-2018 15:28:42</date>
+    <date>30-11-2018 17:00:39</date>
     <tool>Eeschema (5.0.0)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -258,11 +258,11 @@
       <tstamp>5AE92F98</tstamp>
     </comp>
     <comp ref="U9">
-      <value>PIC16F18854-SO</value>
+      <value>PIC18F25K40</value>
       <footprint>Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm</footprint>
-      <datasheet>http://ww1.microchip.com/downloads/en/DeviceDoc/PIC16(L)F18854%20Data%20Sheet_DS40001826C.pdf</datasheet>
+      <datasheet>http://ww1.microchip.com/downloads/en/DeviceDoc/PIC18(L)F24_25K40%2028-Pin%20Low-Power%20High-Performance%20MCU%20with%20XLP%20Technology%2040001843D.pdf</datasheet>
       <fields>
-        <field name="Farnell">2696647</field>
+        <field name="Farnell">2564200</field>
         <field name="Manufacturer nr">PIC16F18854-I/SO</field>
       </fields>
       <libsource lib="TrackAmplifier-rescue" part="PIC16F18854-SO-MCU_Microchip_PIC16" description=""/>
