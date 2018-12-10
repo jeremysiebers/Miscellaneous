@@ -53,7 +53,7 @@ F 5 "ST485EBDR" H 1850 2400 50  0001 C CNN "Manufacturer nr"
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Regulator_Linear:LM78M05_TO252 U3
+L Regulator_Linear:LM78M05_TO251-3 U3
 U 1 1 5AE1A916
 P 2800 800
 F 0 "U3" H 2650 925 50  0000 C CNN
@@ -105,14 +105,11 @@ F 5 "MC1206B475K250CT" H 3450 1050 50  0001 C CNN "Manufacturer nr"
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	2200 800  2200 900 
+	2200 750  2200 900 
 Wire Wire Line
-	2200 800  2450 800 
+	2200 750  2450 750 
 Wire Wire Line
 	2450 900  2450 800 
-Connection ~ 2450 800 
-Wire Wire Line
-	2450 800  2500 800 
 $Comp
 L TrackAmplifier-rescue:GND #PWR019
 U 1 1 5AE1B528
@@ -848,9 +845,9 @@ Wire Wire Line
 	9850 4150 9850 3800
 Wire Wire Line
 	9850 3800 10000 3800
-Text GLabel 9200 3900 0    50   Output ~ 0
+Text GLabel 9800 3900 0    50   Output ~ 0
 ICSPDAT
-Text GLabel 9200 4000 0    50   Output ~ 0
+Text GLabel 9800 4000 0    50   Output ~ 0
 ICSPCLK
 Text GLabel 8550 1750 2    50   Input ~ 0
 ICSPDAT
@@ -1253,10 +1250,6 @@ Wire Wire Line
 	5700 6750 5800 6750
 Wire Wire Line
 	5800 6950 5700 6950
-Wire Wire Line
-	3850 6400 3850 6750
-Wire Wire Line
-	3850 7200 3850 6950
 Text GLabel 2750 7450 3    50   Output ~ 0
 CSEN
 $Comp
@@ -1580,14 +1573,6 @@ Wire Wire Line
 Connection ~ 5950 1750
 Text GLabel 7200 1950 0    50   Input ~ 0
 BMF
-Text GLabel 3900 6400 2    50   Output ~ 0
-PWM1
-Text GLabel 3900 7200 2    50   Output ~ 0
-PWM2
-Wire Wire Line
-	3850 6400 3900 6400
-Wire Wire Line
-	3850 7200 3900 7200
 Text GLabel 4500 6350 1    50   Output ~ 0
 OCC1
 Text GLabel 5000 6350 1    50   Output ~ 0
@@ -1734,8 +1719,6 @@ Text GLabel 7200 1850 0    50   Input ~ 0
 OCC
 Wire Wire Line
 	9900 1150 9900 1400
-Wire Wire Line
-	3850 6950 5300 6950
 Text GLabel 8200 5400 0    50   Input ~ 0
 CSEN
 $Comp
@@ -2420,14 +2403,10 @@ Wire Wire Line
 	3450 6900 3700 6900
 Wire Wire Line
 	3450 7200 3700 7200
-Wire Wire Line
-	3700 7200 3850 7200
 Connection ~ 3700 7200
-Connection ~ 3850 7200
 Wire Wire Line
 	3700 6400 3850 6400
 Connection ~ 3700 6400
-Connection ~ 3850 6400
 Wire Wire Line
 	2850 7400 2850 7600
 $Comp
@@ -2813,8 +2792,6 @@ F 5 "WCR1206-9K1FI" V 4300 1600 50  0001 C CNN "Manufacturer nr"
 	0    1    1    0   
 $EndComp
 Wire Wire Line
-	6200 4000 6200 3950
-Wire Wire Line
 	6750 1150 6650 1150
 Text Notes 5350 650  0    50   ~ 0
 Output capacitance on REF required between 1 and 10 uF
@@ -2940,23 +2917,23 @@ Wire Wire Line
 Wire Wire Line
 	6550 4500 6650 4500
 $Comp
-L Device:D D11
+L Device:D_Schottky_AAK D11
 U 1 1 5BFE0109
-P 4800 6550
-F 0 "D11" H 5000 6500 50  0000 C CNN
-F 1 "VS-6ESH06-M3" H 4800 6450 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:TO-277A" H 4800 6550 50  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2182681.pdf?_ga=2.208013010.1588585681.1526323724-1626853455.1515011571" H 4800 6550 50  0001 C CNN
-F 4 "2471194" H 4800 6550 50  0001 C CNN "Farnell"
-F 5 "VS-6ESH06-M3/86A" H 0   0   50  0001 C CNN "Manufacturer nr"
-	1    4800 6550
+P 4800 6450
+F 0 "D11" H 4800 6350 50  0000 C CNN
+F 1 "VS-6ESH06-M3" H 5400 6600 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:TO-277A" H 4800 6450 50  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2182681.pdf?_ga=2.208013010.1588585681.1526323724-1626853455.1515011571" H 4800 6450 50  0001 C CNN
+F 4 "2471194" H 4800 6450 50  0001 C CNN "Farnell"
+F 5 "VS-6ESH06-M3/86A" H 0   -100 50  0001 C CNN "Manufacturer nr"
+	1    4800 6450
 	-1   0    0    1   
 $EndComp
 $Comp
 L Device:R R41
 U 1 1 5BFE0533
 P 4800 6650
-F 0 "R41" V 4750 6450 50  0000 C CNN
+F 0 "R41" V 4700 6650 50  0000 C CNN
 F 1 "47E" V 4800 6650 50  0000 C CNN
 F 2 "Resistor_SMD:R_1206_3216Metric" V 4730 6650 50  0001 C CNN
 F 3 "http://www.farnell.com/datasheets/2331353.pdf?_ga=2.124196682.13702668.1544197496-523844734.1542029203&_gac=1.140706310.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE" H 4800 6650 50  0001 C CNN
@@ -2966,52 +2943,20 @@ F 5 "WCR1206-47RFI" V 4800 6650 50  0001 C CNN "Manufacturer nr"
 	0    1    1    0   
 $EndComp
 $Comp
-L Device:D D12
+L Device:D_Schottky_AAK D12
 U 1 1 5BFE0BE4
-P 4800 6750
-F 0 "D12" H 4600 6800 50  0000 C CNN
-F 1 "VS-6ESH06-M3" H 4800 6650 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:TO-277A" H 4800 6750 50  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2182681.pdf?_ga=2.208013010.1588585681.1526323724-1626853455.1515011571" H 4800 6750 50  0001 C CNN
-F 4 "2471194" H 4800 6750 50  0001 C CNN "Farnell"
-F 5 "VS-6ESH06-M3/86A" H 0   0   50  0001 C CNN "Manufacturer nr"
-	1    4800 6750
+P 4800 6850
+F 0 "D12" H 4800 6950 50  0000 C CNN
+F 1 "VS-6ESH06-M3" H 4800 6700 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:TO-277A" H 4800 6850 50  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2182681.pdf?_ga=2.208013010.1588585681.1526323724-1626853455.1515011571" H 4800 6850 50  0001 C CNN
+F 4 "2471194" H 4800 6850 50  0001 C CNN "Farnell"
+F 5 "VS-6ESH06-M3/86A" H 0   100 50  0001 C CNN "Manufacturer nr"
+	1    4800 6850
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	5300 6750 5000 6750
-Wire Wire Line
 	4950 6650 5000 6650
-Wire Wire Line
-	5000 6650 5000 6750
-Connection ~ 5000 6750
-Wire Wire Line
-	5000 6750 4950 6750
-Wire Wire Line
-	4950 6550 5000 6550
-Wire Wire Line
-	5000 6550 5000 6650
-Connection ~ 5000 6650
-Wire Wire Line
-	4650 6750 4500 6750
-Wire Wire Line
-	4650 6550 4500 6550
-Wire Wire Line
-	4500 6550 4500 6650
-Connection ~ 4500 6750
-Wire Wire Line
-	4500 6750 3850 6750
-Wire Wire Line
-	4650 6650 4500 6650
-Connection ~ 4500 6650
-Wire Wire Line
-	4500 6650 4500 6750
-Wire Wire Line
-	4500 6350 4500 6550
-Connection ~ 4500 6550
-Wire Wire Line
-	5000 6350 5000 6550
-Connection ~ 5000 6550
 $Comp
 L Device:R R16
 U 1 1 5C3437FA
@@ -3062,8 +3007,6 @@ F 5 "WCR1206-4K7FI" V 4950 1150 50  0001 C CNN "Manufacturer nr"
 $EndComp
 Wire Wire Line
 	3650 1350 3650 1300
-Wire Wire Line
-	4100 1600 4150 1600
 Wire Wire Line
 	7350 2050 6750 2050
 Wire Wire Line
@@ -3142,8 +3085,6 @@ Wire Wire Line
 	4600 1900 4450 1900
 Wire Wire Line
 	4500 2200 4500 1600
-Wire Wire Line
-	4500 1600 4450 1600
 $Comp
 L Amplifier_Instrumentation:MCP6N11 U7
 U 1 1 5C93942B
@@ -3162,7 +3103,6 @@ Wire Wire Line
 Connection ~ 4600 1900
 Wire Wire Line
 	4650 1600 4500 1600
-Connection ~ 4500 1600
 Wire Wire Line
 	4950 1300 4950 1400
 Wire Wire Line
@@ -3218,7 +3158,7 @@ U 1 1 5CD5FDD0
 P 6400 2900
 F 0 "D13" H 6400 2800 50  0000 C CNN
 F 1 "LED BL ?" H 6350 3000 50  0000 C CNN
-F 2 "-" H 6400 2900 50  0001 C CNN
+F 2 "LED_SMD:LED_0603_1608Metric" H 6400 2900 50  0001 C CNN
 F 3 "-" H 6400 2900 50  0001 C CNN
 F 4 "-" H 6400 2900 50  0001 C CNN "Manufacturer nr"
 	1    6400 2900
@@ -3238,16 +3178,16 @@ F 3 "" H 6400 3200 50  0001 C CNN
 	-1   0    0    -1  
 $EndComp
 $Comp
-L Device:D D7
+L Device:D_Schottky_AAK D7
 U 1 1 5CF61E9D
-P 1750 800
-F 0 "D7" H 1750 600 50  0000 C CNN
-F 1 "VS-6ESH06-M3" H 1750 700 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:TO-277A" H 1750 800 50  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2182681.pdf?_ga=2.208013010.1588585681.1526323724-1626853455.1515011571" H 1750 800 50  0001 C CNN
-F 4 "2471194" H 1750 800 50  0001 C CNN "Farnell"
-F 5 "VS-6ESH06-M3/86A" H 0   0   50  0001 C CNN "Manufacturer nr"
-	1    1750 800 
+P 1750 750
+F 0 "D7" H 1750 550 50  0000 C CNN
+F 1 "VS-6ESH06-M3" H 1750 650 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:TO-277A" H 1750 750 50  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2182681.pdf?_ga=2.208013010.1588585681.1526323724-1626853455.1515011571" H 1750 750 50  0001 C CNN
+F 4 "2471194" H 1750 750 50  0001 C CNN "Farnell"
+F 5 "VS-6ESH06-M3/86A" H 0   -50 50  0001 C CNN "Manufacturer nr"
+	1    1750 750 
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -3263,20 +3203,18 @@ F 4 "MCGPR35V477M10X21" H 1950 1050 50  0001 C CNN "Manufacturer nr"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2200 800  1950 800 
+	2200 750  1950 750 
 Wire Wire Line
-	1950 800  1950 900 
-Connection ~ 2200 800 
+	1950 750  1950 900 
+Connection ~ 2200 750 
 Wire Wire Line
 	1950 1200 1950 1300
 Connection ~ 1950 1300
 Wire Wire Line
 	1950 1300 2200 1300
-Connection ~ 1950 800 
+Connection ~ 1950 750 
 Wire Wire Line
-	1900 800  1950 800 
-Wire Wire Line
-	1550 800  1600 800 
+	1900 750  1950 750 
 Wire Wire Line
 	850  800  900  800 
 Wire Wire Line
@@ -3379,19 +3317,6 @@ F 3 "" H 2650 1850 50  0001 C CNN
 $EndComp
 Wire Wire Line
 	2650 1850 2650 1900
-$Comp
-L Device:R R49
-U 1 1 5C121B9A
-P 9600 4000
-F 0 "R49" V 9500 4000 50  0000 C CNN
-F 1 "1k" V 9600 4000 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 9530 4000 50  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191239274.13702668.1544197496-523844734.1542029203&_gac=1.245695152.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE" H 9600 4000 50  0001 C CNN
-F 4 "1100192" H -100 2850 50  0001 C CNN "Farnell"
-F 5 "WCR1206-1K0FI" H -100 2850 50  0001 C CNN "Manufacturer nr"
-	1    9600 4000
-	0    -1   -1   0   
-$EndComp
 Wire Wire Line
 	10650 1950 10650 1900
 Wire Wire Line
@@ -3409,27 +3334,79 @@ Wire Wire Line
 Connection ~ 9550 5150
 Wire Wire Line
 	9550 5150 9550 5950
-$Comp
-L Device:R R48
-U 1 1 5C624148
-P 9600 3900
-F 0 "R48" V 9680 3900 50  0000 C CNN
-F 1 "1k" V 9600 3900 50  0000 C CNN
-F 2 "Resistor_SMD:R_1206_3216Metric" V 9530 3900 50  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191239274.13702668.1544197496-523844734.1542029203&_gac=1.245695152.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE" H 9600 3900 50  0001 C CNN
-F 4 "1100192" H -100 2750 50  0001 C CNN "Farnell"
-F 5 "WCR1206-1K0FI" H -100 2750 50  0001 C CNN "Manufacturer nr"
-	1    9600 3900
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	9750 3900 10000 3900
-Wire Wire Line
-	9750 4000 10000 4000
 Text Notes 1250 3100 0    50   ~ 0
 Farnell: 1467755
 Wire Wire Line
-	9200 4000 9450 4000
+	2500 800  2450 800 
+Connection ~ 2450 800 
 Wire Wire Line
-	9200 3900 9450 3900
+	2450 800  2450 750 
+Wire Wire Line
+	1550 750  1550 800 
+Wire Wire Line
+	1550 850  1550 800 
+Connection ~ 1550 800 
+Wire Wire Line
+	9800 3900 10000 3900
+Wire Wire Line
+	10000 4000 9800 4000
+Wire Wire Line
+	5000 6350 5000 6450
+Wire Wire Line
+	4500 6350 4500 6450
+Wire Wire Line
+	5000 6650 5000 6750
+Connection ~ 5000 6650
+Wire Wire Line
+	5000 6850 5000 6750
+Connection ~ 5000 6750
+Wire Wire Line
+	4950 6450 5000 6450
+Connection ~ 5000 6450
+Wire Wire Line
+	5000 6450 5000 6650
+Wire Wire Line
+	4600 6450 4500 6450
+Connection ~ 4500 6450
+Wire Wire Line
+	4500 6450 4500 6550
+Wire Wire Line
+	4600 6550 4500 6550
+Connection ~ 4500 6550
+Wire Wire Line
+	4500 6550 4500 6650
+Wire Wire Line
+	4650 6650 4500 6650
+Connection ~ 4500 6650
+Wire Wire Line
+	4650 6850 4500 6850
+Wire Wire Line
+	4500 6650 4500 6850
+Wire Wire Line
+	5300 6950 5200 6950
+Text GLabel 5300 7200 2    50   Output ~ 0
+PWM2
+Wire Wire Line
+	4500 6850 3850 6850
+Wire Wire Line
+	3850 6400 3850 6850
+Connection ~ 4500 6850
+Wire Wire Line
+	5300 6750 5000 6750
+Wire Wire Line
+	4100 1600 4150 1600
+Wire Wire Line
+	4450 1600 4500 1600
+Connection ~ 4500 1600
+Text GLabel 5300 6450 2    50   Output ~ 0
+PWM1
+Wire Wire Line
+	5300 6450 5000 6450
+Wire Wire Line
+	3700 7200 5200 7200
+Wire Wire Line
+	5200 6950 5200 7200
+Connection ~ 5200 7200
+Wire Wire Line
+	5200 7200 5300 7200
 $EndSCHEMATC
