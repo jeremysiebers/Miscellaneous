@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source C:\GIT-REPOS\Miscellaneous\KiCad\TrackModBusMaster_piggyback\TrackModBusMaster_piggyback.sch)
-    (date "11-12-2018 22:43:59")
+    (date "11-12-2018 23:10:01")
     (tool "Eeschema (5.0.0-rc2-dev-451-g0294e41cb)")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -145,7 +145,7 @@
       (tstamp 5BCB4849))
     (comp (ref D1)
       (value "LED GR")
-      (footprint LED_SMD:LED_1206_3216Metric)
+      (footprint Diode_SMD:LED_0.8x0.8)
       (datasheet http://www.farnell.com/datasheets/2045940.pdf?_ga=2.245392706.792852979.1526285019-1651149783.1519657816)
       (fields
         (field (name Farnell) 2426215)
@@ -155,7 +155,7 @@
       (tstamp 5BCE82A4))
     (comp (ref D2)
       (value "LED YE")
-      (footprint LED_SMD:LED_1206_3216Metric)
+      (footprint Diode_SMD:LED_0.8x0.8)
       (datasheet http://www.farnell.com/datasheets/2046217.pdf?_ga=2.214478033.792852979.1526285019-1651149783.1519657816)
       (fields
         (field (name Farnell) 2426218)
@@ -165,7 +165,7 @@
       (tstamp 5BD07CAE))
     (comp (ref D3)
       (value "LED RD")
-      (footprint LED_SMD:LED_1206_3216Metric)
+      (footprint Diode_SMD:LED_0.8x0.8)
       (datasheet http://www.farnell.com/datasheets/2046367.pdf?_ga=2.218710495.792852979.1526285019-1651149783.1519657816)
       (fields
         (field (name Farnell) 2426211)
@@ -267,7 +267,7 @@
       (tstamp 5C2721D6))
     (comp (ref D4)
       (value "LED GR")
-      (footprint LED_SMD:LED_1206_3216Metric)
+      (footprint Diode_SMD:LED_0.8x0.8)
       (datasheet http://www.farnell.com/datasheets/2045940.pdf?_ga=2.245392706.792852979.1526285019-1651149783.1519657816)
       (fields
         (field (name Farnell) 2426215)
@@ -277,7 +277,7 @@
       (tstamp 5C272602))
     (comp (ref D5)
       (value "LED GR")
-      (footprint LED_SMD:LED_1206_3216Metric)
+      (footprint Diode_SMD:LED_0.8x0.8)
       (datasheet http://www.farnell.com/datasheets/2045940.pdf?_ga=2.245392706.792852979.1526285019-1651149783.1519657816)
       (fields
         (field (name Farnell) 2426215)
