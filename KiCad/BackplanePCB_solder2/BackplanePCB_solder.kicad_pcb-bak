@@ -11,8 +11,8 @@
 
   (page A2)
   (layers
-    (0 F.Cu signal hide)
-    (31 B.Cu signal hide)
+    (0 F.Cu signal)
+    (31 B.Cu signal)
     (32 B.Adhes user)
     (33 F.Adhes user)
     (34 B.Paste user)
@@ -21,7 +21,7 @@
     (37 F.SilkS user)
     (38 B.Mask user)
     (39 F.Mask user)
-    (40 Dwgs.User user hide)
+    (40 Dwgs.User user)
     (41 Cmts.User user)
     (42 Eco1.User user)
     (43 Eco2.User user)
@@ -4606,7 +4606,7 @@
     (tags resistor)
     (path /5BD68C20/5C158A8D)
     (attr smd)
-    (fp_text reference R14 (at -0.254 1.524 180) (layer F.SilkS) hide
+    (fp_text reference R14 (at -2.6543 -0.0508 180) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text value R (at 0 1.43 180) (layer F.Fab)
@@ -4642,7 +4642,7 @@
     (tags resistor)
     (path /5BD68C20/5C158A1B)
     (attr smd)
-    (fp_text reference R15 (at 0 -1.524 180) (layer F.SilkS) hide
+    (fp_text reference R15 (at -2.667 -0.0508 180) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text value R (at 0 1.43 180) (layer F.Fab)
@@ -4678,7 +4678,7 @@
     (tags resistor)
     (path /5BD68C20/5C158866)
     (attr smd)
-    (fp_text reference R16 (at 2.286 0 270) (layer F.SilkS) hide
+    (fp_text reference R16 (at -2.667 -0.0508) (layer F.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text value R (at 0 1.43 180) (layer F.Fab)
@@ -5219,7 +5219,7 @@
     (tags resistor)
     (path /5BD68C20/5C2DA8DD)
     (attr smd)
-    (fp_text reference R29 (at 0 -1.85) (layer F.SilkS)
+    (fp_text reference R29 (at 0 1.778) (layer F.SilkS)
       (effects (font (size 1 1) (thickness 0.15)))
     )
     (fp_text value 0E (at 0 1.85) (layer F.Fab)
@@ -7069,7 +7069,7 @@
   (gr_text > (at 243.586 163.957 270) (layer F.SilkS)
     (effects (font (size 1.5 1.5) (thickness 0.3)))
   )
-  (gr_text ID (at 177.419 172.339 90) (layer F.SilkS)
+  (gr_text ID (at 177.419 172.085 90) (layer F.SilkS)
     (effects (font (size 1.5 1.5) (thickness 0.3)))
   )
   (gr_text SLAVE (at 177.419 181.61 90) (layer F.SilkS)
