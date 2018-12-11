@@ -105,9 +105,9 @@ F 5 "MC1206B475K250CT" H 3450 1050 50  0001 C CNN "Manufacturer nr"
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	2200 750  2200 900 
+	2200 800  2200 900 
 Wire Wire Line
-	2200 750  2450 750 
+	2200 800  2450 800 
 Wire Wire Line
 	2450 900  2450 800 
 $Comp
@@ -674,7 +674,7 @@ F 1 "PIC18F25K40" H 8250 3100 50  0000 C CNN
 F 2 "Package_SO:SOIC-28W_7.5x17.9mm_P1.27mm" H 7850 1250 50  0001 C CNN
 F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/PIC18(L)F24_25K40%2028-Pin%20Low-Power%20High-Performance%20MCU%20with%20XLP%20Technology%2040001843D.pdf" H 8150 1750 50  0001 C CNN
 F 4 "2564200" H 7850 2350 50  0001 C CNN "Farnell"
-F 5 "PIC16F18854-I/SO" H 7850 2350 50  0001 C CNN "Manufacturer nr"
+F 5 "PIC18F25K40-I/SO" H 7850 2350 50  0001 C CNN "Manufacturer nr"
 	1    7850 2350
 	1    0    0    -1  
 $EndComp
@@ -3178,14 +3178,14 @@ $EndComp
 $Comp
 L Device:D_Schottky_AAK D7
 U 1 1 5CF61E9D
-P 1750 750
-F 0 "D7" H 1750 550 50  0000 C CNN
-F 1 "VS-6ESH06-M3" H 1750 650 50  0000 C CNN
-F 2 "Package_TO_SOT_SMD:TO-277A" H 1750 750 50  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/2182681.pdf?_ga=2.208013010.1588585681.1526323724-1626853455.1515011571" H 1750 750 50  0001 C CNN
-F 4 "2471194" H 1750 750 50  0001 C CNN "Farnell"
-F 5 "VS-6ESH06-M3/86A" H 0   -50 50  0001 C CNN "Manufacturer nr"
-	1    1750 750 
+P 1750 800
+F 0 "D7" H 1750 600 50  0000 C CNN
+F 1 "VS-6ESH06-M3" H 1750 700 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:TO-277A" H 1750 800 50  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/2182681.pdf?_ga=2.208013010.1588585681.1526323724-1626853455.1515011571" H 1750 800 50  0001 C CNN
+F 4 "2471194" H 1750 800 50  0001 C CNN "Farnell"
+F 5 "VS-6ESH06-M3/86A" H 0   0   50  0001 C CNN "Manufacturer nr"
+	1    1750 800 
 	-1   0    0    1   
 $EndComp
 $Comp
@@ -3201,18 +3201,18 @@ F 4 "MCGPR35V477M10X21" H 1950 1050 50  0001 C CNN "Manufacturer nr"
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	2200 750  1950 750 
+	2200 800  1950 800 
 Wire Wire Line
-	1950 750  1950 900 
-Connection ~ 2200 750 
+	1950 800  1950 900 
+Connection ~ 2200 800 
 Wire Wire Line
 	1950 1200 1950 1300
 Connection ~ 1950 1300
 Wire Wire Line
 	1950 1300 2200 1300
-Connection ~ 1950 750 
+Connection ~ 1950 800 
 Wire Wire Line
-	1900 750  1950 750 
+	1900 800  1950 800 
 Wire Wire Line
 	850  800  900  800 
 Wire Wire Line
@@ -3338,13 +3338,6 @@ Wire Wire Line
 	2500 800  2450 800 
 Connection ~ 2450 800 
 Wire Wire Line
-	2450 800  2450 750 
-Wire Wire Line
-	1550 750  1550 800 
-Wire Wire Line
-	1550 850  1550 800 
-Connection ~ 1550 800 
-Wire Wire Line
 	9800 3900 10000 3900
 Wire Wire Line
 	10000 4000 9800 4000
@@ -3409,4 +3402,7 @@ Wire Wire Line
 	5200 7200 5300 7200
 Text Notes 2000 3200 0    50   ~ 0
 OR: 4x MAX3468
+Connection ~ 1550 800 
+Wire Wire Line
+	1550 800  1550 900 
 $EndSCHEMATC

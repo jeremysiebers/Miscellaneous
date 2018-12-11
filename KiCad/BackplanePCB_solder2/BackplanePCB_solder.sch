@@ -2036,11 +2036,9 @@ Wire Wire Line
 Wire Bus Line
 	2650 6050 3050 6050
 Entry Wire Line
-	2550 5650 2650 5550
-Text Label 2300 5650 0    50   ~ 0
+	2550 5500 2650 5400
+Text Label 2300 5500 0    50   ~ 0
 GND
-Wire Wire Line
-	2100 5650 2550 5650
 Wire Wire Line
 	1550 3650 1800 3650
 Wire Wire Line
@@ -2065,9 +2063,9 @@ Connection ~ 1750 3500
 Wire Wire Line
 	1750 3500 1900 3500
 Wire Wire Line
-	2100 5350 1700 5350
+	1900 5200 1700 5200
 Wire Wire Line
-	1700 5350 1700 3350
+	1700 5200 1700 3350
 Connection ~ 1700 3350
 Wire Wire Line
 	1700 3350 1900 3350
@@ -2149,19 +2147,6 @@ F 3 "http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.154
 F 4 "1414715" H 2100 5050 50  0001 C CNN "Farnell"
 F 5 "C1206C104K5RACTU" H 2100 5050 50  0001 C CNN "Manufacturer nr"
 	1    2100 5050
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C C23
-U 1 1 5C12C2C1
-P 2100 5500
-F 0 "C23" H 2215 5546 50  0000 L CNN
-F 1 "100n" H 2215 5455 50  0000 L CNN
-F 2 "Capacitor_SMD:C_1206_3216Metric" H 2138 5350 50  0001 C CNN
-F 3 "http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE" H 2100 5500 50  0001 C CNN
-F 4 "1414715" H 2100 5500 50  0001 C CNN "Farnell"
-F 5 "C1206C104K5RACTU" H 2100 5500 50  0001 C CNN "Manufacturer nr"
-	1    2100 5500
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -2268,14 +2253,95 @@ F 5 "WCR1206-2KFI" V 1900 6750 50  0001 C CNN "Manufacturer nr"
 	1    1900 6750
 	0    1    1    0   
 $EndComp
+$Comp
+L Connector_Generic:Conn_01x09 J26
+U 1 1 5C248EAF
+P 1950 6050
+F 0 "J26" V 2050 6250 50  0000 C CNN
+F 1 "Conn_01x09" V 2050 5850 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x09_P2.54mm_Vertical" H 1950 6050 50  0001 C CNN
+F 3 "~" H 1950 6050 50  0001 C CNN
+	1    1950 6050
+	-1   0    0    -1  
+$EndComp
+Connection ~ 2650 6050
+Entry Wire Line
+	2550 5750 2650 5650
+Entry Wire Line
+	2550 5950 2650 5850
+Entry Wire Line
+	2550 5850 2650 5750
+Entry Wire Line
+	2550 6050 2650 5950
+Entry Wire Line
+	2550 6150 2650 6050
+Entry Wire Line
+	2550 6250 2650 6150
+Entry Wire Line
+	2550 6350 2650 6250
+Entry Wire Line
+	2550 6450 2650 6350
+Wire Wire Line
+	2550 5750 2150 5750
+Wire Wire Line
+	2150 5850 2550 5850
+Wire Wire Line
+	2550 5950 2150 5950
+Wire Wire Line
+	2150 6050 2550 6050
+Wire Wire Line
+	2550 6150 2150 6150
+Wire Wire Line
+	2150 6250 2550 6250
+Wire Wire Line
+	2550 6350 2150 6350
+Text Label 2200 6250 0    50   ~ 0
+TX_A
+Text Label 2200 6050 0    50   ~ 0
+RX_A
+Text Label 2200 5850 0    50   ~ 0
+SYNC_A
+Text Label 2200 5650 0    50   ~ 0
+RESET_A
+Text Label 2200 6350 0    50   ~ 0
+TX_B
+Text Label 2200 6150 0    50   ~ 0
+RX_B
+Text Label 2200 5950 0    50   ~ 0
+SYNC_B
+Text Label 2200 5750 0    50   ~ 0
+RESET_B
+$Comp
+L Device:C C23
+U 1 1 5C12C2C1
+P 1900 5350
+F 0 "C23" H 2015 5396 50  0000 L CNN
+F 1 "100n" H 2015 5305 50  0000 L CNN
+F 2 "Capacitor_SMD:C_1206_3216Metric" H 1938 5200 50  0001 C CNN
+F 3 "http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE" H 1900 5350 50  0001 C CNN
+F 4 "1414715" H 1900 5350 50  0001 C CNN "Farnell"
+F 5 "C1206C104K5RACTU" H 1900 5350 50  0001 C CNN "Manufacturer nr"
+	1    1900 5350
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	1900 5500 2550 5500
+Wire Wire Line
+	2550 6450 2150 6450
+Entry Wire Line
+	2550 5650 2650 5550
+Wire Wire Line
+	2550 5650 2150 5650
 Wire Bus Line
 	5900 6050 5900 6550
 Wire Bus Line
-	2650 3750 2650 6050
+	2650 6050 2650 6450
 Wire Bus Line
 	4000 6050 4000 7550
 Wire Bus Line
 	4950 6050 4950 7550
+Wire Bus Line
+	2650 3750 2650 6050
 Wire Bus Line
 	2650 1750 2650 3750
 Wire Bus Line
@@ -2302,4 +2368,6 @@ Wire Bus Line
 	3050 4250 3050 6050
 Wire Bus Line
 	800  1150 800  7450
+Text Label 2200 6450 0    50   ~ 0
+GND
 $EndSCHEMATC
