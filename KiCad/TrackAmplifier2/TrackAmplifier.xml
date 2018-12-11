@@ -2,7 +2,7 @@
 <export version="D">
   <design>
     <source>C:\Localdata\GIT_REPO\Miscellaneous\KiCad\TrackAmplifier2\TrackAmplifier.sch</source>
-    <date>10-12-2018 13:47:52</date>
+    <date>11-12-2018 21:42:53</date>
     <tool>Eeschema (5.0.0)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -61,7 +61,7 @@
         <field name="Farnell">1077155</field>
         <field name="Manufacturer nr">L78M05CDT-1</field>
       </fields>
-      <libsource lib="Regulator_Linear" part="LM78M05_TO252" description="Positive 500mA 35V Linear Regulator, Fixed Output 5V, TO-252 (D-PAK)"/>
+      <libsource lib="TrackAmplifier-rescue" part="LM78M05_TO251-3-Regulator_Linear" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5AE1A916</tstamp>
     </comp>
@@ -259,7 +259,7 @@
       <datasheet>http://ww1.microchip.com/downloads/en/DeviceDoc/PIC18(L)F24_25K40%2028-Pin%20Low-Power%20High-Performance%20MCU%20with%20XLP%20Technology%2040001843D.pdf</datasheet>
       <fields>
         <field name="Farnell">2564200</field>
-        <field name="Manufacturer nr">PIC16F18854-I/SO</field>
+        <field name="Manufacturer nr">PIC18F25K40-I/SO</field>
       </fields>
       <libsource lib="TrackAmplifier-rescue" part="PIC16F18854-SO-MCU_Microchip_PIC16" description=""/>
       <sheetpath names="/" tstamps="/"/>
@@ -373,36 +373,36 @@
       <tstamp>5B0062DB</tstamp>
     </comp>
     <comp ref="R6">
-      <value>4k7</value>
+      <value>4k99</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191241066.13702668.1544197496-523844734.1542029203&amp;_gac=1.7619462.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100209</field>
-        <field name="Manufacturer nr">WCR1206-4K7FI</field>
+        <field name="Farnell">2695161</field>
+        <field name="Manufacturer nr">MCWR12X4991FTL</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5B19F40D</tstamp>
     </comp>
     <comp ref="R4">
-      <value>4k7</value>
+      <value>4k99</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191241066.13702668.1544197496-523844734.1542029203&amp;_gac=1.7619462.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100209</field>
-        <field name="Manufacturer nr">WCR1206-4K7FI</field>
+        <field name="Farnell">2695161</field>
+        <field name="Manufacturer nr">MCWR12X4991FTL</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5B1DAA4F</tstamp>
     </comp>
     <comp ref="R7">
-      <value>4k7</value>
+      <value>4k99</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191241066.13702668.1544197496-523844734.1542029203&amp;_gac=1.7619462.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100209</field>
-        <field name="Manufacturer nr">WCR1206-4K7FI</field>
+        <field name="Farnell">2695161</field>
+        <field name="Manufacturer nr">MCWR12X4991FTL</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -576,36 +576,36 @@
       <tstamp>5B781513</tstamp>
     </comp>
     <comp ref="R13">
-      <value>1k</value>
+      <value>39k</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191239274.13702668.1544197496-523844734.1542029203&amp;_gac=1.245695152.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100192</field>
-        <field name="Manufacturer nr">WCR1206-1K0FI</field>
+        <field name="Farnell">1100234</field>
+        <field name="Manufacturer nr">WCR1206-39KFI</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5B7BBAAE</tstamp>
     </comp>
     <comp ref="R15">
-      <value>100k</value>
+      <value>39k</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2331353.pdf?_ga=2.264231116.13702668.1544197496-523844734.1542029203&amp;_gac=1.217211554.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100244</field>
-        <field name="Manufacturer nr">WCR1206-100KFI</field>
+        <field name="Farnell">1100234</field>
+        <field name="Manufacturer nr">WCR1206-39KFI</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5B7BBBFA</tstamp>
     </comp>
     <comp ref="R18">
-      <value>100E</value>
+      <value>4k99</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.36114656.13702668.1544197496-523844734.1542029203&amp;_gac=1.195831192.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100164</field>
-        <field name="Manufacturer nr">WCR1206-100RFI</field>
+        <field name="Farnell">2695161</field>
+        <field name="Manufacturer nr">MCWR12X4991FTL</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -696,12 +696,12 @@
       <tstamp>5BEC31FD</tstamp>
     </comp>
     <comp ref="R25">
-      <value>4k7</value>
+      <value>4k99</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191241066.13702668.1544197496-523844734.1542029203&amp;_gac=1.7619462.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100209</field>
-        <field name="Manufacturer nr">WCR1206-4K7FI</field>
+        <field name="Farnell">2695161</field>
+        <field name="Manufacturer nr">MCWR12X4991FTL</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -732,8 +732,8 @@
       <tstamp>5C055174</tstamp>
     </comp>
     <comp ref="D1">
-      <value>LED GR</value>
-      <footprint>LED_SMD:LED_0603_1608Metric</footprint>
+      <value>LED GR RUN</value>
+      <footprint>Diode_SMD:LED_0.8x0.8</footprint>
       <datasheet>http://www.farnell.com/datasheets/2045940.pdf?_ga=2.245392706.792852979.1526285019-1651149783.1519657816</datasheet>
       <fields>
         <field name="Farnell">2426215</field>
@@ -768,8 +768,8 @@
       <tstamp>5C136135</tstamp>
     </comp>
     <comp ref="D2">
-      <value>LED YE</value>
-      <footprint>LED_SMD:LED_0603_1608Metric</footprint>
+      <value>LED YE WAR</value>
+      <footprint>Diode_SMD:LED_0.8x0.8</footprint>
       <datasheet>http://www.farnell.com/datasheets/2046217.pdf?_ga=2.214478033.792852979.1526285019-1651149783.1519657816</datasheet>
       <fields>
         <field name="Farnell">2426218</field>
@@ -780,8 +780,8 @@
       <tstamp>5C1363EF</tstamp>
     </comp>
     <comp ref="D3">
-      <value>LED RD</value>
-      <footprint>LED_SMD:LED_0603_1608Metric</footprint>
+      <value>LED RD ERR</value>
+      <footprint>Diode_SMD:LED_0.8x0.8</footprint>
       <datasheet>http://www.farnell.com/datasheets/2046367.pdf?_ga=2.218710495.792852979.1526285019-1651149783.1519657816</datasheet>
       <fields>
         <field name="Farnell">2426211</field>
@@ -792,12 +792,12 @@
       <tstamp>5C136953</tstamp>
     </comp>
     <comp ref="R31">
-      <value>100k</value>
+      <value>110k</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2331353.pdf?_ga=2.264231116.13702668.1544197496-523844734.1542029203&amp;_gac=1.217211554.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100244</field>
-        <field name="Manufacturer nr">WCR1206-100KFI</field>
+        <field name="Farnell">1100246</field>
+        <field name="Manufacturer nr">WCR1206-110KFI</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -816,8 +816,8 @@
       <tstamp>5C599BC7</tstamp>
     </comp>
     <comp ref="D4">
-      <value>LED GR</value>
-      <footprint>LED_SMD:LED_0603_1608Metric</footprint>
+      <value>LED GR RX </value>
+      <footprint>Diode_SMD:LED_0.8x0.8</footprint>
       <datasheet>http://www.farnell.com/datasheets/2045940.pdf?_ga=2.245392706.792852979.1526285019-1651149783.1519657816</datasheet>
       <fields>
         <field name="Farnell">2426215</field>
@@ -923,8 +923,8 @@
       <tstamp>5B8B9949</tstamp>
     </comp>
     <comp ref="D8">
-      <value>LED GR</value>
-      <footprint>LED_SMD:LED_0603_1608Metric</footprint>
+      <value>LED GR TX </value>
+      <footprint>Diode_SMD:LED_0.8x0.8</footprint>
       <datasheet>http://www.farnell.com/datasheets/2045940.pdf?_ga=2.245392706.792852979.1526285019-1651149783.1519657816</datasheet>
       <fields>
         <field name="Farnell">2426215</field>
@@ -1066,36 +1066,36 @@
       <tstamp>5B1E852F</tstamp>
     </comp>
     <comp ref="R17">
-      <value>5k1</value>
+      <value>4k99</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2331353.pdf?_ga=2.3463152.13702668.1544197496-523844734.1542029203&amp;_gac=1.11733504.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
         <field name="Farnell">2695161</field>
-        <field name="Manufacturer nr">WCR1206-5K1FI</field>
+        <field name="Manufacturer nr">MCWR12X4991FTL</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5B2136D1</tstamp>
     </comp>
     <comp ref="R39">
-      <value>910R</value>
+      <value>1k</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2331353.pdf?_ga=2.25152762.13702668.1544197496-523844734.1542029203&amp;_gac=1.12378624.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100190</field>
-        <field name="Manufacturer nr">WCR1206-910RFI</field>
+        <field name="Farnell">1100192</field>
+        <field name="Manufacturer nr">WCR1206-1K0FI</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5AF71650</tstamp>
     </comp>
     <comp ref="R40">
-      <value>4k7</value>
+      <value>4k99</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191241066.13702668.1544197496-523844734.1542029203&amp;_gac=1.7619462.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100209</field>
-        <field name="Manufacturer nr">WCR1206-4K7FI</field>
+        <field name="Farnell">2695161</field>
+        <field name="Manufacturer nr">MCWR12X4991FTL</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1138,24 +1138,24 @@
       <tstamp>5B01F5E3</tstamp>
     </comp>
     <comp ref="R21">
-      <value>9k10</value>
+      <value>20k</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2331353.pdf?_ga=2.57067299.804204398.1540810031-466615820.1533907205&amp;_gac=1.79366502.1540810769.CjwKCAjw39reBRBJEiwAO1m0OeFHyFqLAwRfo1TyfiEw1u5wgH8YT365nEvQxYyzS_SVx6sHehne4BoC4gYQAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100217</field>
-        <field name="Manufacturer nr">WCR1206-9K1FI</field>
+        <field name="Farnell">1100226</field>
+        <field name="Manufacturer nr">WCR1206-20KFI</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5BAED14E</tstamp>
     </comp>
     <comp ref="R20">
-      <value>9k10</value>
+      <value>20k</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2331353.pdf?_ga=2.57067299.804204398.1540810031-466615820.1533907205&amp;_gac=1.79366502.1540810769.CjwKCAjw39reBRBJEiwAO1m0OeFHyFqLAwRfo1TyfiEw1u5wgH8YT365nEvQxYyzS_SVx6sHehne4BoC4gYQAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100217</field>
-        <field name="Manufacturer nr">WCR1206-9K1FI</field>
+        <field name="Farnell">1100226</field>
+        <field name="Manufacturer nr">WCR1206-20KFI</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1193,7 +1193,7 @@
         <field name="Farnell">2842970</field>
         <field name="Manufacturer nr">INA2180A1IDGKT</field>
       </fields>
-      <libsource lib="Amplifier_Current" part="INA2180" description="Low- and High-Side Voltage Output, Current-Sense Amplifiers"/>
+      <libsource lib="TrackAmplifier-rescue" part="INA2180-Amplifier_Current" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5BD5C8E8</tstamp>
     </comp>
@@ -1229,7 +1229,7 @@
         <field name="Farnell">2471194</field>
         <field name="Manufacturer nr">VS-6ESH06-M3/86A</field>
       </fields>
-      <libsource lib="Device" part="D" description="Diode"/>
+      <libsource lib="Device" part="D_Schottky_AAK" description="Schottky diode, anode on pins 1 and 2"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5BFE0109</tstamp>
     </comp>
@@ -1253,41 +1253,41 @@
         <field name="Farnell">2471194</field>
         <field name="Manufacturer nr">VS-6ESH06-M3/86A</field>
       </fields>
-      <libsource lib="Device" part="D" description="Diode"/>
+      <libsource lib="Device" part="D_Schottky_AAK" description="Schottky diode, anode on pins 1 and 2"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5BFE0BE4</tstamp>
     </comp>
     <comp ref="R16">
-      <value>1k</value>
+      <value>3k9</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191239274.13702668.1544197496-523844734.1542029203&amp;_gac=1.245695152.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100192</field>
-        <field name="Manufacturer nr">WCR1206-1K0FI</field>
+        <field name="Farnell">1100206</field>
+        <field name="Manufacturer nr">WCR1206-3K9FI</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5C3437FA</tstamp>
     </comp>
     <comp ref="R38">
-      <value>1k</value>
+      <value>3k9</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191239274.13702668.1544197496-523844734.1542029203&amp;_gac=1.245695152.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100192</field>
-        <field name="Manufacturer nr">WCR1206-1K0FI</field>
+        <field name="Farnell">1100206</field>
+        <field name="Manufacturer nr">WCR1206-3K9FI</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5C343C4E</tstamp>
     </comp>
     <comp ref="R42">
-      <value>4k7</value>
+      <value>4k99</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191241066.13702668.1544197496-523844734.1542029203&amp;_gac=1.7619462.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100209</field>
-        <field name="Manufacturer nr">WCR1206-4K7FI</field>
+        <field name="Farnell">2695161</field>
+        <field name="Manufacturer nr">MCWR12X4991FTL</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -1349,7 +1349,7 @@
         <field name="Farnell">2065857</field>
         <field name="Manufacturer nr">MCP6N11-001E/SN</field>
       </fields>
-      <libsource lib="Amplifier_Instrumentation" part="MCP6N11" description="Precision, Rail-to-Rail I/O Instrumentation Amplifier, SOIC-8 package"/>
+      <libsource lib="TrackAmplifier-rescue" part="MCP6N11-Amplifier_Instrumentation" description=""/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5C93942B</tstamp>
     </comp>
@@ -1367,7 +1367,7 @@
     </comp>
     <comp ref="D13">
       <value>LED BL ?</value>
-      <footprint>-</footprint>
+      <footprint>Diode_SMD:LED_0.8x0.8</footprint>
       <datasheet>-</datasheet>
       <fields>
         <field name="Manufacturer nr">-</field>
@@ -1384,13 +1384,13 @@
         <field name="Farnell">2471194</field>
         <field name="Manufacturer nr">VS-6ESH06-M3/86A</field>
       </fields>
-      <libsource lib="Device" part="D" description="Diode"/>
+      <libsource lib="Device" part="D_Schottky_AAK" description="Schottky diode, anode on pins 1 and 2"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5CF61E9D</tstamp>
     </comp>
     <comp ref="C21">
-      <value>470u</value>
-      <footprint>Capacitor_SMD:CP_Elec_6.3x3</footprint>
+      <value>220u</value>
+      <footprint>Capacitor_SMD:CP_Elec_8x10.5</footprint>
       <fields>
         <field name="Manufacturer nr">MCGPR35V477M10X21</field>
       </fields>
@@ -1411,8 +1411,8 @@
       <tstamp>5DA119FC</tstamp>
     </comp>
     <comp ref="D16">
-      <value>LED BL</value>
-      <footprint>LED_SMD:LED_0603_1608Metric</footprint>
+      <value>LED BL OCC</value>
+      <footprint>Diode_SMD:LED_0.8x0.8</footprint>
       <datasheet>http://www.farnell.com/datasheets/2046366.pdf?_ga=2.60295403.792852979.1526285019-1651149783.1519657816</datasheet>
       <fields>
         <field name="Farnell">2426212</field>
@@ -1424,38 +1424,15 @@
     </comp>
     <comp ref="R47">
       <value>NP</value>
-      <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
+      <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2331353.pdf?_ga=2.31327414.804204398.1540810031-466615820.1533907205&amp;_gac=1.187361882.1540810769.CjwKCAjw39reBRBJEiwAO1m0OeFHyFqLAwRfo1TyfiEw1u5wgH8YT365nEvQxYyzS_SVx6sHehne4BoC4gYQAvD_BwE</datasheet>
       <fields>
+        <field name="Farnell">-</field>
         <field name="Manufacturer nr">WCR1206-R005JI</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/" tstamps="/"/>
       <tstamp>5C04E09A</tstamp>
-    </comp>
-    <comp ref="R49">
-      <value>1k</value>
-      <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
-      <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191239274.13702668.1544197496-523844734.1542029203&amp;_gac=1.245695152.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
-      <fields>
-        <field name="Farnell">1100192</field>
-        <field name="Manufacturer nr">WCR1206-1K0FI</field>
-      </fields>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>5C121B9A</tstamp>
-    </comp>
-    <comp ref="R48">
-      <value>1k</value>
-      <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
-      <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191239274.13702668.1544197496-523844734.1542029203&amp;_gac=1.245695152.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
-      <fields>
-        <field name="Farnell">1100192</field>
-        <field name="Manufacturer nr">WCR1206-1K0FI</field>
-      </fields>
-      <libsource lib="Device" part="R" description="Resistor"/>
-      <sheetpath names="/" tstamps="/"/>
-      <tstamp>5C624148</tstamp>
     </comp>
   </components>
   <libparts>
@@ -1468,51 +1445,6 @@
         <field name="Reference">MK</field>
         <field name="Value">Mechanical:Mounting_Hole</field>
       </fields>
-    </libpart>
-    <libpart lib="Amplifier_Current" part="INA2180">
-      <description>Low- and High-Side Voltage Output, Current-Sense Amplifiers</description>
-      <docs>http://www.ti.com/lit/ds/symlink/ina180.pdf</docs>
-      <footprints>
-        <fp>VSSOP*8*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">U</field>
-        <field name="Value">INA2180</field>
-        <field name="Datasheet">http://www.ti.com/lit/ds/symlink/ina180.pdf</field>
-      </fields>
-      <pins>
-        <pin num="1" name="OUT1" type="output"/>
-        <pin num="2" name="IN-1" type="input"/>
-        <pin num="3" name="IN+1" type="input"/>
-        <pin num="4" name="GND" type="power_in"/>
-        <pin num="5" name="IN+2" type="input"/>
-        <pin num="6" name="IN-2" type="input"/>
-        <pin num="7" name="OUT2" type="output"/>
-        <pin num="8" name="VS" type="power_in"/>
-      </pins>
-    </libpart>
-    <libpart lib="Amplifier_Instrumentation" part="MCP6N11">
-      <description>Precision, Rail-to-Rail I/O Instrumentation Amplifier, SOIC-8 package</description>
-      <docs>https://ww1.microchip.com/downloads/en/DeviceDoc/25073A.pdf</docs>
-      <footprints>
-        <fp>SOIC*8*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">U</field>
-        <field name="Value">MCP6N11</field>
-        <field name="Footprint">Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</field>
-        <field name="Datasheet">https://ww1.microchip.com/downloads/en/DeviceDoc/25073A.pdf</field>
-      </fields>
-      <pins>
-        <pin num="1" name="Vfg" type="passive"/>
-        <pin num="2" name="-" type="input"/>
-        <pin num="3" name="+" type="input"/>
-        <pin num="4" name="VSS" type="power_in"/>
-        <pin num="5" name="Vref" type="input"/>
-        <pin num="6" name="~" type="output"/>
-        <pin num="7" name="VDD" type="power_in"/>
-        <pin num="8" name="EN" type="input"/>
-      </pins>
     </libpart>
     <libpart lib="Connector_Generic" part="Conn_01x06">
       <description>Generic connector, single row, 01x06, script generated (kicad-library-utils/schlib/autogen/connector/)</description>
@@ -1564,6 +1496,25 @@
       <pins>
         <pin num="1" name="K" type="passive"/>
         <pin num="2" name="A" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="Device" part="D_Schottky_AAK">
+      <description>Schottky diode, anode on pins 1 and 2</description>
+      <docs>~</docs>
+      <footprints>
+        <fp>TO-???*</fp>
+        <fp>*_Diode_*</fp>
+        <fp>*SingleDiode*</fp>
+        <fp>D_*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">D</field>
+        <field name="Value">D_Schottky_AAK</field>
+      </fields>
+      <pins>
+        <pin num="1" name="A" type="input"/>
+        <pin num="2" name="A" type="passive"/>
+        <pin num="3" name="K" type="passive"/>
       </pins>
     </libpart>
     <libpart lib="Device" part="EMI_Filter_LL">
@@ -1659,41 +1610,6 @@
         <pin num="3" name="GND" type="power_in"/>
       </pins>
     </libpart>
-    <libpart lib="Regulator_Linear" part="LM78M05_TO252">
-      <aliases>
-        <alias>MC78M05_TO252</alias>
-        <alias>KA78M05_TO252</alias>
-        <alias>LF15_TO252</alias>
-        <alias>LF18_TO252</alias>
-        <alias>LF25_TO252</alias>
-        <alias>LF33_TO252</alias>
-        <alias>LF50_TO252</alias>
-        <alias>LF60_TO252</alias>
-        <alias>LF80_TO252</alias>
-        <alias>LF85_TO252</alias>
-        <alias>LF120_TO252</alias>
-        <alias>LP2950-3.0_TO252</alias>
-        <alias>LP2950-3.3_TO252</alias>
-        <alias>LP2950-5.0_TO252</alias>
-        <alias>LF47_TO252</alias>
-        <alias>LF90_TO252</alias>
-      </aliases>
-      <description>Positive 500mA 35V Linear Regulator, Fixed Output 5V, TO-252 (D-PAK)</description>
-      <docs>http://www.fairchildsemi.com/ds/LM/LM78M05.pdf</docs>
-      <footprints>
-        <fp>TO?252*</fp>
-      </footprints>
-      <fields>
-        <field name="Reference">U</field>
-        <field name="Value">LM78M05_TO252</field>
-        <field name="Footprint">Package_TO_SOT_SMD:TO-252-2</field>
-      </fields>
-      <pins>
-        <pin num="1" name="VI" type="power_in"/>
-        <pin num="2" name="GND" type="power_in"/>
-        <pin num="3" name="VO" type="power_out"/>
-      </pins>
-    </libpart>
     <libpart lib="Sensor_Temperature" part="LM35-LP">
       <description>Precision centigrade temperature sensor, TO-92</description>
       <docs>http://www.ti.com/lit/ds/symlink/lm35.pdf</docs>
@@ -1750,6 +1666,42 @@
         <pin num="15" name="P15" type="passive"/>
       </pins>
     </libpart>
+    <libpart lib="TrackAmplifier-rescue" part="INA2180-Amplifier_Current">
+      <footprints>
+        <fp>VSSOP*8*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">INA2180-Amplifier_Current</field>
+        <field name="Datasheet">http://www.ti.com/lit/ds/symlink/ina180.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="OUT1" type="output"/>
+        <pin num="2" name="IN-1" type="input"/>
+        <pin num="3" name="IN+1" type="input"/>
+        <pin num="4" name="GND" type="power_in"/>
+        <pin num="5" name="IN+2" type="input"/>
+        <pin num="6" name="IN-2" type="input"/>
+        <pin num="7" name="OUT2" type="output"/>
+        <pin num="8" name="VS" type="power_in"/>
+      </pins>
+    </libpart>
+    <libpart lib="TrackAmplifier-rescue" part="LM78M05_TO251-3-Regulator_Linear">
+      <footprints>
+        <fp>TO?252*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">LM78M05_TO251-3-Regulator_Linear</field>
+        <field name="Footprint">Package_TO_SOT_SMD:TO-252-2</field>
+      </fields>
+      <pins>
+        <pin num="1" name="VI" type="power_in"/>
+        <pin num="2" name="GND" type="power_in"/>
+        <pin num="3" name="VO" type="power_out"/>
+        <pin num="4" name="GND" type="power_in"/>
+      </pins>
+    </libpart>
     <libpart lib="TrackAmplifier-rescue" part="LMD18200-Driver_Motor">
       <footprints>
         <fp>TO?220*</fp>
@@ -1771,6 +1723,27 @@
         <pin num="9" name="~THERMAL_FLAG_OUTPUT" type="openCol"/>
         <pin num="10" name="OUTPUT2" type="output"/>
         <pin num="11" name="BOOTSTRAP2" type="passive"/>
+      </pins>
+    </libpart>
+    <libpart lib="TrackAmplifier-rescue" part="MCP6N11-Amplifier_Instrumentation">
+      <footprints>
+        <fp>SOIC*8*</fp>
+      </footprints>
+      <fields>
+        <field name="Reference">U</field>
+        <field name="Value">MCP6N11-Amplifier_Instrumentation</field>
+        <field name="Footprint">Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</field>
+        <field name="Datasheet">https://ww1.microchip.com/downloads/en/DeviceDoc/25073A.pdf</field>
+      </fields>
+      <pins>
+        <pin num="1" name="Vfg" type="passive"/>
+        <pin num="2" name="-" type="input"/>
+        <pin num="3" name="+" type="input"/>
+        <pin num="4" name="VSS" type="power_in"/>
+        <pin num="5" name="Vref" type="input"/>
+        <pin num="6" name="~" type="output"/>
+        <pin num="7" name="VDD" type="power_in"/>
+        <pin num="8" name="EN" type="input"/>
       </pins>
     </libpart>
     <libpart lib="TrackAmplifier-rescue" part="PIC16F18854-SO-MCU_Microchip_PIC16">
@@ -1856,12 +1829,6 @@
     </libpart>
   </libparts>
   <libraries>
-    <library logical="Amplifier_Current">
-      <uri>C:/Localdata/GIT_REPO/kicad-symbols/Amplifier_Current.lib</uri>
-    </library>
-    <library logical="Amplifier_Instrumentation">
-      <uri>C:/Localdata/GIT_REPO/kicad-symbols/Amplifier_Instrumentation.lib</uri>
-    </library>
     <library logical="Connector_Generic">
       <uri>C:/Localdata/GIT_REPO/kicad-symbols/Connector_Generic.lib</uri>
     </library>
@@ -1870,9 +1837,6 @@
     </library>
     <library logical="Reference_Voltage">
       <uri>C:/Localdata/GIT_REPO/kicad-symbols/Reference_Voltage.lib</uri>
-    </library>
-    <library logical="Regulator_Linear">
-      <uri>C:/Localdata/GIT_REPO/kicad-symbols/Regulator_Linear.lib</uri>
     </library>
     <library logical="Sensor_Temperature">
       <uri>C:/Localdata/GIT_REPO/kicad-symbols/Sensor_Temperature.lib</uri>
@@ -1885,33 +1849,36 @@
     </library>
   </libraries>
   <nets>
-    <net code="1" name="Net-(R37-Pad1)">
-      <node ref="U11" pin="2"/>
-      <node ref="R37" pin="1"/>
+    <net code="1" name="GNDD">
+      <node ref="J1" pin="2"/>
+      <node ref="J1" pin="8"/>
+      <node ref="FL2" pin="3"/>
+      <node ref="J1" pin="0"/>
     </net>
-    <net code="2" name="Net-(C34-Pad2)">
-      <node ref="R11" pin="1"/>
-      <node ref="U11" pin="1"/>
-      <node ref="C35" pin="2"/>
-      <node ref="C34" pin="2"/>
-    </net>
-    <net code="3" name="Net-(FL2-Pad1)">
+    <net code="2" name="Net-(FL2-Pad1)">
+      <node ref="J1" pin="10"/>
       <node ref="FL2" pin="1"/>
       <node ref="J1" pin="15"/>
-      <node ref="J1" pin="10"/>
     </net>
-    <net code="4" name="Vbus_flt">
-      <node ref="FL2" pin="2"/>
+    <net code="3" name="Vbus_flt">
       <node ref="R5" pin="1"/>
+      <node ref="FL2" pin="2"/>
       <node ref="F1" pin="2"/>
     </net>
-    <net code="5" name="Net-(R35-Pad2)">
-      <node ref="R35" pin="2"/>
-      <node ref="U9" pin="23"/>
+    <net code="4" name="Net-(R37-Pad1)">
+      <node ref="R37" pin="1"/>
+      <node ref="U11" pin="2"/>
+    </net>
+    <net code="5" name="Net-(C37-Pad2)">
+      <node ref="R47" pin="1"/>
+      <node ref="R8" pin="2"/>
+      <node ref="Q1" pin="1"/>
+      <node ref="C37" pin="2"/>
+      <node ref="R36" pin="1"/>
     </net>
     <net code="6" name="Net-(D8-Pad2)">
-      <node ref="R29" pin="2"/>
       <node ref="D8" pin="2"/>
+      <node ref="R29" pin="2"/>
     </net>
     <net code="7" name="Net-(D4-Pad2)">
       <node ref="D4" pin="2"/>
@@ -1921,474 +1888,467 @@
       <node ref="U9" pin="22"/>
       <node ref="R29" pin="1"/>
     </net>
-    <net code="9" name="Net-(J2-Pad6)">
-      <node ref="J2" pin="6"/>
+    <net code="9" name="Net-(R35-Pad2)">
+      <node ref="R35" pin="2"/>
+      <node ref="U9" pin="23"/>
     </net>
-    <net code="10" name="Net-(U5-Pad1)">
-      <node ref="U5" pin="1"/>
-    </net>
-    <net code="11" name="+5V">
+    <net code="10" name="+5V">
+      <node ref="J2" pin="2"/>
+      <node ref="R9" pin="2"/>
+      <node ref="D5" pin="1"/>
       <node ref="R34" pin="1"/>
       <node ref="R22" pin="1"/>
-      <node ref="J2" pin="2"/>
-      <node ref="R33" pin="1"/>
-      <node ref="R9" pin="2"/>
-      <node ref="R1" pin="2"/>
-      <node ref="R2" pin="2"/>
-      <node ref="R12" pin="1"/>
-      <node ref="D5" pin="1"/>
       <node ref="R19" pin="1"/>
-      <node ref="R47" pin="2"/>
-      <node ref="R32" pin="1"/>
+      <node ref="R2" pin="2"/>
+      <node ref="R1" pin="2"/>
       <node ref="R40" pin="1"/>
+      <node ref="U3" pin="3"/>
+      <node ref="R32" pin="1"/>
+      <node ref="R12" pin="1"/>
+      <node ref="R47" pin="2"/>
+      <node ref="R33" pin="1"/>
+      <node ref="R10" pin="2"/>
       <node ref="R11" pin="2"/>
       <node ref="R4" pin="2"/>
       <node ref="C10" pin="2"/>
-      <node ref="U3" pin="3"/>
-      <node ref="C16" pin="1"/>
       <node ref="C13" pin="2"/>
+      <node ref="C16" pin="1"/>
       <node ref="D9" pin="1"/>
-      <node ref="R10" pin="2"/>
     </net>
-    <net code="12" name="Vlm">
-      <node ref="D10" pin="1"/>
-      <node ref="C36" pin="2"/>
+    <net code="11" name="Net-(C34-Pad2)">
+      <node ref="C34" pin="2"/>
+      <node ref="U11" pin="1"/>
+      <node ref="C35" pin="2"/>
+      <node ref="R11" pin="1"/>
+    </net>
+    <net code="12" name="THFLG">
+      <node ref="U4" pin="9"/>
+      <node ref="U9" pin="9"/>
+      <node ref="R40" pin="2"/>
+    </net>
+    <net code="13" name="Vlm">
       <node ref="R39" pin="2"/>
-      <node ref="R17" pin="1"/>
-      <node ref="D9" pin="2"/>
       <node ref="U9" pin="6"/>
-    </net>
-    <net code="13" name="TEMP">
-      <node ref="U9" pin="18"/>
-      <node ref="C38" pin="2"/>
-      <node ref="R37" pin="2"/>
+      <node ref="D10" pin="1"/>
+      <node ref="R17" pin="1"/>
+      <node ref="C36" pin="2"/>
+      <node ref="D9" pin="2"/>
     </net>
     <net code="14" name="Net-(C18-Pad2)">
       <node ref="C18" pin="2"/>
       <node ref="U4" pin="11"/>
     </net>
     <net code="15" name="Net-(C17-Pad1)">
-      <node ref="U4" pin="1"/>
       <node ref="C17" pin="1"/>
+      <node ref="U4" pin="1"/>
     </net>
-    <net code="16" name="CSEN">
-      <node ref="R24" pin="2"/>
-      <node ref="U4" pin="8"/>
-      <node ref="R25" pin="1"/>
+    <net code="16" name="TEMP">
+      <node ref="C38" pin="2"/>
+      <node ref="U9" pin="18"/>
+      <node ref="R37" pin="2"/>
     </net>
-    <net code="17" name="ID_R">
-      <node ref="R30" pin="1"/>
-      <node ref="R33" pin="2"/>
-      <node ref="J1" pin="7"/>
+    <net code="17" name="ID">
+      <node ref="D5" pin="2"/>
+      <node ref="C30" pin="2"/>
+      <node ref="R30" pin="2"/>
+      <node ref="D6" pin="1"/>
+      <node ref="U9" pin="2"/>
     </net>
-    <net code="18" name="OCC">
-      <node ref="U9" pin="3"/>
-      <node ref="C28" pin="2"/>
-      <node ref="R23" pin="1"/>
-    </net>
-    <net code="19" name="Net-(D2-Pad2)">
-      <node ref="R27" pin="2"/>
-      <node ref="D2" pin="2"/>
-    </net>
-    <net code="20" name="Net-(R27-Pad1)">
-      <node ref="R27" pin="1"/>
-      <node ref="U9" pin="25"/>
-    </net>
-    <net code="21" name="Net-(D1-Pad2)">
-      <node ref="D1" pin="2"/>
-      <node ref="R26" pin="2"/>
-    </net>
-    <net code="22" name="Net-(R26-Pad1)">
-      <node ref="U9" pin="26"/>
-      <node ref="R26" pin="1"/>
-    </net>
-    <net code="23" name="CSEN_FLT">
+    <net code="18" name="CSEN_FLT">
       <node ref="C29" pin="2"/>
       <node ref="U9" pin="21"/>
       <node ref="R25" pin="2"/>
     </net>
-    <net code="24" name="Net-(C23-Pad2)">
-      <node ref="C24" pin="2"/>
-      <node ref="C23" pin="2"/>
-      <node ref="U8" pin="8"/>
-      <node ref="R19" pin="2"/>
+    <net code="19" name="CSEN">
+      <node ref="R24" pin="2"/>
+      <node ref="R25" pin="1"/>
+      <node ref="U4" pin="8"/>
     </net>
-    <net code="25" name="Net-(R28-Pad1)">
-      <node ref="U9" pin="24"/>
-      <node ref="R28" pin="1"/>
+    <net code="20" name="Net-(D2-Pad2)">
+      <node ref="R27" pin="2"/>
+      <node ref="D2" pin="2"/>
     </net>
-    <net code="26" name="BMF">
-      <node ref="C22" pin="2"/>
-      <node ref="R18" pin="1"/>
-      <node ref="U9" pin="4"/>
+    <net code="21" name="Net-(D1-Pad2)">
+      <node ref="R26" pin="2"/>
+      <node ref="D1" pin="2"/>
     </net>
-    <net code="27" name="Net-(D7-Pad2)">
-      <node ref="D7" pin="2"/>
-      <node ref="R3" pin="2"/>
-    </net>
-    <net code="28" name="Net-(C32-Pad2)">
-      <node ref="R34" pin="2"/>
-      <node ref="U10" pin="1"/>
-      <node ref="C33" pin="2"/>
-      <node ref="C32" pin="2"/>
-    </net>
-    <net code="29" name="Net-(D3-Pad2)">
+    <net code="22" name="Net-(D3-Pad2)">
       <node ref="D3" pin="2"/>
       <node ref="R28" pin="2"/>
     </net>
-    <net code="30" name="Net-(R3-Pad1)">
-      <node ref="R5" pin="2"/>
-      <node ref="R3" pin="1"/>
+    <net code="23" name="Net-(R28-Pad1)">
+      <node ref="U9" pin="24"/>
+      <node ref="R28" pin="1"/>
     </net>
-    <net code="31" name="Net-(C31-Pad2)">
+    <net code="24" name="Net-(R27-Pad1)">
+      <node ref="U9" pin="25"/>
+      <node ref="R27" pin="1"/>
+    </net>
+    <net code="25" name="Net-(R26-Pad1)">
+      <node ref="R26" pin="1"/>
+      <node ref="U9" pin="26"/>
+    </net>
+    <net code="26" name="Net-(C23-Pad2)">
+      <node ref="C23" pin="2"/>
+      <node ref="C24" pin="2"/>
+      <node ref="R19" pin="2"/>
+      <node ref="U8" pin="8"/>
+    </net>
+    <net code="27" name="ID_R">
+      <node ref="R30" pin="1"/>
+      <node ref="R33" pin="2"/>
+      <node ref="J1" pin="7"/>
+    </net>
+    <net code="28" name="OCC">
+      <node ref="C28" pin="2"/>
+      <node ref="R23" pin="1"/>
+      <node ref="U9" pin="3"/>
+    </net>
+    <net code="29" name="Net-(C32-Pad2)">
+      <node ref="U10" pin="1"/>
+      <node ref="C32" pin="2"/>
+      <node ref="C33" pin="2"/>
+      <node ref="R34" pin="2"/>
+    </net>
+    <net code="30" name="BMF">
+      <node ref="R18" pin="1"/>
+      <node ref="U9" pin="4"/>
+      <node ref="C22" pin="2"/>
+    </net>
+    <net code="31" name="Net-(J2-Pad6)">
+      <node ref="J2" pin="6"/>
+    </net>
+    <net code="32" name="Net-(U5-Pad1)">
+      <node ref="U5" pin="1"/>
+    </net>
+    <net code="33" name="Net-(C31-Pad2)">
+      <node ref="R31" pin="1"/>
       <node ref="C31" pin="2"/>
       <node ref="R44" pin="2"/>
-      <node ref="R31" pin="1"/>
       <node ref="R32" pin="2"/>
     </net>
-    <net code="32" name="Net-(R16-Pad1)">
-      <node ref="R20" pin="1"/>
-      <node ref="U7" pin="3"/>
-      <node ref="R16" pin="1"/>
+    <net code="34" name="Net-(R3-Pad1)">
+      <node ref="R3" pin="1"/>
+      <node ref="R5" pin="2"/>
     </net>
-    <net code="33" name="Net-(R42-Pad2)">
-      <node ref="R42" pin="2"/>
-      <node ref="U7" pin="8"/>
-    </net>
-    <net code="34" name="Net-(R21-Pad2)">
-      <node ref="U7" pin="2"/>
-      <node ref="R38" pin="1"/>
-      <node ref="R21" pin="2"/>
-    </net>
-    <net code="35" name="VREF">
-      <node ref="C39" pin="2"/>
-      <node ref="R15" pin="2"/>
-      <node ref="U7" pin="5"/>
-      <node ref="U10" pin="2"/>
-      <node ref="U9" pin="5"/>
+    <net code="35" name="Net-(D7-Pad1)">
+      <node ref="R3" pin="2"/>
+      <node ref="D7" pin="2"/>
+      <node ref="D7" pin="1"/>
     </net>
     <net code="36" name="Net-(D13-Pad2)">
       <node ref="R43" pin="1"/>
       <node ref="D13" pin="2"/>
     </net>
-    <net code="37" name="Net-(R43-Pad2)">
-      <node ref="U9" pin="10"/>
-      <node ref="R43" pin="2"/>
-    </net>
-    <net code="38" name="Net-(R13-Pad2)">
-      <node ref="R13" pin="2"/>
-      <node ref="U7" pin="1"/>
-    </net>
-    <net code="39" name="Net-(R13-Pad1)">
-      <node ref="R13" pin="1"/>
-      <node ref="R18" pin="2"/>
-      <node ref="R15" pin="1"/>
-      <node ref="U7" pin="6"/>
-    </net>
-    <net code="40" name="OCC1">
-      <node ref="U8" pin="3"/>
-      <node ref="C17" pin="2"/>
-      <node ref="R20" pin="2"/>
-      <node ref="U8" pin="6"/>
-      <node ref="U4" pin="2"/>
-      <node ref="D12" pin="1"/>
-      <node ref="D11" pin="2"/>
-      <node ref="R41" pin="2"/>
-    </net>
-    <net code="41" name="PWM2">
-      <node ref="U4" pin="10"/>
-      <node ref="C18" pin="1"/>
-      <node ref="FL1" pin="3"/>
-      <node ref="R21" pin="1"/>
-    </net>
-    <net code="42" name="Net-(J2-Pad5)">
-      <node ref="R49" pin="2"/>
-      <node ref="J2" pin="5"/>
-    </net>
-    <net code="43" name="Net-(D14-Pad1)">
-      <node ref="D14" pin="1"/>
-      <node ref="D15" pin="1"/>
-      <node ref="R23" pin="2"/>
-    </net>
-    <net code="44" name="Net-(J2-Pad4)">
-      <node ref="R48" pin="2"/>
-      <node ref="J2" pin="4"/>
-    </net>
-    <net code="45" name="Net-(R46-Pad2)">
-      <node ref="R46" pin="2"/>
+    <net code="37" name="Net-(R46-Pad2)">
       <node ref="U9" pin="7"/>
+      <node ref="R46" pin="2"/>
     </net>
-    <net code="46" name="Net-(D16-Pad2)">
+    <net code="38" name="Net-(D16-Pad2)">
       <node ref="D16" pin="2"/>
       <node ref="R46" pin="1"/>
     </net>
-    <net code="47" name="THFLG">
-      <node ref="R40" pin="2"/>
-      <node ref="U9" pin="9"/>
-      <node ref="U4" pin="9"/>
+    <net code="39" name="Net-(R42-Pad2)">
+      <node ref="U7" pin="8"/>
+      <node ref="R42" pin="2"/>
+    </net>
+    <net code="40" name="Net-(R16-Pad1)">
+      <node ref="U7" pin="3"/>
+      <node ref="R20" pin="1"/>
+      <node ref="R16" pin="1"/>
+    </net>
+    <net code="41" name="VREF">
+      <node ref="R15" pin="2"/>
+      <node ref="U7" pin="5"/>
+      <node ref="C39" pin="2"/>
+      <node ref="U10" pin="2"/>
+      <node ref="U9" pin="5"/>
+    </net>
+    <net code="42" name="Net-(R13-Pad2)">
+      <node ref="R13" pin="2"/>
+      <node ref="U7" pin="1"/>
+    </net>
+    <net code="43" name="Net-(R43-Pad2)">
+      <node ref="U9" pin="10"/>
+      <node ref="R43" pin="2"/>
+    </net>
+    <net code="44" name="Net-(R13-Pad1)">
+      <node ref="R18" pin="2"/>
+      <node ref="R15" pin="1"/>
+      <node ref="R13" pin="1"/>
+      <node ref="U7" pin="6"/>
+    </net>
+    <net code="45" name="PWM2">
+      <node ref="R21" pin="1"/>
+      <node ref="C18" pin="1"/>
+      <node ref="U4" pin="10"/>
+      <node ref="FL1" pin="3"/>
+    </net>
+    <net code="46" name="Net-(D14-Pad1)">
+      <node ref="R23" pin="2"/>
+      <node ref="D15" pin="1"/>
+      <node ref="D14" pin="1"/>
+    </net>
+    <net code="47" name="Net-(C21-Pad1)">
+      <node ref="C7" pin="2"/>
+      <node ref="D7" pin="3"/>
+      <node ref="C5" pin="2"/>
+      <node ref="C21" pin="1"/>
+      <node ref="U3" pin="1"/>
     </net>
     <net code="48" name="TX_A">
-      <node ref="U5" pin="6"/>
       <node ref="J1" pin="11"/>
+      <node ref="U5" pin="6"/>
     </net>
     <net code="49" name="TX_B">
       <node ref="U5" pin="7"/>
       <node ref="J1" pin="3"/>
     </net>
-    <net code="50" name="Reset_B">
-      <node ref="U1" pin="7"/>
-      <node ref="J1" pin="6"/>
+    <net code="50" name="Net-(R21-Pad2)">
+      <node ref="U7" pin="2"/>
+      <node ref="R38" pin="1"/>
+      <node ref="R21" pin="2"/>
     </net>
-    <net code="51" name="Reset_A">
+    <net code="51" name="Reset_B">
+      <node ref="J1" pin="6"/>
+      <node ref="U1" pin="7"/>
+    </net>
+    <net code="52" name="Reset_A">
       <node ref="U1" pin="6"/>
       <node ref="J1" pin="14"/>
     </net>
-    <net code="52" name="PWMO1">
-      <node ref="FL1" pin="2"/>
-      <node ref="J1" pin="9"/>
-    </net>
     <net code="53" name="PWMO2">
-      <node ref="J1" pin="1"/>
       <node ref="FL1" pin="4"/>
+      <node ref="J1" pin="1"/>
     </net>
-    <net code="54" name="GNDD">
-      <node ref="J1" pin="0"/>
-      <node ref="J1" pin="8"/>
-      <node ref="J1" pin="2"/>
-      <node ref="FL2" pin="3"/>
-    </net>
-    <net code="55" name="PWM">
+    <net code="54" name="PWM">
+      <node ref="U9" pin="15"/>
       <node ref="R6" pin="2"/>
       <node ref="U4" pin="5"/>
-      <node ref="U9" pin="15"/>
+    </net>
+    <net code="55" name="BRK">
+      <node ref="R4" pin="1"/>
+      <node ref="U4" pin="4"/>
+      <node ref="U9" pin="16"/>
     </net>
     <net code="56" name="DIR">
-      <node ref="R7" pin="2"/>
       <node ref="U9" pin="17"/>
       <node ref="U4" pin="3"/>
+      <node ref="R7" pin="2"/>
     </net>
-    <net code="57" name="OCC2">
-      <node ref="FL1" pin="1"/>
-      <node ref="U8" pin="2"/>
-      <node ref="U8" pin="5"/>
+    <net code="57" name="Net-(D15-Pad2)">
+      <node ref="U8" pin="7"/>
+      <node ref="D15" pin="2"/>
+    </net>
+    <net code="58" name="OCC1">
+      <node ref="D11" pin="1"/>
+      <node ref="D11" pin="2"/>
+      <node ref="R41" pin="2"/>
+      <node ref="C17" pin="2"/>
+      <node ref="U4" pin="2"/>
+      <node ref="U8" pin="3"/>
+      <node ref="D12" pin="3"/>
+      <node ref="U8" pin="6"/>
+    </net>
+    <net code="59" name="OCC2">
+      <node ref="R20" pin="2"/>
       <node ref="D12" pin="2"/>
       <node ref="R41" pin="1"/>
-      <node ref="D11" pin="1"/>
+      <node ref="D12" pin="1"/>
+      <node ref="D11" pin="3"/>
+      <node ref="U8" pin="5"/>
+      <node ref="FL1" pin="1"/>
+      <node ref="U8" pin="2"/>
     </net>
-    <net code="58" name="Net-(D15-Pad2)">
-      <node ref="D15" pin="2"/>
-      <node ref="U8" pin="7"/>
-    </net>
-    <net code="59" name="Net-(D14-Pad2)">
-      <node ref="D14" pin="2"/>
+    <net code="60" name="Net-(D14-Pad2)">
       <node ref="U8" pin="1"/>
+      <node ref="D14" pin="2"/>
     </net>
     <net code="61" name="Net-(C12-Pad2)">
-      <node ref="U6" pin="8"/>
-      <node ref="C15" pin="2"/>
       <node ref="R10" pin="1"/>
+      <node ref="C15" pin="2"/>
+      <node ref="U6" pin="8"/>
       <node ref="C12" pin="2"/>
     </net>
-    <net code="62" name="RX_A">
-      <node ref="U6" pin="6"/>
-      <node ref="J1" pin="12"/>
-    </net>
-    <net code="63" name="RX_B">
+    <net code="62" name="RX_B">
       <node ref="U6" pin="7"/>
       <node ref="J1" pin="4"/>
     </net>
-    <net code="64" name="Sync_B">
-      <node ref="U2" pin="7"/>
-      <node ref="J1" pin="5"/>
+    <net code="63" name="TX_ENA">
+      <node ref="U5" pin="3"/>
+      <node ref="U9" pin="13"/>
+      <node ref="R14" pin="2"/>
+    </net>
+    <net code="64" name="RX_A">
+      <node ref="U6" pin="6"/>
+      <node ref="J1" pin="12"/>
     </net>
     <net code="65" name="Sync_A">
       <node ref="U2" pin="6"/>
       <node ref="J1" pin="13"/>
     </net>
-    <net code="66" name="Net-(C2-Pad2)">
-      <node ref="C4" pin="2"/>
-      <node ref="C2" pin="2"/>
-      <node ref="U2" pin="8"/>
-      <node ref="R2" pin="1"/>
+    <net code="66" name="Sync_B">
+      <node ref="J1" pin="5"/>
+      <node ref="U2" pin="7"/>
     </net>
-    <net code="67" name="TX_ENA">
-      <node ref="R14" pin="2"/>
-      <node ref="U9" pin="13"/>
-      <node ref="U5" pin="3"/>
+    <net code="67" name="TX">
+      <node ref="U9" pin="12"/>
+      <node ref="U5" pin="4"/>
     </net>
     <net code="68" name="RX">
-      <node ref="U6" pin="1"/>
       <node ref="U9" pin="14"/>
+      <node ref="U6" pin="1"/>
     </net>
     <net code="69" name="Net-(C11-Pad2)">
+      <node ref="C11" pin="2"/>
       <node ref="C14" pin="2"/>
       <node ref="U5" pin="8"/>
-      <node ref="U5" pin="2"/>
       <node ref="R9" pin="1"/>
-      <node ref="C11" pin="2"/>
+      <node ref="U5" pin="2"/>
     </net>
-    <net code="70" name="TX">
-      <node ref="U5" pin="4"/>
-      <node ref="U9" pin="12"/>
+    <net code="70" name="Net-(R8-Pad1)">
+      <node ref="U1" pin="1"/>
+      <node ref="R8" pin="1"/>
     </net>
-    <net code="71" name="Net-(C21-Pad1)">
-      <node ref="C5" pin="2"/>
-      <node ref="D7" pin="1"/>
-      <node ref="C21" pin="1"/>
-      <node ref="U3" pin="1"/>
-      <node ref="C7" pin="2"/>
+    <net code="71" name="SYNC">
+      <node ref="U2" pin="1"/>
+      <node ref="U9" pin="11"/>
     </net>
-    <net code="72" name="GND">
+    <net code="72" name="Net-(C2-Pad2)">
+      <node ref="R2" pin="1"/>
+      <node ref="C4" pin="2"/>
+      <node ref="U2" pin="8"/>
+      <node ref="C2" pin="2"/>
+    </net>
+    <net code="73" name="Net-(C1-Pad2)">
+      <node ref="U1" pin="8"/>
+      <node ref="R1" pin="1"/>
+      <node ref="C3" pin="2"/>
+      <node ref="C1" pin="2"/>
+    </net>
+    <net code="74" name="PWMO1">
+      <node ref="FL1" pin="2"/>
+      <node ref="J1" pin="9"/>
+    </net>
+    <net code="75" name="RST">
+      <node ref="Q1" pin="3"/>
+      <node ref="R44" pin="1"/>
+      <node ref="R45" pin="1"/>
+      <node ref="U9" pin="1"/>
+    </net>
+    <net code="76" name="Net-(C19-Pad2)">
+      <node ref="C20" pin="2"/>
+      <node ref="R42" pin="1"/>
+      <node ref="C19" pin="2"/>
+      <node ref="R12" pin="2"/>
+      <node ref="U7" pin="7"/>
+    </net>
+    <net code="77" name="Net-(C26-Pad2)">
+      <node ref="C27" pin="2"/>
+      <node ref="R22" pin="2"/>
+      <node ref="C26" pin="2"/>
+      <node ref="U9" pin="20"/>
+    </net>
+    <net code="78" name="VPP">
+      <node ref="R45" pin="2"/>
+      <node ref="J2" pin="1"/>
+    </net>
+    <net code="79" name="ICSPDAT">
+      <node ref="U9" pin="28"/>
+      <node ref="J2" pin="4"/>
+    </net>
+    <net code="80" name="ICSPCLK">
+      <node ref="U9" pin="27"/>
+      <node ref="J2" pin="5"/>
+    </net>
+    <net code="81" name="GND">
+      <node ref="U9" pin="19"/>
+      <node ref="C26" pin="1"/>
+      <node ref="C9" pin="1"/>
       <node ref="C6" pin="2"/>
+      <node ref="C27" pin="1"/>
+      <node ref="C8" pin="1"/>
+      <node ref="R7" pin="1"/>
+      <node ref="R6" pin="1"/>
+      <node ref="U9" pin="8"/>
+      <node ref="C30" pin="1"/>
+      <node ref="C20" pin="1"/>
+      <node ref="C24" pin="1"/>
+      <node ref="C23" pin="1"/>
       <node ref="C22" pin="1"/>
-      <node ref="U3" pin="2"/>
-      <node ref="C5" pin="1"/>
-      <node ref="C4" pin="1"/>
-      <node ref="U2" pin="2"/>
+      <node ref="Q1" pin="2"/>
+      <node ref="R14" pin="1"/>
+      <node ref="C19" pin="1"/>
+      <node ref="J2" pin="3"/>
+      <node ref="C31" pin="1"/>
+      <node ref="D6" pin="2"/>
+      <node ref="D4" pin="1"/>
+      <node ref="R31" pin="2"/>
+      <node ref="U10" pin="3"/>
+      <node ref="C32" pin="1"/>
+      <node ref="C33" pin="1"/>
+      <node ref="C28" pin="1"/>
+      <node ref="R24" pin="1"/>
+      <node ref="C37" pin="1"/>
+      <node ref="C39" pin="1"/>
+      <node ref="C38" pin="1"/>
+      <node ref="U7" pin="4"/>
+      <node ref="D13" pin="1"/>
+      <node ref="D16" pin="1"/>
+      <node ref="C21" pin="2"/>
+      <node ref="D8" pin="1"/>
+      <node ref="C34" pin="1"/>
+      <node ref="C35" pin="1"/>
+      <node ref="R36" pin="2"/>
+      <node ref="U11" pin="3"/>
+      <node ref="FL2" pin="4"/>
+      <node ref="D1" pin="1"/>
+      <node ref="D2" pin="1"/>
+      <node ref="D3" pin="1"/>
+      <node ref="C29" pin="1"/>
+      <node ref="C36" pin="1"/>
+      <node ref="R39" pin="1"/>
+      <node ref="D10" pin="2"/>
       <node ref="U2" pin="3"/>
       <node ref="U2" pin="4"/>
       <node ref="U2" pin="5"/>
+      <node ref="C4" pin="1"/>
       <node ref="U1" pin="2"/>
       <node ref="U1" pin="3"/>
       <node ref="U1" pin="4"/>
       <node ref="U1" pin="5"/>
-      <node ref="C8" pin="1"/>
-      <node ref="C9" pin="1"/>
-      <node ref="R6" pin="1"/>
-      <node ref="R14" pin="1"/>
-      <node ref="U9" pin="19"/>
-      <node ref="C26" pin="1"/>
-      <node ref="C30" pin="1"/>
-      <node ref="C27" pin="1"/>
-      <node ref="J2" pin="3"/>
-      <node ref="U9" pin="8"/>
-      <node ref="C31" pin="1"/>
-      <node ref="C20" pin="1"/>
-      <node ref="C19" pin="1"/>
-      <node ref="D6" pin="2"/>
-      <node ref="Q1" pin="2"/>
+      <node ref="U3" pin="2"/>
+      <node ref="U3" pin="4"/>
+      <node ref="C5" pin="1"/>
+      <node ref="C10" pin="1"/>
+      <node ref="C7" pin="1"/>
+      <node ref="U2" pin="2"/>
+      <node ref="C16" pin="2"/>
+      <node ref="C13" pin="1"/>
       <node ref="C3" pin="1"/>
       <node ref="C1" pin="1"/>
-      <node ref="R7" pin="1"/>
       <node ref="C2" pin="1"/>
-      <node ref="D13" pin="1"/>
-      <node ref="U7" pin="4"/>
-      <node ref="C10" pin="1"/>
-      <node ref="C34" pin="1"/>
-      <node ref="C35" pin="1"/>
-      <node ref="R31" pin="2"/>
-      <node ref="D4" pin="1"/>
-      <node ref="D2" pin="1"/>
-      <node ref="D10" pin="2"/>
-      <node ref="C21" pin="2"/>
-      <node ref="C37" pin="1"/>
-      <node ref="C38" pin="1"/>
-      <node ref="C39" pin="1"/>
       <node ref="R38" pin="2"/>
-      <node ref="D16" pin="1"/>
-      <node ref="D3" pin="1"/>
-      <node ref="R36" pin="2"/>
-      <node ref="FL2" pin="4"/>
-      <node ref="D8" pin="1"/>
-      <node ref="C32" pin="1"/>
-      <node ref="U10" pin="3"/>
-      <node ref="C28" pin="1"/>
-      <node ref="C24" pin="1"/>
-      <node ref="C23" pin="1"/>
-      <node ref="C29" pin="1"/>
-      <node ref="D1" pin="1"/>
-      <node ref="R24" pin="1"/>
-      <node ref="C36" pin="1"/>
-      <node ref="R39" pin="1"/>
-      <node ref="C33" pin="1"/>
-      <node ref="C11" pin="1"/>
+      <node ref="R16" pin="2"/>
+      <node ref="U8" pin="4"/>
       <node ref="U4" pin="7"/>
-      <node ref="U6" pin="2"/>
-      <node ref="U6" pin="3"/>
-      <node ref="U6" pin="4"/>
-      <node ref="U6" pin="5"/>
+      <node ref="C11" pin="1"/>
+      <node ref="C14" pin="1"/>
+      <node ref="U5" pin="5"/>
       <node ref="C15" pin="1"/>
       <node ref="C12" pin="1"/>
-      <node ref="C13" pin="1"/>
-      <node ref="C7" pin="1"/>
-      <node ref="C16" pin="2"/>
-      <node ref="U5" pin="5"/>
-      <node ref="C14" pin="1"/>
-      <node ref="U11" pin="3"/>
-      <node ref="U8" pin="4"/>
-      <node ref="R16" pin="2"/>
+      <node ref="U6" pin="5"/>
+      <node ref="U6" pin="4"/>
+      <node ref="U6" pin="3"/>
+      <node ref="U6" pin="2"/>
     </net>
-    <net code="73" name="Net-(R8-Pad1)">
-      <node ref="U1" pin="1"/>
-      <node ref="R8" pin="1"/>
-    </net>
-    <net code="74" name="SYNC">
-      <node ref="U9" pin="11"/>
-      <node ref="U2" pin="1"/>
-    </net>
-    <net code="75" name="Net-(C1-Pad2)">
-      <node ref="R1" pin="1"/>
-      <node ref="C3" pin="2"/>
-      <node ref="C1" pin="2"/>
-      <node ref="U1" pin="8"/>
-    </net>
-    <net code="76" name="Net-(C37-Pad2)">
-      <node ref="R8" pin="2"/>
-      <node ref="C37" pin="2"/>
-      <node ref="R47" pin="1"/>
-      <node ref="Q1" pin="1"/>
-      <node ref="R36" pin="1"/>
-    </net>
-    <net code="77" name="RST">
-      <node ref="R45" pin="1"/>
-      <node ref="U9" pin="1"/>
-      <node ref="R44" pin="1"/>
-      <node ref="Q1" pin="3"/>
-    </net>
-    <net code="78" name="Net-(C19-Pad2)">
-      <node ref="U7" pin="7"/>
-      <node ref="R12" pin="2"/>
-      <node ref="C19" pin="2"/>
-      <node ref="C20" pin="2"/>
-      <node ref="R42" pin="1"/>
-    </net>
-    <net code="79" name="ID">
-      <node ref="U9" pin="2"/>
-      <node ref="R30" pin="2"/>
-      <node ref="D5" pin="2"/>
-      <node ref="D6" pin="1"/>
-      <node ref="C30" pin="2"/>
-    </net>
-    <net code="80" name="Net-(C26-Pad2)">
-      <node ref="U9" pin="20"/>
-      <node ref="R22" pin="2"/>
-      <node ref="C26" pin="2"/>
-      <node ref="C27" pin="2"/>
-    </net>
-    <net code="81" name="VPP">
-      <node ref="J2" pin="1"/>
-      <node ref="R45" pin="2"/>
-    </net>
-    <net code="82" name="ICSPCLK">
-      <node ref="R49" pin="1"/>
-      <node ref="U9" pin="27"/>
-    </net>
-    <net code="83" name="BRK">
-      <node ref="U9" pin="16"/>
-      <node ref="U4" pin="4"/>
-      <node ref="R4" pin="1"/>
-    </net>
-    <net code="84" name="ICSPDAT">
-      <node ref="U9" pin="28"/>
-      <node ref="R48" pin="1"/>
-    </net>
-    <net code="85" name="Net-(C6-Pad1)">
+    <net code="82" name="Net-(C6-Pad1)">
+      <node ref="F1" pin="1"/>
+      <node ref="C8" pin="2"/>
+      <node ref="R17" pin="2"/>
+      <node ref="C9" pin="2"/>
       <node ref="C6" pin="1"/>
       <node ref="U4" pin="6"/>
-      <node ref="C9" pin="2"/>
-      <node ref="F1" pin="1"/>
-      <node ref="R17" pin="2"/>
-      <node ref="C8" pin="2"/>
     </net>
   </nets>
 </export>
