@@ -2,7 +2,7 @@
 <export version="D">
   <design>
     <source>C:\Localdata\GIT_REPO\Miscellaneous\KiCad\BackplanePCB_solder2\BackplanePCB_solder.sch</source>
-    <date>11-12-2018 21:43:53</date>
+    <date>12-12-2018 14:46:38</date>
     <tool>Eeschema (5.0.0)</tool>
     <sheet number="1" name="/" tstamps="/">
       <title_block>
@@ -265,8 +265,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -289,8 +289,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -301,8 +301,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -417,8 +417,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/" tstamps="/"/>
@@ -489,7 +489,6 @@
       <footprint>Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</footprint>
       <datasheet>http://www.st.com/resource/en/datasheet/st485eb.pdf</datasheet>
       <fields>
-        <field name="Farnell">-</field>
         <field name="Manufacturer nr">ST485EBDR</field>
       </fields>
       <libsource lib="Interface_UART" part="ST485EBDR" description="Half duplex RS-485/RS-422, 5 Mbps, ±15kV electro-static discharge (ESD) protection, no slew-rate, with low-power shutdown, with receiver/driver enable, 256 transceiver on the bus - 40 to 85 °C, SOIC-8"/>
@@ -533,12 +532,12 @@
       <tstamp>5BEAE7D9</tstamp>
     </comp>
     <comp ref="R13">
-      <value>1k</value>
+      <value>4k99</value>
       <footprint>Resistor_SMD:R_1206_3216Metric</footprint>
-      <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191239274.13702668.1544197496-523844734.1542029203&amp;_gac=1.245695152.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
+      <datasheet>http://www.farnell.com/datasheets/2158849.pdf?_ga=2.191241066.13702668.1544197496-523844734.1542029203&amp;_gac=1.7619462.1543322461.EAIaIQobChMIof7Tlcz03gIVkuJ3Ch1UVwqwEAAYASAAEgK8PvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1100192</field>
-        <field name="Manufacturer nr">WCR1206-1K0FI</field>
+        <field name="Farnell">2695161</field>
+        <field name="Manufacturer nr">MCWR12X4991FTL</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
       <sheetpath names="/BackplanePCB_slave/" tstamps="/5BD68C20/"/>
@@ -573,7 +572,6 @@
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <fields>
-        <field name="Farnell">-</field>
         <field name="Manufacturer nr">-</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
@@ -585,7 +583,6 @@
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <fields>
-        <field name="Farnell">-</field>
         <field name="Manufacturer nr">-</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
@@ -597,7 +594,6 @@
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <datasheet>~</datasheet>
       <fields>
-        <field name="Farnell">-</field>
         <field name="Manufacturer nr">-</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
@@ -677,8 +673,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/BackplanePCB_slave/" tstamps="/5BD68C20/"/>
@@ -689,8 +685,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/BackplanePCB_slave/" tstamps="/5BD68C20/"/>
@@ -733,8 +729,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/BackplanePCB_slave/" tstamps="/5BD68C20/"/>
@@ -865,8 +861,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/BackplanePCB_slave/" tstamps="/5BD68C20/"/>
@@ -877,7 +873,6 @@
       <footprint>Resistor_SMD:R_0603_1608Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/2331353.pdf?_ga=2.31327414.804204398.1540810031-466615820.1533907205&amp;_gac=1.187361882.1540810769.CjwKCAjw39reBRBJEiwAO1m0OeFHyFqLAwRfo1TyfiEw1u5wgH8YT365nEvQxYyzS_SVx6sHehne4BoC4gYQAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">-</field>
         <field name="Manufacturer nr">-</field>
       </fields>
       <libsource lib="Device" part="R" description="Resistor"/>
@@ -889,8 +884,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/BackplanePCB_slave/" tstamps="/5BD68C20/"/>
@@ -913,8 +908,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/BackplanePCB_slave/" tstamps="/5BD68C20/"/>
@@ -925,7 +920,6 @@
       <footprint>Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</footprint>
       <datasheet>http://www.st.com/resource/en/datasheet/st485eb.pdf</datasheet>
       <fields>
-        <field name="Farnell">-</field>
         <field name="Manufacturer nr">ST485EBDR</field>
       </fields>
       <libsource lib="Interface_UART" part="ST485EBDR" description="Half duplex RS-485/RS-422, 5 Mbps, ±15kV electro-static discharge (ESD) protection, no slew-rate, with low-power shutdown, with receiver/driver enable, 256 transceiver on the bus - 40 to 85 °C, SOIC-8"/>
@@ -937,7 +931,6 @@
       <footprint>Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</footprint>
       <datasheet>http://www.st.com/resource/en/datasheet/st485eb.pdf</datasheet>
       <fields>
-        <field name="Farnell">-</field>
         <field name="Manufacturer nr">ST485EBDR</field>
       </fields>
       <libsource lib="Interface_UART" part="ST485EBDR" description="Half duplex RS-485/RS-422, 5 Mbps, ±15kV electro-static discharge (ESD) protection, no slew-rate, with low-power shutdown, with receiver/driver enable, 256 transceiver on the bus - 40 to 85 °C, SOIC-8"/>
@@ -949,7 +942,6 @@
       <footprint>Package_SO:SOIC-8_3.9x4.9mm_P1.27mm</footprint>
       <datasheet>http://www.st.com/resource/en/datasheet/st485eb.pdf</datasheet>
       <fields>
-        <field name="Farnell">-</field>
         <field name="Manufacturer nr">ST485EBDR</field>
       </fields>
       <libsource lib="Interface_UART" part="ST485EBDR" description="Half duplex RS-485/RS-422, 5 Mbps, ±15kV electro-static discharge (ESD) protection, no slew-rate, with low-power shutdown, with receiver/driver enable, 256 transceiver on the bus - 40 to 85 °C, SOIC-8"/>
@@ -973,8 +965,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/BackplanePCB_slave/" tstamps="/5BD68C20/"/>
@@ -985,8 +977,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/BackplanePCB_slave/" tstamps="/5BD68C20/"/>
@@ -1021,8 +1013,8 @@
       <footprint>Capacitor_SMD:C_1206_3216Metric</footprint>
       <datasheet>http://www.farnell.com/datasheets/1901289.pdf?_ga=2.262491141.804204398.1540810031-466615820.1533907205&amp;_gac=1.154756810.1540810031.CjwKCAjw39reBRBJEiwAO1m0OUdqKKSX6YgNsFqfn4kAD7vSQS5JfvsNobbwGFQV72towt0oHUutJhoC7b8QAvD_BwE</datasheet>
       <fields>
-        <field name="Farnell">1414715</field>
-        <field name="Manufacturer nr">C1206C104K5RACTU</field>
+        <field name="Farnell">2896646</field>
+        <field name="Manufacturer nr">VJ1206Y104KXXPW1BC</field>
       </fields>
       <libsource lib="Device" part="C" description="Unpolarized capacitor"/>
       <sheetpath names="/BackplanePCB_slave/" tstamps="/5BD68C20/"/>
