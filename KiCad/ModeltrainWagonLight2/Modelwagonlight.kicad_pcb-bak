@@ -61,7 +61,7 @@
     (aux_axis_origin 0 0)
     (visible_elements 7FFCFFFF)
     (pcbplotparams
-      (layerselection 0x3ffff_80000001)
+      (layerselection 0x010fc_ffffffff)
       (usegerberextensions false)
       (usegerberattributes false)
       (usegerberadvancedattributes false)
@@ -86,7 +86,7 @@
       (mirror false)
       (drillshape 0)
       (scaleselection 1)
-      (outputdirectory "gerber/"))
+      (outputdirectory "ModeltrainWagonLight2/"))
   )
 
   (net 0 "")
@@ -1165,7 +1165,7 @@
   (segment (start 210.1836 112.8014) (end 210.1836 114.6796) (width 0.5) (layer F.Cu) (net 7))
   (segment (start 210.1836 114.6796) (end 210.185 114.681) (width 0.5) (layer F.Cu) (net 7) (tstamp 5AC493A3))
 
-  (zone (net 2) (net_name "Net-(C1-Pad2)") (layer B.Cu) (tstamp 5AC499A8) (hatch edge 0.508)
+  (zone (net 2) (net_name "Net-(C1-Pad2)") (layer B.Cu) (tstamp 5C11138E) (hatch edge 0.508)
     (connect_pads (clearance 0.508))
     (min_thickness 0.254)
     (fill yes (arc_segments 16) (thermal_gap 0.508) (thermal_bridge_width 0.508))
@@ -1195,7 +1195,7 @@
       )
     )
   )
-  (zone (net 2) (net_name "Net-(C1-Pad2)") (layer F.Cu) (tstamp 5AC4D15A) (hatch edge 0.508)
+  (zone (net 2) (net_name "Net-(C1-Pad2)") (layer F.Cu) (tstamp 5C11138B) (hatch edge 0.508)
     (connect_pads (clearance 0.508))
     (min_thickness 0.254)
     (fill yes (arc_segments 16) (thermal_gap 0.508) (thermal_bridge_width 0.508))
