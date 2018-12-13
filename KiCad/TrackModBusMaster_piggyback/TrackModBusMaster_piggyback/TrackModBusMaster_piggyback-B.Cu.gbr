@@ -1,12 +1,12 @@
 G04 #@! TF.GenerationSoftware,KiCad,Pcbnew,(5.0.0)*
-G04 #@! TF.CreationDate,2018-12-13T10:25:45+01:00*
+G04 #@! TF.CreationDate,2018-12-13T19:33:25+01:00*
 G04 #@! TF.ProjectId,TrackModBusMaster_piggyback,547261636B4D6F644275734D61737465,rev?*
 G04 #@! TF.SameCoordinates,Original*
 G04 #@! TF.FileFunction,Copper,L2,Bot,Signal*
 G04 #@! TF.FilePolarity,Positive*
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW (5.0.0)) date 12/13/18 10:25:45*
+G04 Created by KiCad (PCBNEW (5.0.0)) date 12/13/18 19:33:25*
 %MOMM*%
 %LPD*%
 G01*
@@ -616,9 +616,9 @@ X116713002Y-94742000D03*
 X109093000Y-103632000D03*
 X114300000Y-45466000D03*
 X132080000Y-110617000D03*
-X132588000Y-83185000D03*
 X115824000Y-103886006D03*
 X120142000Y-104648000D03*
+X137414000Y-78994000D03*
 G04 #@! TO.N,Net-(C7-Pad1)*
 X108839000Y-115062000D03*
 G04 #@! TO.N,Net-(C10-Pad1)*
