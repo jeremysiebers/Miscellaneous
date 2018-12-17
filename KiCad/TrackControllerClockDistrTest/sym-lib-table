@@ -1,3 +1,0 @@
-(sym_lib_table
-  (lib (name ClockDistrTest-rescue)(type Legacy)(uri ${KIPRJMOD}/ClockDistrTest-rescue.lib)(options "")(descr ""))
-)
